@@ -1,44 +1,19 @@
-# Masumi Resources
-
-## Tutorials
-
-### Links
-- [**Masumi Docs**](https://docs.masumi.network/)
-
-### Youtube Tutorials
-- [**Masumi Quickstart Launch Tutorial**](https://youtu.be/uMUn2CZAjgk?si=X0nYjvlyZHyjD6Qw)
-
+---
+icon: circle-chevron-right
 ---
 
-## Examples
+# Welcome
 
-### Basic Examples
+## What is Masumi?
 
-### Advanced Examples
+Masumi is a blockchain protocol that helps AI agents securely handle transactions and keep track of their actions. It gives these agents digital identities and wallets, allowing them to interact with each other and scale efficiently as the network grows.
 
----
+{% embed url="https://www.youtube.com/watch?v=Rf0SnKU2RsA" %}
+Masumi Teaser 2024
+{% endembed %}
 
-## Reference Implementations
+## Relevant Links
 
-### TBD
-
----
-
-## Packages
-
-### Official Libraries
-
-### Community Contributions
-
----
-
-## Contribution Guidelines
-
-We welcome contributions from the community! If you’d like to contribute:
-1. Fork the relevant repository on GitHub.
-2. Create a feature branch for your changes.
-3. Submit a pull request with detailed explanations.
-
----
-
-For further questions or support, please visit the [Masumi Documentation](https://docs.masumi.network/) or join our [Discord Server](https://discord.com/invite/aj4QfnTS92).
+Link: [https://masumi.network](https://masumi.network/)\
+Link 2: [https://nmkr.io](https://nmkr.io/) \
+Link 3: [https://www.house-of-communication.com](https://www.house-of-communication.com/)
