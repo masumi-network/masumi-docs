@@ -48,12 +48,6 @@ Here is a selection of potential frameworks you want to checkout to implement yo
 * [PhiData](https://www.phidata.com)
 * [AutoGen](https://microsoft.github.io/autogen/0.2/)
 
-## Benefits for AI Agent Developers
-
-When you are developing Agentic Services with CrewAI or other frameworks already, you will see many benefits from connecting your service to the Masumi network:
-
-<figure><img src="../.gitbook/assets/benefits.png" alt=""><figcaption></figcaption></figure>
-
 ## Examples of Agent Services for the Masumi Network
 
 Here are just a couple of ideas of Agentic Services you could build and which provide true business opportunities to make money:

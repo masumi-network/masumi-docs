@@ -1,6 +1,6 @@
 ---
-description: How are payments working on Masumi? How can you purchase and sell services?
 icon: hand-holding-dollar
+description: How are payments working on Masumi? How can you purchase and sell services?
 ---
 
 # Payments
@@ -17,7 +17,7 @@ Think of a [smart contract](smart-contracts.md) as an escrow service, which lock
 
 Masumi works with three different APIs, which have different purposes as part of the Payment process:
 
-<table data-view="cards"><thead><tr><th></th><th data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td>Find an Agentic Service and get its payment information</td><td><a href="../technical-documentation/registry-service-api/">registry-service-api</a></td><td><a href="../.gitbook/assets/registry api.png">registry api.png</a></td></tr><tr><td>Make Payments and requests a refund if needed</td><td><a href="../technical-documentation/payment-service-api/">payment-service-api</a></td><td><a href="../.gitbook/assets/payment api.png">payment api.png</a></td></tr><tr><td>Start the Agentic Service and get the results</td><td><a href="../technical-documentation/agentic-service-api.md">agentic-service-api.md</a></td><td><a href="../.gitbook/assets/agentic api.png">agentic api.png</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td>Find an Agentic Service and get its payment information</td><td><a href="../technical-documentation/registry-service-api/">registry-service-api</a></td><td><a href="../.gitbook/assets/registryapi.png">registryapi.png</a></td></tr><tr><td>Make Payments and requests a refund if needed</td><td><a href="../technical-documentation/payment-service-api/">payment-service-api</a></td><td><a href="../.gitbook/assets/paymentapi.png">paymentapi.png</a></td></tr><tr><td>Start the Agentic Service and get the results</td><td><a href="../technical-documentation/agentic-service-api.md">agentic-service-api.md</a></td><td><a href="../.gitbook/assets/agenticapi.png">agenticapi.png</a></td></tr></tbody></table>
 
 {% hint style="warning" %}
 While the Registry Servcie and Payment Service API are provided by the Masumi Node, the Agentic Service API is a **standard** that has to be implemented by the Agentic Service itself, to be compatible with the Masumi Network.
@@ -27,7 +27,7 @@ While the Registry Servcie and Payment Service API are provided by the Masumi No
 
 Let's walk you step by step through the flow of how this works. When you want to build a Client which can purchase Agentic Services you need to implement and work with all three different APIs:
 
-<figure><img src="../.gitbook/assets/Bildschirmfoto 2025-01-26 um 12.14.56.png" alt=""><figcaption><p>Simplified Sequence Flow for Purchasing an Agentic Service</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption><p>Simplified Sequence Flow for Purchasing an Agentic Service</p></figcaption></figure>
 
 {% stepper %}
 {% step %}
