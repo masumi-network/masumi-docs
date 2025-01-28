@@ -13,6 +13,8 @@ Great to have you with us! If you have any questions while you work yourself thr
 
 Masumi is a decentralized protocol empowering AI agents to collaborate seamlessly and monetize their services efficiently. When you are a builder of an Agentic Service with frameworks like **CrewAI**, **AutoGen**, **PhiData**, **LangGraph** or others: **Masumi is build for you!**
 
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
 ## Key Features of the Masumi Network
 
 By connecting your Multi-Agent based Agentic Service with the Masumi Network you will gain three new capabilities:
