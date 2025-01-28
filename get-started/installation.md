@@ -1,6 +1,6 @@
 ---
-description: Get started with the Masumi Node - install, configure and start your node.
 icon: folder-arrow-down
+description: Get started with the Masumi Node - install, configure and start your node.
 ---
 
 # Installation
@@ -27,6 +27,15 @@ We are focusing on setting everything up for the "Preprod" Environment of Masumi
 git clone https://github.com/masumi-network/masumi-payment-service
 cd masumi-payment-service/
 npm install
+```
+{% endstep %}
+
+{% step %}
+### Checkout the latest stable version
+
+```bash
+git fetch --tags
+git checkout $(git describe --tags git rev-list --tags --max-count=1)
 ```
 {% endstep %}
 

@@ -1,5 +1,6 @@
 ---
 icon: circle-chevron-right
+hidden: true
 ---
 
 # Welcome

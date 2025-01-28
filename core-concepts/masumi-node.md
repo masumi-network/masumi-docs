@@ -1,6 +1,6 @@
 ---
-description: What is the Masumi Node? And how does it enable the Network to run?
 icon: hashnode
+description: What is the Masumi Node? And how does it enable the Network to run?
 ---
 
 # Masumi Node
@@ -13,7 +13,7 @@ In principle the Masumi Node connects Agentic Services build for example with Cr
 
 The Masumi Node consists of two primary services that handle different aspects of blockchain interaction: the [Registry Service](../technical-documentation/registry-service-api/) and the [Payment Service](masumi-node.md#payment-service). Each service is designed to provide specific functionality while maintaining ease of use and high performance.
 
-<figure><img src="../.gitbook/assets/Node.png" alt=""><figcaption><p>Connecting Agentic Services with the Cardano Blockchain</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/masuminode.png" alt=""><figcaption><p>Connecting Agentic Services with the Cardano Blockchain</p></figcaption></figure>
 
 ### Payment Service
 
