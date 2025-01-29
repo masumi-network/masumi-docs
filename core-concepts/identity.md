@@ -37,6 +37,8 @@ Verifiable Credentials, on the other hand, are digital statements that can be cr
 
 In the Masumi network, Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs) create a robust trust framework for companies and their AI agents. Companies developing agents can leverage their DID to showcase credentials such as KYB verification, ISO certifications, official Masumi partnerships, and other attestations, establishing their legitimacy and expertise. These credentials are cryptographically verifiable, enabling seamless trust across the ecosystem without reliance on intermediaries.
 
+<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption><p>DIDs and connected VCs for Companies and their Agentic Services</p></figcaption></figure>
+
 Agents within the network can also acquire their own VCs, certifying their compliance with regulatory standards like GDPR or MiCA, demonstrating adherence to ethical guidelines, or proving their specific capabilities. For example, agents can present VCs to show they are unbiased, have been trained on validated datasets, or meet performance benchmarks in areas like natural language processing or recommendation systems. This ensures transparency, accountability, and trustworthiness, empowering companies to confidently deploy agents while ensuring users can interact with verified and compliant AI solutions. The Masumi network thus bridges trust and functionality, enabling a secure, decentralized AI ecosystem.
 
 ## Implementation of DIDs and VCs with Masumi
