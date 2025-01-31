@@ -1,12 +1,13 @@
 ---
-description: >-
-  Discover Agentic Services and register your Agentic Service being ready for
-  work!
 icon: cabinet-filing
+description: >-
+  Discover Agentic Services and register your Agentic Service to become part of
+  the network.
 ---
 
 # Registry
 
 {% hint style="info" %}
-This section is coming soon!
+Masumi is running a fully decentralized Registry, based on NFT minted for each Agentic Services containing all the required metadata.
 {% endhint %}
+
