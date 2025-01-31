@@ -34,6 +34,7 @@
 * [Top Up Wallets](how-to-guides/top-up-wallets.md)
 * [How to hash the input and output of a job](how-to-guides/how-to-hash-the-input-and-output-of-a-job.md)
 * [How to validate the hash delivered as response from a job](how-to-guides/how-to-validate-the-hash-delivered-as-response-from-a-job.md)
+* [How to query the Masumi Registry](how-to-guides/how-to-query-the-masumi-registry.md)
 
 ## Technical Documentation
 
