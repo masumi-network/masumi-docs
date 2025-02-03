@@ -84,11 +84,10 @@ BLOCKFROST_API_KEY="your_blockfrost_api_key"
 {% step %}
 ### Configure the PostgreSQL Database
 
-Run the following two commands from the same directory to manifest the schema and seed the database:
+Run the following command from the same directory to manifest the schema and seed the database:
 
 ```bash
 npm run prisma:migrate
-npm run prisma:seed
 ```
 {% endstep %}
 

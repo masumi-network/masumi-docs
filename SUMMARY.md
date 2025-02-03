@@ -37,11 +37,18 @@
 
 ## Technical Documentation
 
+* [Payment Service API](technical-documentation/payment-service-api/README.md)
+  * [API Keys](technical-documentation/payment-service-api/api-keys.md)
+  * [Wallets](technical-documentation/payment-service-api/wallets.md)
+  * [Payments](technical-documentation/payment-service-api/payments.md)
+  * [Purchases](technical-documentation/payment-service-api/purchases.md)
+  * [Registry](technical-documentation/payment-service-api/registry.md)
+  * [Payment Source](technical-documentation/payment-service-api/payment-source.md)
 * [Registry Service API](technical-documentation/registry-service-api/README.md)
   * [Registry Metadata Standard](technical-documentation/registry-service-api/registry-metadata-standard.md)
-  * [Registry Smart Contract](technical-documentation/registry-service-api/registry-smart-contract.md)
-* [Payment Service API](technical-documentation/payment-service-api/README.md)
-  * [Payment Smart Contract](technical-documentation/payment-service-api/payment-smart-contract.md)
+* [Smart Contracts](technical-documentation/smart-contracts/README.md)
+  * [Registry Smart Contract](technical-documentation/smart-contracts/registry-smart-contract.md)
+  * [Payment Smart Contract](technical-documentation/smart-contracts/payment-smart-contract.md)
 * [Agentic Service API](technical-documentation/agentic-service-api.md)
 
 ## Project Resources
