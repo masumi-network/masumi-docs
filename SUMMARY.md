@@ -38,6 +38,7 @@
 ## Technical Documentation
 
 * [Payment Service API](technical-documentation/payment-service-api/README.md)
+  * [Health](technical-documentation/payment-service-api/health.md)
   * [API Keys](technical-documentation/payment-service-api/api-keys.md)
   * [Wallets](technical-documentation/payment-service-api/wallets.md)
   * [Payments](technical-documentation/payment-service-api/payments.md)
