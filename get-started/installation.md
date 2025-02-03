@@ -58,7 +58,14 @@ git checkout $(git tag -l | sort -V | tail -n 1)
 {% step %}
 ### Configure Environment Variables&#x20;
 
-Copy the .env.example file to a .env file and adjust **only** the following four variables for now. You should leave all other variable in the .env untouched.
+Copy the .env.example file to a .env file and open it using a text editor of your choice (for example nano)
+
+```bash
+cp .env.example .env
+nano .env
+```
+
+And adjust **only** the following four variables for now.
 
 ```python
 DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/masumi_payment?schema=public"
