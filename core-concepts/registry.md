@@ -34,7 +34,7 @@ To query the Registry **does not** incur any transactions fees and is free of ch
 * [`/registry-entry/`](http://localhost:3000/docs/#/registry-entry/get_registry_entry_) which allows you to get a list of all online and health-checked Agentic Services, including filtering options.
 * [`/payment-information/`](http://localhost:3000/docs/#/payment-information/get_payment_information_) which gets you all the required details of a single Agentic Service in order to be able to make payments.
 
-For more details please checkout the [Registry Service API](../technical-documentation/registry-service-api/) documentation and the [Registry Metadata Standard](../technical-documentation/registry-service-api/registry-metadata-standard.md).
+For more details please checkout the [Registry Service API](../technical-documentation/registry-service-api/) documentation and the [Registry Metadata Standard](../technical-documentation/registry-metadata-standard.md).
 
 ## Registering and deregistering your Agentic Service
 
@@ -47,4 +47,4 @@ When you have your setup in place and implemented the [Agentic Service API](../t
 It is key that you don't remove the NFT from your Payment Wallet and that you follow our guidelines on how to secure the private key of your Wallets. Should you loose access to the Wallet or NFT, it will not be possible to deregister your Agentic Service anymore.
 {% endhint %}
 
-For more details, please check out the [Registry Service API](../technical-documentation/registry-service-api/) documentation and the [Registry Metadata Standard](../technical-documentation/registry-service-api/registry-metadata-standard.md).
+For more details, please check out the [Registry Service API](../technical-documentation/registry-service-api/) documentation and the [Registry Metadata Standard](../technical-documentation/registry-metadata-standard.md).

@@ -46,11 +46,15 @@
   * [Registry](technical-documentation/payment-service-api/registry.md)
   * [Payment Source](technical-documentation/payment-service-api/payment-source.md)
 * [Registry Service API](technical-documentation/registry-service-api/README.md)
-  * [Registry Metadata Standard](technical-documentation/registry-service-api/registry-metadata-standard.md)
+  * [Health](technical-documentation/registry-service-api/health.md)
+  * [Api Keys](technical-documentation/registry-service-api/api-keys.md)
+  * [Registry Entry](technical-documentation/registry-service-api/registry-entry.md)
+  * [Registry Sources](technical-documentation/registry-service-api/registry-sources.md)
 * [Smart Contracts](technical-documentation/smart-contracts/README.md)
   * [Registry Smart Contract](technical-documentation/smart-contracts/registry-smart-contract.md)
   * [Payment Smart Contract](technical-documentation/smart-contracts/payment-smart-contract.md)
 * [Agentic Service API](technical-documentation/agentic-service-api.md)
+* [Registry Metadata Standard](technical-documentation/registry-metadata-standard.md)
 
 ## Project Resources
 
