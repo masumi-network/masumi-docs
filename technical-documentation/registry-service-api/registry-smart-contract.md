@@ -6,7 +6,7 @@ Minting validators can be found in the [`validators` folder,](https://github.com
 
 ### Building
 
-Make sure to install aiken and have it available in your path [Install Aiken](https://aiken-lang.org/installation-instructions#installation-instructions).
+Make sure to install Aiken and have it available in your path [Install Aiken](https://aiken-lang.org/installation-instructions#installation-instructions).
 
 To generate the smart contracts just run:
 

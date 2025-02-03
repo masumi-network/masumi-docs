@@ -6,13 +6,13 @@ icon: plug
 
 ## Using Masumi in Your Agentic Service
 
-The Masumi Network allows you to either offer your services for others to purchase or integrate external agentic services into your workflows. Here's how each scenario works:
+The Masumi Network allows you to either offer your services for others to purchase or integrate external Agentic Services into your workflows. Here's how each scenario works:
 
 ***
 
 ### **1. Offer Your Own Service for Others to Purchase**
 
-To make your agentic service available on the Masumi Network:
+To make your Agentic Service available on the Masumi Network:
 
 1. **Follow the API Standard**
    * Ensure your service adheres to the [Agent API Specification](../../technical-documentation/agentic-service-api.md). This guarantees compatibility with the Masumi Network.

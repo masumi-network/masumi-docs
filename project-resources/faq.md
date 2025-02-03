@@ -24,7 +24,7 @@ Masumi supports per-use transactions through the Sumi Token, making it easy for 
 
 <summary>How does Masumi address security and compliance for companies?</summary>
 
-Masumi provides a secure, trustless framework with verifiable identities, decision logging, and reliable transactions, designed to meet the highest standards required by businesses. This allows companies to confidently deploy AI agents, knowing all interactions are accountable and compliant.
+Masumi provides a secure, trustless framework with verifiable identities, decision logging and reliable transactions, designed to meet the highest standards required by businesses. This allows companies to confidently deploy AI agents, knowing all interactions are accountable and compliant.
 
 </details>
 
@@ -40,7 +40,7 @@ Making your agent discoverable means other agents can locate and interact with i
 
 <summary>Which AI agent frameworks does Masumi support?</summary>
 
-Masumi is compatible with popular AI agent frameworks like CrewAI, AutoGen, and LangChain, allowing agents to interact seamlessly across frameworks. This interoperability makes Masumi adaptable for developers working with a variety of systems.
+Masumi is compatible with popular AI agent frameworks like CrewAI, AutoGen and LangChain, allowing agents to interact seamlessly across frameworks. This interoperability makes Masumi adaptable for developers working with a variety of systems.
 
 </details>
 
@@ -64,7 +64,7 @@ Unique identities and verifiable actions are essential in a multi-agent ecosyste
 
 <summary>Who is developing the Masumi Protocol?</summary>
 
-The Masumi Protocol is being developed by Serviceplan and NMKR in partnership. Together, they bring expertise in AI, blockchain, and digital transformation to create a secure, scalable infrastructure for autonomous agent interactions.
+The Masumi Protocol is being developed by Serviceplan and NMKR in partnership. Together, they bring expertise in AI, blockchain and digital transformation to create a secure, scalable infrastructure for autonomous agent interactions.
 
 </details>
 
@@ -72,7 +72,7 @@ The Masumi Protocol is being developed by Serviceplan and NMKR in partnership. T
 
 <summary>Why is Cardano the underlying Level 1 for Masumi?</summary>
 
-Cardano‘s eUTxO model, native tokens, and predictable smart contracts allow for efficient, concurrent transactions and minimal overhead. This infrastructure enables secure, large-scale agent interactions, meeting Masumi’s need for a trustless, scalable network.
+Cardano's eUTxO model, native tokens, and predictable smart contracts allow for efficient, concurrent transactions and minimal overhead. This infrastructure enables secure, large-scale agent interactions, meeting Masumi’s need for a trustless, scalable network.
 
 </details>
 
@@ -80,7 +80,7 @@ Cardano‘s eUTxO model, native tokens, and predictable smart contracts allow fo
 
 <summary>How is the Masumi Network different from other AI or blockchain solutions?</summary>
 
-Masumi is purpose-built for autonomous, decentralized, agent-to-agent interactions. Its unique features—verifiable identities, decision logging, reliable transactions, and interoperability—specifically support multi-agent workflows, making it ideal for complex, scalable agent ecosystems.
+Masumi is purpose-built for autonomous, decentralized, agent-to-agent interactions. Its unique features—verifiable identities, decision logging, reliable transactions and interoperability—specifically support multi-agent workflows, making it ideal for complex, scalable agent ecosystems.
 
 </details>
 
@@ -112,7 +112,7 @@ Masumi’s verifiable identities and detailed decision logging ensure traceabili
 
 <summary>Can I use Masumi if I already have AI agents built on another framework?</summary>
 
-Yes! Masumi is designed to be compatible with frameworks like CrewAI, AutoGen, and LangChain, so you can integrate your existing agents seamlessly, allowing them to interact and transact with agents across the Masumi Network.
+Yes! Masumi is designed to be compatible with frameworks like CrewAI, AutoGen and LangChain, so you can integrate your existing agents seamlessly, allowing them to interact and transact with agents across the Masumi Network.
 
 </details>
 

@@ -2,7 +2,7 @@
 icon: address-card
 description: >-
   Giving Agentic Services and its creators identity with credentials is a key
-  concept of Masumi in order to  create trust and accountability in the Agentic
+  concept of Masumi in order to create trust and accountability in the Agentic
   Economy.
 layout:
   title:
@@ -43,10 +43,10 @@ Agents within the network can also acquire their own VCs, certifying their compl
 
 ## Implementation of DIDs and VCs with Masumi
 
-Currently our [Registry](registry.md) supports the concept of DIDs  in order to link Agentic Services and their creators to their respective Identities and Credentials. See more detail in the [Registry Meta Data Specification.](../technical-documentation/registry-service-api/registry-metadata-standard.md)
+Currently, our [Registry](registry.md) supports the concept of DIDs in order to link Agentic Services and their creators to their respective Identities and Credentials. See more detail in the [Registry Meta Data Specification.](../technical-documentation/registry-service-api/registry-metadata-standard.md)
 
 {% hint style="info" %}
-We are planning to offer a convient service for Creators of Agentic Servicess to get their DIDs and first VCs in an easy way. It's on our roadmap in will launch in Q1 of 20025
+We are planning to offer a convient and easy-to-use service for Creators of Agentic Services to receive their DIDs and first VCs. It's on our roadmap, and will launch in Q1 of 2025
 {% endhint %}
 
 {% hint style="success" %}

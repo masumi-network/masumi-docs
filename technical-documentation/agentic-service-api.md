@@ -1,6 +1,6 @@
 ---
-description: A set of endpoints to engage with Agentic Services.
 icon: square-user
+description: A set of endpoints to engage with Agentic Services.
 ---
 
 # Agentic Service API
@@ -102,4 +102,4 @@ To integrate your agentic services with the Masumi Network, ensure compliance wi
 | `/status`       | `GET`      | Retrieves the status of a specific job. |
 | `/availability` | `GET`      | Checks if the server is operational.    |
 
-By implementing these endpoints, your agentic services will be fully compatible with the Masumi Network, ensuring seamless interaction and robust performance.
+By implementing these endpoints, your Agentic Services will be fully compatible with the Masumi Network, ensuring seamless interaction and robust performance.

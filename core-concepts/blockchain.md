@@ -1,6 +1,6 @@
 ---
 icon: hive
-description: Blockchain is the key technology, which makes the Masumi Network possible.
+description: Blockchain is the key technology which makes the Masumi Network possible.
 ---
 
 # Blockchain
@@ -14,30 +14,30 @@ The [Cardano Blockchain](https://www.cardanofoundation.org) is the underlying de
 We want Masumi to be a fully decentralized network protocol, which becomes the key infrastructure for the Agentic Economy to rise. We strongly believe that such a protocol can't be owned by single company. It needs to be **permissionless** and **trustless**, without knowing any boarders - and therefore be fully decentralized.
 
 {% hint style="info" %}
-**Permissionless** means, that everybody can use the network protocol without asking a central entity for permission. Also nobody can be excluded, as long as they follow the protocol standards.
+**Permissionless** means that everybody can use the network protocol without asking a central entity for permission. Also, nobody can be excluded, as long as they follow the protocol standards.
 {% endhint %}
 
 {% hint style="info" %}
-**Trustless** means, that you don't need to put trust into a central entity, which ensures that the infrastructure functions as intended, but you can trust the entire system to have build in fully tranpsarent security guarantees, which you can rely own.
+**Trustless** means that you don't need to put trust into a central entity, which ensures that the infrastructure functions as intended, but that you can trust the entire system to have fully transparent security guarantees built in which you can rely own.
 {% endhint %}
 
-A fully decentralized network approach in which every Agentic Serivce can register against a fully decenralized [Registry](registry.md), get a decentralized [Identity](identity.md) and is then storing and transfering value in form of decentralized crypto assets like [Stablecoins](token.md) for Payments, is the best way to build a infrastructure owned by many.&#x20;
+A fully decentralized network approach - in which every Agentic Service can register against a fully decentralized [Registry](registry.md), get a decentralized [Identity](identity.md) and is then storing and transfering value in form of decentralized crypto assets like [Stablecoins](token.md) for Payments - is the best way to build an infrastructure owned by many.&#x20;
 
-The upcoming [Sumi Token](token.md), will be the governance Token of the network and allows for decentralized decision making on the future of the protocol.
+The upcoming [Sumi Token](token.md) will be the governance Token of the network and allows for decentralized decision making on the future of the protocol.
 
 {% hint style="danger" %}
-**There is no Sumi Token yet!** We will announce the launch of the Token and publish its Policy ID on our channels, as soon the token launches.
+**There is no Sumi Token yet!** We will announce the launch of the Token and publish its Policy ID on our channels as soon as the token launches.
 {% endhint %}
 
 <figure><img src="../.gitbook/assets/Bildschirmfoto 2025-01-28 um 13.58.35.png" alt=""><figcaption></figcaption></figure>
 
 ## Key Challenges for AI Agents using Blockchain Technology
 
-When thinking of a future in which potentially billions of AI Agents handle all aspects of our lives it becomes clear that we have three key challenges to master, as this will present a so far unprecedented scaling challenge to the blockchain world:
+When thinking of a future in which potentially billions of AI Agents handle all aspects of our lives, it becomes clear that we have three key challenges to master, as this will present a so far unprecedented scaling challenge to the blockchain world:
 
 <table data-view="cards"><thead><tr><th></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td>Dozens, hundreds or thousands of transactions have to be handled in parallel for a single Agentic Service.</td><td><a href="../.gitbook/assets/blockchain1.png">blockchain1.png</a></td></tr><tr><td>Multiple tokens will have to be transferred with every single interaction and it will be critical to minimize any overhead on the network.</td><td><a href="../.gitbook/assets/blockchain2.png">blockchain2.png</a></td></tr><tr><td>Decentralization will remain a key parameter for the infrastructure as the incentive to attack this network will be big.</td><td><a href="../.gitbook/assets/blockchain3.png">blockchain3.png</a></td></tr></tbody></table>
 
-When you look at these challenges and try to find the current blockchain technology, which has made the best foundational architectural design decisions in its inception to meet these challenges, you can only come to the conclusion that the Cardano Blockchain is the best future proof choice.
+When you look at these challenges and try to find the current blockchain technology with the best foundational architectural design decisions in its inception to meet these challenges, you can only come to the conclusion that the Cardano Blockchain is the best future-proof choice.
 
 ## Why we build Masumi on the Cardano Blockchain
 

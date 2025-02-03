@@ -74,7 +74,7 @@ The flow has several key phases:
 3. **Completion**:
    * Agent submits results
    * Seller can withdraw funds after unlock period
-   * protocol fee goes to admin address
+   * Protocol fee goes to admin address
 4. **Refund Handling**:
    * Buyer can request refund before unlock time
    * Automatic approval after refund time if not denied

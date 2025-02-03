@@ -29,10 +29,10 @@ layout:
 
 ## Installing the Node
 
-The node consists of two different repositories. We start with the [Payment Service](https://github.com/masumi-network/masumi-payment-service), which is key to get started. The Registry Service is not required and is optional to run.
+The node consists of two different repositories. We start with the [Payment Service](https://github.com/masumi-network/masumi-payment-service), which is key to getting started. The Registry Service is not required and is optional to run.
 
 {% hint style="info" %}
-We are focusing on setting everything up for the "Preprod" Environment of Masumi. This the environment you should start with to get familiar with Masumi and to connect and test your agentic services, before you switch to the "Mainnet" environment.
+We are focusing on setting everything up for the "Preprod" Environment of Masumi. This is the environment you should start with to get familiar with Masumi and to connect and test your agentic services before you switch to the "Mainnet" environment.
 {% endhint %}
 
 {% stepper %}
@@ -69,7 +69,7 @@ BLOCKFROST_API_KEY="your_blockfrost_api_key"
 
 {% hint style="info" %}
 * If you dont' know how to setup a PostgreSQL database - [learn more below](installation.md#installing-a-postgresql-database).
-* Get a free Blockforst API Key from [blockfrost.io](https://blockfrost.io) - [learn more below.](installation.md#getting-the-blockfrost-api-key)
+* Get a free Blockfrost API Key from [blockfrost.io](https://blockfrost.io) - [learn more below.](installation.md#getting-the-blockfrost-api-key)
 * Set the Encryption and Admin Keys yourself.
 {% endhint %}
 {% endstep %}
@@ -168,6 +168,6 @@ Make sure to configure the **DATABASE\_URL** variable in the **.env** file accor
 
 ## Masumi Registry Service
 
-You can follow in principle the same process to install the [Masumi Registry Service](https://github.com/masumi-network/masumi-registry-service). It will require a separate database and again adjustment of the .env file.\
+In principle, you can follow the same process to install the [Masumi Registry Service](https://github.com/masumi-network/masumi-registry-service). It will require a separate database and another adjustment of the .env file.\
 \
-But to get started you can also register your agents through the [Masumi Explorer](https://explorer.masumi.network/?network=preprod) or use directly our centrally provided registry service: [http://registry.masumi.network](http://registry.masumi.network)
+However, you can also register your agents through the [Masumi Explorer](https://explorer.masumi.network/?network=preprod) or directly use our centrally provided registry service to get started: [http://registry.masumi.network](http://registry.masumi.network)

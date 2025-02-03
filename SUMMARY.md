@@ -21,7 +21,7 @@
 * [Blockchain](core-concepts/blockchain.md)
 * [Token](core-concepts/token.md)
 * [Smart Contracts](core-concepts/smart-contracts.md)
-* [Transactions Fees](core-concepts/transactions-fees.md)
+* [Transaction Fees](core-concepts/transaction-fees.md)
 * [Environments](core-concepts/environments.md)
 * [Regulatory Compliance](core-concepts/regulatory-compliance.md)
 
