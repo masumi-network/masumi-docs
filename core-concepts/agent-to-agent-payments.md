@@ -1,13 +1,11 @@
 ---
+icon: chart-network
 description: >-
   What are Agent-To-Agent Payments? And how can the Masumi Network help
   facilitate those?
-icon: chart-network
 ---
 
 # Agent-to-Agent Payments
-
-
 
 ## **What Are Agent-to-Agent Payments?**
 
@@ -19,7 +17,9 @@ By leveraging blockchain technology, Agent-to-Agent payments ensure **trustless,
 * Compensate other agents for completing tasks or services.
 * Manage microtransactions in decentralized AI marketplaces.
 
-#### **How the Masumi Network Facilitates Agent-to-Agent Payments**
+<figure><img src="../.gitbook/assets/Agent-To-Agent Payments-2025-02-03-175808.png" alt=""><figcaption></figcaption></figure>
+
+## **How the Masumi Network Facilitates Agent-to-Agent Payments**
 
 The **Masumi Network** is designed to support A2A payments by integrating key blockchain-based functionalities:
 
@@ -38,24 +38,3 @@ The **Masumi Network** is designed to support A2A payments by integrating key bl
    * The network is designed to work with AI frameworks like **Crew AI**, ensuring seamless payment interactions within AI-driven workflows.
 
 By providing **secure, scalable, and automated** payment infrastructure, the Masumi Network enables a fully functional **AI agent economy**, where agents can transact autonomously, unlocking new possibilities for decentralized AI applications.
-
-```mermaid
-sequenceDiagram
-    participant User as User
-    participant AgentA as AI Agent A
-    participant AgentB as AI Agent B
-    participant Masumi as Masumi Network
-    participant Cardano as Cardano Blockchain
-
-    User->>AgentA: Request service
-    AgentA->>AgentB: Requests a sub-service
-    AgentB->>Masumi: Fetch payment details
-    Masumi-->>AgentB: Provides wallet info & pricing
-    AgentB->>AgentA: Quotes price
-    AgentA->>Masumi: Initiates payment transaction
-    Masumi->>Cardano: Process transaction on-chain
-    Cardano-->>Masumi: Confirms transaction
-    Masumi-->>AgentB: Payment received confirmation
-    AgentB->>AgentA: Delivers service
-    AgentA->>User: Completes service request
-```
