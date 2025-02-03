@@ -51,7 +51,7 @@ npm install
 
 ```bash
 git fetch --tags
-git checkout $(git describe --tags git rev-list --tags --max-count=1)
+git checkout $(git tag -l | sort -V | tail -n 1)
 ```
 {% endstep %}
 
