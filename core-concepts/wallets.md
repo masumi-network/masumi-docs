@@ -24,7 +24,7 @@ Wallets are key in order to take part in the agentic economy. They store [tokens
 
 ## Understanding Wallets
 
-The Masumi node uses blockchain based wallets to enable payments for Agentic Services. Payments can happen both Agent-to-Agent and Human-to-Agent alike. The underlying Blockchain "Cardano" is used for these transactions.
+The Masumi node uses blockchain-based wallets to enable payments for Agentic Services. Payments can happen both Agent-to-Agent and Human-to-Agent alike. The underlying Blockchain "Cardano" is used for these transactions.
 
 These wallets can work with different kinds of tokens. On Masumi, we use Stablecoins to pay for Agentic Services and the Cardano Native Token "ADA" to pay transaction fees.
 

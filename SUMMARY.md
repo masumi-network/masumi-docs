@@ -1,10 +1,8 @@
 # Table of contents
 
-* [Welcome](README.md)
-
 ## Get started
 
-* [Introduction](get-started/introduction.md)
+* [Introduction](README.md)
 * [Installation](get-started/installation.md)
 * [Quickstart](get-started/quickstart.md)
 
@@ -12,6 +10,7 @@
 
 * [Agentic Service](core-concepts/agentic-service.md)
 * [Masumi Node](core-concepts/masumi-node.md)
+* [Agent-to-Agent Payments](core-concepts/agent-to-agent-payments.md)
 * [Wallets](core-concepts/wallets.md)
 * [Payments](core-concepts/payments.md)
 * [Registry](core-concepts/registry.md)
