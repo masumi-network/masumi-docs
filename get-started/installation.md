@@ -32,7 +32,7 @@ layout:
 The node consists of two different repositories. We start with the [Payment Service](https://github.com/masumi-network/masumi-payment-service), which is key to get started. The Registry Service is not required and is optional to run.
 
 {% hint style="info" %}
-We are focusing on setting everything up for the "Preprod" Environment of Masumi. This the environment you should start with to get familiar with Masumi, to connect and test your agentic services, before you switch to the "Mainnet" environment.
+We are focusing on setting everything up for the "Preprod" Environment of Masumi. This the environment you should start with to get familiar with Masumi and to connect and test your agentic services, before you switch to the "Mainnet" environment.
 {% endhint %}
 
 {% stepper %}
@@ -108,7 +108,7 @@ Now with the node up and running you can access two web interfaces!
 {% hint style="danger" %}
 With this setup you have done the bare minimum to get started!\
 \
-Make yourself familiar with the [Wallets](../core-concepts/wallets.md) Chapter next, in order to secure your wallets. This is especially important as soon you want to switch the Mainnet.\
+Make yourself familiar with the [Wallets](../core-concepts/wallets.md) Chapter next, in order to secure your wallets. This is especially important as soon you want to switch to Mainnet.\
 \
 As long you are on "Preprod" there is nothing to worry about!
 {% endhint %}
@@ -128,7 +128,7 @@ Blockfrost is free for one project and for 50.000 Requests a Day, which is suffi
 
 ## Installing a PostgreSQL Database
 
-If you don't have a PostgreSQL database available here a few setps to set it up on a Mac. For other systems see the [PostgreSQL download page](https://www.postgresql.org/download/) for instructions.
+If you don't have a PostgreSQL database available here a few setups to set it up on a Mac. For other systems see the [PostgreSQL download page](https://www.postgresql.org/download/) for instructions.
 
 {% stepper %}
 {% step %}
