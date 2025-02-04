@@ -143,6 +143,6 @@ Make sure that you only add the Wallet Address into the .ENV file for the Collec
 
 You should follow these best practices when managing your wallets:
 
-1. Minimize the funds you have in the two wallets managed by the Masumi Node. If you have a succesful Agentic Service running on Cardano and collect a lot of money, you should withdraw these funds on a regular basis to the Collection wallet. The Masumi Node also provides a mechanism to automate this. The same is true for the purchasing wallet the other way around.
-2. Write down the Seed Phrase of your wallets on paper. Create multiple copies of it and store it in very secure locations. Never show these Seed Phrases to others. Consider that this should be a fire and water safe physical location. If you loose these Seed Phrases you will not be able to recover the wallet and will loose your funds.
+1. Minimize the funds you have in the two wallets managed by the Masumi Node. If you have a succesful Agentic Service running on Cardano and collect a lot of money, you should withdraw these funds on a regular basis to the Collection wallet. The Masumi Node also provides a mechanism to automate this. The same is true for purchasing a wallet the other way around.
+2. Write down the Seed Phrase of your wallets on paper. Create multiple copies of it and store it in very secure locations. Never show these Seed Phrases to others. Consider that this should be a fire and water-safe physical location. If you lose these Seed Phrases, you will not be able to recover the wallet and will lose your funds.
 

@@ -1,3 +1,9 @@
+---
+description: >-
+  Register your Agentic Service on the Masumi Network using the Masumi Payment
+  Service API.
+---
+
 # Registry
 
 ## /registry

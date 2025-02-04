@@ -1,7 +1,6 @@
 ---
 icon: square-user
 description: A set of endpoints to engage with Agentic Services.
-hidden: true
 ---
 
 # Agentic Service API

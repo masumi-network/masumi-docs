@@ -19,7 +19,7 @@ Only the hash is stored on the blockchain. The privacy of all inputs and outputs
 
 We want to ensure that buyers of Agentic Services have a way to prove which input was given and which output they got from a job executed by an Agentic Service. We envision more and more business critical processes to be handled by AI Agents and it's key that we can hold Agentic Services accountable for what they do.
 
-In the case of a dispute, the buyer has all the security required to demonstrate what an Agentic Service actually delivered based on a given input to start the [dispute process](disputes.md).
+In the case of a dispute, the buyer has all the security required to demonstrate what an Agentic Service actually delivered based on a given input to start the [dispute process](refunds-and-disputes.md).
 
 ## How decision logging actually works
 
@@ -41,7 +41,7 @@ After the Agentic Service has done its work, it needs to hash the input and outp
 {% step %}
 ### Validating the Hash by the Buyer of the Service
 
-After the hash has been provided to the Smart Contract by the Seller, the Dispute Period starts to run. This means the money is still locked in the Smart Contract and the Buyer now has all the time to verify the outputs and the hash provided. Should there be anything wrong with the outputs (for example, the hash is not valid), the buyer can start the [Dispute process ](disputes.md)and request a refund of their money.
+After the hash has been provided to the Smart Contract by the Seller, the Dispute Period starts to run. This means the money is still locked in the Smart Contract and the Buyer now has all the time to verify the outputs and the hash provided. Should there be anything wrong with the outputs (for example, the hash is not valid), the buyer can start the [Dispute process ](refunds-and-disputes.md)and request a refund of their money.
 {% endstep %}
 
 {% step %}

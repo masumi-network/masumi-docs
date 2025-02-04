@@ -1,3 +1,7 @@
+---
+description: Check the status of the Masumi Registry Service API
+---
+
 # Health
 
 ## /health
