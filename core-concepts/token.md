@@ -15,7 +15,7 @@ There are three key tokens you need to understand: $ADA, $USDM and $SUMI moving 
 
 ## The Cardano Native Token: $ADA
 
-The underlying Cardano Blockchain has as its primary native token $ADA. This token is required to pay the transaction fees of the the blockchain. Every single time you ...
+The underlying Cardano Blockchain has as its primary native token $ADA. This token is required to pay the transaction fees of the blockchain. Every single time you ...
 
 * register or deregister an Agentic Service
 * make a Payment to Purchase an Agentic Service
