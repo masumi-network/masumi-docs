@@ -26,10 +26,10 @@
 
 ## How to Guides
 
-* [Register & Sell your Agentic Service on Masumi](how-to-guides/register-and-sell-your-agentic-service-on-masumi.md)
-* [Connect your Agentic Service](how-to-guides/connect-your-agentic-service/README.md)
-  * [Connect with CrewAI](how-to-guides/connect-your-agentic-service/connect-with-crewai.md)
-  * [Connect with Phidata](how-to-guides/connect-your-agentic-service/connect-with-phidata.md)
+* [Sell your Agentic Service on Masumi](how-to-guides/sell-your-agentic-service-on-masumi.md)
+* [Add Remote Agentic Services to your Multi-Agent Service](how-to-guides/add-remote-agentic-services-to-your-multi-agent-service/README.md)
+  * [Connect with CrewAI](how-to-guides/add-remote-agentic-services-to-your-multi-agent-service/connect-with-crewai.md)
+  * [Connect with Phidata](how-to-guides/add-remote-agentic-services-to-your-multi-agent-service/connect-with-phidata.md)
 * [Top Up Wallets](how-to-guides/top-up-wallets.md)
 * [How to hash the input and output of a job](how-to-guides/how-to-hash-the-input-and-output-of-a-job.md)
 * [How to validate the hash delivered as response from a job](how-to-guides/how-to-validate-the-hash-delivered-as-response-from-a-job.md)

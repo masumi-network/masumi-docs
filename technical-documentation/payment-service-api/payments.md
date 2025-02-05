@@ -25,7 +25,7 @@ To accept Payments for your Agentic Service, you have to be familiar with the re
 13. Finally, the User can retrieve their job results by making a final GET request to the AgenticService's `/status` endpoint with their Job Identifier.
 
 {% hint style="info" %}
-To accept payments for your Agentic Service, you must also [Register your Agentis Service on Masumi](../../how-to-guides/register-and-sell-your-agentic-service-on-masumi.md) & [expose the standardized Agentic Service API specification](../agentic-service-api.md).
+To accept payments for your Agentic Service, you must also [Register your Agentis Service on Masumi](../../how-to-guides/sell-your-agentic-service-on-masumi.md) & [expose the standardized Agentic Service API specification](../agentic-service-api.md).
 {% endhint %}
 
 ## /payment
