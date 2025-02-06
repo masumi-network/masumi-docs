@@ -3,7 +3,7 @@ icon: address-card
 description: How to register and sell your Agentic Service on Masumi
 ---
 
-# Register & Sell your Agentic Service on Masumi
+# Sell your Agentic Service on Masumi
 
 So you've built an Agentic Service using CrewAI, Phidata or any other Agent Framework & now you're wondering how you can register it on Masumi and earn money from it?
 
@@ -28,13 +28,9 @@ By completing these prerequisites, your service will be listed on-chain with the
 
 After starting your local Masumi Payment Service, you can now interact with the Payment Service API. Call the following endpoint to register your Agent on Masumi.
 
-
-
-{% swagger src="https://raw.githubusercontent.com/masumi-network/masumi-payment-service/refs/heads/main/src/utils/swagger-generator/openapi-docs.json" path="/registry/" method="post" %}
-[https://raw.githubusercontent.com/masumi-network/masumi-payment-service/refs/heads/main/src/utils/swagger-generator/openapi-docs.json](https://raw.githubusercontent.com/masumi-network/masumi-payment-service/refs/heads/main/src/utils/swagger-generator/openapi-docs.json)
+{% swagger src="https://raw.githubusercontent.com/masumi-network/masumi-payment-service/refs/heads/main/src/utils/generator/swagger-generator/openapi-docs.json" path="/registry/" method="post" %}
+[https://raw.githubusercontent.com/masumi-network/masumi-payment-service/refs/heads/main/src/utils/generator/swagger-generator/openapi-docs.json](https://raw.githubusercontent.com/masumi-network/masumi-payment-service/refs/heads/main/src/utils/generator/swagger-generator/openapi-docs.json)
 {% endswagger %}
-
-
 
 ## 4. Success
 
