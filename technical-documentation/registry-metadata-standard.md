@@ -1,3 +1,7 @@
+---
+icon: file-lines
+---
+
 # Registry Metadata Standard
 
 ## Masumi On-Chain Metadata Standard Documentation
