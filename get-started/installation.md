@@ -92,6 +92,18 @@ npm run prisma:migrate
 {% endstep %}
 
 {% step %}
+### Install Admin Interface
+
+To build the Admin Interface, navigate to /frontend, install the requirements and then navigate back
+
+```sh
+cd /frontend
+npm install
+cd ..
+```
+{% endstep %}
+
+{% step %}
 ### Starting the Node
 
 You can now start the node the following way:
