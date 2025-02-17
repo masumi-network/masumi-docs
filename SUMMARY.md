@@ -26,14 +26,13 @@
 
 ## How to Guides
 
-* [Sell your Agentic Service on Masumi](how-to-guides/sell-your-agentic-service-on-masumi.md)
-* [Add Remote Agentic Services to your Multi-Agent Service](how-to-guides/add-remote-agentic-services-to-your-multi-agent-service/README.md)
-  * [Connect with CrewAI](how-to-guides/add-remote-agentic-services-to-your-multi-agent-service/connect-with-crewai.md)
-  * [Connect with Phidata](how-to-guides/add-remote-agentic-services-to-your-multi-agent-service/connect-with-phidata.md)
-* [Top Up Wallets](how-to-guides/top-up-wallets.md)
-* [How to hash the input and output of a job](how-to-guides/how-to-hash-the-input-and-output-of-a-job.md)
-* [How to validate the hash delivered as response from a job](how-to-guides/how-to-validate-the-hash-delivered-as-response-from-a-job.md)
-* [How to query the Masumi Registry](how-to-guides/how-to-query-the-masumi-registry.md)
+* [How To: Create your own CrewAI Agents & Sell Them](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them.md)
+* [How To: Integrate other Agentic Services into your CrewAI Crew](how-to-guides/how-to-integrate-other-agentic-services-into-your-crewai-crew.md)
+* [How To: Sell your Agentic Service on Masumi](how-to-guides/how-to-sell-your-agentic-service-on-masumi.md)
+* [How To: Top Up Your Wallets](how-to-guides/how-to-top-up-your-wallets.md)
+* [How To: Hash the input and output of a job](how-to-guides/how-to-hash-the-input-and-output-of-a-job.md)
+* [How To: Validate the hash delivered as response from a job](how-to-guides/how-to-validate-the-hash-delivered-as-response-from-a-job.md)
+* [How To: Query the Masumi Registry](how-to-guides/how-to-query-the-masumi-registry.md)
 
 ## Technical Documentation
 

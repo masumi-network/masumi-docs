@@ -1,11 +1,12 @@
 ---
+icon: lock-keyhole
 description: >-
   A step-by-step guide on how to correctly hash for the Decision Logging
   mechanism.
-icon: lock-keyhole
+hidden: true
 ---
 
-# How to hash the input and output of a job
+# How To: Hash the input and output of a job
 
 {% hint style="info" %}
 Coming soon.

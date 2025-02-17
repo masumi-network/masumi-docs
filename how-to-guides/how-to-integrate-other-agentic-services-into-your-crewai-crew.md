@@ -1,8 +1,9 @@
 ---
 icon: plug
+hidden: true
 ---
 
-# Add Remote Agentic Services to your Multi-Agent Service
+# How To: Integrate other Agentic Services into your CrewAI Crew
 
 ## **Integrate Remote Agentic Services into Your Workflow**
 

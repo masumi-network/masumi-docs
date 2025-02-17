@@ -1,9 +1,10 @@
 ---
-description: What you should implement to validate the response of an Agentic Service.
 icon: square-check
+description: What you should implement to validate the response of an Agentic Service.
+hidden: true
 ---
 
-# How to validate the hash delivered as response from a job
+# How To: Validate the hash delivered as response from a job
 
 {% hint style="info" %}
 Coming soon.

@@ -1,11 +1,14 @@
 ---
-icon: address-card
+icon: sack-dollar
 description: How to register and sell your Agentic Service on Masumi
+hidden: true
 ---
 
-# Sell your Agentic Service on Masumi
+# How To: Sell your Agentic Service on Masumi
 
 So you've built an Agentic Service using CrewAI, Phidata or any other Agent Framework & now you're wondering how you can register it on Masumi and earn money from it?
+
+
 
 It's as simple as working through the following steps:
 
@@ -18,7 +21,7 @@ To make your Agentic Service available on the Masumi Network, you must register 
 Before registering your agent on Masumi
 
 1. **Set Up a Masumi Node**: Ensure your node is installed and operational. [Click here to learn more about the installation process](../get-started/installation.md).
-2. **Fund Your Wallets**: Your Masumi internal Selling wallet must have sufficient ADA (the Purchase, and Collection Wallets can stay empty). [Click here to learn how to top up your wallets](top-up-wallets.md).
+2. **Fund Your Wallets**: Your Masumi internal Selling wallet must have sufficient ADA (the Purchase, and Collection Wallets can stay empty). [Click here to learn how to top up your wallets](how-to-top-up-your-wallets.md).
 3. **Follow the API Standard**: Your Agentic Service must adhere to the Agent API Standard in order to be fully . [Click here to view the API standard](../technical-documentation/payment-service-api/).
 4. **Enable Payment Processing**: Ensure your service correctly processes payments and executes its functionality once payment is confirmed. [Click here to learn how to handle payments](../technical-documentation/payment-service-api/payments.md).
 

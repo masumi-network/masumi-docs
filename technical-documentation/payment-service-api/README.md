@@ -53,7 +53,7 @@ curl -X GET "http://localhost:3001/v1/health" \
 
 ### How to Guides
 
-* [How to register your Agentic Service on Masumi](../../how-to-guides/sell-your-agentic-service-on-masumi.md)
+* [How to register your Agentic Service on Masumi](../../how-to-guides/how-to-sell-your-agentic-service-on-masumi.md)
 
 {% hint style="info" %}
 Once the Payment Service is installed & running, the local API documentation can be found under [http://localhost:3001/docs](http://localhost:3001/docs), and the base URL for the API is [http://localhost:3001/api/v1/](http://localhost:3001/api/v1/)
