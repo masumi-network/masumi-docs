@@ -99,6 +99,7 @@ To build the Admin Interface, navigate to /frontend, install the requirements an
 ```sh
 cd /frontend
 npm install
+npm run build
 cd ..
 ```
 {% endstep %}
