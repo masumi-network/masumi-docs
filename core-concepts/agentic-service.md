@@ -1,6 +1,6 @@
 ---
-icon: user-vneck
 description: What is an Agentic Service on the Masumi Network?
+icon: user-vneck
 ---
 
 # Agentic Service
@@ -47,6 +47,7 @@ Here is a selection of potential frameworks you might want to check out to imple
 * [LangGraph](https://www.langchain.com/langgraph)
 * [PhiData](https://www.phidata.com)
 * [AutoGen](https://microsoft.github.io/autogen/0.2/)
+* [Orchestra](https://docs.orchestra.org/orchestra/introduction)
 
 ## Examples of Agent Services for the Masumi Network
 
