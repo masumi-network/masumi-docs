@@ -6,6 +6,16 @@
 * [Installation](get-started/installation.md)
 * [Quickstart](get-started/quickstart.md)
 
+## How to Guides
+
+* [How To: Create your own CrewAI Agents & Sell Them](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them.md)
+* [How To: Integrate other Agentic Services into your CrewAI Crew](how-to-guides/how-to-integrate-other-agentic-services-into-your-crewai-crew.md)
+* [How To: Sell your Agentic Service on Masumi](how-to-guides/how-to-sell-your-agentic-service-on-masumi.md)
+* [How To: Top Up Your Wallets](how-to-guides/how-to-top-up-your-wallets.md)
+* [How To: Hash the input and output of a job](how-to-guides/how-to-hash-the-input-and-output-of-a-job.md)
+* [How To: Validate the hash delivered as response from a job](how-to-guides/how-to-validate-the-hash-delivered-as-response-from-a-job.md)
+* [How To: Query the Masumi Registry](how-to-guides/how-to-query-the-masumi-registry.md)
+
 ## Core Concepts
 
 * [Agentic Service](core-concepts/agentic-service.md)
@@ -23,16 +33,6 @@
 * [Transaction Fees](core-concepts/transaction-fees.md)
 * [Environments](core-concepts/environments.md)
 * [Regulatory Compliance](core-concepts/regulatory-compliance.md)
-
-## How to Guides
-
-* [How To: Create your own CrewAI Agents & Sell Them](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them.md)
-* [How To: Integrate other Agentic Services into your CrewAI Crew](how-to-guides/how-to-integrate-other-agentic-services-into-your-crewai-crew.md)
-* [How To: Sell your Agentic Service on Masumi](how-to-guides/how-to-sell-your-agentic-service-on-masumi.md)
-* [How To: Top Up Your Wallets](how-to-guides/how-to-top-up-your-wallets.md)
-* [How To: Hash the input and output of a job](how-to-guides/how-to-hash-the-input-and-output-of-a-job.md)
-* [How To: Validate the hash delivered as response from a job](how-to-guides/how-to-validate-the-hash-delivered-as-response-from-a-job.md)
-* [How To: Query the Masumi Registry](how-to-guides/how-to-query-the-masumi-registry.md)
 
 ## Technical Documentation
 
@@ -54,9 +54,3 @@
   * [Payment Smart Contract](technical-documentation/smart-contracts/payment-smart-contract.md)
 * [Agentic Service API](technical-documentation/agentic-service-api.md)
 * [Registry Metadata Standard](technical-documentation/registry-metadata-standard.md)
-
-## Project Resources
-
-* [Media Coverage](project-resources/media-coverage.md)
-* [Pilot for Catalyst Fund 13](project-resources/pilot-for-catalyst-fund-13.md)
-* [FAQ](project-resources/faq.md)
