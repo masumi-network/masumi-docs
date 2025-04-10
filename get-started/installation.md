@@ -98,7 +98,7 @@ npm run prisma:seed
 To build the Admin Interface, navigate to /frontend, install the requirements and then navigate back
 
 ```sh
-cd /frontend
+cd frontend
 npm install
 npm run build
 cd ..
