@@ -1,6 +1,6 @@
 ---
-icon: folder-arrow-down
 description: Get started with the Masumi Node - install, configure and start your node.
+icon: folder-arrow-down
 cover: ../.gitbook/assets/image (4).png
 coverY: 0
 layout:
@@ -71,7 +71,7 @@ And adjust **only** the following four variables for now.
 DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/masumi_payment?schema=public"
 ENCRYPTION_KEY="abcdef_this_should_be_very_secure_and_32_characters_long"
 ADMIN_KEY="abcdef_this_should_be_very_secure"
-BLOCKFROST_API_KEY="your_blockfrost_api_key" 
+BLOCKFROST_API_KEY_PREPROD="your_blockfrost_api_key" 
 ```
 
 {% hint style="info" %}
