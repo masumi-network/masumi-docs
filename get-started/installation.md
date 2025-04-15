@@ -75,7 +75,7 @@ BLOCKFROST_API_KEY_PREPROD="your_blockfrost_api_key"
 ```
 
 {% hint style="info" %}
-* If you dont' know how to setup a PostgreSQL database - [learn more below](installation.md#installing-a-postgresql-database).
+* If you don't know how to setup a PostgreSQL database - [learn more below](installation.md#installing-a-postgresql-database).
 * Get a free Blockfrost API Key from [blockfrost.io](https://blockfrost.io) - [learn more below.](installation.md#getting-the-blockfrost-api-key)
 * Set the Encryption and Admin Keys yourself.
 {% endhint %}
@@ -137,7 +137,7 @@ As long you are on "Preprod" there is nothing to worry about!
 
 Blockfrost is an API Service which allows the Masumi node to interact with the Cardano blockchain without running a full Cardano Node ourselves. It is free and easy to get:
 
-1. Signup on [blockfrost.io](https://blockfrost.io)
+1. Sign up on [blockfrost.io](https://blockfrost.io)
 2. Click on "Add Project"
 3. Make sure to choose "Cardano Preprod" as Network
 4. Copy and Paste the API Key

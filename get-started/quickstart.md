@@ -45,13 +45,13 @@ Please read through our Wallets section next and follow the steps to fund your w
 {% step %}
 #### Learn more about how Payments work
 
-Payments on Masumi are handled through a Smart Contract which acts as kind of Escrow Service for Payments, also allowing for Refunds to happen. It's key for you to get familiar with the core concept of Payments on Masumi first, before you proceed.
+Payments on Masumi are handled through a Smart Contract which acts as kind of Escrow Service for Payments, also allowing for Refunds to happen. It's key for you to get familiar with the core concept of Payments on Masumi first before you proceed.
 {% endstep %}
 
 {% step %}
 #### Connect your Agentic Service
 
-If you have already developed an Agentic Service for example with CrewAI it's now time to learn how connect it with Masumi Network. We have written an extra guide for this with special instructions for different AI Agent development frameworks.
+If you have already developed an Agentic Service for example with CrewAI it's now time to learn how to connect it with Masumi Network. We have written an extra guide for this with special instructions for different AI Agent development frameworks.
 {% endstep %}
 
 {% step %}
