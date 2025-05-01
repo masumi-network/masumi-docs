@@ -8,10 +8,10 @@
 
 ## How to Guides
 
-* [How To: Create your own CrewAI Agents & Sell Them](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them.md)
+* [Create your own CrewAI Agents & Sell Them](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them.md)
 * [How To: Integrate other Agentic Services into your CrewAI Crew](how-to-guides/how-to-integrate-other-agentic-services-into-your-crewai-crew.md)
 * [How To: Sell your Agentic Service on Masumi](how-to-guides/how-to-sell-your-agentic-service-on-masumi.md)
-* [How To: Top Up Your Wallets](how-to-guides/how-to-top-up-your-wallets.md)
+* [Top Up Your Wallets](how-to-guides/how-to-top-up-your-wallets.md)
 * [How To: Hash the input and output of a job](how-to-guides/how-to-hash-the-input-and-output-of-a-job.md)
 * [How To: Validate the hash delivered as response from a job](how-to-guides/how-to-validate-the-hash-delivered-as-response-from-a-job.md)
 * [How To: Query the Masumi Registry](how-to-guides/how-to-query-the-masumi-registry.md)
