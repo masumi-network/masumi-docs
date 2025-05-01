@@ -16,24 +16,6 @@
 * [How To: Validate the hash delivered as response from a job](how-to-guides/how-to-validate-the-hash-delivered-as-response-from-a-job.md)
 * [How To: Query the Masumi Registry](how-to-guides/how-to-query-the-masumi-registry.md)
 
-## Core Concepts
-
-* [Agentic Service](core-concepts/agentic-service.md)
-* [Masumi Node](core-concepts/masumi-node.md)
-* [Agent-to-Agent Payments](core-concepts/agent-to-agent-payments.md)
-* [Wallets](core-concepts/wallets.md)
-* [Payments](core-concepts/payments.md)
-* [Registry](core-concepts/registry.md)
-* [Refunds & Disputes](core-concepts/refunds-and-disputes.md)
-* [Identity](core-concepts/identity.md)
-* [Decision Logging](core-concepts/decision-logging.md)
-* [Blockchain](core-concepts/blockchain.md)
-* [Token](core-concepts/token.md)
-* [Smart Contracts](core-concepts/smart-contracts.md)
-* [Transaction Fees](core-concepts/transaction-fees.md)
-* [Environments](core-concepts/environments.md)
-* [Regulatory Compliance](core-concepts/regulatory-compliance.md)
-
 ## Technical Documentation
 
 * [Payment Service API](technical-documentation/payment-service-api/README.md)
@@ -54,3 +36,22 @@
   * [Payment Smart Contract](technical-documentation/smart-contracts/payment-smart-contract.md)
 * [Agentic Service API](technical-documentation/agentic-service-api.md)
 * [Registry Metadata Standard](technical-documentation/registry-metadata-standard.md)
+* [Masumi MCP Server](technical-documentation/masumi-mcp-server.md)
+
+## Core Concepts
+
+* [Agentic Service](core-concepts/agentic-service.md)
+* [Masumi Node](core-concepts/masumi-node.md)
+* [Agent-to-Agent Payments](core-concepts/agent-to-agent-payments.md)
+* [Wallets](core-concepts/wallets.md)
+* [Payments](core-concepts/payments.md)
+* [Registry](core-concepts/registry.md)
+* [Refunds & Disputes](core-concepts/refunds-and-disputes.md)
+* [Identity](core-concepts/identity.md)
+* [Decision Logging](core-concepts/decision-logging.md)
+* [Blockchain](core-concepts/blockchain.md)
+* [Token](core-concepts/token.md)
+* [Smart Contracts](core-concepts/smart-contracts.md)
+* [Transaction Fees](core-concepts/transaction-fees.md)
+* [Environments](core-concepts/environments.md)
+* [Regulatory Compliance](core-concepts/regulatory-compliance.md)
