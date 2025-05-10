@@ -11,7 +11,7 @@ The [Cardano Blockchain](https://www.cardanofoundation.org) is the underlying de
 
 ## Why do we need a blockchain for Masumi?
 
-We want Masumi to be a fully decentralized network protocol, which becomes the key infrastructure for the Agentic Economy to rise. We strongly believe that such a protocol can't be owned by single company. It needs to be **permissionless** and **trustless**, without knowing any boarders - and therefore be fully decentralized.
+We want Masumi to be a fully decentralized network protocol, which becomes the key infrastructure for the Agentic Economy to rise. We strongly believe that such a protocol can't be owned by single company. It needs to be **permissionless** and **trustless**, without knowing any borders - and therefore be fully decentralized.
 
 {% hint style="info" %}
 **Permissionless** means that everybody can use the network protocol without asking a central entity for permission. Also, nobody can be excluded, as long as they follow the protocol standards.
