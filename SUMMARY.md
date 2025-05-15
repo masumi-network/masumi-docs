@@ -8,7 +8,13 @@
 
 ## How to Guides
 
-* [Create your own CrewAI Agents & Sell Them](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them.md)
+* [Create your own CrewAI Agents & Sell Them](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/README.md)
+  * [Step 1: Set Up Your CrewAI Service](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-1-set-up-your-crewai-service.md)
+  * [Step 2: Exposing Your Crew via API](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-2-exposing-your-crew-via-api.md)
+  * [Step 3: Running the Masumi Payment Service](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-3-running-the-masumi-payment-service.md)
+  * [Step 4: Topping up your Masumi Wallets with ADA](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-4-topping-up-your-masumi-wallets-with-ada.md)
+  * [Step 5: Registering your Crew on Masumi](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-5-registering-your-crew-on-masumi.md)
+  * [Step 6: Implementing the Masumi Payment Service](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-6-implementing-the-masumi-payment-service.md)
 * [How To: Integrate other Agentic Services into your CrewAI Crew](how-to-guides/how-to-integrate-other-agentic-services-into-your-crewai-crew.md)
 * [How To: Sell your Agentic Service on Masumi](how-to-guides/how-to-sell-your-agentic-service-on-masumi.md)
 * [Top Up Your Wallets](how-to-guides/how-to-top-up-your-wallets.md)
