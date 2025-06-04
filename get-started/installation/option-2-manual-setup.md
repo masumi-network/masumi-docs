@@ -63,38 +63,12 @@ ADMIN_KEY="your_admin_key"
 <strong>BLOCKFROST_API_KEY_PREPROD="your_blockfrost_api_key"
 </strong></code></pre>
 
-#### 1. Database URL
-
-**Replace** `"your_username:your_password"` with your actual PostgreSQL credentials, setup above
-
-#### 2. Encryption Key
-
-You can generate one by running openssl command in terminal:
-
-```
-openssl rand -base64 24
-```
-
-#### 3. Admin key
-
-&#x20;It is your password that you will use to access admin interface later.
-
-**Must be 15 characters or longer!**
-
-{% hint style="warning" %}
-If you already seeded your database, but you would like to change the Admin Key:
-
-* After changing `ADMIN_KEY` , make sure to set `SEED_ONLY_IF_EMPTY`  to `False` . It will add a&#x20;
-* Run seeding command again (see command in the [step 7](option-2-manual-setup.md#id-7.-running-database-migrations))&#x20;
-
-That way, the change of the admin key will propagate to the DB.&#x20;
+{% hint style="info" %}
+* **Replace** `"your_username:your_password"` with your actual PostgreSQL credentials.
+* Get a free Blockfrost API Key from [blockfrost.io](https://blockfrost.io):[ ](../../get-blockfrost-api-key.md)🔗[How to Get Blockfrost API Ke](../../get-blockfrost-api-key.md)y
+* Set the Encryption Key: 🔗[How to Generate an Encryption Key.](../../generate-an-encryption-key.md)
+* Admin Key is is your password that you will use to access admin interface later. **It must be 15 characters or longer!**
 {% endhint %}
-
-#### 4. Blockfrost API Key
-
-Refer to the guide: 🔗[How to get Blockfrost API key](../../get-blockfrost-api-key.md)
-
-🔹 **If switching to Mainnet, update `.env` :** replace `BLOCKFROST_API_KEY_PREPROD` with `BLOCKFROST_API_KEY_MAINNET`.
 {% endstep %}
 
 {% step %}
@@ -106,6 +80,15 @@ Run the following commands to configure the database schema:
 npm run prisma:migrate
 npm run prisma:seed
 ```
+
+{% hint style="warning" %}
+If you already seeded your database, but you would like to change the Admin Key:
+
+* After changing `ADMIN_KEY` , make sure to set `SEED_ONLY_IF_EMPTY`  to `False` .
+* Run seeding command again (see command in the [step 7](option-2-manual-setup.md#id-7.-running-database-migrations))&#x20;
+
+That way, the change of the admin key will propagate to the DB.&#x20;
+{% endhint %}
 {% endstep %}
 
 {% step %}
@@ -178,6 +161,3 @@ If everything is set up correctly, you should receive:
 {% endstep %}
 {% endstepper %}
 
-{% hint style="info" %}
-In this Tutorial, we'll be running both the Masumi Payment Service & our CrewAI Crew locally. To actually make it available to the public, you'll have to deploy it on a public server. This can be any service from Digital Ocean, to AWS, Google Cloud, Azure, etc.
-{% endhint %}
