@@ -131,8 +131,6 @@ Make yourself familiar with the [Wallets](../../core-concepts/wallets.md) Chapte
 As long you are on "Preprod" there is nothing to worry about!
 {% endhint %}
 
-## Installing a PostgreSQL Database
-
 ## Masumi Registry Service
 
 In principle, you can follow the same process to install the [Masumi Registry Service](https://github.com/masumi-network/masumi-registry-service). It will require a separate database and another adjustment of the .env file.\

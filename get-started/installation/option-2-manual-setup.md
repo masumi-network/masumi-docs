@@ -35,16 +35,9 @@ git checkout $(git tag -l | sort -V | tail -n 1)
 {% step %}
 ### **Setting Up PostgreSQL**
 
-If you **don’t have PostgreSQL installed**, follow these steps:
+If you **don’t have PostgreSQL installed**, please refer to:  [🔗Installing PostgreSQL Database.](../../installing-postgresql-database.md)
 
-#### **MacOS Installation (via Homebrew)**
-
-```bash
-brew install postgresql@15
-brew services start postgresql@15
-```
-
-#### **Creating the Database**
+#### **Creating the Database:**
 
 ```bash
 psql postgres
