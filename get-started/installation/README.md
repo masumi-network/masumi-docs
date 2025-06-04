@@ -74,7 +74,7 @@ BLOCKFROST_API_KEY_PREPROD="your_blockfrost_api_key"
 
 {% hint style="info" %}
 * If you don't know how to setup a PostgreSQL database - [learn more below](./#installing-a-postgresql-database).
-* Get a free Blockfrost API Key from [blockfrost.io](https://blockfrost.io) - [learn more below.](./#getting-the-blockfrost-api-key)
+* Get a free Blockfrost API Key from [blockfrost.io](https://blockfrost.io) -[ How to Get Blockfrost API Key](../../get-blockfrost-api-key.md)
 * Set the Encryption and Admin Keys yourself.
 {% endhint %}
 {% endstep %}
