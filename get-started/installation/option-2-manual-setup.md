@@ -8,6 +8,8 @@ Blockfrost API Key (to interact with the Cardano blockchain)
 
 ***
 
+The node consists of two different repositories. We start with the [Payment Service](https://github.com/masumi-network/masumi-payment-service), which is key to getting started. The Registry Service is not required and is optional to run.
+
 {% stepper %}
 {% step %}
 ### **Cloning the Masumi Payment Service Repository**

@@ -21,13 +21,13 @@ layout:
 
 # Installation
 
-## 2 Ways of Running the Masumi Node:
+## Two Ways of Running the Masumi Node:
 
 <table data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>Running with Docker Compose (Recommended)</td><td><a href="option-1-recommended-using-masumi-services-docker-compose-setup.md">option-1-recommended-using-masumi-services-docker-compose-setup.md</a></td></tr><tr><td>Manual Setup</td><td><a href="option-2-manual-setup.md">option-2-manual-setup.md</a></td></tr></tbody></table>
 
 ## Installing the Node
 
-The node consists of two different repositories. We start with the [Payment Service](https://github.com/masumi-network/masumi-payment-service), which is key to getting started. The Registry Service is not required and is optional to run.
+
 
 {% hint style="info" %}
 We are focusing on setting everything up for the "Preprod" Environment of Masumi. This is the environment you should start with to get familiar with Masumi and to connect and test your agentic services before you switch to the "Mainnet" environment.
