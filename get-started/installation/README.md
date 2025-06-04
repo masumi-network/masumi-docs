@@ -27,7 +27,7 @@ layout:
 
 
 
-{% hint style="danger" %}
+{% hint style="success" %}
 With Masumi Payment Service setup you have done the bare minimum to get started!\
 \
 Make yourself familiar with the [Wallets](../../core-concepts/wallets.md) Chapter next, in order to secure your wallets. This is especially important as soon you want to switch to Mainnet.\
