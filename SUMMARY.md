@@ -24,6 +24,10 @@
 * [How To: Validate the hash delivered as response from a job](how-to-guides/how-to-validate-the-hash-delivered-as-response-from-a-job.md)
 * [How To: Query the Masumi Registry](how-to-guides/how-to-query-the-masumi-registry.md)
 
+***
+
+* [Get Blockfrost API key](get-blockfrost-api-key.md)
+
 ## Technical Documentation
 
 * [Payment Service API](technical-documentation/payment-service-api/README.md)
