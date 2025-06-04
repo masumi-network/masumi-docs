@@ -23,7 +23,7 @@ layout:
 
 ## Ways of Running the Masumi Node (Masumi Payment Service)
 
-<table data-view="cards"><thead><tr><th></th></tr></thead><tbody><tr><td>Running with Docker Compose</td></tr><tr><td>Manual Setup</td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>Running with Docker Compose</td><td><a href="option-1-recommended-using-masumi-services-docker-compose-setup.md">option-1-recommended-using-masumi-services-docker-compose-setup.md</a></td></tr><tr><td>Manual Setup</td><td><a href="option-2-manual-setup.md">option-2-manual-setup.md</a></td></tr></tbody></table>
 
 ## Installing the Node
 
