@@ -36,21 +36,10 @@ We are focusing on setting everything up for the "Preprod" Environment of Masumi
 {% stepper %}
 {% step %}
 ### Install the Masumi Node
-
-```bash
-git clone https://github.com/masumi-network/masumi-payment-service
-cd masumi-payment-service/
-npm install
-```
 {% endstep %}
 
 {% step %}
 ### Checkout the latest stable version
-
-```bash
-git fetch --tags
-git checkout $(git tag -l | sort -V | tail -n 1)
-```
 {% endstep %}
 
 {% step %}
