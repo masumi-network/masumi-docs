@@ -33,7 +33,7 @@ In order to get started, we recommend you to follow these 5 steps:
 {% step %}
 #### Installing the Payment Service
 
-Install the Masumi Node with its Payment Service, as it is described in the [Installation](installation.md) section. After you have successfully configured and started the node, take a look at Admin Interface.
+Install the Masumi Node with its Payment Service, as it is described in the [Installation](installation/) section. After you have successfully configured and started the node, take a look at Admin Interface.
 {% endstep %}
 
 {% step %}

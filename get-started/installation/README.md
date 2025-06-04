@@ -1,7 +1,7 @@
 ---
 description: Get started with the Masumi Node - install, configure and start your node.
 icon: folder-arrow-down
-cover: ../.gitbook/assets/image (4).png
+cover: ../../.gitbook/assets/image (4).png
 coverY: 0
 layout:
   cover:
@@ -20,6 +20,10 @@ layout:
 ---
 
 # Installation
+
+## Ways of Running the Masumi Node (Masumi Payment Service)
+
+<table data-view="cards"><thead><tr><th></th></tr></thead><tbody><tr><td>Running with Docker Compose</td></tr><tr><td>Manual Setup</td></tr></tbody></table>
 
 {% hint style="info" %}
 **System** **Requirements:**\
@@ -75,8 +79,8 @@ BLOCKFROST_API_KEY_PREPROD="your_blockfrost_api_key"
 ```
 
 {% hint style="info" %}
-* If you don't know how to setup a PostgreSQL database - [learn more below](installation.md#installing-a-postgresql-database).
-* Get a free Blockfrost API Key from [blockfrost.io](https://blockfrost.io) - [learn more below.](installation.md#getting-the-blockfrost-api-key)
+* If you don't know how to setup a PostgreSQL database - [learn more below](./#installing-a-postgresql-database).
+* Get a free Blockfrost API Key from [blockfrost.io](https://blockfrost.io) - [learn more below.](./#getting-the-blockfrost-api-key)
 * Set the Encryption and Admin Keys yourself.
 {% endhint %}
 {% endstep %}
@@ -128,7 +132,7 @@ Now with the node up and running you can access two web interfaces!
 {% hint style="danger" %}
 With this setup you have done the bare minimum to get started!\
 \
-Make yourself familiar with the [Wallets](../core-concepts/wallets.md) Chapter next, in order to secure your wallets. This is especially important as soon you want to switch to Mainnet.\
+Make yourself familiar with the [Wallets](../../core-concepts/wallets.md) Chapter next, in order to secure your wallets. This is especially important as soon you want to switch to Mainnet.\
 \
 As long you are on "Preprod" there is nothing to worry about!
 {% endhint %}

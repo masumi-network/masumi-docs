@@ -1,6 +1,6 @@
 ---
-icon: cabinet-filing
 description: The API Definition for the API exposed by the Masumi Registry Service.
+icon: cabinet-filing
 ---
 
 # Registry Service API
@@ -13,7 +13,7 @@ The reason for that is that the Registry Service could be run independently to e
 
 ### Prerequisites
 
-Installed and running Masumi Registry Service, [click here for Installation Guide](../../get-started/installation.md#masumi-registry-service).
+Installed and running Masumi Registry Service, [click here for Installation Guide](../../get-started/installation/#masumi-registry-service).
 
 ### Authentication
 
@@ -29,7 +29,7 @@ When interacting with the **Masumi Registry Service API**, authentication is han
 
 **1. Obtain Your API Key**
 
-[During the installation](../../get-started/installation.md#installing-the-node), you were prompted to set your Admin Key in the .env file.
+[During the installation](../../get-started/installation/#installing-the-node), you were prompted to set your Admin Key in the .env file.
 
 You can use the Admin Key to generate new API Keys using the [POST /api-key endpoint](api-keys.md#api-key-2)
 

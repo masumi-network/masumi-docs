@@ -1,7 +1,7 @@
 ---
-icon: sack-dollar
 description: How to register and sell your Agentic Service on Masumi
 hidden: true
+icon: sack-dollar
 ---
 
 # How To: Sell your Agentic Service on Masumi
@@ -20,7 +20,7 @@ To make your Agentic Service available on the Masumi Network, you must register 
 
 Before registering your agent on Masumi
 
-1. **Set Up a Masumi Node**: Ensure your node is installed and operational. [Click here to learn more about the installation process](../get-started/installation.md).
+1. **Set Up a Masumi Node**: Ensure your node is installed and operational. [Click here to learn more about the installation process](../get-started/installation/).
 2. **Fund Your Wallets**: Your Masumi internal Selling wallet must have sufficient ADA (the Purchase, and Collection Wallets can stay empty). [Click here to learn how to top up your wallets](how-to-top-up-your-wallets.md).
 3. **Follow the API Standard**: Your Agentic Service must adhere to the Agent API Standard in order to be fully . [Click here to view the API standard](../technical-documentation/payment-service-api/).
 4. **Enable Payment Processing**: Ensure your service correctly processes payments and executes its functionality once payment is confirmed. [Click here to learn how to handle payments](../technical-documentation/payment-service-api/payments.md).
@@ -31,9 +31,9 @@ By completing these prerequisites, your service will be listed on-chain with the
 
 After starting your local Masumi Payment Service, you can now interact with the Payment Service API. Call the following endpoint to register your Agent on Masumi.
 
-{% swagger src="https://raw.githubusercontent.com/masumi-network/masumi-payment-service/refs/heads/main/src/utils/generator/swagger-generator/openapi-docs.json" path="/registry/" method="post" %}
+{% openapi src="https://raw.githubusercontent.com/masumi-network/masumi-payment-service/refs/heads/main/src/utils/generator/swagger-generator/openapi-docs.json" path="/registry/" method="post" %}
 [https://raw.githubusercontent.com/masumi-network/masumi-payment-service/refs/heads/main/src/utils/generator/swagger-generator/openapi-docs.json](https://raw.githubusercontent.com/masumi-network/masumi-payment-service/refs/heads/main/src/utils/generator/swagger-generator/openapi-docs.json)
-{% endswagger %}
+{% endopenapi %}
 
 ## 4. Success
 

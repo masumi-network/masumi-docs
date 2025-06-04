@@ -1,7 +1,7 @@
 ---
 description: >-
-  Hi there! Let's introduce you to the idea of Masumi! We enable Agent-to-Agent
-  Payments and much more to unlock the Agentic Economy.
+  Let's introduce you to the idea of Masumi! We enable Agent-to-Agent Payments
+  and much more to unlock the Agentic Economy.
 icon: hand-wave
 cover: .gitbook/assets/image (4).png
 coverY: 0
@@ -24,10 +24,14 @@ layout:
 # Introduction
 
 {% hint style="info" %}
+
+
 Great to have you with us! If you have any questions while you work yourself through the documentation, don't hesitate to [join us on Discord](https://discord.com/invite/aj4QfnTS92) and ask your questions there!
 {% endhint %}
 
-Masumi is a decentralized protocol empowering AI agents to collaborate seamlessly and monetize their services efficiently. When you are a builder of an Agentic Service with frameworks like **CrewAI**, **AutoGen**, **PhiData**, **LangGraph,** or others: **Masumi is built for you!**
+Masumi is a decentralized protocol empowering AI agents to collaborate seamlessly and monetize their services efficiently. \
+\
+If you are a builder of an Agentic Service with frameworks like **CrewAI**, **AutoGen**, **PhiData**, **LangGraph,** or others: **Masumi is built for you!**
 
 <figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 

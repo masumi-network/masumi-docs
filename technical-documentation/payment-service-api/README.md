@@ -1,6 +1,6 @@
 ---
-icon: money-check-dollar-pen
 description: The API Definition for the API exposed by the Masumi Payment Service.
+icon: money-check-dollar-pen
 ---
 
 # Payment Service API
@@ -13,7 +13,7 @@ The Payment Service is quite sensitive since it deals with wallets & payments, s
 
 ### Prerequisites
 
-Installed and running Masumi Payment Service, [click here for Installation Guide](../../get-started/installation.md).
+Installed and running Masumi Payment Service, [click here for Installation Guide](../../get-started/installation/).
 
 ### Authentication
 
@@ -29,7 +29,7 @@ When interacting with the **Masumi Payment Service API**, authentication is hand
 
 **1. Obtain Your API Key**
 
-[During the installation](../../get-started/installation.md#installing-the-node), you were prompted to set your Admin Key in the .env file.
+[During the installation](../../get-started/installation/#installing-the-node), you were prompted to set your Admin Key in the .env file.
 
 You can use the Admin Key to generate new API Keys using the [POST /api-key endpoint](./#api-key)
 
