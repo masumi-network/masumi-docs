@@ -2,8 +2,9 @@
 
 #### Prerequisites&#x20;
 
-* Docker and Docker Compose installed
-* A Blockfrost API key. How to:&#x20;
+Docker and Docker Compose installed
+
+A Blockfrost API key. How to:&#x20;
 
 {% content-ref url="../../get-blockfrost-api-key.md" %}
 [get-blockfrost-api-key.md](../../get-blockfrost-api-key.md)
