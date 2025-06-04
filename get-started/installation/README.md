@@ -23,7 +23,7 @@ layout:
 
 ## Two Ways of Running the Masumi Node:
 
-<table data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>Running with Docker Compose (Recommended)</td><td><a href="option-1-recommended-using-masumi-services-docker-compose-setup.md">option-1-recommended-using-masumi-services-docker-compose-setup.md</a></td></tr><tr><td>Manual Setup</td><td><a href="option-2-manual-setup.md">option-2-manual-setup.md</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>Running with Docker Compose (Recommended)</td><td></td><td><a href="option-1-recommended-using-masumi-services-docker-compose-setup.md">option-1-recommended-using-masumi-services-docker-compose-setup.md</a></td></tr><tr><td>Manual Setup</td><td></td><td><a href="option-2-manual-setup.md">option-2-manual-setup.md</a></td></tr></tbody></table>
 
 
 
