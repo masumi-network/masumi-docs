@@ -25,95 +25,10 @@ layout:
 
 <table data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>Running with Docker Compose (Recommended)</td><td><a href="option-1-recommended-using-masumi-services-docker-compose-setup.md">option-1-recommended-using-masumi-services-docker-compose-setup.md</a></td></tr><tr><td>Manual Setup</td><td><a href="option-2-manual-setup.md">option-2-manual-setup.md</a></td></tr></tbody></table>
 
-## Installing the Node
 
-
-
-{% hint style="info" %}
-We are focusing on setting everything up for the "Preprod" Environment of Masumi. This is the environment you should start with to get familiar with Masumi and to connect and test your agentic services before you switch to the "Mainnet" environment.
-{% endhint %}
-
-{% stepper %}
-{% step %}
-### Install the Masumi Node
-{% endstep %}
-
-{% step %}
-### Checkout the latest stable version
-{% endstep %}
-
-{% step %}
-### Configure Environment Variables&#x20;
-
-Copy the .env.example file to a .env file and open it using a text editor of your choice (for example nano)
-
-```bash
-cp .env.example .env
-nano .env
-```
-
-And adjust **only** the following four variables for now.
-
-```python
-DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/masumi_payment?schema=public"
-ENCRYPTION_KEY="abcdef_this_should_be_very_secure_and_32_characters_long"
-ADMIN_KEY="abcdef_this_should_be_very_secure"
-BLOCKFROST_API_KEY_PREPROD="your_blockfrost_api_key" 
-```
-
-{% hint style="info" %}
-* If you don't know how to setup a PostgreSQL database - [learn more below](./#installing-a-postgresql-database).
-* Get a free Blockfrost API Key from [blockfrost.io](https://blockfrost.io) -[ How to Get Blockfrost API Key](../../get-blockfrost-api-key.md)
-* Set the Encryption and Admin Keys yourself.
-{% endhint %}
-{% endstep %}
-
-{% step %}
-### Configure the PostgreSQL Database
-
-Run the following commands from the same directory to manifest the schema and seed the database:
-
-```bash
-npm run prisma:migrate
-npm run prisma:seed
-```
-{% endstep %}
-
-{% step %}
-### Install Admin Interface
-
-To build the Admin Interface, navigate to /frontend, install the requirements and then navigate back
-
-```sh
-cd frontend
-npm install
-npm run build
-cd ..
-```
-{% endstep %}
-
-{% step %}
-### Starting the Node
-
-You can now start the node the following way:
-
-```bash
-npm run build && npm start
-```
-{% endstep %}
-
-{% step %}
-### Access the Admin Interface and the Swagger API
-
-Now with the node up and running you can access two web interfaces!
-
-1. [http://localhost:3001/admin/](http://localhost:3001/admin/)
-2. [http://localhost:3001/docs/](http://localhost:3001/docs/)
-{% endstep %}
-{% endstepper %}
 
 {% hint style="danger" %}
-With this setup you have done the bare minimum to get started!\
+With Masumi Payment Service setup you have done the bare minimum to get started!\
 \
 Make yourself familiar with the [Wallets](../../core-concepts/wallets.md) Chapter next, in order to secure your wallets. This is especially important as soon you want to switch to Mainnet.\
 \
