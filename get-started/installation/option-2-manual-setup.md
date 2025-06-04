@@ -19,8 +19,6 @@ git clone https://github.com/masumi-network/masumi-payment-service
 cd masumi-payment-service/
 npm install
 ```
-
-
 {% endstep %}
 
 {% step %}
@@ -32,10 +30,6 @@ Ensure you're using the latest stable release:
 git fetch --tags
 git checkout $(git tag -l | sort -V | tail -n 1)
 ```
-
-###
-
-
 {% endstep %}
 
 {% step %}
