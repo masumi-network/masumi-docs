@@ -51,14 +51,10 @@ psql postgres
 create database masumi_payment;
 \q
 ```
-
-###
-
-
 {% endstep %}
 
 {% step %}
-### **5. Configuring Environment Variables**
+### **Configuring Environment Variables**
 
 Copy the `.env.example` file and configure it with your own settings:
 

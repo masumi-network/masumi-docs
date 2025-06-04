@@ -27,6 +27,7 @@
 ***
 
 * [Get Blockfrost API key](get-blockfrost-api-key.md)
+* [Installing PostgreSQL database](installing-postgresql-database.md)
 
 ## Technical Documentation
 
