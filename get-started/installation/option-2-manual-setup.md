@@ -94,11 +94,9 @@ That way, the change of the admin key will propagate to the DB.&#x20;
 {% endstep %}
 
 {% step %}
-### **Running the Masumi Payment Service**
+### **Install and Build the Admin Interface (Frontend)**
 
-If you prefer to **run locally without Docker**, follow these steps:
-
-**Step 1: Build the Admin Interface**
+To build the Admin Interface, navigate to /frontend, install the requirements and then navigate back
 
 ```bash
 cd frontend
@@ -106,43 +104,25 @@ npm install
 npm run build
 cd ..
 ```
+{% endstep %}
 
-**Step 2: Start the Masumi Node**
+{% step %}
+### **Start the Masumi Node**
 
 ```bash
 npm run build && npm start
 ```
+{% endstep %}
+
+{% step %}
+### Access the Admin Interface and the Swagger API <a href="#access-the-admin-interface-and-the-swagger-api" id="access-the-admin-interface-and-the-swagger-api"></a>
 
 ✅ You can now access the following:
 
 * **Admin Dashboard** → `http://localhost:3001/admin`
-* **API Documentation** → `http://localhost:3001/docs`
+* **API Documentation** → `http://localhost:3001/docs`&#x20;
 
-
-{% endstep %}
-
-{% step %}
-### **Verifying Everything Works**
-
-#### **Check if the Service is Running**
-
-If you used **Docker**, verify that the container is running:
-
-```bash
-docker ps
-```
-
-If running **locally**, check the logs:
-
-```bash
-npm start
-```
-
-✅ You should see output confirming that the Masumi Payment Service is running.
-
-#### **Test the API**
-
-Once the service is running, test if it's responding:
+Test the API:
 
 ```bash
 curl -X 'GET' \
