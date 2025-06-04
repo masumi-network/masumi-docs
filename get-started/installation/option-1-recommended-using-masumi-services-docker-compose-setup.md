@@ -1,10 +1,9 @@
 # Option 1 (Recommended):  Using Masumi Services Docker Compose Setup
 
-#### Prerequisites&#x20;
+#### Prerequisites
 
-Docker and Docker Compose installed
-
-A Blockfrost API key. How to:&#x20;
+Docker and Docker Compose installed\
+A Blockfrost API key
 
 {% content-ref url="../../get-blockfrost-api-key.md" %}
 [get-blockfrost-api-key.md](../../get-blockfrost-api-key.md)
