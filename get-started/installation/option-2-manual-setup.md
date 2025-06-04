@@ -109,14 +109,7 @@ That way, the change of the admin key will propagate to the DB.&#x20;
 
 #### 4. Blockfrost API Key
 
-The **Masumi Payment Service** interacts with **Cardano blockchain** via **Blockfrost**. To get a free API key:
-
-1. **Go to** [https://blockfrost.io/dashboard](https://blockfrost.io/dashboard)
-2. Click **"Add Project"**
-3. **Select "Cardano Preprod"** as the network
-4. Copy the **API Key.**
-
-📌 **Blockfrost is free for one project and up to 50,000 requests per day**—sufficient for testing!
+Refer to the guide: 🔗[How to get Blockfrost API key](../../get-blockfrost-api-key.md)
 
 🔹 **If switching to Mainnet, update `.env` :** replace `BLOCKFROST_API_KEY_PREPROD` with `BLOCKFROST_API_KEY_MAINNET`.
 {% endstep %}
