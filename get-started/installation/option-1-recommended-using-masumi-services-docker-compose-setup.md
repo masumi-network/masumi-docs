@@ -9,6 +9,8 @@
 [get-blockfrost-api-key.md](../../get-blockfrost-api-key.md)
 {% endcontent-ref %}
 
+***
+
 {% stepper %}
 {% step %}
 ### Clone the repo&#x20;
