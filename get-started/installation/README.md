@@ -25,12 +25,6 @@ layout:
 
 <table data-view="cards"><thead><tr><th></th></tr></thead><tbody><tr><td>Running with Docker Compose</td></tr><tr><td>Manual Setup</td></tr></tbody></table>
 
-{% hint style="info" %}
-**System** **Requirements:**\
-\- you will need [NodeJS](https://nodejs.org/en/download) > 18.x\
-\- you should have a [PostgreSQL15](https://www.postgresql.org/download/) database up and running on your system
-{% endhint %}
-
 ## Installing the Node
 
 The node consists of two different repositories. We start with the [Payment Service](https://github.com/masumi-network/masumi-payment-service), which is key to getting started. The Registry Service is not required and is optional to run.
