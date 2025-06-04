@@ -7,7 +7,7 @@
 
 {% stepper %}
 {% step %}
-### 1. Clone the repo&#x20;
+### Clone the repo&#x20;
 
 ```
 git clone https://github.com/masumi-network/masumi-services-dev-quickstart.git
@@ -16,7 +16,7 @@ cd masumi-services-dev-quickstart
 {% endstep %}
 
 {% step %}
-### 2. Copy the environment file template and fill in your values:
+### Copy the environment file template and fill in your values:
 
 ```
 cp .env.example .env
@@ -24,7 +24,7 @@ cp .env.example .env
 {% endstep %}
 
 {% step %}
-### 3. Start the services
+### Start the services
 
 ```
 docker compose up -d
@@ -32,7 +32,7 @@ docker compose up -d
 {% endstep %}
 
 {% step %}
-### 4. Access Services
+### Access Services
 
 * **Registry Service:** Available at [http://localhost:3000/docs](http://localhost:3000/docs) (for Open-API)
 * **Payment Service:** Available at [http://localhost:3001/docs](http://localhost:3001/docs) (for Open-API) or [http://localhost:3001/admin](http://localhost:3001/admin) (for an admin dashboard)
