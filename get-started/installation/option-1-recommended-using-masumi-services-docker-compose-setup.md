@@ -53,6 +53,35 @@ docker compose up -d
 * **Registry Service:** Available at [http://localhost:3000/docs](http://localhost:3000/docs) (for Open-API)
 * **Payment Service:** Available at [http://localhost:3001/docs](http://localhost:3001/docs) (for Open-API) or [http://localhost:3001/admin](http://localhost:3001/admin) (for an admin dashboard)
 * **PostgreSQL:**  Available at localhost:5432
+
+
 {% endstep %}
 {% endstepper %}
 
+### Common issues
+
+If you run into issues with seeding a new Admin key, or the wallets didn't create automatically, try to kill all the containers and re-run them one by one manually.&#x20;
+
+After running each command, give the container a couple seconds to be up and running until starting the second one.&#x20;
+
+The order is important.&#x20;
+
+{% stepper %}
+{% step %}
+```bash
+docker-compose up postgres
+```
+{% endstep %}
+
+{% step %}
+```bash
+docker-compose up registry-service
+```
+{% endstep %}
+
+{% step %}
+```bash
+docker-compose up payment-service
+```
+{% endstep %}
+{% endstepper %}
