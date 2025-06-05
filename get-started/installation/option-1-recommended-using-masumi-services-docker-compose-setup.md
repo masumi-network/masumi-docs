@@ -6,8 +6,8 @@ icon: docker
 
 #### Prerequisites
 
-Docker and Docker Compose installed\
-A Blockfrost API key
+* Docker and Docker Compose installed
+* Blockfrost API key
 
 {% content-ref url="../../get-blockfrost-api-key.md" %}
 [get-blockfrost-api-key.md](../../get-blockfrost-api-key.md)
