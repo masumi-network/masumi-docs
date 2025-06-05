@@ -76,7 +76,7 @@ ADMIN_KEY="your_admin_key"
 * Get a free Blockfrost API Key from [blockfrost.io](https://blockfrost.io): [get-blockfrost-api-key.md](../../get-blockfrost-api-key.md "mention")
 * Set the Encryption Key: [generate-an-encryption-key.md](../../generate-an-encryption-key.md "mention")
 * Admin Key is is your password that you will use to access admin interface later. **It must be 15 characters or longer!**
-* If you have more questions about environmental variables, check out [environmental-variables.md](../../environmental-variables.md "mention")
+* If you have more questions about environmental variables, check out [environmental-variables.md](../../technical-documentation/environmental-variables.md "mention")
 {% endhint %}
 {% endstep %}
 

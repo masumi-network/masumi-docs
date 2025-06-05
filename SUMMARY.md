@@ -29,7 +29,6 @@
 * [Get Blockfrost API key](get-blockfrost-api-key.md)
 * [Installing PostgreSQL database](installing-postgresql-database.md)
 * [Generate an Encryption Key](generate-an-encryption-key.md)
-* [Environmental Variables](environmental-variables.md)
 
 ## Technical Documentation
 
@@ -52,6 +51,7 @@
 * [Agentic Service API](technical-documentation/agentic-service-api.md)
 * [Registry Metadata Standard](technical-documentation/registry-metadata-standard.md)
 * [Masumi MCP Server](technical-documentation/masumi-mcp-server.md)
+* [Environmental Variables](technical-documentation/environmental-variables.md)
 
 ## Core Concepts
 
