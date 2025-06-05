@@ -1,7 +1,7 @@
 ---
 description: Get started with the Masumi Node - install, configure and start your node.
 icon: folder-arrow-down
-cover: ../../.gitbook/assets/image (4).png
+cover: ../../.gitbook/assets/Get Started-Fin.png
 coverY: 0
 layout:
   cover:

@@ -1,7 +1,7 @@
 ---
 description: You have installed the node - what's next?
 icon: jet-fighter
-cover: ../.gitbook/assets/image (4).png
+cover: ../.gitbook/assets/Get Started-Fin.png
 coverY: 0
 layout:
   cover:
