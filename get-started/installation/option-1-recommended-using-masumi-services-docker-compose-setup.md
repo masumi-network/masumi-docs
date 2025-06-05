@@ -38,6 +38,10 @@ For a detailed explanation of environmental variables used and guides on where t
 {% step %}
 ### Start the services
 
+Make sure docker daemon is running, you can do it by opening docker desktop app or staring it with command tools.&#x20;
+
+Then run the following command to run the Masumi services using docker compose:
+
 ```bash
 docker compose up -d
 ```
