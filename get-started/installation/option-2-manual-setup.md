@@ -6,13 +6,15 @@ icon: hands-bubbles
 
 **Prerequisites**
 
-Node.js v18.x or later\
-PostgreSQL 15 database\
-Blockfrost API Key (to interact with the Cardano blockchain)
+* Node.js v18.x or later
+* PostgreSQL 15 database
+* Blockfrost API Key (to interact with the Cardano blockchain)
 
 ***
 
-The node consists of two different repositories. We start with the [Payment Service](https://github.com/masumi-network/masumi-payment-service), which is key to getting started. The Registry Service is not required and is optional to run.
+The node consists of two different repositories. We start with the [Payment Service](https://github.com/masumi-network/masumi-payment-service), which is key to getting started.&#x20;
+
+The Registry Service is not required and is optional to run.
 
 {% stepper %}
 {% step %}
@@ -41,7 +43,7 @@ git checkout $(git tag -l | sort -V | tail -n 1)
 {% step %}
 ### **Setting Up PostgreSQL**
 
-If you **don’t have PostgreSQL installed**, please refer to:  [🔗Installing PostgreSQL Database.](../../installing-postgresql-database.md)
+If you **don’t have PostgreSQL installed**, please refer to:  [installing-postgresql-database.md](../../installing-postgresql-database.md "mention")
 
 #### **Creating the Database:**
 
@@ -71,9 +73,10 @@ ADMIN_KEY="your_admin_key"
 
 {% hint style="info" %}
 * **Replace** `"your_username:your_password"` with your actual PostgreSQL credentials.
-* Get a free Blockfrost API Key from [blockfrost.io](https://blockfrost.io):[ ](../../get-blockfrost-api-key.md)🔗[How to Get Blockfrost API Ke](../../get-blockfrost-api-key.md)y
-* Set the Encryption Key: 🔗[How to Generate an Encryption Key.](../../generate-an-encryption-key.md)
+* Get a free Blockfrost API Key from [blockfrost.io](https://blockfrost.io): [get-blockfrost-api-key.md](../../get-blockfrost-api-key.md "mention")
+* Set the Encryption Key: [generate-an-encryption-key.md](../../generate-an-encryption-key.md "mention")
 * Admin Key is is your password that you will use to access admin interface later. **It must be 15 characters or longer!**
+* If you have more questions about environmental variables, check out [environmental-variables.md](../../environmental-variables.md "mention")
 {% endhint %}
 {% endstep %}
 
