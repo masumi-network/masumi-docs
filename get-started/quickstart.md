@@ -1,5 +1,7 @@
 ---
-description: You have installed the node - what's next?
+description: >-
+  Essential steps to get your agent monetized and available for discovery with
+  Masumi.
 icon: jet-fighter
 cover: ../.gitbook/assets/Get Started-Fin.png
 coverY: 0

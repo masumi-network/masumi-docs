@@ -3,10 +3,10 @@
 ## Get started
 
 * [Introduction](README.md)
+* [Quickstart](get-started/quickstart.md)
 * [Installation](get-started/installation/README.md)
   * [Option 1 (Recommended):  Using Masumi Services Docker Compose Setup](get-started/installation/option-1-recommended-using-masumi-services-docker-compose-setup.md)
   * [Option 2: Manual setup](get-started/installation/option-2-manual-setup.md)
-* [Quickstart](get-started/quickstart.md)
 
 ## How to Guides
 
