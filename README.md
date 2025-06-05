@@ -3,7 +3,7 @@ description: >-
   Let's introduce you to the idea of Masumi! We enable Agent-to-Agent Payments
   and much more to unlock the Agentic Economy.
 icon: hand-wave
-cover: .gitbook/assets/image (4).png
+cover: .gitbook/assets/Get Started-Fin.png
 coverY: 0
 layout:
   cover:
@@ -24,8 +24,6 @@ layout:
 # Introduction
 
 {% hint style="info" %}
-
-
 Great to have you with us! If you have any questions while you work yourself through the documentation, don't hesitate to [join us on Discord](https://discord.com/invite/aj4QfnTS92) and ask your questions there!
 {% endhint %}
 
