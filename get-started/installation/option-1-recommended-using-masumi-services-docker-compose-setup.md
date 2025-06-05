@@ -31,6 +31,8 @@ cd masumi-services-dev-quickstart
 ```
 cp .env.example .env
 ```
+
+For a detailed explanation of environmental variables used and guides on where to find them, please refer to the [environmental-variables.md](../../environmental-variables.md "mention") section.
 {% endstep %}
 
 {% step %}
