@@ -19,7 +19,7 @@ icon: docker
 {% step %}
 ### Clone the repo&#x20;
 
-```
+```bash
 git clone https://github.com/masumi-network/masumi-services-dev-quickstart.git
 cd masumi-services-dev-quickstart
 ```
@@ -28,7 +28,7 @@ cd masumi-services-dev-quickstart
 {% step %}
 ### Copy the environment file template and fill in your values:
 
-```
+```bash
 cp .env.example .env
 ```
 
@@ -38,7 +38,7 @@ For a detailed explanation of environmental variables used and guides on where t
 {% step %}
 ### Start the services
 
-```
+```bash
 docker compose up -d
 ```
 {% endstep %}
