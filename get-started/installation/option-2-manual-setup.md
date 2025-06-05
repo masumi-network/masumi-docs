@@ -150,3 +150,10 @@ If everything is set up correctly, you should receive:
 {% endstep %}
 {% endstepper %}
 
+### What's next?&#x20;
+
+As a next step, you can register your Agent in Masumi Payment Service:
+
+{% content-ref url="../../how-to-guides/register-your-agent-on-masumi-payment-service.md" %}
+[register-your-agent-on-masumi-payment-service.md](../../how-to-guides/register-your-agent-on-masumi-payment-service.md)
+{% endcontent-ref %}
