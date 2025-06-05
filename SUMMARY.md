@@ -33,6 +33,7 @@
 
 ## Technical Documentation
 
+* [Basic Agentic Service Template](technical-documentation/basic-agentic-service-template.md)
 * [Payment Service API](technical-documentation/payment-service-api/README.md)
   * [Health](technical-documentation/payment-service-api/health.md)
   * [API Keys](technical-documentation/payment-service-api/api-keys.md)
