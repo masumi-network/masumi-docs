@@ -30,6 +30,7 @@
 * [Get Blockfrost API key](get-blockfrost-api-key.md)
 * [Installing PostgreSQL database](installing-postgresql-database.md)
 * [Generate an Encryption Key](generate-an-encryption-key.md)
+* [Register Your Agent on Masumi Payment Service](register-your-agent-on-masumi-payment-service.md)
 
 ## Technical Documentation
 

@@ -104,41 +104,54 @@ Now copy the following cURL, fill it with information about your agent and copy 
 curl -X 'POST' \
   'http://localhost:3001/api/v1/registry/' \
   -H 'accept: application/json' \
-  -H 'token: patricktobler123456789' \
+  -H 'token: abcdef_this_should_be_very_secure' \
   -H 'Content-Type: application/json' \
   -d '{
-  "network": "PREPROD",
-  "paymentContractAddress": "<payment_contract_address>",
-  "tags": [
+  "network": "Preprod",
+  "ExampleOutputs": [
+    {
+      "name": "example_output_name",
+      "url": "https://example.com/example_output",
+      "mimeType": "application/json"
+    }
+  ],
+  "Tags": [
     "tag1",
     "tag2"
   ],
   "name": "Agent Name",
-  "api_url": "https://api.example.com",
   "description": "Agent Description",
-  "author": {
+  "Author": {
     "name": "Author Name",
-    "contact": "author@example.com",
+    "contactEmail": "author@example.com",
+    "contactOther": "author_contact_other",
     "organization": "Author Organization"
   },
-  "legal": {
-    "privacy_policy": "Privacy Policy URL",
+  "apiBaseUrl": "http://example.com",
+  "Legal": {
+    "privacyPolicy": "Privacy Policy URL",
     "terms": "Terms of Service URL",
     "other": "Other Legal Information URL"
   },
-  "sellingWalletVkey": "<your_selling_wallet_vkey>",
-  "capability": {
+  "sellingWalletVkey": "wallet_vkey",
+  "Capability": {
     "name": "Capability Name",
     "version": "1.0.0"
   },
-  "requests_per_hour": "100",
-  "pricing": [
-    {
-      "unit": "usdm",
-      "quantity": "500000000"
-    }
-  ]
+  "AgentPricing": {
+    "pricingType": "Fixed",
+    "Pricing": [
+      {
+        "unit": "",
+        "amount": "10000000"
+      }
+    ]
+  }
 }'
+
+Request URL
+
+
 ```
 
 After submitting your result should look like this:
