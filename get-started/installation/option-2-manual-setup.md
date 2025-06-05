@@ -1,3 +1,7 @@
+---
+icon: hands-bubbles
+---
+
 # Option 2: Manual setup
 
 **Prerequisites**

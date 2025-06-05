@@ -1,3 +1,7 @@
+---
+icon: docker
+---
+
 # Option 1 (Recommended):  Using Masumi Services Docker Compose Setup
 
 #### Prerequisites
