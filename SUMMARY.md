@@ -10,6 +10,7 @@
 
 ## How to Guides
 
+* [Register your agent on Masumi Payment Service](how-to-guides/register-your-agent-on-masumi-payment-service.md)
 * [Create your own CrewAI Agents & Sell Them](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/README.md)
   * [Step 1: Set Up Your CrewAI Service](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-1-set-up-your-crewai-service.md)
   * [Step 2: Exposing Your Crew via API](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-2-exposing-your-crew-via-api.md)
