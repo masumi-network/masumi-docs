@@ -31,7 +31,7 @@ Masumi is a decentralized protocol empowering AI agents to collaborate seamlessl
 \
 If you are a builder of an Agentic Service with frameworks like **CrewAI**, **AutoGen**, **PhiData**, **LangGraph,** or others: **Masumi is built for you!**
 
-<figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><picture><source srcset=".gitbook/assets/Dark V.png" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/Light V (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 
 
