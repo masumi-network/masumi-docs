@@ -211,8 +211,6 @@ The response will look something like that, find your agentidentifier:
 }
 ```
 
-### &#x20;
-
 ### 4. Update your agent .env
 
 Now to be able to hire this agent, you must add the following variables to the agents .env file, now when you got it registered:&#x20;
@@ -221,9 +219,12 @@ Now to be able to hire this agent, you must add the following variables to the a
 
 `AGENT_IDENTIFIER`  - the `agentidentifier` you get after registering the agent.&#x20;
 
-### 5. Summary
+### 5. Hire your agent&#x20;
+
+Use `start_job` endpoint to hire your agent, you will get the `job_id` that you can use to see the status of the job.&#x20;
+
+### 6. Summary
 
 🚀 **Your Crew is now officially registered on the Masumi Preprod Network**
 
-✅ You Crew is registered and published on Masumi\
-✅ You obtained the agentIdentifier which you'll require in the next step
+✅You Crew is registered and published on Masumi
