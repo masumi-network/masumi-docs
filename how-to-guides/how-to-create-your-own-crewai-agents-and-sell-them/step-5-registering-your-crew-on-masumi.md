@@ -2,90 +2,46 @@
 
 Before receiving money for our Crews services, we need to register it on the Masumi Preprod Network officially.
 
-### 1. Get Information via GET /paymentsource/
+### 1. Get Information via GET /payment-source/
 
-```json
+```bash
 curl -X 'GET' \
   'http://localhost:3001/api/v1/payment-source/?take=10' \
   -H 'accept: application/json' \
-  -H 'token: <your_admin_key_here>'
+  -H 'token: your_admin_key'
 ```
 
 The result should look something like this:
 
-```json
-{
-  "status": "success",
+<pre class="language-json"><code class="lang-json"><strong>{
+</strong>  "status": "success",
   "data": {
-    "paymentSources": [
+    "PaymentSources": [
       {
-        "id": "cuid_v2_auto_generated",
-        "createdAt": "2025-02-14T13:35:58.847Z",
-        "updatedAt": "2025-02-14T13:35:58.847Z",
-        "network": "MAINNET",
-        "paymentType": "WEB3_CARDANO_V1",
-        "isSyncing": true,
-        "paymentContractAddress": "address_of_the_smart_contract",
+       ...,
         "AdminWallets": [
-          {
-            "walletAddress": "wallet_address",
-            "order": 0
-          },
-          {
-            "walletAddress": "wallet_address",
-            "order": 1
-          },
-          {
-            "walletAddress": "wallet_address",
-            "order": 2
-          }
+          ...
         ],
-        "feePermille": 50,
-        "FeeReceiverNetworkWallet": {
-          "walletAddress": "wallet_address"
-        },
-        "lastCheckedAt": "2025-02-14T13:35:58.847Z",
-        "lastIdentifierChecked": "identifier",
-        "NetworkHandlerConfig": {
-          "rpcProviderApiKey": "rpc_provider_api_key_blockfrost"
-        },
         "PurchasingWallets": [
-          {
-            "collectionAddress": null,
-            "note": "note",
-            "walletVkey": "wallet_vkey",
-            "walletAddress": "wallet_address",
-            "id": "unique_cuid_v2_auto_generated"
-          },
-          {
-            "collectionAddress": "send_refunds_to_this_address",
-            "note": "note",
-            "walletVkey": "wallet_vkey",
-            "walletAddress": "wallet_address",
-            "id": "unique_cuid_v2_auto_generated"
-          }
+          ...
         ],
         "SellingWallets": [
           {
-            "collectionAddress": "null_will_use_selling_wallet_as_revenue_address",
-            "note": "note",
-            "walletVkey": "wallet_vkey",
-            "walletAddress": "wallet_address",
-            "id": "unique_cuid_v2_auto_generated"
-          },
-          {
-            "collectionAddress": "send_revenue_to_this_address",
-            "note": "note",
-            "walletVkey": "wallet_vkey",
-            "walletAddress": "wallet_address",
-            "id": "unique_cuid_v2_auto_generated"
+            "id": "cmbun3jhm000as6bc2880ywvx",
+            "walletVkey": "beda8c520b08bf63fa9ba3c4bb8823893bcf7c2b333aa65a413a3941",
+            "walletAddress": "addr_test1qzld4rzjpvyt7cl6nw3ufwugywynhnmu9ven4fj6gyarjst98y30fycg46mjerp4plnks7qjytwg2wfs9l0l76se2kjqcqmxau",
+            "collectionAddress": "addr_test1qzld4rzjpvyt7cl6nw3ufwugywynhnmu9ven4fj6gyarjst98y30fycg46mjerp4plnks7qjytwg2wfs9l0l76se2kjqcqmxau",
+            "note": "Created by seeding"
           }
-        ]
+        ],
+        "FeeReceiverNetworkWallet": {
+         ...
+        "feeRatePermille": 50
       }
     ]
   }
 }
-```
+</code></pre>
 
 The important part here is to identify the payment source that has the parameter "network": "PREPROD", so we get the information for registering on PREPROD. If you're planning to register for real, look for "MAINNET" instead.
 
@@ -93,27 +49,23 @@ The important part here is to identify the payment source that has the parameter
 
 The parameters you should copy & paste for the next step are:
 
-* paymentContractAddress
 * walletVKey of Selling Wallet
+* paymentContractAddress (optional)
 
 ### 2. Register agent using POST /registry/
 
-Now copy the following cURL, fill it with information about your agent and copy & paste the paymentContractAddress & walletVkey of the Selling Wallet into it.
+Now use the POST /registry/, fill it with information about your agent and walletVkey and/or paymentContractAddress of the Selling Wallet into it.
 
-```
+```bash
 curl -X 'POST' \
   'http://localhost:3001/api/v1/registry/' \
   -H 'accept: application/json' \
-  -H 'token: abcdef_this_should_be_very_secure' \
+  -H 'token: this_should_be_very_secure_and_at_least_15_chars' \
   -H 'Content-Type: application/json' \
   -d '{
   "network": "Preprod",
   "ExampleOutputs": [
-    {
-      "name": "example_output_name",
-      "url": "https://example.com/example_output",
-      "mimeType": "application/json"
-    }
+    ...
   ],
   "Tags": [
     "tag1",
@@ -122,36 +74,20 @@ curl -X 'POST' \
   "name": "Agent Name",
   "description": "Agent Description",
   "Author": {
-    "name": "Author Name",
-    "contactEmail": "author@example.com",
-    "contactOther": "author_contact_other",
-    "organization": "Author Organization"
+    ...
   },
-  "apiBaseUrl": "http://example.com",
+  "apiBaseUrl": "https://127.0.0.1:8000",
   "Legal": {
-    "privacyPolicy": "Privacy Policy URL",
-    "terms": "Terms of Service URL",
-    "other": "Other Legal Information URL"
+    ...
   },
-  "sellingWalletVkey": "wallet_vkey",
+  "sellingWalletVkey": "beda8c520b08bf63fa9ba3c4bb8823893bcf7c2b333aa65a413a3941",
   "Capability": {
-    "name": "Capability Name",
-    "version": "1.0.0"
+    ...
   },
   "AgentPricing": {
-    "pricingType": "Fixed",
-    "Pricing": [
-      {
-        "unit": "",
-        "amount": "10000000"
-      }
-    ]
+    ...
   }
 }'
-
-Request URL
-
-
 ```
 
 After submitting your result should look like this:
@@ -160,19 +96,132 @@ After submitting your result should look like this:
 {
   "status": "success",
   "data": {
-    "txHash": "baf715a2bcd786279a20de929796c00d9d0a68513042a94834e5db2b78471e12",
-    "policyId": "dcdf2c533510e865e3d7e0f0e5537c7a176dd4dc1df69e83a703976b",
-    "assetName": "16a51f4536884829c1156cdb1110c1a70c0f97ff06036083f7e23a1346418517",
-    "agentIdentifier": "dcdf2c533510e865e3d7e0f0e5537c7a176dd4dc1df69e83a703976b16a51f4536884829c1156cdb1110c1a70c0f97ff06036083f7e23a1346418517"
+    "id": "cmbuouvg70005s6d1rj07b2t9",
+    "name": "Agent Name",
+    "apiBaseUrl": "https://127.0.0.1:8000",
+    "Capability": {
+      "name": "Capability Name",
+      "version": "1.0.0"
+    },
+    "Legal": {
+      ...
+    },
+    "Author": {
+      ...
+    },
+    "description": "Agent Description",
+    "Tags": [
+      "tag1",
+      "tag2"
+    ],
+    "state": "RegistrationRequested",
+    "SmartContractWallet": {
+      "walletVkey": "beda8c520b08bf63fa9ba3c4bb8823893bcf7c2b333aa65a413a3941",
+      "walletAddress": "addr_test1qzld4rzjpvyt7cl6nw3ufwugywynhnmu9ven4fj6gyarjst98y30fycg46mjerp4plnks7qjytwg2wfs9l0l76se2kjqcqmxau"
+    },
+    "ExampleOutputs": [
+      {
+        ...
+      }
+    ],
+    "AgentPricing": {
+      "pricingType": "Fixed",
+      "Pricing": [
+        {
+          "unit": "",
+          "amount": "10000000"
+        }
+      ]
+    }
   }
 }
 ```
 
-The important thing here is to note the
+### 3. Get the agentidentifier using GET /registry/ or /registry/wallet/
 
-* agentIdentifier
+{% hint style="info" %}
+The `/registry` will show you the agents that you have in your database (including failed registrations), while  the `/registry/wallet` endpoint will perform an onchain lookup and will show you the agents you have registered for your wallet.&#x20;
+{% endhint %}
 
-### 3. Summary
+Send a request to / registry which will return you the agentidentifier necessary for using the agent later.
+
+```bash
+curl -X 'GET' \
+  'http://localhost:3001/api/v1/registry/?network=Preprod' \
+  -H 'accept: application/json' \
+  -H 'token: this_should_be_very_secure_and_at_least_15_chars'
+```
+
+The response will look something like that, find your agentidentifier:
+
+```json
+{
+  "status": "success",
+  "data": {
+    "Assets": [
+      {
+        "id": "cmbusysrj000fs6d1kacaeyvl",
+        "name": "Agent Name",
+        "description": "Agent Description",
+        "apiBaseUrl": "https://127.0.0.1:8000",
+        "Capability": {
+          "name": "Capability Name",
+          "version": "1.0.0"
+        },
+        "Author": {
+          ...
+        },
+        "Legal": {
+          ...
+        },
+        "state": "RegistrationConfirmed",
+        "Tags": [
+          "tag1",
+          "tag2"
+        ],
+        "createdAt": "2025-06-13T12:47:33.919Z",
+        "updatedAt": "2025-06-13T12:49:46.696Z",
+        "lastCheckedAt": null,
+        "ExampleOutputs": [
+          {
+            ...
+          }
+        ],
+        "agentIdentifier": "0c2912d4088fbc6a0c725dbe5233735821109bd741acfa9f1390230228d973f6e9c5b30a7945f185e2f6089f09c74f3257de821a56c1275a4058864a",
+        "AgentPricing": {
+          "pricingType": "Fixed",
+          "Pricing": [
+            {
+              "amount": "10000000",
+              "unit": ""
+            }
+          ]
+        },
+        "SmartContractWallet": {
+          "walletVkey": "beda8c520b08bf63fa9ba3c4bb8823893bcf7c2b333aa65a413a3941",
+          "walletAddress": "addr_test1qzld4rzjpvyt7cl6nw3ufwugywynhnmu9ven4fj6gyarjst98y30fycg46mjerp4plnks7qjytwg2wfs9l0l76se2kjqcqmxau"
+        },
+        "CurrentTransaction": {
+          "txHash": "08192e19200c8d788fcbc03c1340c106d779bc4174671306d9aaf9950e74f3a3",
+          "status": "Confirmed"
+        }
+  
+    ]
+  }
+}
+```
+
+### &#x20;
+
+### 4. Update your agent .env
+
+Now to be able to hire this agent, you must add the following variables to the agents .env file, now when you got it registered:&#x20;
+
+`PAYMENT_API_KEY` - an API key you can create by using POST /api-key/ at your payment service.&#x20;
+
+`AGENT_IDENTIFIER`  - the `agentidentifier` you get after registering the agent.&#x20;
+
+### 5. Summary
 
 🚀 **Your Crew is now officially registered on the Masumi Preprod Network**
 
