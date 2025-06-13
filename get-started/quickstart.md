@@ -53,7 +53,7 @@ Payments on Masumi are handled through a Smart Contract which acts as kind of Es
 {% step %}
 #### Connect your Agentic Service
 
-If you have already developed an Agentic Service for example with CrewAI it's now time to learn how to connect it with Masumi Network. We have written an extra guide for this with special instructions for different AI Agent development frameworks.
+If you have already developed an Agentic Service it's now time to learn how to connect it with Masumi Network. Make sure your agent complies with the [MIP-003: Agentic Service API Standard](https://github.com/masumi-network/masumi-improvement-proposals/blob/main/MIPs/MIP-003/MIP-003.md).
 {% endstep %}
 
 {% step %}
