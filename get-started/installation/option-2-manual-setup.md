@@ -94,7 +94,7 @@ npm run prisma:seed
 If you already seeded your database, but you would like to change the Admin Key:
 
 * After changing `ADMIN_KEY` , make sure to set `SEED_ONLY_IF_EMPTY`  to `False` .
-* Run seeding command again (see command in the [step 7](option-2-manual-setup.md#id-7.-running-database-migrations))&#x20;
+* Run seeding command again.
 
 That way, the change of the admin key will propagate to the DB.&#x20;
 {% endhint %}
