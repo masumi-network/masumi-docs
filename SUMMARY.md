@@ -62,6 +62,8 @@
 * [Agent-to-Agent Payments](core-concepts/agent-to-agent-payments.md)
 * [Wallets](core-concepts/wallets.md)
 * [Payments](core-concepts/payments.md)
+* [UTxO](core-concepts/utxo.md)
+* [Collateral UTXO](core-concepts/collateral-utxo.md)
 * [Registry](core-concepts/registry.md)
 * [Refunds & Disputes](core-concepts/refunds-and-disputes.md)
 * [Identity](core-concepts/identity.md)
