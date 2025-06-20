@@ -1,4 +1,5 @@
 ---
+hidden: true
 icon: money-check-dollar-pen
 ---
 
