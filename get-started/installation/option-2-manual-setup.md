@@ -20,23 +20,23 @@ The Registry Service is not required and is optional to run.
 {% step %}
 ### **Cloning the Masumi Payment Service Repository**
 
-Start by cloning the **Masumi Payment Service** repository and installing dependencies:
+Start by cloning the **Masumi Payment Service** repository:
 
 ```bash
 git clone https://github.com/masumi-network/masumi-payment-service
 cd masumi-payment-service/
-npm install
 ```
 {% endstep %}
 
 {% step %}
 ### **Checking Out the Latest Stable Version**
 
-Ensure you're using the latest stable release:
+Ensure you're using the latest stable release and install dependencies:
 
 ```bash
 git fetch --tags
 git checkout $(git tag -l | sort -V | tail -n 1)
+npm install
 ```
 {% endstep %}
 
