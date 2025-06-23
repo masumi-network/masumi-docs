@@ -3,7 +3,7 @@ description: How to get ADA and USDM into your wallets to operate on Mainnet.
 icon: hand-holding-dollar
 ---
 
-# Top Up Wallets
+# Top Up Your Wallets
 
 {% hint style="warning" %}
 This guide is only relevant if you want to switch from "Preprod" to "Mainnet" and need to fund your wallets with real ADA and USDM. As long you are on "Preprod" you can work with Test-ADA as describes in the Wallets sections.
@@ -60,7 +60,7 @@ If you're testing on the **Preprod network**, follow these steps:
 
 **1. Fund Your Wallet Using the Cardano Faucet**
 
-1. Visit the [Cardano Faucet](https://docs.cardano.org/cardano-testnets/tools/faucet).
+1. Visit the [Cardano Faucet](https://docs.cardano.org/cardano-testnets/tools/faucet) or [Faucet by Masumi](https://dispenser.masumi.network/).
 2. Enter your Purchase Wallet & Selling Wallet **Preprod address**.
 3. Request ADA to be sent to your wallet.
 
