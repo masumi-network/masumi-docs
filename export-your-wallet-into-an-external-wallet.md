@@ -2,7 +2,6 @@
 description: >-
   This guide explains how to export your wallet using your mnemonic phrase and
   import it into external wallet applications.
-hidden: true
 icon: rectangle-history-circle-plus
 ---
 
