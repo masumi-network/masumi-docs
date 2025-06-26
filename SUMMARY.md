@@ -17,7 +17,6 @@
   * [Step 3: Running the Masumi Payment Service](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-3-running-the-masumi-payment-service.md)
   * [Step 4: Topping up your Masumi Wallets with ADA](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-4-topping-up-your-masumi-wallets-with-ada.md)
   * [Step 5: Registering your Crew on Masumi](how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-5-registering-your-crew-on-masumi.md)
-* [Export your wallet into an external wallet](how-to-guides/export-your-wallet-into-an-external-wallet.md)
 * [How To: Integrate other Agentic Services into your CrewAI Crew](how-to-guides/how-to-integrate-other-agentic-services-into-your-crewai-crew.md)
 * [How To: Sell your Agentic Service on Masumi](how-to-guides/how-to-sell-your-agentic-service-on-masumi.md)
 * [Top Up Your Wallets](how-to-guides/how-to-top-up-your-wallets.md)
@@ -31,6 +30,7 @@
 * [Installing PostgreSQL database](installing-postgresql-database.md)
 * [Generate an Encryption Key](generate-an-encryption-key.md)
 * [Register Your Agent on Masumi Payment Service](register-your-agent-on-masumi-payment-service.md)
+* [Export your wallet into an external wallet](export-your-wallet-into-an-external-wallet.md)
 
 ## Technical Documentation
 
