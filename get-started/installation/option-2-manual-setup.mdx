@@ -1,0 +1,144 @@
+---
+icon: hands-bubbles
+title: "Option 2: Manual Setup"
+description: "Manually set up Masumi services without Docker"
+---
+
+# Option 2: Manual setup
+
+**Prerequisites**
+
+* Node.js v18.x or later
+* PostgreSQL 15 database
+* Blockfrost API Key (to interact with the Cardano blockchain)
+
+***
+
+The node consists of two different repositories. We start with the [Payment Service](https://github.com/masumi-network/masumi-payment-service), which is key to getting started. 
+
+The Registry Service is not required and is optional to run.
+
+<Steps>
+  <Step title="Cloning the Masumi Payment Service Repository">
+    Start by cloning the **Masumi Payment Service** repository:
+
+    ```bash
+    git clone https://github.com/masumi-network/masumi-payment-service
+    cd masumi-payment-service/
+    ```
+  </Step>
+
+  <Step title="Checking Out the Latest Stable Version">
+    Ensure you're using the latest stable release and install dependencies:
+
+    ```bash
+    git fetch --tags
+    git checkout $(git tag -l | sort -V | tail -n 1)
+    npm install
+    ```
+  </Step>
+
+  <Step title="Setting Up PostgreSQL">
+    If you **don't have PostgreSQL installed**, please refer to: [Installing PostgreSQL Database](../../installing-postgresql-database.mdx)
+
+    #### **Creating the Database:**
+
+    ```bash
+    psql postgres
+    create database masumi_payment;
+    \q
+    ```
+  </Step>
+
+  <Step title="Configuring Environment Variables">
+    Copy the `.env.example` file and configure it with your own settings:
+
+    ```bash
+    cp .env.example .env
+    ```
+
+    Now, open `.env` and update the following variables:
+
+    ```ini
+    DATABASE_URL="postgresql://your_username:your_password@localhost:5432/masumi_payment"
+    ENCRYPTION_KEY="your_secure_key"
+    ADMIN_KEY="your_admin_key"
+    BLOCKFROST_API_KEY_PREPROD="your_blockfrost_api_key"
+    ```
+
+    <Info>
+    * **Replace** `"your_username:your_password"` with your actual PostgreSQL credentials.
+    * Get a free Blockfrost API Key from [blockfrost.io](https://blockfrost.io): [Get Blockfrost API Key](../../get-blockfrost-api-key.mdx)
+    * Set the Encryption Key: [Generate an Encryption Key](../../generate-an-encryption-key.mdx)
+    * Admin Key is your password that you will use to access admin interface later. **It must be 15 characters or longer!**
+    * If you have more questions about environmental variables, check out [Environmental Variables](../../technical-documentation/environmental-variables.mdx)
+    </Info>
+  </Step>
+
+  <Step title="Running Database Migrations">
+    Run the following commands to configure the database schema:
+
+    ```bash
+    npm run prisma:migrate
+    npm run prisma:seed
+    ```
+
+    <Warning>
+    If you already seeded your database, but you would like to change the Admin Key:
+
+    * After changing `ADMIN_KEY`, make sure to set `SEED_ONLY_IF_EMPTY` to `False`.
+    * Run seeding command again.
+
+    That way, the change of the admin key will propagate to the DB.
+    </Warning>
+  </Step>
+
+  <Step title="Install and Build the Admin Interface (Frontend)">
+    To build the Admin Interface, navigate to /frontend, install the requirements and then navigate back
+
+    ```bash
+    cd frontend
+    npm install
+    npm run build
+    cd ..
+    ```
+  </Step>
+
+  <Step title="Start the Masumi Node">
+    ```bash
+    npm run build && npm start
+    ```
+  </Step>
+
+  <Step title="Access the Admin Interface and the Swagger API">
+    ✅ You can now access the following:
+
+    * **Admin Dashboard** → `http://localhost:3001/admin`
+    * **API Documentation** → `http://localhost:3001/docs`
+
+    Test the API:
+
+    ```bash
+    curl -X 'GET' \
+      'http://localhost:3001/api/v1/health/' \
+      -H 'accept: application/json'
+    ```
+
+    If everything is set up correctly, you should receive:
+
+    ```json
+    {
+      "status": "success",
+      "data": {
+        "status": "ok"
+      }
+    }
+    ```
+  </Step>
+</Steps>
+
+### What's next? 
+
+As a next step, you can register your Agent in Masumi Payment Service:
+
+See: [Register Your Agent on Masumi Payment Service](../../how-to-guides/register-your-agent-on-masumi-payment-service.mdx)

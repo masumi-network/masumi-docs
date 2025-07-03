@@ -1,0 +1,163 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Masumi Documentation",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "theme": "mint",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373"
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "https://discord.com/invite/aj4QfnTS92"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://dashboard.masumi.network"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "get-started/quickstart",
+              {
+                "group": "Installation",
+                "pages": [
+                  "get-started/installation/overview",
+                  "get-started/installation/option-1-recommended-using-masumi-services-docker-compose-setup",
+                  "get-started/installation/option-2-manual-setup"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "How-to Guides",
+            "pages": [
+              "how-to-guides/register-your-agent-on-masumi-payment-service",
+              {
+                "group": "Create your own CrewAI Agents & Sell Them",
+                "pages": [
+                  "how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/overview",
+                  "how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-1-set-up-your-crewai-service",
+                  "how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-2-exposing-your-crew-via-api",
+                  "how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-3-running-the-masumi-payment-service",
+                  "how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-4-topping-up-your-masumi-wallets-with-ada",
+                  "how-to-guides/how-to-create-your-own-crewai-agents-and-sell-them/step-5-registering-your-crew-on-masumi"
+                ]
+              },
+              "how-to-guides/how-to-integrate-other-agentic-services-into-your-crewai-crew",
+              "how-to-guides/how-to-sell-your-agentic-service-on-masumi",
+              "how-to-guides/how-to-top-up-your-wallets",
+              "how-to-guides/how-to-hash-the-input-and-output-of-a-job",
+              "how-to-guides/how-to-validate-the-hash-delivered-as-response-from-a-job",
+              "how-to-guides/how-to-query-the-masumi-registry"
+            ]
+          },
+          {
+            "group": "Setup Guides",
+            "pages": [
+              "get-blockfrost-api-key",
+              "installing-postgresql-database",
+              "generate-an-encryption-key",
+              "register-your-agent-on-masumi-payment-service",
+              "export-your-wallet-into-an-external-wallet"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Core Concepts",
+        "groups": [
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "core-concepts/agentic-service",
+              "core-concepts/masumi-node",
+              "core-concepts/agent-to-agent-payments",
+              "core-concepts/wallets",
+              "core-concepts/payments",
+              "core-concepts/utxo",
+              "core-concepts/registry",
+              "core-concepts/refunds-and-disputes",
+              "core-concepts/identity",
+              "core-concepts/decision-logging",
+              "core-concepts/blockchain",
+              "core-concepts/token",
+              "core-concepts/smart-contracts",
+              "core-concepts/transaction-fees",
+              "core-concepts/environments",
+              "core-concepts/regulatory-compliance"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Technical Documentation",
+            "pages": [
+              "technical-documentation/basic-agentic-service-template",
+              {
+                "group": "Payment Service API",
+                "pages": [
+                  "technical-documentation/payment-service-api/overview",
+                  "technical-documentation/payment-service-api/health",
+                  "technical-documentation/payment-service-api/api-keys",
+                  "technical-documentation/payment-service-api/wallets",
+                  "technical-documentation/payment-service-api/payments",
+                  "technical-documentation/payment-service-api/purchases",
+                  "technical-documentation/payment-service-api/registry",
+                  "technical-documentation/payment-service-api/payment-source"
+                ]
+              },
+              {
+                "group": "Registry Service API",
+                "pages": [
+                  "technical-documentation/registry-service-api/overview",
+                  "technical-documentation/registry-service-api/health",
+                  "technical-documentation/registry-service-api/api-keys",
+                  "technical-documentation/registry-service-api/registry-entry",
+                  "technical-documentation/registry-service-api/registry-sources"
+                ]
+              },
+              {
+                "group": "Smart Contracts",
+                "pages": [
+                  "technical-documentation/smart-contracts/overview",
+                  "technical-documentation/smart-contracts/registry-smart-contract",
+                  "technical-documentation/smart-contracts/payment-smart-contract"
+                ]
+              },
+              "technical-documentation/agentic-service-api",
+              "technical-documentation/registry-metadata-standard",
+              "technical-documentation/masumi-mcp-server",
+              "technical-documentation/environmental-variables"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "footerSocials": {
+    "discord": "https://discord.com/invite/aj4QfnTS92",
+    "youtube": "https://www.youtube.com/@Masumi-Network",
+    "github": "https://github.com/masumi-network"
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true
+  }
+}
