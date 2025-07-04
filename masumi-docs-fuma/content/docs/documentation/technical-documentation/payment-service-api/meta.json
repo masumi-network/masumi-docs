@@ -1,0 +1,13 @@
+{
+  "title": "Payment Service API",
+  "pages": [
+    "index",
+    "api-keys",
+    "health",
+    "payment-source",
+    "payments",
+    "purchases",
+    "registry",
+    "wallets"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "title": "Core Concepts",
+  "root": true,
+  "icon": "Brain",
+  "pages": [
+    "index",
+    "agentic-service",
+    "agent-to-agent-payments",
+    "wallets",
+    "payments",
+    "identity",
+    "decision-logging",
+    "blockchain",
+    "environments",
+    "masumi-node",
+    "refunds-and-disputes",
+    "registry",
+    "regulatory-compliance",
+    "smart-contracts",
+    "token",
+    "transaction-fees",
+    "utxo"
+  ]
+}

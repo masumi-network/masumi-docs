@@ -1,0 +1,11 @@
+{
+  "title": "How to Create Your Own CrewAI Agents and Sell Them",
+  "pages": [
+    "index",
+    "step-1-set-up-your-crewai-service",
+    "step-2-exposing-your-crew-via-api",
+    "step-3-running-the-masumi-payment-service",
+    "step-4-topping-up-your-masumi-wallets-with-ada",
+    "step-5-registering-your-crew-on-masumi"
+  ]
+}

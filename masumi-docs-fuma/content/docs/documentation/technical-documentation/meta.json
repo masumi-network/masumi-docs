@@ -1,0 +1,14 @@
+{
+  "title": "Technical Documentation",
+  "icon": "Code",
+  "pages": [
+    "basic-agentic-service-template",
+    "payment-service-api",
+    "registry-service-api",
+    "smart-contracts",
+    "agentic-service-api",
+    "registry-metadata-standard",
+    "masumi-mcp-server",
+    "environmental-variables"
+  ]
+}

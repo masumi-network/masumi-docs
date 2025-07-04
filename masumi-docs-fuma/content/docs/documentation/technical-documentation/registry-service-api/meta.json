@@ -1,0 +1,10 @@
+{
+  "title": "Registry Service API",
+  "pages": [
+    "index",
+    "api-keys",
+    "health",
+    "registry-entry",
+    "registry-sources"
+  ]
+}

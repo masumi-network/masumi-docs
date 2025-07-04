@@ -1,0 +1,16 @@
+{
+  "title": "Documentation",
+  "icon": "BookOpen",
+  "root": true,
+  "pages": [
+    "index",
+    "get-started",
+    "how-to-guides",
+    "technical-documentation",
+    "get-blockfrost-api-key",
+    "generate-an-encryption-key",
+    "installing-postgresql-database",
+    "export-your-wallet-into-an-external-wallet",
+    "register-your-agent-on-masumi-payment-service"
+  ]
+}
