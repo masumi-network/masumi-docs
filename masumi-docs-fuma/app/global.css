@@ -1,21 +1,21 @@
 @import 'tailwindcss';
-@import 'fumadocs-ui/css/neutral.css';
+@import './masumi-theme.css';
 @import 'fumadocs-ui/css/preset.css';
 
-/* Custom colors for sidebar tabs */
+/* Custom colors for sidebar tabs - Masumi Red Theme */
 :root {
-  --docs-color: #3b82f6;
-  --concepts-color: #8b5cf6;
-  --started-color: #10b981;
-  --guides-color: #f59e0b;
-  --tech-color: #ef4444;
+  --docs-color: #dc2626;      /* Strong red */
+  --concepts-color: #be123c;  /* Rose red */
+  --started-color: #e11d48;   /* Pink red */
+  --guides-color: #f43f5e;    /* Light red */
+  --tech-color: #991b1b;      /* Dark red */
 }
 
 /* Dark mode colors */
-html[data-theme="dark"] {
-  --docs-color: #60a5fa;
-  --concepts-color: #a78bfa;
-  --started-color: #34d399;
-  --guides-color: #fbbf24;
-  --tech-color: #f87171;
+.dark {
+  --docs-color: #ef4444;      /* Bright red */
+  --concepts-color: #f43f5e;  /* Rose */
+  --started-color: #fb7185;   /* Light pink red */
+  --guides-color: #fca5a5;    /* Pale red */
+  --tech-color: #dc2626;      /* Medium red */
 }
