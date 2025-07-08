@@ -9,6 +9,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       {...baseOptions}
       nav={{ ...baseOptions.nav, mode: 'top' }}
       tree={source.pageTree}
+        tabMode="navbar"
     >
       {children}
     </DocsLayout>
