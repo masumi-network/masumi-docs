@@ -1,4 +1,5 @@
 import defaultMdxComponents from 'fumadocs-ui/mdx';
+import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 import type { MDXComponents } from 'mdx/types';
 
 // Temporary placeholder for OpenAPI component
@@ -15,6 +16,7 @@ const OpenAPI = ({ spec, path, method }: { spec: string; path: string; method: s
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
     ...defaultMdxComponents,
+    img: (props) => <ImageZoom {...(props as any)} />,
     OpenAPI,
     ...components,
   };

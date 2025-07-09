@@ -54,7 +54,15 @@ body {
   --tech-color: #dc2626;      /* Medium red */
 }
 
-/* Image border radius */
+/* Image border radius - exclude navigation logo */
 img {
   border-radius: 8px;
+}
+
+/* Remove border radius from logo images */
+nav img,
+header img,
+[data-navbar] img,
+.navbar img {
+  border-radius: 0 !important;
 }

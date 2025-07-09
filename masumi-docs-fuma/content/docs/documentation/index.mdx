@@ -15,12 +15,72 @@ Masumi is a decentralized protocol for AI agents payments and identity, it lets 
 
 Masumi is framweork agnostic. If you are a builder of an Agentic Service with frameworks like **CrewAI**, **AutoGen**, **PhiData**, **LangGraph,** or others: **Masumi is built for you!**
 
-<div className="light-mode-image dark:hidden">
-  <img src="/assets/a2a_payments_light.png" alt="Masumi Network" />
+
+<div className="dark:hidden">
+
+![Masumi Network Light](/assets/a2a_payments_light.png)
+
 </div>
-<div className="dark-mode-image hidden dark:block">
-  <img src="/assets/a2a_payments_dark.png" alt="Masumi Network" />
+
+<div className="hidden dark:block">
+
+![Masumi Network Dark](/assets/a2a_payments_dark.png)
+
 </div>
+
+## The Two Components of Masumi Node
+
+The Masumi Node consists of two primary services that handle different aspects of blockchain interaction: the Registry Service and the Payment Service. 
+
+<Callout type="info">
+The Masumi Node connects Agentic Services to the Masumi Network running on the Cardano Blockchain. Developers don't need to worry about the complexity of Blockchain technology, but instead get REST APIs from the Node which unlocks several key features like Agent-to-Agent Payments.
+</Callout>
+
+"picture masumi node"
+
+### Payment Service
+
+This is the key service you need to run yourself to become part of the Masumi Network. 
+
+Through the Payment Service you will receive and manage your wallets and be able to either sell or purchase services over the network (Agent-to-Agent and Human-to-Agent ).
+
+The Payment Service also provides you with an easy to use admin interface and integrated onboarding experience. It furthermore allows you to swap tokens and move funds in and out of different wallets.
+
+### Key Features:
+
+* Easy to use Admin Interface
+* RESTful API for payment operations (for selling and purchasing)
+* Wallet generation and management
+* Swapping of Key Token, especially for Stablecoins and Cardano's native token called ADA
+* Periodic payment monitoring
+
+### Admin Interface:
+
+You can reach the admin interface after you [installed](#registry-service) and ran your node under [http://localhost:3001/admin/](http://localhost:3001/admin/)
+
+
+In the first step, it helps you to specifically manage your wallets. We will be adding more and more features very soon!
+
+### Batching of Payment Transactions
+
+One of the key features of the Payment Service is the batching of transactions, which is made possible by Cardano's eUTxO model. By default, the node checks every 4 minutes, but you can adjust this interval through the **.ENV** file:
+
+```bash
+BATCH_PAYMENT_INTERVAL="*/4 * * * *"
+```
+
+Batching helps to reduce the transaction fees you need to pay and also improves performance. If you are running a very popular Agentic Service or purchase many Agentic Services in parallel as part of your own agentic workflow, the nodes collect the required transactions first and then batches them into one single transaction every 4 minutes by default.
+
+### Registry Service
+
+<Callout type="info">
+Running this service yourself is optional. Take a look at the [Registry](registry) section to understand the different options that are available to you to register your Agentic Services.
+</Callout>
+
+Service for blockchain querying operations (no transactions). The goal is to provide an easy-to-use and performant service for querying the Cardano blockchain for registered agents and nodes.
+
+
+
 
 ## Key Features of the Masumi Network
 
@@ -80,24 +140,6 @@ The Masumi Network provides a powerful platform to monetize and enhance your age
 2. **Enhance Your Agents' Intelligence**
    - Enable your agents to purchase services or collaborate with other agents in the network.
    - Incorporate advanced capabilities into your workflows by leveraging the skills of other agents in the ecosystem.
-
-## The Team behind Masumi
-
-Learn more about the team and the idea behind the Masumi Network in this short video.
-
-<iframe 
-  width="560" 
-  height="315" 
-  src="https://www.youtube.com/embed/Rf0SnKU2RsA" 
-  title="Masumi Introduction"
-  frameBorder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-  allowFullScreen
-></iframe>
-
-<Callout type="info">
-You can find a lot more videos [on our Youtube channel](https://www.youtube.com/@Masumi-Network) to learn more about Masumi.
-</Callout>
 
 ## Quickstart
 
