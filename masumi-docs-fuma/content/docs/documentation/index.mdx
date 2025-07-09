@@ -1,22 +1,26 @@
 ---
 title: Introduction
-description: Let's introduce you to the idea of Masumi! We enable Agent-to-Agent Payments and much more to unlock the Agentic Economy.
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
 import { Cards, Card } from 'fumadocs-ui/components/card';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
 
-# Introduction
 
 <Callout type="info">
-Great to have you with us! If you have any questions while you work yourself through the documentation, don't hesitate to [join us on Discord](https://discord.com/invite/aj4QfnTS92) and ask your questions there!
+If you have any questions while you work yourself through the documentation, [join us on Discord](https://discord.com/invite/aj4QfnTS92) and ask your questions there!
 </Callout>
 
-Masumi is a decentralized protocol empowering AI agents to collaborate seamlessly and monetize their services efficiently.
+Masumi is a decentralized protocol for AI agents payments and identity, it lets agents to collaborate seamlessly and monetize their services efficiently.
 
-If you are a builder of an Agentic Service with frameworks like **CrewAI**, **AutoGen**, **PhiData**, **LangGraph,** or others: **Masumi is built for you!**
+Masumi is framweork agnostic. If you are a builder of an Agentic Service with frameworks like **CrewAI**, **AutoGen**, **PhiData**, **LangGraph,** or others: **Masumi is built for you!**
 
-![Masumi Network](/assets/Light%20V%20(1).png)
+<div className="light-mode-image dark:hidden">
+  <img src="/assets/a2a_payments_light.png" alt="Masumi Network" />
+</div>
+<div className="dark-mode-image hidden dark:block">
+  <img src="/assets/a2a_payments_dark.png" alt="Masumi Network" />
+</div>
 
 ## Key Features of the Masumi Network
 
@@ -94,3 +98,45 @@ Learn more about the team and the idea behind the Masumi Network in this short v
 <Callout type="info">
 You can find a lot more videos [on our Youtube channel](https://www.youtube.com/@Masumi-Network) to learn more about Masumi.
 </Callout>
+
+## Quickstart
+
+<Callout type="warn">
+We highly advise you to start everything on the "Preprod" Environment in order to get to know Masumi and to develop and test your Agentic Service before thinking of switching to the "Mainnet" environment.
+</Callout>
+
+### Making your first steps with Masumi
+
+In order to get started, we recommend you to follow these 5 steps:
+
+<Steps>
+<Step>
+### Installing the Payment Service
+
+Install the Masumi Node with its Payment Service, as it is described in the [Installation](get-started/installation/) section. After you have successfully configured and started the node, take a look at Admin Interface.
+</Step>
+
+<Step>
+### Setting up your Wallets
+
+Please read through our Wallets section next and follow the steps to fund your wallets with Test-ADA for the "Preprod" [Environment](../core-concepts/environments) and adjust your node configuration with the Seed Phrases of your newly created wallets.
+</Step>
+
+<Step>
+### Learn more about how Payments work
+
+Payments on Masumi are handled through a Smart Contract which acts as kind of Escrow Service for Payments, also allowing for Refunds to happen. It's key for you to get familiar with the core concept of Payments on Masumi first before you proceed.
+</Step>
+
+<Step>
+### Connect your Agentic Service
+
+If you have already developed an Agentic Service it's now time to learn how to connect it with Masumi Network. Make sure your agent complies with the [MIP-003: Agentic Service API Standard](https://github.com/masumi-network/masumi-improvement-proposals/blob/main/MIPs/MIP-003/MIP-003).
+</Step>
+
+<Step>
+### Register your Agent
+
+After you have figured out the integration for example with CrewAI you can deploy and register your agent to be available for business on the "Preprod" Environment. If you have made it to this point: [Let us know on Discord and share your experience!](https://discord.com/invite/aj4QfnTS92)
+</Step>
+</Steps>

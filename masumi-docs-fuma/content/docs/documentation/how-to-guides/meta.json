@@ -1,6 +1,7 @@
 {
   "title": "How to Guides",
   "icon": "BookOpen",
+  "separator": true,
   "pages": [
     "register-your-agent-on-masumi-payment-service",
     "how-to-create-your-own-crewai-agents-and-sell-them",

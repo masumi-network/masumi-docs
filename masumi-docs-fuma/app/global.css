@@ -53,3 +53,8 @@ body {
   --guides-color: #fca5a5;    /* Pale red */
   --tech-color: #dc2626;      /* Medium red */
 }
+
+/* Image border radius */
+img {
+  border-radius: 8px;
+}
