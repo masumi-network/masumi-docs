@@ -3,6 +3,7 @@
   "root": true,
   "pages": [
     "documentation",
-    "core-concepts"
+    "core-concepts",
+    "api-reference"
   ]
 }

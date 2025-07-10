@@ -1,0 +1,9 @@
+{
+  "title": "API Reference",
+  "icon": "Code",
+  "root": true,
+  "pages": [
+    "payment-service-api",
+    "registry-service-api"
+  ]
+}
