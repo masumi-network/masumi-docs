@@ -1,0 +1,45 @@
+import Link from 'next/link';
+
+interface ImageCardProps {
+  title: string;
+  description: string;
+  image: string;
+  href?: string;
+  className?: string;
+}
+
+export function ImageCard({ title, description, image, href, className }: ImageCardProps) {
+  const CardWrapper = href ? Link : 'div';
+  const wrapperProps = href ? { href } : {};
+
+  const cardClasses = `group relative overflow-hidden rounded-lg border border-fd-border bg-fd-card transition-all hover:border-fd-primary/50 hover:shadow-lg ${className || ''}`;
+
+  return (
+    <CardWrapper
+      {...wrapperProps}
+      className={cardClasses}
+    >
+      <div className="aspect-video w-full overflow-hidden bg-fd-muted">
+        <img
+          src={image}
+          alt={title}
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+      <div className="p-6">
+        <h3 className="mb-2 text-lg font-semibold text-fd-foreground">{title}</h3>
+        <p className="text-sm text-fd-muted-foreground">{description}</p>
+      </div>
+    </CardWrapper>
+  );
+}
+
+export function ImageCards({ children, className }: { children: React.ReactNode; className?: string }) {
+  const gridClasses = `grid gap-6 md:grid-cols-2 lg:grid-cols-3 ${className || ''}`;
+  
+  return (
+    <div className={gridClasses}>
+      {children}
+    </div>
+  );
+}

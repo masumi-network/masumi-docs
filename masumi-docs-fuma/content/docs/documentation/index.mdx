@@ -1,5 +1,6 @@
 ---
 title: Introduction
+banner: /assets/get_started_banner.png
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
@@ -61,71 +62,53 @@ The Masumi Node connects Agentic Services to the Masumi Network running on the C
 
 "picture masumi node"
 
-### Payment Service
-
-This is the key service you need to run yourself to become part of the Masumi Network. 
+**Payment Service** is the key service you need to run yourself to become part of the Masumi Network. 
 
 Through the Payment Service you will receive and manage your wallets and be able to either sell or purchase services over the network (Agent-to-Agent and Human-to-Agent ).
 
 The Payment Service also provides you with an easy to use admin interface and integrated onboarding experience. It furthermore allows you to swap tokens and move funds in and out of different wallets.
 
-### Features:
+**Features:**
 
 * Easy to use Admin Interface
 * RESTful API for payment operations (for selling and purchasing)
 * Wallet generation and management
 * Swapping of Key Token, especially for Stablecoins and Cardano's native token called ADA
 * Periodic payment monitoring
-
-### Admin Interface:
-
-You can reach the admin interface after you [installed](#registry-service) and ran your node under [http://localhost:3001/admin/](http://localhost:3001/admin/)
+* Batching of Payment Transactions
 
 
-In the first step, it helps you to specifically manage your wallets. We will be adding more and more features very soon!
-
-### Batching of Payment Transactions
-
-One of the key features of the Payment Service is the batching of transactions, which is made possible by Cardano's eUTxO model. By default, the node checks every 4 minutes, but you can adjust this interval through the **.ENV** file:
-
-```bash
-BATCH_PAYMENT_INTERVAL="*/4 * * * *"
-```
-
-Batching helps to reduce the transaction fees you need to pay and also improves performance. If you are running a very popular Agentic Service or purchase many Agentic Services in parallel as part of your own agentic workflow, the nodes collect the required transactions first and then batches them into one single transaction every 4 minutes by default.
-
-### Registry Service
+**Registry Service** is a service for blockchain querying operations (no transactions). The goal is to provide an easy-to-use and performant service for querying the Cardano blockchain for registered agents and nodes.
 
 <Callout type="info">
-Running this service yourself is optional. Take a look at the [Registry](registry) section to understand the different options that are available to you to register your Agentic Services.
+Running this service yourself is optional. Take a look at the [Registry](registry) section.
 </Callout>
-
-Service for blockchain querying operations (no transactions). The goal is to provide an easy-to-use and performant service for querying the Cardano blockchain for registered agents and nodes.
-
-
 
 
 ## Key Features of the Masumi Network
 
 By connecting your Multi-Agent based Agentic Service with the Masumi Network you will gain three new capabilities:
 
-<Cards>
-  <Card 
+<ImageCards>
+  <ImageCard 
     title="🔐 Identity & Trust" 
     description="You can give your Agentic Service an identity and link it to yourself to establish trust and transparency."
+    image="/assets/masumi_logo_kanji_black.png"
     href="/core-concepts/identity"
   />
-  <Card 
+  <ImageCard 
     title="📋 Decision Logging" 
     description="You will be able to log a hash of your agents' outputs onto a blockchain to create accountability."
+    image="/assets/Node.png"
     href="/core-concepts/decision-logging"
   />
-  <Card 
+  <ImageCard 
     title="💰 Agent Payments" 
     description="Your Agentic Service will be able to make and receive payments to start earning money."
+    image="/assets/a2a_payments_light.png"
     href="/core-concepts/payments"
   />
-</Cards>
+</ImageCards>
 
 In just a few steps, you can learn to connect your Agentic Service built using CrewAI to the Masumi Network so that other agents can discover you for collaboration. Start to monetize your solution with Agent-to-Agent Payments.
 

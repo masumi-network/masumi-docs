@@ -1,5 +1,7 @@
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
+import { ImageCard, ImageCards } from '@/components/image-card';
+import { Banner } from '@/components/banner';
 import type { MDXComponents } from 'mdx/types';
 
 // Temporary placeholder for OpenAPI component
@@ -18,6 +20,9 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ...defaultMdxComponents,
     img: (props) => <ImageZoom {...(props as any)} />,
     OpenAPI,
+    ImageCard,
+    ImageCards,
+    Banner,
     ...components,
   };
 }
