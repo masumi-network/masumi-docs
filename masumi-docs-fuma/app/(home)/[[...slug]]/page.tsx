@@ -33,7 +33,7 @@ export default async function Page(props: {
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
       {page.data.banner && (
-        <div className="mb-8 flex justify-center">
+        <div className=" flex justify-center">
           <img 
             src={page.data.banner} 
             alt="Page banner"

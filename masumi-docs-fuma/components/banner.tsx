@@ -6,7 +6,7 @@ interface BannerProps {
 
 export function Banner({ src, alt = "Banner", className }: BannerProps) {
   return (
-    <div className={`w-full mb-8 -mx-6 md:-mx-8 lg:-mx-12 ${className || ''}`}>
+    <div className={`w-full  -mx-6 md:-mx-8 lg:-mx-12 ${className || ''}`}>
       <img 
         src={src} 
         alt={alt}
