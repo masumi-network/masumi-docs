@@ -9,16 +9,10 @@ interface ImageCardProps {
 }
 
 export function ImageCard({ title, description, image, href, className }: ImageCardProps) {
-  const CardWrapper = href ? Link : 'div';
-  const wrapperProps = href ? { href } : {};
-
   const cardClasses = `group relative overflow-hidden rounded-lg border border-fd-border bg-fd-card transition-all hover:border-fd-primary/50 hover:shadow-lg ${className || ''}`;
 
-  return (
-    <CardWrapper
-      {...wrapperProps}
-      className={cardClasses}
-    >
+  const cardContent = (
+    <>
       <div className="aspect-video w-full overflow-hidden bg-fd-muted">
         <img
           src={image}
@@ -30,7 +24,21 @@ export function ImageCard({ title, description, image, href, className }: ImageC
         <h3 className="mb-2 text-lg font-semibold text-fd-foreground">{title}</h3>
         <p className="text-sm text-fd-muted-foreground">{description}</p>
       </div>
-    </CardWrapper>
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link href={href} className={cardClasses}>
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return (
+    <div className={cardClasses}>
+      {cardContent}
+    </div>
   );
 }
 
