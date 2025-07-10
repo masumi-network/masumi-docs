@@ -1,8 +1,0 @@
-{
-  "title": "Installation",
-  "pages": [
-    "index",
-    "option-1-recommended-using-masumi-services-docker-compose-setup",
-    "option-2-manual-setup"
-  ]
-}
