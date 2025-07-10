@@ -5,6 +5,7 @@
 .contentlayer
 .content-collections
 .source
+content/docs/api-reference/(generated)/
 
 # test & build
 /coverage

@@ -4,6 +4,7 @@
   "root": true,
   "pages": [
     "payment-service-api",
-    "registry-service-api"
+    "registry-service-api",
+    "(generated)"
   ]
 }

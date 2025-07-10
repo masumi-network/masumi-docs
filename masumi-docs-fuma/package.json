@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "node scripts/generate-openapi.mjs && next build",
     "dev": "next dev",
     "start": "next start",
     "postinstall": "fumadocs-mdx"
@@ -25,6 +25,7 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "postcss": "^8.5.5",
+    "rimraf": "^6.0.1",
     "tailwindcss": "^4.1.10",
     "typescript": "^5.8.3"
   }
