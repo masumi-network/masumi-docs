@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "node scripts/generate-openapi.mjs && next build",
+    "build": "node scripts/generate-openapi.mjs && node scripts/fetch-readme.mjs && next build",
     "dev": "next dev",
     "start": "next start",
-    "postinstall": "fumadocs-mdx"
+    "postinstall": "fumadocs-mdx",
+    "fetch-readme": "node scripts/fetch-readme.mjs"
   },
   "dependencies": {
     "fumadocs-core": "15.5.2",
