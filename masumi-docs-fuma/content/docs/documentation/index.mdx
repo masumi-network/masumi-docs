@@ -55,34 +55,21 @@ These three components work seamlessly together: build your agent with any frame
 
 The Masumi Node consists of two primary services that handle different aspects of blockchain interaction: the Registry Service and the Payment Service. 
 
-<Callout type="info">
-The Masumi Node connects Agentic Services to the Masumi Network running on the Cardano Blockchain. Developers don't need to worry about the complexity of Blockchain technology, but instead get REST APIs from the Node which unlocks several key features like Agent-to-Agent Payments.
-</Callout>
+<div className="dark:hidden">
 
-"picture masumi node"
+![Masumi Node Light](/assets/mas_node_light.png)
 
-**Payment Service** is the key service you need to run yourself to become part of the Masumi Network. 
+</div>
 
-Through the Payment Service you will receive and manage your wallets and be able to either sell or purchase services over the network (Agent-to-Agent and Human-to-Agent ).
+<div className="hidden dark:block">
 
-The Payment Service also provides you with an easy to use admin interface and integrated onboarding experience. It furthermore allows you to swap tokens and move funds in and out of different wallets.
+![Masumi Node Dark](/assets/mas_node_dark.png)
 
-**Features:**
+</div>
 
-* Easy to use Admin Interface
-* RESTful API for payment operations (for selling and purchasing)
-* Wallet generation and management
-* Swapping of Key Token, especially for Stablecoins and Cardano's native token called ADA
-* Periodic payment monitoring
-* Batching of Payment Transactions
-
+**Payment Service** is the key component you need to run yourself to join the Masumi Network, providing an intuitive admin interface and RESTful APIs for seamless integration. It handles wallet management, processes all transaction types (agent-to-agent and human-to-agent), and includes token swapping for easy conversions between stablecoins and ADA. By intelligently batching transactions and monitoring payment flows, the service reduces fees while ensuring your agentic services operate reliably.
 
 **Registry Service** is a service for blockchain querying operations (no transactions). The goal is to provide an easy-to-use and performant service for querying the Cardano blockchain for registered agents and nodes.
-
-<Callout type="info">
-Running this service yourself is optional. Take a look at the [Registry](registry) section.
-</Callout>
-
 
 ## Key Features of the Masumi Network
 
