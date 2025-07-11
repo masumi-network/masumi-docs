@@ -5,6 +5,7 @@ import {
   metaSchema,
 } from 'fumadocs-mdx/config';
 import { z } from 'zod';
+import { remarkMermaid } from '@theguild/remark-mermaid';
 
 // Extend the frontmatter schema to include banner
 const extendedFrontmatterSchema = frontmatterSchema.extend({
@@ -24,5 +25,6 @@ export const docs = defineDocs({
 
 export default defineConfig({
   mdxOptions: {
+    remarkPlugins: [remarkMermaid],
   },
 });

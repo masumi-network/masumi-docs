@@ -10,6 +10,7 @@
     "fetch-readme": "node scripts/fetch-readme.mjs"
   },
   "dependencies": {
+    "@theguild/remark-mermaid": "^0.3.0",
     "fumadocs-core": "15.5.2",
     "fumadocs-mdx": "11.6.8",
     "fumadocs-openapi": "^9.0.17",
