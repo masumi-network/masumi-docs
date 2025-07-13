@@ -37,7 +37,7 @@ function convertReadmeToTabContent(readmeContent, owner, repo, branch) {
   // Add callout with repository link
   const branchInfo = branch && branch !== 'main' && branch !== 'master' ? ` (branch: ${branch})` : '';
   const callout = `<Callout type="info">
-  This content is automatically synced from the [${owner}/${repo}](https://github.com/${owner}/${repo})${branchInfo} repository.
+  This content is automatically synced from the <a href="https://github.com/${owner}/${repo}" target="_blank" rel="noopener noreferrer">${owner}/${repo}</a>${branchInfo} repository.
 </Callout>
 
 `;
@@ -90,7 +90,7 @@ import { Callout } from 'fumadocs-ui/components/callout';
 ).join(' ')}
 
 <Callout type="info">
-  This page is automatically synced from the [${owner}/${repo}](https://github.com/${owner}/${repo})${branchInfo} repository README.
+  This page is automatically synced from the <a href="https://github.com/${owner}/${repo}" target="_blank" rel="noopener noreferrer">${owner}/${repo}</a>${branchInfo} repository README.
 </Callout>
 
 `;
