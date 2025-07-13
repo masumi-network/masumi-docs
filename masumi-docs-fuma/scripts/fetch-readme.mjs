@@ -1,15 +1,9 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 
-type Repo = {
-  owner: string;
-  repo: string;
-  branch?: string;
-  outputPath: string;
-  isTabContent: boolean;
-};
 
-const REPOS: Repo[] = [
+
+const REPOS = [
   {
     owner: 'masumi-network',
     repo: 'agentic-service-wrapper',
@@ -25,7 +19,7 @@ const REPOS: Repo[] = [
   }
 ];
 
-async function fetchReadme(owner: string, repo: string, branch: string = 'main') {
+async function fetchReadme(owner, repo, branch = 'main') {
   try {
     const response = await fetch(
       `https://api.github.com/repos/${owner}/${repo}/readme?ref=${branch}`,
@@ -47,7 +41,7 @@ async function fetchReadme(owner: string, repo: string, branch: string = 'main')
   }
 }
 
-async function fetchImage(url: string, localPath: string) {
+async function fetchImage(url, localPath) {
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -63,7 +57,7 @@ async function fetchImage(url: string, localPath: string) {
   }
 }
 
-async function syncImages(readmeContent: string, owner: string, repo: string, branch: string = 'main') {
+async function syncImages(readmeContent, owner, repo, branch = 'main') {
   const imagesDir = `./public/synced-images/${owner}/${repo}`;
   
   // Ensure images directory exists
@@ -114,8 +108,8 @@ async function syncImages(readmeContent: string, owner: string, repo: string, br
   return updatedContent;
 }
 
-function parseAttributes(attributesString: string): Record<string, string> {
-  const attributes: Record<string, string> = {};
+function parseAttributes(attributesString) {
+  const attributes = {};
   const attributeRegex = /([\w-]+)=["']([^"]*)["']/g;
   let match;
   while ((match = attributeRegex.exec(attributesString)) !== null) {
@@ -124,7 +118,7 @@ function parseAttributes(attributesString: string): Record<string, string> {
   return attributes;
 }
 
-function convertHtmlToJsx(content: string) {
+function convertHtmlToJsx(content) {
   let updatedContent = content;
 
   // Convert <picture> elements with dark mode variants
@@ -197,7 +191,7 @@ function convertHtmlToJsx(content: string) {
   return updatedContent;
 }
 
-function convertReadmeToTabContent(readmeContent: string, owner: string, repo: string, branch: string) {
+function convertReadmeToTabContent(readmeContent, owner, repo, branch) {
   // Add callout with repository link
   const branchInfo = branch && branch !== 'main' && branch !== 'master' ? ` (branch: ${branch})` : '';
   const callout = `<Callout type="info">
