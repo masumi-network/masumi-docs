@@ -1,12 +1,32 @@
-### Getting a Blockfrost API Key
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
-1. Go to <a href="https://blockfrost.io/" target="_blank" rel="noopener noreferrer">Blockfrost.io</a>
-2. Sign up for a free account or log in if you already have one
-3. Navigate to your dashboard
-4. Create a new project for the Cardano network (mainnet or testnet depending on your needs)
-5. Copy your project ID - this is your Blockfrost API key
-6. Keep this key secure and never commit it to version control
+
+
+<Accordions>
+<Accordion title="Getting a Blockfrost API Key"> 
+
+<Steps>
+<Step></Step>
+Go to <a href="https://blockfrost.io/dashboard" target="_blank" rel="noopener noreferrer">Blockfrost.io</a>
+<Step>
+Sign up for a free account or log in if you already have one
+</Step>
+
+<Step>
+Create a new project for the Cardano network (mainnet or testnet depending on your needs)
+</Step>
+<Step>
+ Copy your project ID - this is your Blockfrost API key
+</Step>
+<Step>
+ Keep this key secure and never commit it to version control
+</Step>
+</Steps>
 
 <Callout type="warning">
   Your Blockfrost API key should be treated as a secret. Store it securely in environment variables or a secure configuration system.
 </Callout>
+</Accordion>
+</Accordions>
