@@ -6,6 +6,7 @@
 .content-collections
 .source
 content/docs/api-reference/(generated)/
+**/_*.mdx
 
 # test & build
 /coverage
