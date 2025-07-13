@@ -3,24 +3,28 @@ title: Agentic Service Wrapper
 description: Content from masumi-network/agentic-service-wrapper repository
 ---
 
-# Masumi Agent Service
+import { Callout } from 'fumadocs-ui/components/callout';
+
+<Callout type="info">
+  This content is automatically synced from the <a href="https://github.com/masumi-network/agentic-service-wrapper" target="_blank" rel="noopener noreferrer">masumi-network/agentic-service-wrapper</a> repository.
+</Callout>
 
 ## Railway Deployment
 
-> The purpose of this repository is to get you from 0 to agentic service owner in as little time as possible. Yet it is assumed, that you are somewhat familiar with [Masumi Network](https://masumi.network/). If you are not, please consider heading over to the official [Masumi docs](https://docs.masumi.network/) first.  
+This example uses <a href="https://railway.com?referralCode=pa1ar" target="_blank">Railway</a> templates. 
 
-This example uses [Railway](https://railway.com?referralCode=pa1ar) templates. Railway is a cloud development platform that enables developers to deploy, manage and scale applications and databases with minimal configuration. Masumi Services obviously can be hosted anywhere, so feel free to use the templates as examples and pick a service of your choice.  
+Railway is a cloud development platform that enables developers to deploy, manage and scale applications and databases with minimal configuration.
 
-Railway templates we provide are pointing to the open-source repositories of Masumi organisation. That means you can read full code, if you want, to be sure nothing shady is going on. You can also fork the repositories first, and still use the templates by just pointing them to your forks, if you want.
+Railway templates we provide are pointing to the open-source repositories of Masumi organisation. If you want to be extra careful, You can also fork the repositories first, and still use the templates by just pointing them to your forks. 
 
 ### Prerequisites
 
-- [Blockfrost](https://blockfrost.io/) API key
-- For quick deployment: [Railway account](https://railway.com?referralCode=pa1ar) (free trial is 30 days or $5)
+- <a href="https://blockfrost.io/" target="_blank">Blockfrost</a> API key
+- <a href="https://railway.com?referralCode=pa1ar" target="_blank">Railway account</a> (free trial is 30 days or $5)
 
 ### How to Deploy
 
-1. **Deploy [Masumi Payment Service](https://github.com/masumi-network/masumi-payment-service)**:  
+1. **Deploy <a href="https://github.com/masumi-network/masumi-payment-service" target="_blank">Masumi Payment Service</a>**:  
 
     [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/masumi-payment-service-official?referralCode=padierfind)
    - Use the template in an existing or new project (in existing project, "Create" > "Template" > search for "Masumi Payment Service")
@@ -31,23 +35,21 @@ Railway templates we provide are pointing to the open-source repositories of Mas
    - Test at public URL `/admin` or `/docs`. Your default admin key (used to login to the admin panel and sign transactions) is in your variables. **Change it on the admin panel.**
    - **Important:** Masumi API endpoints must include `/api/v1/`!  Be sure to append that slugs in the next steps (deploying agentic service).
 
-2. **Deploy [Agent Service API Wrapper](https://github.com/masumi-network/agentic-service-wrapper)**:  
+2. **Deploy <a href="https://github.com/masumi-network/agentic-service-wrapper" target="_blank">Agent Service API Wrapper</a>**:  
 
     [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/masumi-compliant-service-api-official?referralCode=padierfind)
    - Make sure your Masumi payment service is up and running
    - Provide `PAYMENT_SERVICE_URL` in variables (format: `https://your-instance-of-masumi.up.railway.app/api/v1`, the main part of the URL can differ, point is - don't forget the `/api/v1` slugs)
+   - Provide `PAYMENT_API_KEY` (your Masumi Payment Service Admin Key)
+   - Provide `SELLER_VKEY` that you can find in the admin panel by clicking on your Selling wallet , or by calling the GET /payment-source/ endpoint of your deployed Masumi Payment Service. 
    - Wait for deployment to complete
    - Generate public URL in settings of the service
    - Check the swagger at `/docs`
 
-3. **Configure Agent**
-   - Go to Payment Service admin panel, top up selling wallet
-   - Register agent via Agent Service URL (you need to have funds on your selling wallet, read the [docs](https://docs.masumi.network/))
+3. **Register Agent on Masumi**
+   - Go to Payment Service admin panel, top up selling wallet (you can use <a href="https://dispenser.masumi.network/"target="_blank">Masumi tADA dispencer</a>)
+   - Register agent via Agent Service URL (you need to have funds on your selling wallet)
    - Retrieve Agent ID aka Asset ID
-   - Check Agent Service variables:
-     - `SELLER_VKEY`: vkey (verificatin key) of selling wallet used to register agent, get it from the admin panel of your payment service
-     - `PAYMENT_API_KEY`: payment token or admin key for Payment Service (you have used it to login to the admin panel)
-     - `PAYMENT_SERVICE_URL`: URL of your Payment Service
 
 4. **Test Integration**
    - Start job via Agent Service
@@ -58,7 +60,7 @@ Railway templates we provide are pointing to the open-source repositories of Mas
 
 ## How to Customize
 
-1. Fork this repository
+1. Fork this <a href="https://github.com/masumi-network/agentic-service-wrapper" target="_blank">repository</a>
 2. Edit `agentic_service.py` to implement your agent logic
 3. Update `input_schema` in main.py to match your input requirements
 4. Run or deploy your customized version using the Railway (you will just need to replace the repository in settings of the service to point to your fork).
@@ -69,15 +71,20 @@ Railway templates we provide are pointing to the open-source repositories of Mas
 
 ```bash
 cp .env.example .env
-# edit .env with your config
+```
 
+Edit .env with your config
+
+```bash
 uv venv
 source .venv/bin/activate
 uv pip sync requirements.txt
-
 python get_payment_source_info.py
-# add SELLER_VKEY to .env
+``` 
 
+Add SELLER_VKEY to .env
+
+```bash
 python main.py api
 ```
 

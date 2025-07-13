@@ -5,7 +5,6 @@ const REPOS = [
   {
     owner: 'masumi-network',
     repo: 'agentic-service-wrapper',
-    branch: 'docs-prepare', // specify the branch to fetch from
     outputPath: './content/docs/documentation/get-started/_agentic-service-wrapper.mdx',
     isTabContent: true
   }
