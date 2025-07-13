@@ -1,7 +1,15 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 
-const REPOS = [
+type Repo = {
+  owner: string;
+  repo: string;
+  branch?: string;
+  outputPath: string;
+  isTabContent: boolean;
+};
+
+const REPOS: Repo[] = [
   {
     owner: 'masumi-network',
     repo: 'agentic-service-wrapper',
@@ -17,7 +25,7 @@ const REPOS = [
   }
 ];
 
-async function fetchReadme(owner, repo, branch = 'main') {
+async function fetchReadme(owner: string, repo: string, branch: string = 'main') {
   try {
     const response = await fetch(
       `https://api.github.com/repos/${owner}/${repo}/readme?ref=${branch}`,
@@ -39,7 +47,7 @@ async function fetchReadme(owner, repo, branch = 'main') {
   }
 }
 
-async function fetchImage(url, localPath) {
+async function fetchImage(url: string, localPath: string) {
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -55,7 +63,7 @@ async function fetchImage(url, localPath) {
   }
 }
 
-async function syncImages(readmeContent, owner, repo, branch = 'main') {
+async function syncImages(readmeContent: string, owner: string, repo: string, branch: string = 'main') {
   const imagesDir = `./public/synced-images/${owner}/${repo}`;
   
   // Ensure images directory exists
@@ -106,30 +114,62 @@ async function syncImages(readmeContent, owner, repo, branch = 'main') {
   return updatedContent;
 }
 
-function convertHtmlToJsx(content) {
+function parseAttributes(attributesString: string): Record<string, string> {
+  const attributes: Record<string, string> = {};
+  const attributeRegex = /([\w-]+)=["']([^"]*)["']/g;
+  let match;
+  while ((match = attributeRegex.exec(attributesString)) !== null) {
+    attributes[match[1]] = match[2];
+  }
+  return attributes;
+}
+
+function convertHtmlToJsx(content: string) {
   let updatedContent = content;
-  
-  // Convert picture elements to use Tailwind classes that work with fumadocs theme toggle
-  // More flexible regex to handle various spacing and attribute orders
-  const pictureRegex = /<picture[^>]*>\s*<source[^>]*media="\(prefers-color-scheme:\s*dark\)"[^>]*srcSet="([^"]+)"[^>]*\/?>\s*<img[^>]*src="([^"]+)"([^>]*)\/?>\s*<\/picture>/gi;
-  
-  updatedContent = updatedContent.replace(pictureRegex, (match, darkSrc, lightSrc, imgAttributes) => {
-    // Check if it's a GIF - if so, just use single image
-    if (lightSrc.toLowerCase().includes('.gif')) {
-      return `<img src="${lightSrc}"${imgAttributes} />`;
-    }
-    
-    // Clean up attributes and add proper spacing
-    const cleanAttributes = imgAttributes.trim().replace(/\s*\/\s*$/, ''); // Remove trailing slash
-    const altMatch = cleanAttributes.match(/alt="([^"]*)"/);
-    const altText = altMatch ? altMatch[1] : '';
-    const otherAttributes = cleanAttributes.replace(/alt="[^"]*"/, '').trim();
-    
-    // For non-GIF images with dark variants
+
+  // Convert <picture> elements with dark mode variants
+  const pictureRegex = /<picture[^>]*>\s*<source[^>]*media=\"\s*\(\s*prefers-color-scheme:\s*dark\s*\)\"[^>]*srcset=\"([^\"]+)\"[^>]*>\s*<img([^>]+)>\s*<\/picture>/gis;
+  updatedContent = updatedContent.replace(pictureRegex, (match, darkSrc, imgTag) => {
+    const imgAttributes = parseAttributes(imgTag);
+    const lightSrc = imgAttributes.src;
+    const altText = imgAttributes.alt || '';
+    const existingClass = imgAttributes.class || '';
+
+    // Filter out attributes that will be explicitly set or handled
+    const sharedAttrs = Object.entries(imgAttributes)
+      .filter(([key]) => !['src', 'alt', 'class', 'width', 'height'].includes(key))
+      .map(([key, value]) => `${key}=\"${value}\"`)
+      .join(' ');
+
+    // Note the use of template literals for className to combine existing and new classes
     return `<div>
-  <img src="${lightSrc}" alt="${altText}"${otherAttributes ? ' ' + otherAttributes : ''} className="block dark:hidden" />
-  <img src="${darkSrc}" alt="${altText} (dark mode)"${otherAttributes ? ' ' + otherAttributes : ''} className="hidden dark:block" />
-</div>`;
+      <ImageZoom src=\"${lightSrc}\" alt=\"${altText}\" width={1200} height={800} className={\`${existingClass} w-full h-auto block dark:hidden\`} ${sharedAttrs} />
+      <ImageZoom src=\"${darkSrc}\" alt=\"${altText}\" width={1200} height={800} className={\`${existingClass} w-full h-auto hidden dark:block\`} ${sharedAttrs} />
+    </div>`;
+  });
+
+  // Convert standalone <img> tags
+  const imgRegex = /<img([^>]+)>/gi;
+  updatedContent = updatedContent.replace(imgRegex, (match, attributesString) => {
+    // If the img tag is inside a div that we just created, skip it.
+    if (match.includes('dark:hidden') || match.includes('hidden dark:block')) {
+        return match;
+    }
+
+    const attributes = parseAttributes(attributesString);
+    const isGif = attributes.src && attributes.src.toLowerCase().endsWith('.gif');
+    const Component = isGif ? 'img' : 'ImageZoom';
+    const existingClass = attributes.class || '';
+
+    // Filter out attributes that will be explicitly set or handled
+    const attrsForJsx = Object.entries(attributes)
+        .filter(([key]) => !['class', 'width', 'height'].includes(key))
+        .map(([key, value]) => {
+            const jsxKey = key === 'class' ? 'className' : key;
+            return `${jsxKey}=\"${value}\"`;
+        }).join(' ');
+
+    return `<${Component} ${attrsForJsx} width={1200} height={800} className={\`${existingClass} w-full h-auto\`} />`;
   });
 
   // Convert common HTML attributes to JSX equivalents
@@ -148,18 +188,16 @@ function convertHtmlToJsx(content) {
     'contenteditable': 'contentEditable',
     'spellcheck': 'spellCheck'
   };
-  
-  // Replace HTML attributes with JSX equivalents
+
   for (const [htmlAttr, jsxAttr] of Object.entries(attributeMap)) {
-    // Match attribute="value" or attribute='value' patterns
     const regex = new RegExp(`\\b${htmlAttr}=`, 'gi');
     updatedContent = updatedContent.replace(regex, `${jsxAttr}=`);
   }
-  
+
   return updatedContent;
 }
 
-function convertReadmeToTabContent(readmeContent, owner, repo, branch) {
+function convertReadmeToTabContent(readmeContent: string, owner: string, repo: string, branch: string) {
   // Add callout with repository link
   const branchInfo = branch && branch !== 'main' && branch !== 'master' ? ` (branch: ${branch})` : '';
   const callout = `<Callout type="info">
@@ -195,28 +233,34 @@ async function generateReadmePages() {
     
     if (isTabContent) {
       // Generate tab content format - just add minimal frontmatter
+      const title = repo.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ').replace(/\bMcp\b/g, 'MCP'); // Fix MCP capitalization
+      
       const frontmatter = `---
-title: ${repo.split('-').map(word => 
-  word.charAt(0).toUpperCase() + word.slice(1)
-).join(' ')}
+title: ${title}
 description: Content from ${owner}/${repo} repository
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
+import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 
 `;
-      const processedContent = convertReadmeToTabContent(contentWithJsxAttributes, owner, repo, branch);
+      const processedContent = convertReadmeToTabContent(contentWithJsxAttributes, owner, repo, branch || 'main');
       fullContent = frontmatter + processedContent;
     } else {
       // Generate standalone page format
       const branchInfo = branch && branch !== 'main' && branch !== 'master' ? ` (branch: ${branch})` : '';
+      const title = repo.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ').replace(/\bMcp\b/g, 'MCP'); // Fix MCP capitalization
+      
       const frontmatter = `---
-title: ${repo.split('-').map(word => 
-  word.charAt(0).toUpperCase() + word.slice(1)
-).join(' ')}
+title: ${title}
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
+import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 
 <Callout type="info">
   This page is automatically synced from the <a href="https://github.com/${owner}/${repo}" target="_blank" rel="noopener noreferrer">${owner}/${repo}</a>${branchInfo} repository README.

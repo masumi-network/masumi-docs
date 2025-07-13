@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "node scripts/generate-openapi.mjs && node scripts/fetch-readme.mjs && next build",
+    "build": "node scripts/generate-openapi.mjs && node scripts/fetch-readme.ts && next build",
     "dev": "next dev",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
-    "fetch-readme": "node scripts/fetch-readme.mjs"
+    "fetch-readme": "node scripts/fetch-readme.ts"
   },
   "dependencies": {
     "@theguild/remark-mermaid": "^0.3.0",
@@ -30,6 +30,7 @@
     "postcss": "^8.5.5",
     "rimraf": "^6.0.1",
     "tailwindcss": "^4.1.10",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
 }
