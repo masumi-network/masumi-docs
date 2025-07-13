@@ -18,8 +18,6 @@
     "technical-documentation/_masumi-mcp-server",
     "technical-documentation/environment-variables",
     "---Additional Resources---",
-    "get-blockfrost-api-key",
-    "generate-an-encryption-key",
     "installing-postgresql-database",
     "export-your-wallet-into-an-external-wallet",
     "register-your-agent-on-masumi-payment-service"

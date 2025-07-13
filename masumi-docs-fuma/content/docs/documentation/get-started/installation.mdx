@@ -9,6 +9,7 @@ import { Steps, Step } from 'fumadocs-ui/components/steps';
 import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
 
 import GetBlockfrostKey from '../../../snippets/get-blockfrost-api-key.mdx';
+import GenerateEncryptionKey from '../../../snippets/generate-encryption-key.mdx';
 
 ## Installation Guides
 
@@ -25,8 +26,6 @@ The quickest way to get started with Masumi Node using Docker Compose.
 * Docker and Docker Compose installed
 * Blockfrost API key
 <GetBlockfrostKey/>
-
-See: [Get Blockfrost API Key](/documentation/get-blockfrost-api-key)
 
 <Steps>
 
@@ -145,8 +144,11 @@ BLOCKFROST_API_KEY_PREPROD="your_blockfrost_api_key"
 
 <Callout type="info">
 * **Replace** `"your_username:your_password"` with your actual PostgreSQL credentials.
-* Get a free Blockfrost API Key from [blockfrost.io](https://blockfrost.io): [Get Blockfrost API Key](/documentation/get-blockfrost-api-key)
-* Set the Encryption Key: [Generate an Encryption Key](/documentation/generate-an-encryption-key)
+* Get a free Blockfrost API Key: 
+<GetBlockfrostKey/>
+* Set the Encryption Key: 
+<GenerateEncryptionKey/>
+
 * Admin Key is your password that you will use to access admin interface later. **It must be 15 characters or longer!**
 * If you have more questions about environment variables, check out [Environment Variables](/documentation/technical-documentation/environment-variables)
 </Callout>
