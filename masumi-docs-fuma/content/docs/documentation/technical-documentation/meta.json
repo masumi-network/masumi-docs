@@ -9,7 +9,7 @@
     "smart-contracts",
     "agentic-service-api",
     "registry-metadata-standard",
-    "masumi-mcp-server",
+    "_masumi-mcp-server",
     "environmental-variables"
   ]
 }

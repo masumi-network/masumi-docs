@@ -7,6 +7,8 @@
 .source
 content/docs/api-reference/(generated)/
 **/_*.mdx
+# synced images from repos
+public/synced-images/
 
 # test & build
 /coverage

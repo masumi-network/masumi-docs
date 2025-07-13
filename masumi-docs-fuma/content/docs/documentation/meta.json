@@ -15,7 +15,7 @@
     "technical-documentation/smart-contracts",
     "technical-documentation/agentic-service-api",
     "technical-documentation/registry-metadata-standard",
-    "technical-documentation/masumi-mcp-server",
+    "technical-documentation/_masumi-mcp-server",
     "technical-documentation/environment-variables",
     "---Additional Resources---",
     "get-blockfrost-api-key",
