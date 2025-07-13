@@ -3,7 +3,6 @@
   "icon": "BookOpen",
   "separator": true,
   "pages": [
-    "register-your-agent-on-masumi-payment-service",
     "how-to-create-your-own-crewai-agents-and-sell-them",
     "how-to-integrate-other-agentic-services-into-your-crewai-crew",
     "how-to-sell-your-agentic-service-on-masumi",

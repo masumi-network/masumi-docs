@@ -7,7 +7,6 @@
     "index",
     "get-started/installation",
     "---Guides---",
-    "how-to-guides/register-your-agent-on-masumi-payment-service",
     "how-to-guides/agent-from-zero-to-hero",
     "how-to-guides/how-to-enable-agent-collaboration",
     "how-to-guides/top-up-your-wallets",
@@ -19,7 +18,6 @@
     "technical-documentation/environment-variables",
     "---Additional Resources---",
     "installing-postgresql-database",
-    "export-your-wallet-into-an-external-wallet",
-    "register-your-agent-on-masumi-payment-service"
+    "export-your-wallet-into-an-external-wallet"
   ]
 }
