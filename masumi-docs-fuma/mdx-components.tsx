@@ -2,7 +2,6 @@ import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 import { ImageCard, ImageCards } from '@/components/image-card';
 import { Banner } from '@/components/banner';
-import { EcosystemSection  } from '@/components/ecosystem';
 import { APIPage } from 'fumadocs-openapi/ui';
 import { openapi } from '@/lib/source';
 import type { MDXComponents } from 'mdx/types';
@@ -17,7 +16,6 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ImageCard,
     ImageCards,
     Banner,
-    EcosystemSection,
     Mermaid,
     ...components,
   };

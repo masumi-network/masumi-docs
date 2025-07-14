@@ -21,19 +21,15 @@ export function ImageCard({ title, description, image, href, className }: ImageC
         />
       </div>
       <div className="p-6">
-        <h3 className="mb-2 text-lg font-semibold text-fd-foreground">{title}</h3>
-        <p className="text-sm text-fd-muted-foreground">{description}</p>
+
+        {href ? <Link href={href} className=" mt-0 text-lg font-semibold text-fd-foreground">{title}</Link> : 
+        <p className="mt-0 mb-0 text-lg font-semibold text-fd-foreground">{title}</p>
+        }
+        <p className="mb-0 text-sm text-fd-muted-foreground">{description}</p>
       </div>
     </>
   );
 
-  if (href) {
-    return (
-      <Link href={href} className={cardClasses}>
-        {cardContent}
-      </Link>
-    );
-  }
 
   return (
     <div className={cardClasses}>
