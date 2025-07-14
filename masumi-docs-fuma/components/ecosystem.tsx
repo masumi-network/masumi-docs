@@ -15,7 +15,7 @@ export function EcosystemSection() {
         image="/assets/sokosumi_card.png"
       />
       <ImageCard
-        title="Kodusumi"
+        title="Kodosumi"
         description="The runtime environment that provides reliable, scalable execution for AI agents."
         href="https://www.kodosumi.io"
         image="/assets/kodosumi_card.png"
