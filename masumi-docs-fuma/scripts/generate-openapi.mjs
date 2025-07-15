@@ -159,7 +159,8 @@ async function createMetaJsonFiles() {
     JSON.stringify({
       title: "API Reference",
       root: true,
-      pages: pages
+      pages: pages,
+      icon: "ChevronsLeftRightEllipsis"
     }, null, 2)
   );
   

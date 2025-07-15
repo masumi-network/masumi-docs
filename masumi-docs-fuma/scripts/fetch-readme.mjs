@@ -14,7 +14,9 @@ const REPOS = [
     owner: 'masumi-network',
     repo: 'masumi-mcp-server',
     outputPath: './content/docs/documentation/technical-documentation/_masumi-mcp-server.mdx',
-    isTabContent: false
+    isTabContent: false,
+    customTitle: 'Masumi MCP Server',
+    customIcon: 'Server'
   },
   // Integration branches
   {
@@ -274,7 +276,7 @@ function convertReadmeToTabContent(readmeContent, owner, repo, branch) {
 async function generateReadmePages() {
   console.log('📚 Fetching README files...');
   
-  for (const { owner, repo, branch, filePath, outputPath, isTabContent, customTitle } of REPOS) {
+  for (const { owner, repo, branch, filePath, outputPath, isTabContent, customTitle, customIcon } of REPOS) {
     const fileDescription = filePath ? `${filePath}` : 'README';
     console.log(`Fetching ${owner}/${repo} ${fileDescription} (branch: ${branch || 'main'})...`);
     
@@ -304,6 +306,7 @@ async function generateReadmePages() {
       const frontmatter = `---
 title: "${title}"
 description: Content from ${owner}/${repo} repository
+${customIcon ? `icon: ${customIcon}` : ''}
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
@@ -321,6 +324,7 @@ import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
       
       const frontmatter = `---
 title: "${title}"
+${customIcon ? `icon: ${customIcon}` : ''}
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';

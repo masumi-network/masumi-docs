@@ -1,6 +1,7 @@
 {
   "title": "API Reference",
   "root": true,
+  "icon": "ChevronsLeftRightEllipsis",
   "pages": [
     "---Payment Service API---",
     "./(generated)/payment-service/get-api-key.mdx",

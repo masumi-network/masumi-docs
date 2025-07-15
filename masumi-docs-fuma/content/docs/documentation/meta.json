@@ -1,6 +1,6 @@
 {
   "title": "Documentation",
-  "icon": "book-open",
+  "icon": "BookOpen",
   "root": true,
   "pages": [
     "---Get Started---",

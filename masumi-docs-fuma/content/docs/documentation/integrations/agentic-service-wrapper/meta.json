@@ -1,5 +1,6 @@
 {
   "title": "Agentic Service Wrapper",
+  "icon": "Package",
   "pages": [
     "index",
     "_n8n",
