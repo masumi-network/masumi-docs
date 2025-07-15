@@ -1,0 +1,18 @@
+{
+  "title": "Agentic Service Wrapper",
+  "pages": [
+    "index",
+    {
+      "title": "n8n",
+      "url": "_n8n"
+    },
+    {
+      "title": "LangChain",
+      "url": "_langchain"
+    },
+    {
+      "title": "CrewAI",
+      "url": "_crewai"
+    }
+  ]
+}

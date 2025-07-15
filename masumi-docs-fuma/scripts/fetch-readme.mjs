@@ -15,6 +15,31 @@ const REPOS = [
     repo: 'masumi-mcp-server',
     outputPath: './content/docs/documentation/technical-documentation/_masumi-mcp-server.mdx',
     isTabContent: false
+  },
+  // Integration branches
+  {
+    owner: 'masumi-network',
+    repo: 'agentic-service-wrapper',
+    branch: 'n8n',
+    outputPath: './content/docs/documentation/integrations/agentic-service-wrapper/_n8n.mdx',
+    isTabContent: false,
+    customTitle: 'n8n'
+  },
+  {
+    owner: 'masumi-network',
+    repo: 'agentic-service-wrapper',
+    branch: 'langchain',
+    outputPath: './content/docs/documentation/integrations/agentic-service-wrapper/_langchain.mdx',
+    isTabContent: false,
+    customTitle: 'LangChain'
+  },
+  {
+    owner: 'masumi-network',
+    repo: 'agentic-service-wrapper',
+    branch: 'crewai',
+    outputPath: './content/docs/documentation/integrations/agentic-service-wrapper/_crewai.mdx',
+    isTabContent: false,
+    customTitle: 'CrewAI'
   }
 ];
 
@@ -204,7 +229,7 @@ function convertReadmeToTabContent(readmeContent, owner, repo, branch) {
 async function generateReadmePages() {
   console.log('📚 Fetching README files...');
   
-  for (const { owner, repo, branch, outputPath, isTabContent } of REPOS) {
+  for (const { owner, repo, branch, outputPath, isTabContent, customTitle } of REPOS) {
     console.log(`Fetching ${owner}/${repo} (branch: ${branch || 'main'})...`);
     
     const readmeContent = await fetchReadme(owner, repo, branch);
@@ -226,7 +251,7 @@ async function generateReadmePages() {
     
     if (isTabContent) {
       // Generate tab content format - just add minimal frontmatter
-      const title = repo.split('-').map(word => 
+      const title = customTitle || repo.split('-').map(word => 
         word.charAt(0).toUpperCase() + word.slice(1)
       ).join(' ').replace(/\bMcp\b/g, 'MCP'); // Fix MCP capitalization
       
@@ -244,7 +269,7 @@ import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
     } else {
       // Generate standalone page format
       const branchInfo = branch && branch !== 'main' && branch !== 'master' ? ` (branch: ${branch})` : '';
-      const title = repo.split('-').map(word => 
+      const title = customTitle || repo.split('-').map(word => 
         word.charAt(0).toUpperCase() + word.slice(1)
       ).join(' ').replace(/\bMcp\b/g, 'MCP'); // Fix MCP capitalization
       

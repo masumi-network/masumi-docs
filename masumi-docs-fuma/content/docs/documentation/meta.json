@@ -10,6 +10,8 @@
     "how-to-guides/agent-from-zero-to-hero",
     "how-to-guides/how-to-enable-agent-collaboration",
     "how-to-guides/top-up-your-wallets",
+    "---Integrations---",
+    "integrations/agentic-service-wrapper",
     "---Technical Documentation---",
     "technical-documentation/smart-contracts",
     "technical-documentation/agentic-service-api",
