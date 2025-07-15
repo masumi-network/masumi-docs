@@ -7,7 +7,6 @@ const REPOS = [
   {
     owner: 'masumi-network',
     repo: 'agentic-service-wrapper',
-    branch: 'docs-prepare',
     outputPath: './content/docs/documentation/get-started/_agentic-service-wrapper.mdx',
     isTabContent: true
   },
