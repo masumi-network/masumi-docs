@@ -1,0 +1,12 @@
+{
+  "title": "MIPs",
+  "icon": "FileText",
+  "root": true,
+  "pages": [
+    "index",
+    "_mip-001",
+    "_mip-002",
+    "_mip-003",
+    "_mip-004"
+  ]
+}

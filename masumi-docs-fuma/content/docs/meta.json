@@ -4,6 +4,7 @@
   "pages": [
     "documentation",
     "core-concepts",
-    "api-reference"
+    "api-reference",
+    "mips"
   ]
 }

@@ -40,27 +40,72 @@ const REPOS = [
     outputPath: './content/docs/documentation/integrations/agentic-service-wrapper/_crewai.mdx',
     isTabContent: false,
     customTitle: 'CrewAI'
+  },
+  // MIPs
+  {
+    owner: 'masumi-network',
+    repo: 'masumi-improvement-proposals',
+    outputPath: './content/docs/mips/index.mdx',
+    isTabContent: false
+  },
+  {
+    owner: 'masumi-network',
+    repo: 'masumi-improvement-proposals',
+    filePath: 'MIPs/MIP-001/MIP-001.md',
+    outputPath: './content/docs/mips/_mip-001.mdx',
+    isTabContent: false,
+    customTitle: 'MIP-001: Masumi Improvement Proposal (MIP) Process'
+  },
+  {
+    owner: 'masumi-network',
+    repo: 'masumi-improvement-proposals',
+    filePath: 'MIPs/MIP-002/MIP-002.md',
+    outputPath: './content/docs/mips/_mip-002.mdx',
+    isTabContent: false,
+    customTitle: 'MIP-002: On-Chain Metadata Standard for Registered Agentic Services'
+  },
+  {
+    owner: 'masumi-network',
+    repo: 'masumi-improvement-proposals',
+    filePath: 'MIPs/MIP-003/MIP-003.md',
+    outputPath: './content/docs/mips/_mip-003.mdx',
+    isTabContent: false,
+    customTitle: 'MIP-003: Agentic Service API Standard'
+  },
+  {
+    owner: 'masumi-network',
+    repo: 'masumi-improvement-proposals',
+    filePath: 'MIPs/MIP-004/MIP-004.md',
+    outputPath: './content/docs/mips/_mip-004.mdx',
+    isTabContent: false,
+    customTitle: 'MIP-004: A Hashing Standard for Input and Output Data Integrity'
   }
 ];
 
-async function fetchReadme(owner, repo, branch = 'main') {
+async function fetchReadme(owner, repo, branch = 'main', filePath = null) {
   try {
-    const response = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/readme?ref=${branch}`,
-      {
-        headers: {
-          'Accept': 'application/vnd.github.v3.raw',
-        },
-      }
-    );
+    let url;
+    if (filePath) {
+      // Fetch specific file
+      url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath}`;
+    } else {
+      // Fetch README using GitHub API
+      url = `https://api.github.com/repos/${owner}/${repo}/readme?ref=${branch}`;
+    }
+
+    const response = await fetch(url, {
+      headers: filePath ? {} : {
+        'Accept': 'application/vnd.github.v3.raw',
+      },
+    });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch README: ${response.statusText}`);
+      throw new Error(`Failed to fetch file: ${response.statusText}`);
     }
 
     return await response.text();
   } catch (error) {
-    console.error(`Error fetching README for ${owner}/${repo} (branch: ${branch}):`, error);
+    console.error(`Error fetching file for ${owner}/${repo} (branch: ${branch}, filePath: ${filePath}):`, error);
     return null;
   }
 }
@@ -229,13 +274,14 @@ function convertReadmeToTabContent(readmeContent, owner, repo, branch) {
 async function generateReadmePages() {
   console.log('📚 Fetching README files...');
   
-  for (const { owner, repo, branch, outputPath, isTabContent, customTitle } of REPOS) {
-    console.log(`Fetching ${owner}/${repo} (branch: ${branch || 'main'})...`);
+  for (const { owner, repo, branch, filePath, outputPath, isTabContent, customTitle } of REPOS) {
+    const fileDescription = filePath ? `${filePath}` : 'README';
+    console.log(`Fetching ${owner}/${repo} ${fileDescription} (branch: ${branch || 'main'})...`);
     
-    const readmeContent = await fetchReadme(owner, repo, branch);
+    const readmeContent = await fetchReadme(owner, repo, branch, filePath);
     
     if (!readmeContent) {
-      console.error(`❌ Failed to fetch README for ${owner}/${repo}`);
+      console.error(`❌ Failed to fetch ${fileDescription} for ${owner}/${repo}`);
       continue;
     }
 
@@ -256,7 +302,7 @@ async function generateReadmePages() {
       ).join(' ').replace(/\bMcp\b/g, 'MCP'); // Fix MCP capitalization
       
       const frontmatter = `---
-title: ${title}
+title: "${title}"
 description: Content from ${owner}/${repo} repository
 ---
 
@@ -274,7 +320,7 @@ import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
       ).join(' ').replace(/\bMcp\b/g, 'MCP'); // Fix MCP capitalization
       
       const frontmatter = `---
-title: ${title}
+title: "${title}"
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
