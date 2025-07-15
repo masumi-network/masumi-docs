@@ -13,7 +13,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
     ...defaultMdxComponents,
     ...(icons as unknown as MDXComponents),
-    img: (props) => <ImageZoom {...(props as any)} />,
+    img: (props) => <ImageZoom {...(props as any)} className="rounded-lg" />,
     APIPage: (props) => <APIPage {...openapi.getAPIPageProps(props)} />,
     ImageCard,
     ImageCards,

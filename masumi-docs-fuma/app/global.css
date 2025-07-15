@@ -6,8 +6,8 @@
 /* Background gradient with grid */
 body {
   background: 
-    linear-gradient(rgba(250, 20, 10, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(250, 20, 10, 0.02) 1px, transparent 1px),
+    linear-gradient(rgba(250, 20, 10, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(250, 20, 10, 0.04) 1px, transparent 1px),
     linear-gradient(
       135deg,
       hsl(0, 50%, 99%) 0%,
@@ -23,47 +23,54 @@ body {
 
 .dark body {
   background: 
-    linear-gradient(rgba(250, 20, 10, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(250, 20, 10, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(250, 20, 10, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(250, 20, 10, 0.07) 1px, transparent 1px),
     linear-gradient(
       135deg,
-      hsl(0, 20%, 9%) 0%,
-      hsl(0, 25%, 7%) 25%,
-      hsl(0, 15%, 11%) 50%,
-      hsl(0, 30%, 6%) 75%,
-      hsl(0, 18%, 10%) 100%
+      hsl(0, 5%, 8%) 0%,
+      hsl(0, 8%, 6%) 25%,
+      hsl(0, 3%, 10%) 50%,
+      hsl(0, 10%, 5%) 75%,
+      hsl(0, 6%, 9%) 100%
     );
   background-size: 50px 50px, 50px 50px, 100% 100%;
   background-attachment: fixed;
 }
 
-/* Custom colors for sidebar tabs - Masumi Red Theme */
-:root {
-  --docs-color: #dc2626;      /* Strong red */
-  --concepts-color: #be123c;  /* Rose red */
-  --started-color: #e11d48;   /* Pink red */
-  --guides-color: #f43f5e;    /* Light red */
-  --tech-color: #991b1b;      /* Dark red */
-}
-
-/* Dark mode colors */
-.dark {
-  --docs-color: #ef4444;      /* Bright red */
-  --concepts-color: #f43f5e;  /* Rose */
-  --started-color: #fb7185;   /* Light pink red */
-  --guides-color: #fca5a5;    /* Pale red */
-  --tech-color: #dc2626;      /* Medium red */
-}
-
-/* Image border radius - exclude navigation logo */
+/* 
+Image border radius - exclude navigation logo
 img {
   border-radius: 8px;
+} */
+
+/* Fix search field hover - only border, not full background */
+.hover\:bg-fd-accent:hover {
+  background-color: transparent !important;
+  border-color: hsl(3, 96%, 51%) !important; /* Masumi red border */
 }
 
-/* Remove border radius from logo images */
-nav img,
-header img,
-[data-navbar] img,
-.navbar img {
-  border-radius: 0 !important;
+.hover\:text-fd-accent-foreground:hover {
+  color: inherit !important; /* Keep original text color */
+}
+
+/* Fix dropdown menu selected item icon color in light theme */
+[data-state="open"] [data-highlighted] svg,
+[aria-selected="true"] svg,
+.bg-fd-accent svg {
+  color: hsl(0, 25%, 8%) !important; /* Dark color for light theme */
+}
+
+.dark [data-state="open"] [data-highlighted] svg,
+.dark [aria-selected="true"] svg,
+.dark .bg-fd-accent svg {
+  color: hsl(0, 0%, 100%) !important; /* White for dark theme */
+}
+
+/* Remove grid from sidebar */
+#nd-sidebar {
+  background: hsl(0, 40%, 98%) !important; /* Light theme sidebar */
+}
+
+.dark #nd-sidebar {
+  background: var(--color-fd-background) !important; /* Match navbar background */
 }
