@@ -3,12 +3,9 @@
   "icon": "BookOpen",
   "separator": true,
   "pages": [
-    "how-to-create-your-own-crewai-agents-and-sell-them",
-    "how-to-integrate-other-agentic-services-into-your-crewai-crew",
-    "how-to-sell-your-agentic-service-on-masumi",
-    "how-to-top-up-your-wallets",
-    "how-to-hash-the-input-and-output-of-a-job",
-    "how-to-validate-the-hash-delivered-as-response-from-a-job",
-    "how-to-query-the-masumi-registry"
+    "agent-from-zero-to-hero",
+    "how-to-enable-agent-collaboration",
+    "list-agent-on-sokosumi",
+    "top-up-your-wallets"
   ]
 }
