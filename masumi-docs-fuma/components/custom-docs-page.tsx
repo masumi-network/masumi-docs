@@ -3,11 +3,10 @@
 import { DocsPage } from 'fumadocs-ui/page';
 import { PageActionsWrapper } from './page-actions-wrapper';
 import type { ReactNode } from 'react';
-import type { TableOfContents } from 'fumadocs-core/toc';
 
 interface CustomDocsPageProps {
   children: ReactNode;
-  toc?: TableOfContents;
+  toc?: any; // TOC type from fumadocs
   full?: boolean;
 }
 
