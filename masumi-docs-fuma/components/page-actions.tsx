@@ -7,9 +7,11 @@ interface PageActionsProps {
   content: string;
   title: string;
   url: string;
+  loading?: boolean;
+  error?: string | null;
 }
 
-export function PageActions({ content, title, url }: PageActionsProps) {
+export function PageActions({ content, title, url, loading = false, error }: PageActionsProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [copiedStates, setCopiedStates] = useState<{ [key: string]: boolean }>({});
 
@@ -83,16 +85,26 @@ Please provide a summary and answer any questions I might have about this conten
       <div className="flex items-center border border-fd-border rounded-md overflow-hidden">
         {/* Main copy button */}
         <button
-          onClick={() => handleCopy(content, 'markdown')}
-          className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent/10 transition-colors"
+          onClick={() => !loading && !error && handleCopy(content, 'markdown')}
+          disabled={loading || !!error}
+          className={`flex items-center gap-2 px-3 py-1.5 text-sm font-medium transition-colors ${
+            loading || error 
+              ? 'text-fd-muted-foreground/50 cursor-not-allowed' 
+              : 'text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent/10'
+          }`}
           aria-label="Copy page content"
         >
-          {copiedStates.markdown ? (
+          {loading ? (
+            <svg className="w-4 h-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          ) : copiedStates.markdown ? (
             <Check className="w-4 h-4 text-green-500" />
           ) : (
             <Copy className="w-4 h-4" />
           )}
-          <span>Copy page</span>
+          <span>{loading ? 'Loading...' : 'Copy page'}</span>
         </button>
         
         {/* Divider */}
@@ -100,8 +112,13 @@ Please provide a summary and answer any questions I might have about this conten
         
         {/* Dropdown trigger */}
         <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center px-2 py-1.5 text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent/10 transition-colors"
+          onClick={() => !loading && !error && setIsOpen(!isOpen)}
+          disabled={loading || !!error}
+          className={`flex items-center px-2 py-1.5 transition-colors ${
+            loading || error 
+              ? 'text-fd-muted-foreground/50 cursor-not-allowed' 
+              : 'text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent/10'
+          }`}
           aria-label="More actions"
           aria-expanded={isOpen}
         >
@@ -122,7 +139,7 @@ Please provide a summary and answer any questions I might have about this conten
         </button>
       </div>
 
-      {isOpen && (
+      {isOpen && !loading && !error && (
         <>
           {/* Backdrop */}
           <div 
