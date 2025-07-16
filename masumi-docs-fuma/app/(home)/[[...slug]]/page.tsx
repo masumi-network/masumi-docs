@@ -1,10 +1,10 @@
 import { source } from '@/lib/source';
 import {
-  DocsPage,
   DocsBody,
   DocsDescription,
   DocsTitle,
 } from 'fumadocs-ui/page';
+import { CustomDocsPage } from '@/components/custom-docs-page';
 import { notFound, redirect } from 'next/navigation';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { getMDXComponents } from '@/mdx-components';
@@ -31,7 +31,7 @@ export default async function Page(props: {
   const MDXContent = page.data.body;
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
+    <CustomDocsPage toc={page.data.toc} full={page.data.full}>
       {page.data.banner && (
         <div className=" flex justify-center">
           <img 
@@ -51,7 +51,7 @@ export default async function Page(props: {
           })}
         />
       </DocsBody>
-    </DocsPage>
+    </CustomDocsPage>
   );
 }
 

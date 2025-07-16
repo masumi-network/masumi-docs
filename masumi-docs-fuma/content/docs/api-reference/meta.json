@@ -1,7 +1,6 @@
 {
   "title": "API Reference",
   "root": true,
-  "icon": "ChevronsLeftRightEllipsis",
   "pages": [
     "---Payment Service API---",
     "./(generated)/payment-service/get-api-key.mdx",
@@ -47,5 +46,6 @@
     "./(generated)/registry-service/post-registry-source.mdx",
     "./(generated)/registry-service/patch-registry-source.mdx",
     "./(generated)/registry-service/delete-registry-source.mdx"
-  ]
+  ],
+  "icon": "ChevronsLeftRightEllipsis"
 }
