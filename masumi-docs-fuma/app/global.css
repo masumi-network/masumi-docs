@@ -6,7 +6,7 @@
 /* Fix search field hover - only border, not full background */
 .hover\:bg-fd-accent:hover {
   background-color: transparent !important;
-  border-color: hsl(3, 96%, 51%) !important; /* Masumi red border */
+  border-color: hsl(328, 100%, 51%) !important; /* Masumi pink border #FA008C */
 }
 
 .hover\:text-fd-accent-foreground:hover {

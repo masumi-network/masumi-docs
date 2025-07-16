@@ -1,6 +1,6 @@
 @theme {
   /* Primary Colors */
-  --color-fd-primary: hsl(3, 96%, 51%);          /* #FA140A Masumi red */
+  --color-fd-primary: hsl(328, 100%, 51%);       /* #FA008C Masumi pink */
   --color-fd-primary-foreground: hsl(0, 0%, 100%);
   
   /* Background Colors */
@@ -23,47 +23,47 @@
   --color-fd-muted: hsl(0, 20%, 96%);            /* Very muted red */
   --color-fd-muted-foreground: hsl(0, 10%, 40%);
   
-  /* Accent Colors - Using #FA140A */
-  --color-fd-accent: hsl(3, 96%, 51%);           /* #FA140A in HSL */
+  /* Accent Colors - Using #FA008C */
+  --color-fd-accent: hsl(328, 100%, 51%);        /* #FA008C in HSL */
   --color-fd-accent-foreground: hsl(0, 0%, 100%);
   
   /* Border Colors */
   --color-fd-border: hsl(0, 30%, 91%);           /* Light red border */
-  --color-fd-ring: hsl(3, 96%, 51%);             /* #FA140A Focus ring */
+  --color-fd-ring: hsl(328, 100%, 51%);          /* #FA008C Focus ring */
 }
 
 .dark {
   /* Primary Colors */
-  --color-fd-primary: hsl(3, 96%, 51%);          /* #FA140A Masumi red */
+  --color-fd-primary: hsl(328, 100%, 51%);       /* #FA008C Masumi pink */
   --color-fd-primary-foreground: hsl(0, 0%, 100%);
   
   /* Background Colors */
-  --color-fd-background: hsl(0, 20%, 9%);        /* Very dark with red tint */
+  --color-fd-background: hsl(0, 5%, 7%);         /* Off-black background */
   --color-fd-foreground: hsl(0, 20%, 98%);       /* Light text */
   
   /* Card/Surface Colors */
-  --color-fd-card: hsl(0, 15%, 13%);             /* Dark red-tinted surface */
+  --color-fd-card: hsl(0, 10%, 11%);             /* Off-black surface */
   --color-fd-card-foreground: hsl(0, 20%, 98%);
   
   /* Popover Colors */
-  --color-fd-popover: hsl(0, 15%, 13%);
+  --color-fd-popover: hsl(0, 10%, 11%);
   --color-fd-popover-foreground: hsl(0, 20%, 98%);
   
   /* Secondary Colors */
-  --color-fd-secondary: hsl(0, 15%, 20%);        /* Dark muted red */
+  --color-fd-secondary: hsl(0, 10%, 15%);        /* Off-black secondary */
   --color-fd-secondary-foreground: hsl(0, 40%, 85%);
   
   /* Muted Colors */
-  --color-fd-muted: hsl(0, 15%, 18%);            /* Muted dark red */
+  --color-fd-muted: hsl(0, 10%, 13%);            /* Off-black muted */
   --color-fd-muted-foreground: hsl(0, 10%, 70%);
   
-  /* Accent Colors - Using #FA140A */
-  --color-fd-accent: hsl(3, 96%, 51%);           /* #FA140A in HSL */
+  /* Accent Colors - Using #FA008C */
+  --color-fd-accent: hsl(328, 100%, 51%);        /* #FA008C in HSL */
   --color-fd-accent-foreground: hsl(0, 0%, 100%);
   
   /* Border Colors */
-  --color-fd-border: hsl(0, 20%, 25%);           /* Dark red border */
-  --color-fd-ring: hsl(3, 96%, 51%);             /* #FA140A Focus ring */
+  --color-fd-border: hsl(322, 22%, 17%);           /* Very dark border */
+  --color-fd-ring: hsl(328, 100%, 51%);          /* #FA008C Focus ring */
 }
 
 /* Sidebar specific colors */
@@ -73,6 +73,6 @@
 }
 
 .dark #nd-sidebar {
-  --color-fd-secondary: hsl(0, 20%, 25%);
-  --color-fd-muted: hsl(0, 20%, 25%);
+  --color-fd-secondary: hsl(0, 10%, 15%);
+  --color-fd-muted: hsl(0, 10%, 15%);
 }
