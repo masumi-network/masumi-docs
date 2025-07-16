@@ -21,6 +21,7 @@ export function CustomDocsPage({ children, toc, full }: CustomDocsPageProps) {
             <PageActionsWrapper />
           </div>
         ),
+        style: 'clerk'
       }}
     >
       {children}

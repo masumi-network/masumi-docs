@@ -32,6 +32,19 @@ export default function Layout({ children }: { children: ReactNode }) {
       </head>
       <body className="flex flex-col min-h-screen">
         <RootProvider>{children}</RootProvider>
+        {/* Fixed Kanji on the right */}
+        <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50  pointer-events-none">
+          <img 
+            src="/assets/masumi-kanji-black.png" 
+            alt="Masumi Kanji" 
+            className="h-[40px] w-auto dark:hidden"
+          />
+          <img 
+            src="/assets/masumi-kanji-white.png" 
+            alt="Masumi Kanji" 
+            className="h-[40px] w-auto hidden dark:block"
+          />
+        </div>
       </body>
     </html>
   );

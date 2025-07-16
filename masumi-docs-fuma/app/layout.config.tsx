@@ -13,14 +13,14 @@ export const baseOptions: BaseLayoutProps = {
     title: (
       <>
         <Image
-          src="/assets/masumi_logo_kanji_black.png"
+          src="/assets/masumi_logo.png"
           alt="Masumi Logo"
           width={130}
           height={50}
           className="dark:hidden"
         />
         <Image
-          src="/assets/masumi_logo_kanji_white.png"
+          src="/assets/masumi_logo_dark.png"
           alt="Masumi Logo"
           width={130}
           height={50}
