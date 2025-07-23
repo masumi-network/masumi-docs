@@ -192,6 +192,22 @@ function parseAttributes(attributesString) {
 function convertHtmlToJsx(content) {
   let updatedContent = content;
 
+  // First, handle problematic Unicode characters
+  updatedContent = updatedContent.replace(/–/g, '-'); // em-dash to regular dash
+  updatedContent = updatedContent.replace(/—/g, '-'); // em-dash to regular dash
+  updatedContent = updatedContent.replace(/'/g, "'"); // smart quote to regular quote
+  updatedContent = updatedContent.replace(/'/g, "'"); // smart quote to regular quote
+  updatedContent = updatedContent.replace(/"/g, '"'); // smart quote to regular quote
+  updatedContent = updatedContent.replace(/"/g, '"'); // smart quote to regular quote
+
+  // Handle HTML br tags properly
+  updatedContent = updatedContent.replace(/<br\s*\/?>/gi, '<br />');
+
+  // Escape curly braces throughout the content to prevent JSX parsing conflicts
+  // This is a comprehensive approach to handle all curly braces in markdown
+  updatedContent = updatedContent.replace(/\{/g, '\\{');
+  updatedContent = updatedContent.replace(/\}/g, '\\}');
+
   // Convert <picture> elements with dark mode variants
   const pictureRegex = /<picture[^>]*>\s*<source[^>]*media=\"\s*\(\s*prefers-color-scheme:\s*dark\s*\)\"[^>]*srcset=\"([^\"]+)\"[^>]*>\s*<img([^>]+)>\s*<\/picture>/gis;
   updatedContent = updatedContent.replace(pictureRegex, (match, darkSrc, imgTag) => {
