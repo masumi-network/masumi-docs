@@ -49,6 +49,12 @@ var REPOS = [
         repo: 'masumi-mcp-server',
         outputPath: './content/docs/documentation/technical-documentation/_masumi-mcp-server.mdx',
         isTabContent: false
+    },
+    {
+        owner: 'masumi-network',
+        repo: 'crewai-masumi-quickstart-template',
+        outputPath: './content/docs/documentation/how-to-guides/_crewai-quickstart.mdx',
+        isTabContent: true
     }
 ];
 function fetchReadme(owner_1, repo_1) {

@@ -81,6 +81,16 @@ const REPOS = [
     outputPath: './content/docs/mips/_mip-004.mdx',
     isTabContent: false,
     customTitle: 'MIP-004: A Hashing Standard for Input and Output Data Integrity'
+  },
+  {
+    owner: 'masumi-network',
+    repo: 'crewai-masumi-quickstart-template',
+    outputPath: './content/docs/documentation/how-to-guides/agent-from-zero-to-hero.mdx',
+    isTabContent: false,
+    customTitle: 'From Zero to Hero with Example Agent',
+    customIcon: 'Bot',
+    preserveImports: true,
+    customDescription: 'Complete guide to build, deploy, and monetize your AI agent on Masumi - from setup to earning revenue'
   }
 ];
 
@@ -203,10 +213,19 @@ function convertHtmlToJsx(content) {
   // Handle HTML br tags properly
   updatedContent = updatedContent.replace(/<br\s*\/?>/gi, '<br />');
 
-  // Escape curly braces throughout the content to prevent JSX parsing conflicts
-  // This is a comprehensive approach to handle all curly braces in markdown
-  updatedContent = updatedContent.replace(/\{/g, '\\{');
-  updatedContent = updatedContent.replace(/\}/g, '\\}');
+  // Escape curly braces but preserve them in code blocks
+  // Split content to handle code blocks separately
+  const codeBlockRegex = /(```[\s\S]*?```|`[^`]+`)/g;
+  const parts = updatedContent.split(codeBlockRegex);
+  
+  updatedContent = parts.map((part, index) => {
+    // If this part is a code block (odd indices after split), preserve it
+    if (codeBlockRegex.test(part)) {
+      return part;
+    }
+    // Otherwise, escape curly braces
+    return part.replace(/\{/g, '\\{').replace(/\}/g, '\\}');
+  }).join('');
 
   // Convert <picture> elements with dark mode variants
   const pictureRegex = /<picture[^>]*>\s*<source[^>]*media=\"\s*\(\s*prefers-color-scheme:\s*dark\s*\)\"[^>]*srcset=\"([^\"]+)\"[^>]*>\s*<img([^>]+)>\s*<\/picture>/gis;
@@ -292,7 +311,7 @@ function convertReadmeToTabContent(readmeContent, owner, repo, branch) {
 async function generateReadmePages() {
   console.log('📚 Fetching README files...');
   
-  for (const { owner, repo, branch, filePath, outputPath, isTabContent, customTitle, customIcon } of REPOS) {
+  for (const { owner, repo, branch, filePath, outputPath, isTabContent, customTitle, customIcon, preserveImports, customDescription } of REPOS) {
     const fileDescription = filePath ? `${filePath}` : 'README';
     console.log(`Fetching ${owner}/${repo} ${fileDescription} (branch: ${branch || 'main'})...`);
     
@@ -331,6 +350,28 @@ import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 `;
       const processedContent = convertReadmeToTabContent(contentWithJsxAttributes, owner, repo, branch || 'main');
       fullContent = frontmatter + processedContent;
+    } else if (preserveImports) {
+      // Special handling for files that need to preserve existing imports
+      const title = customTitle || repo.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ').replace(/\bMcp\b/g, 'MCP');
+      
+      const frontmatter = `---
+title: "${title}"
+${customDescription ? `description: "${customDescription}"` : ''}
+${customIcon ? `icon: ${customIcon}` : ''}
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
+<Callout type="info">
+  This content is automatically synced from the <a href="https://github.com/${owner}/${repo}" target="_blank" rel="noopener noreferrer">${owner}/${repo}</a> repository.
+</Callout>
+
+`;
+      fullContent = frontmatter + contentWithJsxAttributes;
     } else {
       // Generate standalone page format
       const branchInfo = branch && branch !== 'main' && branch !== 'master' ? ` (branch: ${branch})` : '';

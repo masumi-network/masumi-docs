@@ -8,62 +8,88 @@ import { Callout } from 'fumadocs-ui/components/callout';
 import { Steps, Step } from 'fumadocs-ui/components/steps';
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
-# From Zero to Hero with Example Agent
-
-Go from zero to a fully functioning, monetized AI agent on the Masumi Network. This comprehensive guide walks you through creating a CrewAI agent, setting up payments, and start earning revenue.
-
 <Callout type="info">
-In this tutorial, we'll run everything locally for learning. To make your agent available to the public, deploy it on a cloud service like AWS, Google Cloud, or Azure.
+  This content is automatically synced from the <a href="https://github.com/masumi-network/crewai-masumi-quickstart-template" target="_blank" rel="noopener noreferrer">masumi-network/crewai-masumi-quickstart-template</a> repository.
 </Callout>
 
-<Steps>
+This **CrewAI Masumi Starter Kit** lets you quickly deploy your own CrewAI agents and integrate them with Masumi’s decentralized payment solution.
+[Follow this guide](https://docs.masumi.network/documentation/how-to-guides/agent-from-zero-to-hero)
 
-<Step>
-**Set Up Your CrewAI Agent**
+**Key benefits:**
 
-<Accordions>
-<Accordion title="View Instructions">
+- Simple setup: Just clone, configure, and deploy.
+- Integrated with Masumi for automated decentralized payments on Cardano.
+- Production-ready API built with FastAPI.
 
-**Prerequisites:**
-* Python >= 3.10 and < 3.13
-* uv (Python package manager)
+---
 
-Clone the CrewAI quickstart template:
+Follow these steps to quickly get your CrewAI agents live and monetized on Masumi.
+
+### **1. Clone Repository**
+
+Prerequisites:
+
+- Python >= 3.10 and < 3.13
+- uv (Python package manager)
+
+Clone the repository and navigate into the directory:
+
 ```bash
 git clone https://github.com/masumi-network/crewai-masumi-quickstart-template.git
 cd crewai-masumi-quickstart-template
 ```
 
-Initialize virtual environment and install requirements:
+Install dependencies:
+
 ```bash
 uv venv --python 3.13
 source .venv/bin/activate
 uv pip install -r requirements.txt
 ```
 
-Configure environmental variables:
+---
+
+### ⚙️ **2. Configure Your Environment Variables**
+
+Copy `.env.example` to `.env` and fill with your own data:
+
 ```bash
 cp .env.example .env
 ```
 
-Open `.env` and add your OpenAI API key:
+Example `.env` configuration:
+
 ```ini
-OPENAI_API_KEY=your_openai_api_key_here
+# Payment Service
+PAYMENT_SERVICE_URL=http://localhost:3001/api/v1
+PAYMENT_API_KEY=your_payment_key
+
+# Agent Configuration
+AGENT_IDENTIFIER=your_agent_identifier_from_registration
+PAYMENT_AMOUNT=10000000
+PAYMENT_UNIT=lovelace
+SELLER_VKEY=your_selling_wallet_vkey
+
+# OpenAI API
+OPENAI_API_KEY=your_openai_api_key
 ```
 
-Get your OpenAI API key from the [OpenAI Developer Portal](https://platform.openai.com/api-keys).
+#### Get your OpenAI API key from the [OpenAI Developer Portal](https://platform.openai.com/api-keys)
 
-**Understanding the Agent Structure:**
+---
 
-This template creates a **research crew** with:
-- **Research Analyst** - Gathers and analyzes information
-- **Content Summarizer** - Transforms research into clear summaries
+### 🔧 **3. Define Your CrewAI Agents**
 
-The code is split into:
-- `crew_definition.py` - Defines CrewAI agents and tasks
-- `main.py` - Runs the crew and defines the API
+Look around the `crew_definition.py` file. It has a basic `ResearchCrew` defined. Here you can define your agent functionality. 
 
-Test your agent by adding this to the end of `main.py`:
+If you're just starting and want to test everything from beginning to the end, you can do it withouth adding anything extra. 
+
+#### Test your agent:
+
+You can test your agent as a standalone script, without having it registered on Masumi.
+
+To do so, add this to the end of main.py file instead of the existing way of running the API (comment that one out):
+
 ```python
 def main():
     input_data = {"text": "The impact of AI on the job market"}
@@ -75,90 +101,65 @@ if __name__ == "__main__":
     main()
 ```
 
-Run it:
-```bash
+#### Run it
+
+```python
 python main.py
 ```
 
-</Accordion>
-</Accordions>
-</Step>
+---
 
-<Step>
-**Expose Your Agent via API**
-
-<Accordions>
-<Accordion title="View Instructions">
+### 🌐 **4. Expose Your Agent via API**
 
 Now we'll expose the agent via a FastAPI interface that follows the [MIP-003](https://github.com/masumi-network/masumi-improvement-proposals/blob/main/MIPs/MIP-003/MIP-003) standard.
 
-Return `main.py` to its original state (remove the test code from Step 1).
+Return `main.py` to its original state.
 
 The API provides these endpoints:
+
 - `GET /input_schema` - Returns input requirements
 - `GET /availability` - Checks server status
 - `POST /start_job` - Starts a new AI task
 - `GET /status` - Checks job status
 - `POST /provide_input` - Provides additional input
 
-<Callout type="warn">
-**Temporary job storage warning:** For simplicity, jobs are stored in memory (`jobs = {}`). In production, use a database like PostgreSQL and consider message queues for background processing.
-</Callout>
+```
+Temporary job storage warning: For simplicity, jobs are stored in memory (jobs = {}). In production, use a database like PostgreSQL and consider message queues for background processing.
+```
 
-Run the API server:
-```bash
+#### Run the API server:
+
+```python
 python main.py api
 ```
 
-Access the interactive API documentation at: `http://localhost:8000/docs`
+Access the interactive API documentation at:
+http://localhost:8000/docs
 
-**Test the endpoints:**
+---
 
-Get input schema:
-```bash
-curl -X GET "http://localhost:8000/input_schema"
-```
-
-Check availability:
-```bash
-curl -X GET "http://localhost:8000/availability"
-```
-
-Start a job (this will fail until Step 3 is complete):
-```bash
-curl -X POST "http://localhost:8000/start_job" \
--H "Content-Type: application/json" \
--d '{
-    "identifier_from_purchaser": "example_purchaser_123", 
-    "input_data": {"text": "coffee beans"}
-}'
-```
-
-</Accordion>
-</Accordions>
-</Step>
-
-<Step>
-**Install Masumi Payment Service**
-
-<Accordions>
-<Accordion title="View Instructions">
+### 💳 **5. Install the Masumi Payment Service**
 
 The Masumi Payment Service handles all blockchain payments for your agent.
 
-Follow the [Installation Guide](/documentation/get-started/installation) to set up the payment service.
+Follow the [Installation Guide](https://docs.masumi.network/documentation/get-started/installation) to set up the payment service.
 
-Once installed, your payment service will be available at:
-- Admin Dashboard: `http://localhost:3001/admin`
-- API Documentation: `http://localhost:3001/docs`
+Once installed (locally), your payment service will be available at:
+
+- Admin Dashboard: http://localhost:3001/admin
+- API Documentation: http://localhost:3001/docs
+
+If you used some other way of deployment, for example with Rialway, you have to find the URL there. 
 
 Verify it's running:
+
 ```bash
 curl -X GET 'http://localhost:3001/api/v1/health/' -H 'accept: application/json'
 ```
 
 You should receive:
-```json
+
+```
 {
   "status": "success",
   "data": {
@@ -167,182 +168,81 @@ You should receive:
 }
 ```
 
-</Accordion>
-</Accordions>
-</Step>
+---
 
-<Step>
-**Fund Your Wallets with Test ADA**
+### **6. Top Up Your Wallet with Test ADA**
 
-<Accordions>
-<Accordion title="View Instructions">
+Get free Test ADA from Cardano Faucet:
 
-To test payments, you'll need Test-ADA in your wallets.
+- Copy your Selling Wallet address from the Masumi Dashboard.
+- Visit the [Cardano Faucet](https://docs.cardano.org/cardano-testnets/tools/faucet) or the [Masumi Dispencer](https://dispenser.masumi.network/).
+- Request Test ADA (Preprod network).
 
-**Get your wallet address:**
-1. Open the Admin Dashboard: `http://localhost:3001/admin`
-2. Navigate to "Contracts" → "PREPROD Contract"
-3. Scroll to "Selling Wallet"
-4. Copy the wallet address
-5. Click "Top up" to go to the Cardano Faucet
+---
 
-**Request Test-ADA from the Faucet:**
-1. On the [Cardano Faucet](https://docs.cardano.org/cardano-testnets/tools/faucet) page
-2. Select "Preprod Testnet" from the Environment dropdown
-3. Paste your wallet address
-4. Click "Request Funds"
-
-After a few minutes, you'll see 10,000 Test-ADA in your wallet. This is worthless test currency for development only.
-
-</Accordion>
-</Accordions>
-</Step>
-
-<Step>
-**Register Your Agent on Masumi**
-
-<Accordions>
-<Accordion title="View Instructions">
+### **7. Register Your Crew on Masumi**
 
 Before accepting payments, register your agent on the Masumi Network.
 
-**Get your payment source information:**
-```bash
-curl -X 'GET' \
-  'http://localhost:3001/api/v1/payment-source/?take=10' \
-  -H 'accept: application/json' \
-  -H 'token: your_admin_key'
-```
+1. Get your payment source information using [/payment-source/](https://docs.masumi.network/api-reference/payment-service/get-payment-source) endpoint, you will need `walletVkey` from the Selling Wallet (look for `"network": "PREPROD"`).:
 
-From the response, copy the `walletVkey` from the Selling Wallet (look for `"network": "PREPROD"`).
 
-**Register your agent:**
-```bash
-curl -X 'POST' \
-  'http://localhost:3001/api/v1/registry/' \
-  -H 'accept: application/json' \
-  -H 'token: your_admin_key' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "network": "Preprod",
-  "name": "My Research Agent",
-  "description": "AI agent that researches topics and provides summaries",
-  "apiBaseUrl": "http://127.0.0.1:8000",
-  "sellingWalletVkey": "your_wallet_vkey_here",
-  "Tags": ["research", "ai", "analysis"],
-  "Author": {
-    "name": "Your Name",
-    "email": "your.email@example.com"
-  },
-  "Legal": {
-    "termsOfService": "Standard terms apply"
-  },
-  "Capability": {
-    "name": "Research and Analysis",
-    "version": "1.0.0"
-  },
-  "AgentPricing": {
-    "pricingType": "Fixed",
-    "Pricing": [
-      {
-        "unit": "ADA",
-        "amount": "10000000"
-      }
-    ]
-  }
-}'
-```
+2.Register your CrewAI agent via Masumi’s API using the [POST /registry](https://docs.masumi.network/api-reference/payment-service/post-registry) endpoint.
 
-**Get your agent identifier:**
-```bash
-curl -X 'GET' \
-  'http://localhost:3001/api/v1/registry/?network=Preprod' \
-  -H 'accept: application/json' \
-  -H 'token: your_admin_key'
-```
+It will take a few minutes for the agnet to register, you can track it's state in the admin dashboard. 
 
-From the response, copy the `agentIdentifier`.
+3. Once the agent is rerigstered, get your agent identifier [`GET /registry/`](https://docs.masumi.network/api-reference/payment-service/get-registry)
 
-**Update your agent's .env file:**
+Note your `agentIdentifier` from the response and update it in your `.env` file and update`PAYMENT_API_KEY`
 
-Add these variables to your agent's `.env`:
-```ini
-PAYMENT_API_KEY=your_payment_api_key
-AGENT_IDENTIFIER=your_agent_identifier
-```
+Create an PAYMENT_API key using [`GET /api-key/`](https://docs.masumi.network/api-reference/registry-service/get-api-key)
 
-Create an API key using:
-```bash
-curl -X 'POST' 'http://localhost:3001/api/v1/api-key/' \
-  -H 'token: your_admin_key' \
-  -H 'Content-Type: application/json' \
-  -d '{"name": "Agent API Key"}'
-```
+---
 
-</Accordion>
-</Accordions>
-</Step>
-
-<Step>
-**Test Your Monetized Agent**
-
-<Accordions>
-<Accordion title="View Instructions">
+### **8. Test Your Monetized Agent**
 
 Your agent is now ready to accept payments! Test the complete workflow:
 
-**Start a paid job:**
+Start a paid job:
+
 ```bash
 curl -X POST "http://localhost:8000/start_job" \
 -H "Content-Type: application/json" \
 -d '{
-    "identifier_from_purchaser": "test_client_123", 
+    "identifier_from_purchaser": "<put HEX of even character>",
     "input_data": {"text": "artificial intelligence trends"}
 }'
 ```
 
-This returns a `job_id` and `payment_id`.
+This returns a `job_id`.
 
-**Check job status:**
-```bash
-curl -X GET "http://localhost:8000/status?job_id=your_job_id"
-```
+Check job status:
 
-**Make the payment** (from another agent or client):
+`curl -X GET "http://localhost:8000/status?job_id=your_job_id"`
+
+Make the payment (from another agent or client):
+
 ```bash
 curl -X POST 'http://localhost:3001/api/v1/purchase' \
   -H 'Content-Type: application/json' \
   -H 'token: purchaser_api_key' \
   -d '{
-    "payment_id": "your_payment_id",
     "agent_identifier": "your_agent_identifier"
   }'
 ```
 
-Your agent will process the job and return results once payment is confirmed!
+## Your agent will process the job and return results once payment is confirmed!
 
-</Accordion>
-</Accordions>
-</Step>
 
-</Steps>
 
-## 🎉 Congratulations!
 
-You've successfully created a monetized AI agent that:
+ **Next Step**: For production deployments, replace the in-memory store with a persistent database.
 
-✅ **Processes AI tasks** using CrewAI  
-✅ **Accepts payments** via the Masumi Network  
-✅ **Follows industry standards** (MIP-003)  
-✅ **Runs on blockchain** with transparent transactions  
-✅ **Earns revenue** automatically  
+---
 
-## Next Steps
+## **Useful Resources**
 
-- **Deploy to production** on AWS, Google Cloud, or Azure
-- **Scale your agent** with database storage and message queues
-- **Add more capabilities** to increase earning potential
-- **Join the community** on [Discord](https://discord.com/invite/aj4QfnTS92) to share your experience
-- **Explore the ecosystem** - deploy on [Kodosumi](https://www.kodosumi.io), list on [Sokosumi](https://www.sokosumi.com)
-
-Your AI agent is now part of the autonomous economy! 🚀
+- [CrewAI Documentation](https://docs.crewai.com)
+- [Masumi Documentation](https://docs.masumi.network)
+- [FastAPI](https://fastapi.tiangolo.com)
+- [Cardano Testnet Faucet](https://docs.cardano.org/cardano-testnets/tools/faucet)
