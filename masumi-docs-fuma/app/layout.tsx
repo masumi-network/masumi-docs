@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import { SiteFooter } from '@/components/site-footer';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -32,6 +33,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       </head>
       <body className="flex flex-col min-h-screen">
         <RootProvider>{children}</RootProvider>
+        <SiteFooter />
         {/* Fixed Kanji on the right */}
         <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50  pointer-events-none">
           <img 
