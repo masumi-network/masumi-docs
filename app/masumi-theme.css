@@ -1,0 +1,78 @@
+@theme {
+  /* Primary Colors */
+  --color-fd-primary: hsl(340, 60%, 45%);        /* Orange-tinted dusty pink */
+  --color-fd-primary-foreground: hsl(0, 0%, 100%);
+  
+  /* Background Colors */
+  --color-fd-background: hsl(0, 50%, 99%);       /* Very light red tint */
+  --color-fd-foreground: hsl(0, 25%, 8%);        /* Dark text */
+  
+  /* Card/Surface Colors */
+  --color-fd-card: hsl(0, 40%, 98%);             /* Slightly red-tinted white */
+  --color-fd-card-foreground: hsl(0, 25%, 8%);
+  
+  /* Popover Colors */
+  --color-fd-popover: hsl(0, 40%, 98%);
+  --color-fd-popover-foreground: hsl(0, 25%, 8%);
+  
+  /* Secondary Colors */
+  --color-fd-secondary: hsl(0, 30%, 94%);        /* Light red */
+  --color-fd-secondary-foreground: hsl(0, 100%, 27%);
+  
+  /* Muted Colors */
+  --color-fd-muted: hsl(0, 20%, 96%);            /* Very muted red */
+  --color-fd-muted-foreground: hsl(0, 10%, 40%);
+  
+  /* Accent Colors - Orange-tinted dusty pink */
+  --color-fd-accent: hsl(340, 60%, 45%);         /* Orange-tinted dusty pink accent */
+  --color-fd-accent-foreground: hsl(0, 0%, 100%);
+  
+  /* Border Colors */
+  --color-fd-border: hsl(0, 30%, 91%);           /* Light red border */
+  --color-fd-ring: hsl(340, 60%, 45%);           /* Orange-tinted dusty pink focus ring */
+}
+
+.dark {
+  /* Primary Colors */
+  --color-fd-primary: hsl(340, 60%, 45%);        /* Orange-tinted dusty pink */
+  --color-fd-primary-foreground: hsl(0, 0%, 100%);
+  
+  /* Background Colors */
+  --color-fd-background: hsl(0, 5%, 7%);         /* Off-black background */
+  --color-fd-foreground: hsl(0, 20%, 98%);       /* Light text */
+  
+  /* Card/Surface Colors */
+  --color-fd-card: hsl(0, 10%, 11%);             /* Off-black surface */
+  --color-fd-card-foreground: hsl(0, 20%, 98%);
+  
+  /* Popover Colors */
+  --color-fd-popover: hsl(0, 10%, 11%);
+  --color-fd-popover-foreground: hsl(0, 20%, 98%);
+  
+  /* Secondary Colors */
+  --color-fd-secondary: hsl(0, 10%, 15%);        /* Off-black secondary */
+  --color-fd-secondary-foreground: hsl(0, 40%, 85%);
+  
+  /* Muted Colors */
+  --color-fd-muted: hsl(0, 10%, 13%);            /* Off-black muted */
+  --color-fd-muted-foreground: hsl(0, 10%, 70%);
+  
+  /* Accent Colors - Orange-tinted dusty pink */
+  --color-fd-accent: hsl(340, 60%, 45%);         /* Orange-tinted dusty pink accent */
+  --color-fd-accent-foreground: hsl(0, 0%, 100%);
+  
+  /* Border Colors */
+  --color-fd-border: hsl(322, 22%, 17%);           /* Very dark border */
+  --color-fd-ring: hsl(340, 60%, 45%);           /* Orange-tinted dusty pink focus ring */
+}
+
+/* Sidebar specific colors */
+#nd-sidebar {
+  --color-fd-secondary: hsl(0, 30%, 91%);
+  --color-fd-muted: hsl(0, 30%, 91%);
+}
+
+.dark #nd-sidebar {
+  --color-fd-secondary: hsl(0, 10%, 15%);
+  --color-fd-muted: hsl(0, 10%, 15%);
+}

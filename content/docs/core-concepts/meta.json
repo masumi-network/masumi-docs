@@ -1,0 +1,22 @@
+{
+  "title": "Core Concepts",
+  "root": true,
+  "icon": "Building",
+  "pages": [
+    "index",
+    "agent-to-agent-payments",
+    "agentic-service",
+    "blockchain",
+    "decision-logging",
+    "environments",
+    "identity",
+    "payments",
+    "refunds-and-disputes",
+    "registry",
+    "regulatory-compliance",
+    "smart-contracts",
+    "tokens",
+    "transaction-fees",
+    "utxo",
+    "wallets"  ]
+}

@@ -1,0 +1,29 @@
+---
+title: Environment Variables
+description: Detailed description of environment variables used to setup a Masumi Node
+icon: SlidersVertical
+---
+
+import GetBlockfrostKey from '../../../snippets/get-blockfrost-api-key.mdx';
+import GenerateEncryptionKey from '../../../snippets/generate-encryption-key.mdx';
+
+### `ENCRYPTION_KEY`
+
+This is a secret key used to encrypt the sensitive wallet secrets in the database.
+
+<GenerateEncryptionKey/>
+
+### `ADMIN_KEY`
+
+The key of the admin user, this key will have all permissions, like doing payments, changing configurations and can also be used to create new (more limited) api_keys. **It must be at least 15 characters long.**
+
+### `BLOCKFROST_API_KEY_PREPROD`
+
+Your Blockfrost API key. It is required to interact with the blockchain.
+<GetBlockfrostKey/>
+
+### `PURCHASE_WALLET_PREPROD_MNEMONIC`
+
+### `SELLING_WALLET_PREPROD_MNEMONIC`
+
+### `COLLECTION_WALLET_PREPROD_ADDRESS`

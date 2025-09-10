@@ -1,0 +1,10 @@
+{
+  "title": "Root",
+  "root": true,
+  "pages": [
+    "documentation",
+    "core-concepts",
+    "api-reference",
+    "mips"
+  ]
+}

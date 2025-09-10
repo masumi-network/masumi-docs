@@ -1,0 +1,41 @@
+{
+  "name": "masumi-docs-fuma",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/generate-openapi.mjs && node scripts/fetch-readme.mjs && next build",
+    "dev": "next dev",
+    "start": "next start",
+    "postinstall": "fumadocs-mdx",
+    "fetch-readme": "node scripts/fetch-readme.ts"
+  },
+  "dependencies": {
+    "@theguild/remark-mermaid": "^0.3.0",
+    "fumadocs-core": "15.5.2",
+    "fumadocs-mdx": "11.6.8",
+    "fumadocs-openapi": "^9.0.17",
+    "fumadocs-ui": "15.5.2",
+    "lucide-react": "^0.525.0",
+    "mermaid": "^11.8.1",
+    "next": "15.3.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "remark": "^15.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-mdx": "^3.1.0",
+    "remark-stringify": "^11.0.0",
+    "strip-markdown": "^6.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.10",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "24.0.1",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "postcss": "^8.5.5",
+    "rimraf": "^6.0.1",
+    "tailwindcss": "^4.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

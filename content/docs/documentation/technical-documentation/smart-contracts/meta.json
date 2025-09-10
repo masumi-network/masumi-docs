@@ -1,0 +1,9 @@
+{
+  "title": "Smart Contracts",
+  "icon": "FileCode",
+  "pages": [
+    "index",
+    "payment-smart-contract",
+    "registry-smart-contract"
+  ]
+}

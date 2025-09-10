@@ -1,0 +1,57 @@
+@import 'tailwindcss';
+@import './masumi-theme.css';
+@import 'fumadocs-ui/css/preset.css';
+@import 'fumadocs-openapi/css/preset.css';
+
+/* Fix search field hover - only border, not full background */
+.hover\:bg-fd-accent:hover {
+  background-color: transparent !important;
+  border-color: hsl(340, 60%, 45%) !important; /* Orange-tinted dusty pink border */
+}
+
+.hover\:text-fd-accent-foreground:hover {
+  color: inherit !important; /* Keep original text color */
+}
+
+/* Fix dropdown menu selected item icon color in light theme */
+[data-state="open"] [data-highlighted] svg,
+[aria-selected="true"] svg,
+.bg-fd-accent svg {
+  color: hsl(0, 25%, 8%) !important; /* Dark color for light theme */
+}
+
+.dark [data-state="open"] [data-highlighted] svg,
+.dark [aria-selected="true"] svg,
+.dark .bg-fd-accent svg {
+  color: hsl(0, 0%, 100%) !important; /* White for dark theme */
+}
+
+/* Remove grid from sidebar */
+#nd-sidebar {
+  background: hsl(0, 40%, 98%) !important; /* Light theme sidebar */
+}
+
+.dark #nd-sidebar {
+  background: var(--color-fd-background) !important; /* Match navbar background */
+}
+
+/* Use orange-tinted dusty pink accent for links and interactive text in dark mode */
+.dark a:not([class*="bg-"]):not([class*="text-fd-muted"]) {
+  color: hsl(340, 50%, 55%) !important; /* Orange-tinted dusty pink for better readability */
+}
+
+.dark a:not([class*="bg-"]):not([class*="text-fd-muted"]):hover {
+  color: hsl(340, 60%, 65%) !important; /* Slightly lighter on hover */
+}
+
+/* Active/selected items in dark mode */
+.dark [data-active="true"],
+.dark [aria-selected="true"]:not([class*="bg-"]) {
+  color: hsl(340, 50%, 55%) !important;
+}
+
+/* Code syntax highlighting - make keywords orange-tinted dusty pink in dark mode */
+.dark .hljs-keyword,
+.dark .hljs-built_in {
+  color: hsl(340, 50%, 55%) !important;
+}
