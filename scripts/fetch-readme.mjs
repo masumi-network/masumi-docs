@@ -199,6 +199,12 @@ function parseAttributes(attributesString) {
   return attributes;
 }
 
+function transformMipsLinks(content) {
+  // Transform MIPs links from GitHub format to local page format
+  // Example: MIPs/MIP-001/MIP-001.md -> mips/_mip-001
+  return content.replace(/\[([^\]]*)\]\(MIPs\/MIP-(\d+)\/MIP-\d+\.md\)/g, '[$1](mips/_mip-$2)');
+}
+
 function convertHtmlToJsx(content) {
   let updatedContent = content;
 
@@ -325,10 +331,17 @@ async function generateReadmePages() {
     // Sync images and update paths
     console.log(`📸 Syncing images for ${owner}/${repo}...`);
     const contentWithSyncedImages = await syncImages(readmeContent, owner, repo, branch);
-    
+
+    // Transform MIPs links for the MIPs index page
+    let contentWithTransformedLinks = contentWithSyncedImages;
+    if (outputPath.includes('/mips/index.mdx')) {
+      console.log(`🔗 Transforming MIPs links for ${owner}/${repo}...`);
+      contentWithTransformedLinks = transformMipsLinks(contentWithSyncedImages);
+    }
+
     // Convert HTML attributes to JSX
     console.log(`🔄 Converting HTML to JSX for ${owner}/${repo}...`);
-    const contentWithJsxAttributes = convertHtmlToJsx(contentWithSyncedImages);
+    const contentWithJsxAttributes = convertHtmlToJsx(contentWithTransformedLinks);
 
     let fullContent;
     
