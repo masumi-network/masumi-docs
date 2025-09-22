@@ -1,0 +1,8 @@
+{
+  "title": "N8N Node",
+  "icon": "FileText",
+  "root": true,
+  "pages": [
+    "index"
+  ]
+}

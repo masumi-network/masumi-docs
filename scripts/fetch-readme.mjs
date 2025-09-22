@@ -91,6 +91,15 @@ const REPOS = [
     customIcon: 'Bot',
     preserveImports: true,
     customDescription: 'Complete guide to build, deploy, and monetize your AI agent on Masumi - from setup to earning revenue'
+  },
+  // n8n node
+  {
+    owner: 'masumi-network',
+    repo: 'n8n-nodes-masumi-payment',
+    outputPath: './content/docs/n8n-node/index.mdx',
+    isTabContent: false,
+    customTitle: 'N8N Node',
+    customIcon: 'Workflow',
   }
 ];
 
