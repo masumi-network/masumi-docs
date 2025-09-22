@@ -77,6 +77,14 @@ const REPOS = [
   {
     owner: 'masumi-network',
     repo: 'masumi-improvement-proposals',
+    filePath: 'MIPs/MIP-003/MIP-003-Attachement-01.md',
+    outputPath: './content/docs/mips/_mip-003-attachment-01.mdx',
+    isTabContent: false,
+    customTitle: 'MIP-003 Attachment 01: Input Validation Schema Format'
+  },
+  {
+    owner: 'masumi-network',
+    repo: 'masumi-improvement-proposals',
     filePath: 'MIPs/MIP-004/MIP-004.md',
     outputPath: './content/docs/mips/_mip-004.mdx',
     isTabContent: false,
@@ -214,6 +222,12 @@ function transformMipsLinks(content) {
   return content.replace(/\[([^\]]*)\]\(MIPs\/MIP-(\d+)\/MIP-\d+\.md\)/g, '[$1](mips/_mip-$2)');
 }
 
+function transformMip003AttachmentLinks(content) {
+  // Transform MIP-003 attachment links from GitHub format to local page format
+  // Example: ./MIP-003-Attachement-01.md -> /mips/_mip-003-attachment-01
+  return content.replace(/\[([^\]]*)\]\(\.\/MIP-003-Attachement-01\.md\)/g, '[$1](/mips/_mip-003-attachment-01)');
+}
+
 function convertHtmlToJsx(content) {
   let updatedContent = content;
 
@@ -346,6 +360,12 @@ async function generateReadmePages() {
     if (outputPath.includes('/mips/index.mdx')) {
       console.log(`🔗 Transforming MIPs links for ${owner}/${repo}...`);
       contentWithTransformedLinks = transformMipsLinks(contentWithSyncedImages);
+    }
+
+    // Transform MIP-003 attachment links specifically for MIP-003
+    if (outputPath.includes('/mips/_mip-003.mdx')) {
+      console.log(`🔗 Transforming MIP-003 attachment links for ${owner}/${repo}...`);
+      contentWithTransformedLinks = transformMip003AttachmentLinks(contentWithTransformedLinks);
     }
 
     // Convert HTML attributes to JSX
