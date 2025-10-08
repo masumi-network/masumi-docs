@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: 'Masumi Documentation',
   description: 'Documentation for Masumi Network',
   icons: {
-    icon: '/favicon.png',
+    icon: '/favocon-docs.svg',
   },
 };
 
