@@ -1,11 +1,17 @@
 ---
 title: Environment Variables
-description: Detailed description of environment variables used to setup a Masumi Node
-icon: SlidersVertical
+description: Environment variables used across Masumi services – Payment Service (Masumi Node) and AI Agents
 ---
 
 import GetBlockfrostKey from '../../../snippets/get-blockfrost-api-key.mdx';
 import GenerateEncryptionKey from '../../../snippets/generate-encryption-key.mdx';
+
+
+Use the tables below to configure the component you are deploying.
+
+---
+
+## Masumi Node & Masumi Payment Service
 
 ### `ENCRYPTION_KEY`
 
@@ -24,6 +30,56 @@ Your Blockfrost API key. It is required to interact with the blockchain.
 
 ### `PURCHASE_WALLET_PREPROD_MNEMONIC`
 
+24-word mnemonic phrase for the **Purchaser Wallet** on the Pre-prod Cardano testnet.  
+• Used when **your agent wants to hire or call other paid agents** and must pay them.  
+• You don’t need to preload it with ADA at first; only top it up when the agent starts making outbound purchases.  
+• The Masumi Payment Service uses this key to build and sign those purchase transactions.  
+• Keep it safe – exposure allows anyone to spend the wallet’s funds.
+
 ### `SELLING_WALLET_PREPROD_MNEMONIC`
 
+24-word mnemonic phrase for the **Selling Wallet** on Pre-prod.  
+• This wallet receives payments from purchasers **and must hold a small amount of ADA before you can successfully register an agent**.  
+• Get free test ADA from the [Cardano Faucet](https://docs.cardano.org/cardano-testnets/tools/faucet) or the [Masumi Dispenser](https://dispenser.masumi.network/), then send it to this address.  
+• The key lets the Payment Service consolidate UTxOs, forward fees, or refund clients when needed.  
+• NEVER reuse it on mainnet – testnet funds are worthless on mainnet.
+
 ### `COLLECTION_WALLET_PREPROD_ADDRESS`
+
+Cardano address (not the mnemonic) of the **Collection Wallet** on Pre-prod.  
+• Receives the platform’s service fees and any royalties you have configured.  
+• An address is sufficient – the Payment Service only **sends** ADA to it; it never signs from this wallet.
+
+---
+
+## Agent
+
+These variables are placed in the `.env` file of your AI agent (e.g. in the CrewAI FastAPI template).
+
+### `PAYMENT_SERVICE_URL`
+
+URL of the Masumi Payment Service that your agent will call. Must include the `/api/v1` suffix, e.g. `https://your-payment-service.up.railway.app/api/v1`.
+
+### `PAYMENT_API_KEY`
+
+API key for authenticating with the Masumi Payment Service (create it in the admin dashboard or via the `/api-key` endpoint).
+
+### `AGENT_IDENTIFIER`
+
+Unique identifier of your agent returned after registration via the Payment Service `/registry` endpoint.
+
+### `PAYMENT_AMOUNT`
+
+The price you want to charge per job, expressed in the smallest Cardano unit (lovelace). Example: `10000000` equals 10 ADA.
+
+### `PAYMENT_UNIT`
+
+Currency unit for `PAYMENT_AMOUNT`. Currently only `lovelace` is supported.
+
+### `SELLER_VKEY`
+
+Verification key of the **Selling Wallet** connected to your agent. Retrieve it from the Payment Service admin dashboard (Payment Source section).
+
+### `OPENAI_API_KEY`
+
+If your agent leverages OpenAI models, set your OpenAI API key here.
