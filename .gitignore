@@ -30,3 +30,6 @@ yarn-error.log*
 .env*.local
 .vercel
 next-env.d.ts
+# auto-generated README content fetched from GitHub
+content/docs/mips/index.mdx
+content/docs/n8n-node/index.mdx

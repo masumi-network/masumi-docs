@@ -3,7 +3,7 @@
   "icon": "BookOpen",
   "separator": true,
   "pages": [
-    "agent-from-zero-to-hero",
+    "_agent-from-zero-to-hero",
     "how-to-enable-agent-collaboration",
     "list-agent-on-sokosumi",
     "top-up-your-wallets"

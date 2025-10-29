@@ -93,7 +93,7 @@ const REPOS = [
   {
     owner: 'masumi-network',
     repo: 'crewai-masumi-quickstart-template',
-    outputPath: './content/docs/documentation/how-to-guides/agent-from-zero-to-hero.mdx',
+    outputPath: './content/docs/documentation/how-to-guides/_agent-from-zero-to-hero.mdx',
     isTabContent: false,
     customTitle: 'From Zero to Hero with Example Agent',
     customIcon: 'Bot',
