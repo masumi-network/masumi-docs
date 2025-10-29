@@ -122,10 +122,17 @@ async function fetchReadme(owner, repo, branch = 'main', filePath = null) {
       url = `https://api.github.com/repos/${owner}/${repo}/readme?ref=${branch}`;
     }
 
+    const authHeader = process.env.GITHUB_TOKEN
+      ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
+      : {};
+
     const response = await fetch(url, {
-      headers: filePath ? {} : {
-        'Accept': 'application/vnd.github.v3.raw',
-      },
+      headers: filePath
+        ? authHeader // raw URLs also accept Auth; ok to send
+        : {
+            'Accept': 'application/vnd.github.v3.raw',
+            ...authHeader,
+          },
     });
 
     if (!response.ok) {
