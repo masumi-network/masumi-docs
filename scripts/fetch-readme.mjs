@@ -377,7 +377,12 @@ async function generateReadmePages() {
 
     // Convert HTML attributes to JSX
     console.log(`🔄 Converting HTML to JSX for ${owner}/${repo}...`);
-    const contentWithJsxAttributes = convertHtmlToJsx(contentWithTransformedLinks);
+    let contentWithJsxAttributes = convertHtmlToJsx(contentWithTransformedLinks);
+
+    // Restore escaped JSX attribute expressions like items={...}
+    contentWithJsxAttributes = contentWithJsxAttributes.replace(/=\\\{([\s\S]*?)\\\}/g, '={$1}');
+
+    const needsTabsImport = /<Tabs\b/i.test(contentWithJsxAttributes) || /<Tab\b/i.test(contentWithJsxAttributes);
 
     let fullContent;
     
@@ -387,14 +392,22 @@ async function generateReadmePages() {
         word.charAt(0).toUpperCase() + word.slice(1)
       ).join(' ').replace(/\bMcp\b/g, 'MCP'); // Fix MCP capitalization
       
+      const imports = [
+        `import { Callout } from 'fumadocs-ui/components/callout';`,
+        `import { ImageZoom } from 'fumadocs-ui/components/image-zoom';`
+      ];
+
+      if (needsTabsImport) {
+        imports.push(`import { Tabs, Tab } from 'fumadocs-ui/components/tabs';`);
+      }
+
       const frontmatter = `---
 title: "${title}"
 description: Content from ${owner}/${repo} repository
 ${customIcon ? `icon: ${customIcon}` : ''}
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout';
-import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
+${imports.join('\n')}
 
 `;
       const processedContent = convertReadmeToTabContent(contentWithJsxAttributes, owner, repo, branch || 'main');
@@ -405,15 +418,23 @@ import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
         word.charAt(0).toUpperCase() + word.slice(1)
       ).join(' ').replace(/\bMcp\b/g, 'MCP');
       
+      const imports = [
+        `import { Callout } from 'fumadocs-ui/components/callout';`,
+        `import { Steps, Step } from 'fumadocs-ui/components/steps';`,
+        `import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';`
+      ];
+
+      if (needsTabsImport) {
+        imports.push(`import { Tabs, Tab } from 'fumadocs-ui/components/tabs';`);
+      }
+
       const frontmatter = `---
 title: "${title}"
 ${customDescription ? `description: "${customDescription}"` : ''}
 ${customIcon ? `icon: ${customIcon}` : ''}
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout';
-import { Steps, Step } from 'fumadocs-ui/components/steps';
-import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+${imports.join('\n')}
 
 <Callout type="info">
   This content is automatically synced from the <a href="https://github.com/${owner}/${repo}" target="_blank" rel="noopener noreferrer">${owner}/${repo}</a> repository.
@@ -428,13 +449,21 @@ import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
         word.charAt(0).toUpperCase() + word.slice(1)
       ).join(' ').replace(/\bMcp\b/g, 'MCP'); // Fix MCP capitalization
       
+      const imports = [
+        `import { Callout } from 'fumadocs-ui/components/callout';`,
+        `import { ImageZoom } from 'fumadocs-ui/components/image-zoom';`
+      ];
+
+      if (needsTabsImport) {
+        imports.push(`import { Tabs, Tab } from 'fumadocs-ui/components/tabs';`);
+      }
+
       const frontmatter = `---
 title: "${title}"
 ${customIcon ? `icon: ${customIcon}` : ''}
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout';
-import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
+${imports.join('\n')}
 
 <Callout type="info">
   This page is automatically synced from the <a href="https://github.com/${owner}/${repo}" target="_blank" rel="noopener noreferrer">${owner}/${repo}</a>${branchInfo} repository README.
