@@ -116,14 +116,11 @@ sudo apt-get update && sudo apt-get install -y postgresql-15 postgresql-contrib-
 </Step>
 
 <Step>
-### Set PostgreSQL User Password (Optional)
-For local connections, PostgreSQL uses peer authentication (no password needed). If you need a password for remote connections or your application, set it here:
+### Set PostgreSQL User Password 
+For local connections, PostgreSQL uses peer authentication and does not ask for your password. However, you need it for remote connections and your database URL.
 ```bash
 sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'your_password';"
 ```
-<Callout type="info">
-For local connections, you won't need a password. You'll only need it for remote connections.
-</Callout>
 </Step>
 
 <Step>
@@ -141,11 +138,8 @@ If you see a "Permission denied" message, don't worry - it's harmless. The datab
 </Steps>
 
 <Callout type="warn">
-Make sure to configure the **DATABASE_URL** variable in the **.env** file. On Linux, you can connect as the `postgres` user without a password for local connections:
+Make sure to configure the **DATABASE_URL** variable in the **.env** file. You can connect as `postgres` user:
 
-"postgresql://postgres@localhost:5432/masumi_payment?schema=public"
-
-Or if you set a password in the previous step:
 "postgresql://postgres:**&lt;YOUR_PASSWORD&gt;**@localhost:5432/masumi_payment?schema=public"
 </Callout>
 </Tab>
