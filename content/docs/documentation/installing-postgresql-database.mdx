@@ -116,7 +116,7 @@ sudo apt-get update && sudo apt-get install -y postgresql-15 postgresql-contrib-
 </Step>
 
 <Step>
-### Set PostgreSQL User Password 
+### Set PostgreSQL User Password
 For local connections, PostgreSQL uses peer authentication and does not ask for your password. However, you need it for remote connections and your database URL.
 ```bash
 sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'your_password';"
