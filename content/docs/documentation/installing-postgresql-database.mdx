@@ -6,14 +6,18 @@ icon: Database
 
 import { Callout } from 'fumadocs-ui/components/callout';
 import { Steps, Step } from 'fumadocs-ui/components/steps';
+import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
 
 
-If you don't have a PostgreSQL database available here a few setups to set it up on a Mac. For other systems see the [PostgreSQL download page](https://www.postgresql.org/download/) for instructions.
+If you don't have a PostgreSQL database available, here are the ways to set it up.
 
+<Tabs items={['macOS', 'Windows', 'Linux (Ubuntu)']}>
+
+<Tab value="macOS">
 <Steps>
 
 <Step>
-### Installing and Start PostgreSQL
+### Installing and Starting PostgreSQL
 
 ```bash
 brew install postgresql@15
@@ -22,7 +26,7 @@ brew services start postgresql@15
 </Step>
 
 <Step>
-### Adding PostgresSQL to your PATH
+### Adding PostgreSQL to your PATH
 
 ```bash
 echo 'export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"' >> ~/.bash_profile
@@ -31,19 +35,115 @@ source ~/.bash_profile
 </Step>
 
 <Step>
-### Creating a Masumi database
+### Create Database and Set Password
+
+Create the Masumi database and set a password for the postgres user. **Replace `your_secure_password` with your own password**. You'll need this same password later for the DATABASE_URL in your .env file.
 
 ```bash
 psql postgres
-create database masumi_payment
+CREATE DATABASE masumi_payment;
+ALTER USER postgres PASSWORD 'your_secure_password';
 \q
 ```
 </Step>
 
 </Steps>
 
-<Callout type="warn">
-Make sure to configure the **DATABASE_URL** variable in the **.env** file accordingly. It needs to have the same database name and you will need to adjust the username according to your username:
+</Tab>
 
-"postgresql://**&lt;USERNAME&gt;**@localhost:5432/masumi_payment?schema=public"
+<Tab value="Windows">
+<Steps>
+
+<Step>
+### Download Installer
+Visit the official PostgreSQL download website: https://www.enterprisedb.com/downloads/postgres-postgresql-downloads and download PostgreSQL Version 15.x for Windows.
+</Step>
+
+<Step>
+### Run Installer
+Open the downloaded executable and follow the installer wizard:
+- Choose installation directory e.g. C:\Program Files\PostgreSQL\15
+- Choose the two components: PostgreSQL Server AND Command Line Tools
+- Choose data directory e.g. C:\Program Files\PostgreSQL\15\data
+- Set the PostgreSQL superuser password: Choose a secure password and remember it! You'll need this for the DATABASE_URL in your .env file.
+- Use default port 5432
+- Set locale to DEFAULT
+- Complete installation
+</Step>
+
+<Step>
+### Verify Installation
+Open PowerShell and connect to PostgreSQL using the username `postgres` and the password you set during installation:
+
+```bash
+psql -U postgres
+```
+When prompted, enter your password.
+</Step>
+
+<Step>
+### Create Database
+In the psql shell, create the Masumi database and exit:
+```bash
+CREATE DATABASE masumi_payment;
+\q
+```
+</Step>
+
+</Steps>
+
+</Tab>
+
+<Tab value="Linux (Ubuntu)">
+
+<Steps>
+
+<Step>
+### Install PostgreSQL
+Add the PostgreSQL repository and install PostgreSQL 15 with useful extensions. PostgreSQL will automatically start after installation:
+```bash
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo tee /etc/apt/trusted.gpg.d/postgresql.asc > /dev/null
+sudo apt-get update && sudo apt-get install -y postgresql-15 postgresql-contrib-15
+```
+</Step>
+
+<Step>
+### Set PostgreSQL User Password
+For local connections, PostgreSQL uses peer authentication and does not ask for your user password. However, you need to set a user password for the DATABASE_URL in your .env file. **Replace `your_secure_password` with your own password**.
+```bash
+sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'your_secure_password';"
+```
+<Callout type="info">
+If you see a "Permission denied" message, don't worry - it's harmless. The password was created successfully.
 </Callout>
+</Step>
+
+<Step>
+### Create Masumi Database
+```bash
+sudo -u postgres createdb masumi_payment
+```
+</Step>
+
+</Steps>
+
+</Tab>
+
+</Tabs>
+
+<Callout type="warn">
+### Configure DATABASE_URL in .env
+
+Make sure to configure the **DATABASE_URL** variable in your **.env** file with:
+- **Username**: postgres
+- **Password**: the same password you set in the steps above
+- **Database name**: masumi_payment
+
+Format: `postgresql://<USERNAME>:<PASSWORD>@localhost:5432/<DATABASE>`
+
+Example: `postgresql://postgres:your_secure_password@localhost:5432/masumi_payment`
+
+**Important**: If your password contains special characters (like **Ü**, **&**, etc.), they must be URL-encoded (**Ü** → **%C3%9C**, **&** → **%26**). Find all special characters at [this page](https://www.html.am/reference/html-special-characters.cfm).
+</Callout>
+
