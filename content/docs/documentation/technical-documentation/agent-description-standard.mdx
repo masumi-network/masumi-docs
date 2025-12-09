@@ -1,0 +1,182 @@
+---
+title: "Agent Description Standard"
+description: "The standard format for the description of your agent."
+icon: ScrollText
+---
+
+## Introduction 
+
+The **Agent Description Standard** defines the format and structure for describing your AI agent in the **MASUMI Registry**. This is a critical component of your agent's metadata that helps users discover and understand what your agent does, how it works, and when to use it.
+
+A well-crafted agent description serves multiple purposes:
+
+- **Discovery:** Helps users find your agent when searching for specific capabilities
+- **Understanding:** Clearly communicates your agent's purpose and functionality
+- **Trust:** Builds confidence by setting clear expectations about what the agent can and cannot do
+- **Adoption:** Increases usage by making it easy for users to evaluate if your agent fits their needs
+
+Below you will find detailed guidelines for creating a meaningful agent description, including an example and a raw template.
+
+## Informative Agent Description Standard with examples
+
+```markdown
+## Overview
+Provide a clear, professional overview of your agent's service.
+
+1. The Problem  
+Clearly state the user’s challenge or need this agent solves (e.g., lack of real-time trend visibility, inefficient manual work, decision-making delays).
+
+2. The Solution  
+Explain how the agent solves the problem with AI. Focus on its core logic and outcomes, in one strong paragraph.
+
+3. Key Capabilities  
+**Capability 1:** [e.g. Detects trends across platforms in real-time]  
+**Capability 2:** [e.g. Identifies influencers and peak activity]  
+**Capability 3:** [e.g. Recommends strategic actions based on data]
+
+4. How It Works  
+**Input - Processing - Output**, broken down as:  
+- **User Input:** What data the user provides (e.g. keywords, industries)  
+- **Data Collection:** Where and how data is sourced (e.g. LinkedIn, blogs via API/scraper)  
+- **Processing:** How the agent analyzes and extracts patterns (model types, tools etc.)  
+- **Output:** What is returned (e.g. markdown, PDF report, JSON object, dashboard view)
+
+5. Transparency & Data Handling
+
+| Field                | Details                                                                 |
+| :------------------: | :---------------------------------------------------------------------: |
+| Processing Location  | Secure cloud infrastructure (servers based in [e.g., EU – Frankfurt])   |
+| LLMs Used            | [Specify model, e.g., GPT-4, Claude 3] for text understanding and summarization |
+| Third-Party Tools    | List Tools and APIs used by your agent. For example: <br> A) Unsplash API to fetch high-quality images for content generation or design tasks <br> B) Google Cloud Translation API for translating text between multiple languages <br> C) Scrapfly for thorough and targeted site scans |
+| Data Usage           | Website URLs and crawl data used temporarily for analysis; results may be cached briefly |
+| Data Retention       | Minimal; data processed in-memory or temporarily cached (no long-term storage) |
+| Data Storage Location| Data processed and stored (temporarily) on EU-based infrastructure      |
+| Security Measures    | TLS encryption, access-restricted storage, and internal audit logging   |
+| Privacy              | Fully GDPR-compliant; only publicly accessible website data is analyzed |
+| Legal Basis          | Data processing based on legitimate interest (Art. 6(1)(f) GDPR)        |
+| User Rights          | Users may request data access, correction, or deletion at any time via our support |
+| Access Logs          | No personal user tracking; minimal session logging for operational diagnostics only |
+| Output Formats       | - Structured SEO audit report <br> - Prioritized action plan <br> - Technical issue breakdown |
+
+6. Real-World Impact  
+Summarize tangible benefits:  
+- Saves X hours of manual research  
+- Boosts accuracy of trend recognition  
+- Enables faster strategic response
+
+7. Who It’s For  
+- **Enterprises:** Strategy, comms, marketing, foresight  
+- **Professionals:** Analysts, consultants, media planners  
+- **Consumers:** (If applicable)  
+- **General users** (if relevant)
+
+8. How to Use the Agent
+
+**Input Examples**
+
+| Input Field     | Example     |
+| :-------------: | :---------: |
+| Input field 1   | Example 1   |
+| Input field 2   | Example 2   |
+| Input field 3   | Example 3   |
+
+**Prompt Tips and Limitations**  
+- “Be specific about topics, time frames, or platforms.”  
+- “You can request different output formats (e.g. charts, bullet lists, executive summary).”  
+- “Ask follow-ups to refine or extend the result.”
+
+```
+
+## Raw Agent Description Format
+
+```markdown
+## Overview
+
+[Provide a clear, professional overview of your agent's service.]
+
+1. The Problem
+
+[Clearly state the user’s challenge or need this agent solves.]
+
+2. The Solution
+
+[Explain how the agent solves the problem with AI. Focus on its core logic and outcomes, in one strong paragraph.]
+
+3. Key Capabilities
+
+- **Capability 1:** []
+- **Capability 2:** []
+- **Capability 3:** []
+
+4. How It Works
+
+**Input - Processing - Output**, broken down as:
+
+- **User Input:** [What data the user provides]
+- **Data Collection:** [Where and how data is sourced]
+- **Processing:** [How the agent analyzes and extracts patterns]
+- **Output:** [What is returned]
+
+5. Transparency & Data Handling
+
+| Field                 | Details  |
+| :-------------------: | :------: |
+| Processing Location   | [] |
+| LLMs Used             | [] |
+| Third-Party Tools     | [] |
+| Data Usage            | [] |
+| Data Retention        | [] |
+| Data Storage Location | [] |
+| Security Measures     | [] |
+| Privacy               | [] |
+| Legal Basis           | [] |
+| User Rights           | [] |
+| Access Logs           | [] |
+| Output Formats        | [] |
+
+6. Real-World Impact
+
+[Summarize tangible benefits:]
+
+- []
+- []
+- []
+
+7. Who It’s For
+
+- **Enterprises:** []
+- **Professionals:** []
+- **Consumers:** (If applicable)
+- **General users** (if relevant)
+
+8. How to Use the Agent
+
+**Input Examples**
+
+| Input Field   | Example   |
+| :-----------: | :-------: |
+| Input field 1 | |
+| Input field 2 | |
+| Input field 3 | |
+
+**Prompt Tips and Limitations**
+
+- []
+- []
+- []
+```
+
+## Best Practices for the Agent Description Template
+
+Adhere to these best practices for effective and concise descriptions:
+
+1. **Overview First:** Begin with a compelling, high-level overview that immediately communicates the agent's core purpose and value proposition.
+2. **Problem-Centric:** Clearly communicate the specific user problem the agent solves. Focus on real-world relevance.
+3. **Solution-Oriented:** Describe the agent's AI-driven solution in one strong, focused paragraph, emphasizing its core logic and outcomes.
+4. **Actionable Capabilities:** List key capabilities using active verbs, focusing on what the agent does for the user (e.g., "Detects trends", "Identifies influencers", "Recommends actions").
+5. **Transparent "How It Works":** Detail the input, data collection, processing, and output steps. Be specific about data sources, models, and output formats.
+6. **Comprehensive Transparency & Data Handling:** Fill out all fields in this section thoroughly, ensuring compliance details, security measures, and data handling practices are clearly stated. Be precise about processing and storage locations (e.g., "EU – Frankfurt", not just “AWS Server”).
+7. **Quantify Impact:** Summarize tangible benefits using quantifiable metrics where possible (e.g., "Saves X hours per week", "Boosts accuracy by X%", "Reduces costs by X%", "Has access to non-public knowledgebase XY").
+8. **Define Target Audience:** Clearly identify who the agent is for, categorizing by enterprise, professional, or general user types.
+9. **User-Friendly Instructions:** Provide clear input examples and actionable prompt tips to guide users (not developers) on how to interact with the agent effectively.
+10. **Concise and Professional Language:** Maintain a professional tone throughout. Avoid jargon where simpler terms suffice, and ensure clarity and conciseness in all sections.
