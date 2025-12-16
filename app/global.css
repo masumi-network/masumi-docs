@@ -6,7 +6,7 @@
 /* Fix search field hover - only border, not full background */
 .hover\:bg-fd-accent:hover {
   background-color: transparent !important;
-  border-color: hsl(340, 60%, 45%) !important; /* Orange-tinted dusty pink border */
+  border-color: hsl(340, 37%, 48%) !important; /* Masumi brand pink/red/orange border */
 }
 
 .hover\:text-fd-accent-foreground:hover {
@@ -17,7 +17,7 @@
 [data-state="open"] [data-highlighted] svg,
 [aria-selected="true"] svg,
 .bg-fd-accent svg {
-  color: hsl(0, 25%, 8%) !important; /* Dark color for light theme */
+  color: hsl(220, 13%, 9%) !important; /* Dark color for light theme */
 }
 
 .dark [data-state="open"] [data-highlighted] svg,
@@ -26,32 +26,104 @@
   color: hsl(0, 0%, 100%) !important; /* White for dark theme */
 }
 
-/* Remove grid from sidebar */
+/* Clean sidebar background */
 #nd-sidebar {
-  background: hsl(0, 40%, 98%) !important; /* Light theme sidebar */
+  background: hsl(220, 8%, 98%) !important; /* Light neutral sidebar */
 }
 
 .dark #nd-sidebar {
   background: var(--color-fd-background) !important; /* Match navbar background */
 }
 
-/* Use orange-tinted dusty pink accent for links and interactive text in dark mode */
+/* Masumi brand accent for links and interactive text in dark mode */
 .dark a:not([class*="bg-"]):not([class*="text-fd-muted"]) {
-  color: hsl(340, 50%, 55%) !important; /* Orange-tinted dusty pink for better readability */
+  color: hsl(345, 70%, 65%) !important; /* Lighter coral pink-red-orange for better readability */
 }
 
 .dark a:not([class*="bg-"]):not([class*="text-fd-muted"]):hover {
-  color: hsl(340, 60%, 65%) !important; /* Slightly lighter on hover */
+  color: hsl(345, 70%, 75%) !important; /* Even lighter on hover */
 }
 
 /* Active/selected items in dark mode */
 .dark [data-active="true"],
 .dark [aria-selected="true"]:not([class*="bg-"]) {
-  color: hsl(340, 50%, 55%) !important;
+  color: hsl(345, 70%, 65%) !important;
 }
 
-/* Code syntax highlighting - make keywords orange-tinted dusty pink in dark mode */
+/* Code syntax highlighting - use Masumi brand accent in dark mode */
 .dark .hljs-keyword,
 .dark .hljs-built_in {
-  color: hsl(340, 50%, 55%) !important;
+  color: hsl(345, 70%, 65%) !important;
+}
+
+/* Light mode links and h2 - Masumi brand accent (only apply when not in dark mode) */
+:not(.dark) a:not([class*="bg-"]):not([class*="text-fd-muted"]) {
+  color: hsl(343, 67%, 61%) !important;
+}
+
+:not(.dark) a:not([class*="bg-"]):not([class*="text-fd-muted"]):hover {
+  color: hsl(337, 58%, 45%) !important;
+}
+
+/* Fix search result highlighting - use subtle background instead of solid accent */
+.bg-fd-accent[data-highlighted],
+.bg-fd-accent[aria-selected="true"],
+[data-highlighted].bg-fd-accent,
+[aria-selected="true"].bg-fd-accent {
+  background-color: hsl(345, 70%, 96%) !important; /* Very light tint of brand color */
+  color: hsl(220, 13%, 9%) !important; /* Dark text for readability */
+}
+
+.dark .bg-fd-accent[data-highlighted],
+.dark .bg-fd-accent[aria-selected="true"],
+.dark [data-highlighted].bg-fd-accent,
+.dark [aria-selected="true"].bg-fd-accent {
+  background-color: hsl(345, 50%, 20%) !important; /* Subtle dark tint for dark mode */
+  color: hsl(220, 8%, 95%) !important; /* Light text */
+}
+
+/* Also handle general highlighted/selected states for search */
+[data-state="open"] [data-highlighted]:not(.bg-fd-accent),
+[data-state="open"] [aria-selected="true"]:not(.bg-fd-accent) {
+  background-color: hsl(345, 70%, 96%) !important;
+  color: hsl(220, 13%, 9%) !important;
+}
+
+.dark [data-state="open"] [data-highlighted]:not(.bg-fd-accent),
+.dark [data-state="open"] [aria-selected="true"]:not(.bg-fd-accent) {
+  background-color: hsl(345, 50%, 20%) !important;
+  color: hsl(220, 8%, 95%) !important;
+}
+
+/* Keep accent text color for selected items, but with subtle background */
+.bg-fd-accent[data-highlighted] svg,
+.bg-fd-accent[aria-selected="true"] svg,
+[data-highlighted].bg-fd-accent svg,
+[aria-selected="true"].bg-fd-accent svg {
+  color: hsl(345, 70%, 52%) !important;
+}
+
+.dark .bg-fd-accent[data-highlighted] svg,
+.dark .bg-fd-accent[aria-selected="true"] svg,
+.dark [data-highlighted].bg-fd-accent svg,
+.dark [aria-selected="true"].bg-fd-accent svg {
+  color: hsl(345, 70%, 65%) !important;
+}
+
+/* Internal page anchor links - same color as normal text */
+a[href^="#"]:not([class*="bg-"]):not([class*="text-fd-muted"]) {
+  color: hsl(220, 13%, 9%) !important; /* Same as normal text in light mode */
+}
+
+a[href^="#"]:not([class*="bg-"]):not([class*="text-fd-muted"]):hover {
+  color: hsl(258, 5%, 38%) !important; /* Keep same color on hover */
+}
+
+/* Big heading links in dark mode - white main color, light grey on hover */
+.dark :is(h1, h2, h3, h4, h5 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5) a:not([class*="bg-"]):not([class*="text-fd-muted"]) {
+  color: hsl(0, 0%, 100%) !important; /* White */
+}
+
+.dark :is(h1, h2, h3, h4, h5, .prose h1, .prose h2, .prose h3, .prose h4, .prose h5) a:not([class*="bg-"]):not([class*="text-fd-muted"]):hover {
+  color: hsl(220, 8%, 75%) !important; /* Light grey on hover */
 }

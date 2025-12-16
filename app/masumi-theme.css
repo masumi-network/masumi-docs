@@ -1,78 +1,77 @@
 @theme {
-  /* Primary Colors */
-  --color-fd-primary: hsl(340, 60%, 45%);        /* Orange-tinted dusty pink */
-  --color-fd-primary-foreground: hsl(0, 0%, 100%);
+  /* Primary Colors - Masumi brand pink/red/orange */
+  --color-fd-primary: hsl(340, 60%, 45%);        /* Orange-tinted dusty pink */  --color-fd-primary-foreground: hsl(0, 0%, 100%);
   
-  /* Background Colors */
-  --color-fd-background: hsl(0, 50%, 99%);       /* Very light red tint */
-  --color-fd-foreground: hsl(0, 25%, 8%);        /* Dark text */
+  /* Background Colors - Clean neutral whites */
+  --color-fd-background: hsl(0, 0%, 100%);       /* Pure white */
+  --color-fd-foreground: hsl(220, 13%, 9%);      /* Near-black with slight blue tint */
   
-  /* Card/Surface Colors */
-  --color-fd-card: hsl(0, 40%, 98%);             /* Slightly red-tinted white */
-  --color-fd-card-foreground: hsl(0, 25%, 8%);
+  /* Card/Surface Colors - Subtle neutral gray */
+  --color-fd-card: hsl(0, 0%, 100%);             /* Pure white */
+  --color-fd-card-foreground: hsl(220, 13%, 9%);
   
   /* Popover Colors */
-  --color-fd-popover: hsl(0, 40%, 98%);
-  --color-fd-popover-foreground: hsl(0, 25%, 8%);
+  --color-fd-popover: hsl(0, 0%, 100%);
+  --color-fd-popover-foreground: hsl(220, 13%, 9%);
   
-  /* Secondary Colors */
-  --color-fd-secondary: hsl(0, 30%, 94%);        /* Light red */
-  --color-fd-secondary-foreground: hsl(0, 100%, 27%);
+  /* Secondary Colors - Light neutral gray */
+  --color-fd-secondary: hsl(220, 10%, 96%);      /* Very light neutral gray */
+  --color-fd-secondary-foreground: hsl(220, 13%, 20%);
   
-  /* Muted Colors */
-  --color-fd-muted: hsl(0, 20%, 96%);            /* Very muted red */
-  --color-fd-muted-foreground: hsl(0, 10%, 40%);
+  /* Muted Colors - Subtle gray */
+  --color-fd-muted: hsl(220, 8%, 98%);           /* Almost white with slight gray */
+  --color-fd-muted-foreground: hsl(220, 8%, 45%);
   
-  /* Accent Colors - Orange-tinted dusty pink */
-  --color-fd-accent: hsl(340, 60%, 45%);         /* Orange-tinted dusty pink accent */
+  /* Accent Colors - Masumi brand pink/red/orange */
+  --color-fd-accent: hsl(345, 70%, 52%);         /* Vibrant coral pink-red-orange accent */
   --color-fd-accent-foreground: hsl(0, 0%, 100%);
   
-  /* Border Colors */
-  --color-fd-border: hsl(0, 30%, 91%);           /* Light red border */
-  --color-fd-ring: hsl(340, 60%, 45%);           /* Orange-tinted dusty pink focus ring */
+  /* Border Colors - Subtle neutral borders */
+  --color-fd-border: hsl(220, 13%, 90%);         /* Light neutral border */
+  --color-fd-ring: hsl(345, 70%, 52%);           /* Masumi brand focus ring */
 }
 
 .dark {
-  /* Primary Colors */
-  --color-fd-primary: hsl(340, 60%, 45%);        /* Orange-tinted dusty pink */
+  /* Primary Colors - Lighter Masumi brand pink/red/orange for dark mode */
+  --color-fd-primary: hsl(345, 70%, 62%);        /* Lighter coral pink-red-orange for dark mode */
   --color-fd-primary-foreground: hsl(0, 0%, 100%);
   
-  /* Background Colors */
-  --color-fd-background: hsl(0, 5%, 7%);         /* Off-black background */
-  --color-fd-foreground: hsl(0, 20%, 98%);       /* Light text */
+  /* Background Colors - Rich dark neutral */
+  --color-fd-background: hsl(220, 15%, 9%);      /* Deep charcoal with slight blue tint */
+  --color-fd-foreground: hsl(220, 8%, 95%);      /* Off-white text */
   
-  /* Card/Surface Colors */
-  --color-fd-card: hsl(0, 10%, 11%);             /* Off-black surface */
-  --color-fd-card-foreground: hsl(0, 20%, 98%);
+  /* Card/Surface Colors - Slightly elevated dark surface */
+  --color-fd-card: hsl(220, 15%, 11%);           /* Slightly lighter than background */
+  --color-fd-card-foreground: hsl(220, 8%, 95%);
   
   /* Popover Colors */
-  --color-fd-popover: hsl(0, 10%, 11%);
-  --color-fd-popover-foreground: hsl(0, 20%, 98%);
+  --color-fd-popover: hsl(220, 15%, 11%);
+  --color-fd-popover-foreground: hsl(220, 8%, 95%);
   
-  /* Secondary Colors */
-  --color-fd-secondary: hsl(0, 10%, 15%);        /* Off-black secondary */
-  --color-fd-secondary-foreground: hsl(0, 40%, 85%);
+  /* Secondary Colors - Elevated dark surface */
+  --color-fd-secondary: hsl(220, 12%, 16%);      /* Elevated dark gray */
+  --color-fd-secondary-foreground: hsl(220, 8%, 85%);
   
-  /* Muted Colors */
-  --color-fd-muted: hsl(0, 10%, 13%);            /* Off-black muted */
-  --color-fd-muted-foreground: hsl(0, 10%, 70%);
+  /* Muted Colors - Subtle dark gray */
+  --color-fd-muted: hsl(220, 12%, 14%);          /* Dark muted gray */
+  --color-fd-muted-foreground: hsl(220, 8%, 65%);
   
-  /* Accent Colors - Orange-tinted dusty pink */
-  --color-fd-accent: hsl(340, 60%, 45%);         /* Orange-tinted dusty pink accent */
+  /* Accent Colors - Lighter Masumi brand pink/red/orange for dark mode */
+  --color-fd-accent: hsl(345, 70%, 62%);         /* Lighter coral pink-red-orange accent */
   --color-fd-accent-foreground: hsl(0, 0%, 100%);
   
-  /* Border Colors */
-  --color-fd-border: hsl(322, 22%, 17%);           /* Very dark border */
-  --color-fd-ring: hsl(340, 60%, 45%);           /* Orange-tinted dusty pink focus ring */
+  /* Border Colors - Subtle dark borders */
+  --color-fd-border: hsl(220, 12%, 20%);         /* Subtle dark border */
+  --color-fd-ring: hsl(345, 70%, 62%);           /* Masumi brand focus ring */
 }
 
 /* Sidebar specific colors */
 #nd-sidebar {
-  --color-fd-secondary: hsl(0, 30%, 91%);
-  --color-fd-muted: hsl(0, 30%, 91%);
+  --color-fd-secondary: hsl(220, 10%, 98%);
+  --color-fd-muted: hsl(220, 10%, 98%);
 }
 
 .dark #nd-sidebar {
-  --color-fd-secondary: hsl(0, 10%, 15%);
-  --color-fd-muted: hsl(0, 10%, 15%);
+  --color-fd-secondary: hsl(220, 15%, 11%);
+  --color-fd-muted: hsl(220, 15%, 11%);
 }
