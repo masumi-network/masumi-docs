@@ -6,7 +6,7 @@
     "smart-contracts",
     "agentic-service-api",
     "registry-metadata-standard",
-    "agent-description-standard",
+    "_agent-description-standard",
     "schema-validator-component",
     "_masumi-mcp-server",
     "environment-variables"

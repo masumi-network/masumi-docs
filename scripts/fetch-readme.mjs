@@ -1,7 +1,9 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 
-
+// Constants
+const IMAGE_DEFAULT_WIDTH = 1200;
+const IMAGE_DEFAULT_HEIGHT = 800;
 
 const REPOS = [
   {
@@ -279,8 +281,8 @@ function convertHtmlToJsx(content) {
 
     // Note the use of template literals for className to combine existing and new classes
     return `<div>
-      <ImageZoom src=\"${lightSrc}\" alt=\"${altText}\" width={1200} height={800} className={\`${existingClass} w-full h-auto block dark:hidden\`} ${sharedAttrs} />
-      <ImageZoom src=\"${darkSrc}\" alt=\"${altText}\" width={1200} height={800} className={\`${existingClass} w-full h-auto hidden dark:block\`} ${sharedAttrs} />
+      <ImageZoom src=\"${lightSrc}\" alt=\"${altText}\" width={${IMAGE_DEFAULT_WIDTH}} height={${IMAGE_DEFAULT_HEIGHT}} className={\`${existingClass} w-full h-auto block dark:hidden\`} ${sharedAttrs} />
+      <ImageZoom src=\"${darkSrc}\" alt=\"${altText}\" width={${IMAGE_DEFAULT_WIDTH}} height={${IMAGE_DEFAULT_HEIGHT}} className={\`${existingClass} w-full h-auto hidden dark:block\`} ${sharedAttrs} />
     </div>`;
   });
 
@@ -305,7 +307,7 @@ function convertHtmlToJsx(content) {
             return `${jsxKey}=\"${value}\"`;
         }).join(' ');
 
-    return `<${Component} ${attrsForJsx} width={1200} height={800} className={\`${existingClass} w-full h-auto\`} />`;
+    return `<${Component} ${attrsForJsx} width={${IMAGE_DEFAULT_WIDTH}} height={${IMAGE_DEFAULT_HEIGHT}} className={\`${existingClass} w-full h-auto\`} />`;
   });
 
   // Convert common HTML attributes to JSX equivalents
