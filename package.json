@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "node scripts/generate-openapi.mjs && node scripts/fetch-readme.mjs && next build",
+    "build": "node scripts/generate-openapi.mjs && node scripts/fetch-readme.mjs && tsx scripts/generate-llms-txt.ts && next build",
     "dev": "next dev",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
-    "fetch-readme": "node scripts/fetch-readme.ts"
+    "predev": "node scripts/fetch-readme.mjs",
+    "fetch-readme": "node scripts/fetch-readme.mjs",
+    "generate-llms-txt": "tsx scripts/generate-llms-txt.ts"
   },
   "dependencies": {
     "@theguild/remark-mermaid": "^0.3.0",
@@ -15,6 +17,7 @@
     "fumadocs-mdx": "11.6.8",
     "fumadocs-openapi": "^9.0.17",
     "fumadocs-ui": "^15.7.13",
+    "lru-cache": "^11.1.0",
     "lucide-react": "^0.525.0",
     "masumi-schema-validator-component": "^0.2.6",
     "mermaid": "^11.8.1",
@@ -37,6 +40,7 @@
     "rimraf": "^6.0.1",
     "tailwindcss": "^4.1.10",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.8.3"
   }
 }

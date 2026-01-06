@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
+import { apiResponseCache, fileReadCache } from '@/lib/cache';
 
 export async function GET(request: NextRequest) {
   try {
@@ -9,6 +10,17 @@ export async function GET(request: NextRequest) {
     
     if (!path) {
       return NextResponse.json({ error: 'Path parameter is required' }, { status: 400 });
+    }
+
+    // Check cache first
+    const cacheKey = `page-content:${path}`;
+    const cached = apiResponseCache.get(cacheKey);
+    if (cached) {
+      return NextResponse.json(cached, {
+        headers: {
+          'Cache-Control': 'public, max-age=900', // 15 minutes
+        },
+      });
     }
 
     // Convert URL path to file path
@@ -43,16 +55,31 @@ export async function GET(request: NextRequest) {
     for (const possiblePath of possiblePaths) {
       try {
         const fullPath = join(contentDir, possiblePath);
-        const content = await readFile(fullPath, 'utf-8');
+        
+        // Check file read cache
+        let content = fileReadCache.get(fullPath);
+        if (!content) {
+          content = await readFile(fullPath, 'utf-8');
+          fileReadCache.set(fullPath, content);
+        }
         
         // Extract title from frontmatter
         const titleMatch = content.match(/^title:\s*(.+)$/m);
         const title = titleMatch ? titleMatch[1].replace(/['"]/g, '') : 'Documentation Page';
         
-        return NextResponse.json({
+        const result = {
           content,
           title,
           path: possiblePath,
+        };
+        
+        // Cache the result
+        apiResponseCache.set(cacheKey, result);
+        
+        return NextResponse.json(result, {
+          headers: {
+            'Cache-Control': 'public, max-age=900', // 15 minutes
+          },
         });
       } catch {
         continue;
