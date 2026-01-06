@@ -14,6 +14,7 @@ export async function GET(
       return new NextResponse('Page not found', { status: 404 });
     }
     
+    // getLLMText now has built-in caching, so this is already optimized
     const content = await getLLMText(page);
     
     return new NextResponse(content, {
