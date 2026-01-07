@@ -17,7 +17,7 @@ export default async function Page(props: {
   // Redirect root path to documentation
   if (!params.slug || params.slug.length === 0) {
     redirect('/documentation');
-  }
+  } 
   
   let page = source.getPage(params.slug || []);
   
