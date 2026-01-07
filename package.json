@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "node scripts/generate-openapi.mjs && node scripts/fetch-readme.mjs && tsx scripts/generate-llms-txt.ts && next build",
+    "build": "fumadocs-mdx && node scripts/generate-openapi.mjs && node scripts/fetch-readme.mjs && tsx --tsconfig tsconfig.json scripts/generate-llms-txt.ts && next build",
     "dev": "next dev",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
