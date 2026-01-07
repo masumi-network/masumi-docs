@@ -4,7 +4,7 @@
 **ALWAYS add new files to meta.json navigation** - This is how Fumadocs works. Any new content file must be added to the appropriate `meta.json` file or it won't appear in the navigation.
 
 ## Project Overview
-This is the Masumi documentation site built with Fumadocs. It automatically syncs content from various GitHub repositories and includes MIPs (Masumi Improvement Proposals).
+This is the Masumi documentation site built with Fumadocs. It automatically syncs content from various GitHub repositories and includes MIPs(Masumi Improvement Proposals).
 
 ## Key Directories and Files
 
