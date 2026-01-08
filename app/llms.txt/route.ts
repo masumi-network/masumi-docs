@@ -7,7 +7,7 @@ import { getLLMText } from '@/lib/get-llm-text';
 // In-memory cache for the generated content (persists across requests)
 let cachedContent: string | null = null;
 let cacheTimestamp: number = 0;
-const CACHE_TTL = 1000 * 60 * 60; // 1 hour
+const CACHE_TTL = 1000 * 60 * 60 * 24; // 24 hours
 
 async function generateLLMsTxtContent(): Promise<string> {
   const pages = source.getPages();
@@ -54,7 +54,7 @@ export async function GET() {
         status: 200,
         headers: {
           'Content-Type': 'text/plain; charset=utf-8',
-          'Cache-Control': 'public, max-age=3600, s-maxage=86400', // 1 hour browser, 24 hours CDN
+          'Cache-Control': 'public, max-age=86400, s-maxage=86400', // 24 hours browser, 24 hours CDN
         },
       });
     }
@@ -71,7 +71,7 @@ export async function GET() {
         status: 200,
         headers: {
           'Content-Type': 'text/plain; charset=utf-8',
-          'Cache-Control': 'public, max-age=3600, s-maxage=86400',
+          'Cache-Control': 'public, max-age=86400, s-maxage=86400',
         },
       });
     } catch (fileError) {
@@ -95,7 +95,7 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
-        'Cache-Control': 'public, max-age=3600, s-maxage=86400',
+        'Cache-Control': 'public, max-age=86400, s-maxage=86400',
       },
     });
   } catch (error) {
@@ -114,7 +114,7 @@ export async function HEAD() {
     status: 200,
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600',
+      'Cache-Control': 'public, max-age=86400',
     },
   });
 }

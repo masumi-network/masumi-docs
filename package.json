@@ -7,7 +7,6 @@
     "dev": "next dev",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
-    "predev": "node scripts/fetch-readme.mjs",
     "fetch-readme": "node scripts/fetch-readme.mjs",
     "generate-llms-txt": "tsx scripts/generate-llms-txt.ts"
   },

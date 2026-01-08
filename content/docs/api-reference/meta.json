@@ -41,6 +41,7 @@
     "./(generated)/registry-service/get-capability.mdx",
     "./(generated)/registry-service/get-health.mdx",
     "./(generated)/registry-service/get-payment-information.mdx",
+    "./(generated)/registry-service/post-registry-diff.mdx",
     "./(generated)/registry-service/post-registry-entry.mdx",
     "./(generated)/registry-service/get-registry-source.mdx",
     "./(generated)/registry-service/post-registry-source.mdx",
