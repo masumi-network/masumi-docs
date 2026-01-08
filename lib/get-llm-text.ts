@@ -8,7 +8,7 @@ import { readFile } from 'fs/promises';
 import { llmTextCache, fileReadCache } from './cache';
 
 // Shared remark processor instance (reusable, more memory efficient)
-let sharedProcessor: ReturnType<typeof remark> | null = null;
+let sharedProcessor: any = null;
 
 function getSharedProcessor() {
   if (!sharedProcessor) {
@@ -19,6 +19,25 @@ function getSharedProcessor() {
       .use(remarkStringify);
   }
   return sharedProcessor;
+}
+
+/**
+ * Clean the processed text by removing imports and JSX tags
+ */
+function cleanText(text: string): string {
+  return text
+    // Remove import statements
+    .replace(/^import\s+.*?;?\s*$/gm, '')
+    // Remove JSX self-closing tags: <Card ... />
+    .replace(/<[A-Z][a-zA-Z0-9]*\s+[^>]*\/>/g, '')
+    // Remove JSX opening tags: <Cards>
+    .replace(/<[A-Z][a-zA-Z0-9]*\s*[^>]*>/g, '')
+    // Remove JSX closing tags: </Cards>
+    .replace(/<\/[A-Z][a-zA-Z0-9]*>/g, '')
+    // Remove multiple blank lines
+    .replace(/\n\s*\n\s*\n/g, '\n\n')
+    // Trim whitespace
+    .trim();
 }
 
 export async function getLLMText(page: Page): Promise<string> {
@@ -35,7 +54,7 @@ export async function getLLMText(page: Page): Promise<string> {
     rawContent = await readFile(page.absolutePath, 'utf-8');
     fileReadCache.set(page.absolutePath, rawContent);
   }
-  
+
   // Use shared processor instance (reusable, more memory efficient)
   const processor = getSharedProcessor();
 
@@ -44,15 +63,18 @@ export async function getLLMText(page: Page): Promise<string> {
     value: rawContent,
   });
 
+  // Clean the processed text (remove imports and JSX)
+  const cleanedText = cleanText(processed.value as string);
+
   const result = `# ${page.data.title}
 URL: ${page.url}
 
 ${page.data.description}
 
-${processed.value}`;
+${cleanedText}`;
 
   // Cache the result
   llmTextCache.set(cacheKey, result);
-  
+
   return result;
 }

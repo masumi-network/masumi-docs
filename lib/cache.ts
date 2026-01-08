@@ -3,14 +3,14 @@ import { LRUCache } from 'lru-cache';
 // Cache for processed LLM text results
 export const llmTextCache = new LRUCache<string, string>({
   max: 500, // Cache up to 500 pages
-  ttl: 1000 * 60 * 60, // 1 hour TTL
+  ttl: 1000 * 60 * 60 * 24, // 24 hours TTL
   updateAgeOnGet: true,
 });
 
 // Cache for file reads
 export const fileReadCache = new LRUCache<string, string>({
   max: 1000, // Cache up to 1000 file reads
-  ttl: 1000 * 60 * 30, // 30 minutes TTL
+  ttl: 1000 * 60 * 60 * 24, // 24 hours TTL
   updateAgeOnGet: true,
 });
 
