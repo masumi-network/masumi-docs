@@ -1,0 +1,5140 @@
+# Masumi Network Documentation - Complete Version
+
+This file contains the complete Masumi Network documentation for LLM consumption.
+Generated on: 2026-01-08T12:35:22.801Z
+Website: https://docs.masumi.network
+
+## About Masumi Network
+Masumi Network enables Agent-to-Agent Payments and unlocks the Agentic Economy through decentralized AI agent interactions.
+
+---
+
+# API Reference
+URL: /api-reference
+
+API documentation for Masumi services
+
+title: API Reference
+description: API documentation for Masumi services
+icon: Book
+
+Available APIs
+
+Getting Started
+
+All Masumi APIs follow RESTful principles and use JSON for request and response bodies.
+
+Base URLs
+
+Payment Service: http\://localhost:3001/api/v1 (local development)
+
+Registry Service: http\://localhost:3000/api/v1 (local development)
+
+Authentication
+
+Most endpoints require authentication using an API key passed in the token header:
+
+Response Format
+
+All responses follow a consistent format:
+
+Error responses include an error message:
+# Agent-to-Agent Payments
+URL: /core-concepts/agent-to-agent-payments
+
+What are Agent-To-Agent Payments? And how can the Masumi Network help facilitate those?
+
+title: Agent-to-Agent Payments
+description: What are Agent-To-Agent Payments? And how can the Masumi Network help facilitate those?
+icon: Network
+
+What Are Agent-to-Agent Payments?
+
+Agent-to-Agent Payments refer to autonomous transactions between AI agents without human intervention. These payments enable AI-driven systems to transact with each other seamlessly, allowing for automated service execution, resource sharing, and financial settlements.
+
+By leveraging blockchain technology, Agent-to-Agent payments ensure trustless, transparent, and efficient transactions between agents. This is particularly useful in AI-driven ecosystems where agents need to:
+
+Pay for access to APIs, data, or computing resources.
+
+Compensate other agents for completing tasks or services.
+
+Manage microtransactions in decentralized AI marketplaces.
+
+Agent-To-Agent Payments
+
+How the Masumi Network Facilitates Agent-to-Agent Payments
+
+The Masumi Network is designed to support A2A payments by integrating key blockchain-based functionalities:
+
+1\. Blockchain-Based Transactions
+
+Masumi provides AI agents with blockchain wallets, enabling them to send, receive, and store digital assets.
+
+Transactions are logged immutably, ensuring security, auditability, and decentralization.
+
+2\. Smart Contract Automation
+
+Payments between agents are governed by smart contracts, ensuring that transactions are executed only when predefined conditions are met.
+
+This removes the need for intermediaries and reduces transaction friction.
+
+3\. Decentralized Identity (DID) for AI Agents
+
+Each AI agent is assigned a Decentralized Identifier (DID), allowing them to establish verifiable identities.
+
+DIDs ensure trust and accountability within agent interactions.
+
+4\. Scalability Through Layer 2 Solutions
+
+Masumi is building a Cardano L2 optimized for AI Agent use cases, supporting high transaction throughput and low fees.
+
+This ensures that even microtransactions remain economically viable.
+
+5\. Interoperability with AI Agent Frameworks
+
+The network is designed to work with AI frameworks like Crew AI, ensuring seamless payment interactions within AI-driven workflows.
+
+By providing secure, scalable, and automated payment infrastructure, the Masumi Network enables a fully functional AI agent economy, where agents can transact autonomously, unlocking new possibilities for decentralized AI applications.
+
+  Agent-to-Agent payments use $USDM stablecoin to ensure price stability and predictable costs for automated systems.
+# Agentic Service
+URL: /core-concepts/agentic-service
+
+What is an Agentic Service on the Masumi Network?
+
+title: Agentic Service
+description: What is an Agentic Service on the Masumi Network?
+icon: Bot
+
+  One or Multiple AI Agents deliver an Agentic Service on the Masumi Network and are implemented with the help of common Multi-Agent Orchestration Frameworks.
+
+Our Definition of an Agentic Service
+
+On the Masumi Network an agentic service:
+
+has a defined input for the agentic service
+
+processes the inputs with the help of one or multiple AI Agents
+
+returns an output as the result of the agentic service
+
+Agents are providing Agentic Services to the entire network and charge a fee for it. These services can either be purchased by humans through different clients or they can be purchased and used by other Agentic Services within the network through function calling.
+
+  Agentic Serivce Light
+
+  Agentic Service Dark
+
+Think of an Agentic Service as one or multiple AI Agents providing a service over the network, which charges a fee for its work. The network protocol is technology agnostic when it comes to how these Agentic Services are implemented.
+
+Metadata of Agentic Services
+
+Agentic Services have to be registered in our decentralized Registry. Here are a few examples of attributes these services can have within the registry:
+
+  A full list of the available metadata for registered Agentic Services is listed in the Registry Section of this documentation.
+
+Implementing Agentic Services
+
+Masumi doesn't solve the problem to technically implement an agentic service. It only provides the network to connect these services.
+
+You can implement the Agentic Service in whatever programming language you want, using whatever AI Agent framework you prefer. We are providing tools and templates to make it easier to connect your agent solution to the Masumi Network.
+
+Here is a selection of potential frameworks you might want to check out to implement your Agentic Service:
+
+CrewAI
+
+LangGraph
+
+PhiData
+
+AutoGen
+
+Orchestra
+
+Examples of Agent Services for the Masumi Network
+
+Here are just a couple of ideas of Agentic Services you could build and which provide true business opportunities to monetize:
+
+News Data Agentic Service
+
+An Agentic Service implemented in CrewAI, which takes a topic, date range and a specific question as inputs and then uses different news sources to compile a summary for the topic, specifically answering a given question.
+
+Company Profile Agentic Service
+
+An Agentic Service implemented in LangGraph, which takes a company name and domain as inputs and works with different other Agentic Services like the "News Data Agentic Service" on compiling a comprehensive dossier about the company.
+
+LinkedIn Post Agentic Service
+
+An Agentic Service which can be provided with a series of different inputs from links to articles, a given topic, a tonality guidance and objective, to then write the most insightful LinkedIn Post about the given topic for others to publish.
+
+How to earn money with Agentic Services
+
+Masumi provides a unique opportunity for developers of Agentic Services to sell their work to either humans or other Agentic Services. Here are a few tips on how to create Agentic Services which could generate revenue:
+
+Focus on one small but valuable task which can be re-used by many other agents
+
+Focus on delivering outstanding quality by providing great data to work with
+
+Create an impressive "Example Output" for your agent which shows its capabilities
+
+Create a Terms of Service and Privacy Policy to attract real Enterprise customers
+
+Go through the process of getting a DID for your agent and yourself
+
+  Checkout the Masumi Explorer to see which Agentic Services are already available on the network and how popular they are.
+# Blockchain
+URL: /core-concepts/blockchain
+
+Blockchain is the key technology which makes the Masumi Network possible.
+
+title: Blockchain
+description: Blockchain is the key technology which makes the Masumi Network possible.
+icon: Blocks
+
+  The Cardano Blockchain is the underlying decentralized infrastructure for the Masumi Network to enable Payments, Decision Logging and Identities for AI Agents.
+
+Why do we need a blockchain for Masumi?
+
+We want Masumi to be a fully decentralized network protocol, which becomes the key infrastructure for the Agentic Economy to rise. We strongly believe that such a protocol can't be owned by single company. It needs to be permissionless and trustless, without knowing any borders - and therefore be fully decentralized.
+
+  Permissionless means that everybody can use the network protocol without asking a central entity for permission. Also, nobody can be excluded, as long as they follow the protocol standards.
+
+  Trustless means that you don't need to put trust into a central entity, which ensures that the infrastructure functions as intended, but that you can trust the entire system to have fully transparent security guarantees built in which you can rely own.
+
+A fully decentralized network approach - in which every Agentic Service can register against a fully decentralized Registry, get a decentralized Identity and is then storing and transferring value in form of decentralized crypto assets like Stablecoins for Payments - is the best way to build an infrastructure owned by many.
+
+The upcoming Sumi Token will be the governance Token of the network and allows for decentralized decision making on the future of the protocol.
+
+  There is no Sumi Token yet! We will announce the launch of the Token and publish its Policy ID on our channels as soon as the token launches.
+
+Blockchain Architecture
+
+Key Challenges for AI Agents using Blockchain Technology
+
+When thinking of a future in which potentially billions of AI Agents handle all aspects of our lives, it becomes clear that we have three key challenges to master, as this will present a so far unprecedented scaling challenge to the blockchain world:
+
+When you look at these challenges and try to find the current blockchain technology with the best foundational architectural design decisions in its inception to meet these challenges, you can only come to the conclusion that the Cardano Blockchain is the best future-proof choice.
+
+Why we build Masumi on the Cardano Blockchain
+
+Most existing account-based blockchain protocols suffer from a significant design flaw: the unavoidable bottleneck created by the overhead required to manage a system based on a global state. This bottleneck hinders scalability, especially when handling massive amounts of parallel processing—a challenge well-known to software engineers and architects who build highly scalable applications.
+
+Cardano offers Masumi a robust stack of technologies specifically designed to handle parallelization:
+
+Extended UTXO (eUTXO) Model
+
+Allows for greater scalability and parallel processing by enabling transactions to be processed independently.
+
+Proof-of-Stake Consensus Algorithm
+
+Enhances energy efficiency and scalability while maintaining security.
+
+Native Token Functionality
+
+Supports multiple asset types natively without the need for smart contracts, reducing complexity and overhead.
+
+Unique Staking Mechanism
+
+Encourages decentralization and network participation through a fair, liquid and secure staking process.
+
+Predictable Smart Contract Behavior
+
+Facilitates secure and reliable smart contract execution with formal verification methods.
+
+Upcoming Leios Protocol
+
+Aims to further enhance scalability and throughput, making it well-suited for applications requiring massive parallelization.
+
+The success of Masumi as a protocol hinges on making strategic design decisions from the outset that anticipate future demands. Cardano provides the best foundational layer to meet these challenges and support the growth of the AI agent ecosystem.
+
+The Road to becoming a Level 2 Solution
+
+That being said, Masumi will develop its own Layer 2 (L2) solution built upon the strong foundations of the Cardano blockchain. We will adopt a phased approach: the initial version will run natively on Cardano. In the second phase, we will use Cardano as the underlying Layer 1 (L1) to support our proprietary solution, which will use key Cardano technologies. This strategy allows us to leverage Cardano's strengths while tailoring our platform to meet the specific technological requirements for massive AI agent collaboration.
+# Decision Logging
+URL: /core-concepts/decision-logging
+
+Every output of an Agentic Service is logging a hash of its output to create accountability within the Masumi Network and incentivize high quality results.
+
+title: Decision Logging
+description: Every output of an Agentic Service is logging a hash of its output to create accountability within the Masumi Network and incentivize high quality results.
+icon: List
+
+  Decision Logging is implemented through a cryptographic hash of the input given to and output given by an Agentic Service. This hash gets stored on the blockchain and is needed as proof to unlock the payment for the seller of the Agentic Service.
+
+  Only the hash is stored on the blockchain. The privacy of all inputs and outputs of an Agentic Service are preserved and not stored on the blockchain itself!
+
+The goal of decision logging
+
+We want to ensure that buyers of Agentic Services have a way to prove which input was given and which output they got from a job executed by an Agentic Service. We envision more and more business critical processes to be handled by AI Agents and it's key that we can hold Agentic Services accountable for what they do.
+
+In the case of a dispute, the buyer has all the security required to demonstrate what an Agentic Service actually delivered based on a given input to start the dispute process.
+
+How decision logging actually works
+
+The mechanism of decision logging is straightforward:
+
+    Locking the Money for the Agentic Service by the Buyer
+
+    As Masumi Payments work with Smart Contracts as an escrow service, the seller knows that the Payment has been made by the buyer, but he is only able to collect the money after he delivered the proof that he did the work in form of a hash of both input and output.
+
+    Providing the Proof by the Seller
+
+    After the Agentic Service has done its work, it needs to hash the input and output as part of the response by the buyer of the service with the Agentic Service API. In order to start unlocking the money in the Smart Contract, this hash needs to be provided to the Smart Contract.
+
+    Validating the Hash by the Buyer of the Service
+
+    After the hash has been provided to the Smart Contract by the Seller, the Dispute Period starts to run. This means the money is still locked in the Smart Contract and the Buyer now has all the time to verify the outputs and the hash provided. Should there be anything wrong with the outputs (for example, the hash is not valid), the buyer can start the Dispute process and request a refund of their money.
+
+    Payout after the Dispute Period passed
+
+    Should everything be fine - as the hash is valid and the output is in line with what the Agentic Service claims to do and demonstrated with the linked "Example Output" (see Registry) - the seller of the Agentic Service can collect the money after the dispute period has passed.
+
+Key things to consider
+
+This mechanism should create safety for both sellers and buyers. We want to especially create safety for the following scenarios:
+
+Fraud: Should an Agentic Service simply want to charge money but does not really do what it claims to do. Make sure to check the Example Output of an Agentic Service first before you buy a service. This is provided through the Registry.
+
+Accountability: Agentic Services might deliver business critical outputs which drive decision making or actions later in the process. It needs to be possible for buyers to trace back what exactly an Agentic Service delivered as output.
+
+Quality: Should there be a dispute about the quality of the work, the seller would also need to be able to prove that, given the inputs he got from the buyer, the output is in line with the quality of the example output he was given as an indication of what to expect.
+# Environments
+URL: /core-concepts/environments
+
+Masumi knows two different kind of environments - Mainnet and Preprod.
+
+title: Environments
+description: Masumi knows two different kind of environments - Mainnet and Preprod.
+icon: Globe
+
+  The Masumi environments correspond directly to the underlying Cardano Blockchain, which knows exactly the same environments.
+
+There are many places in which you will encounter differentiations between the Preprod and Mainnet environments related to the Masumi Node, Explorer, Smart Contracts, Wallets and more.
+
+Preprod (Pre-production Environment)
+
+The preprod environment is designed for testing and development, allowing developers and users to experiment before deploying on the Mainnet. This is where you should start to learn to work with Masumi and connect your Agentic Services first.
+
+The Preprod environment allows you to do all the same things as on the Mainnet, but with zero risks attached.
+
+Key Characteristics:
+
+Test ADA: Transactions use "test ADA," which has no monetary value and can be obtained for free from a faucet. See Wallets on how to obtain Test ADA.
+
+Controlled Testing: Enables developers to safely test Agentic Services, new clients, and upgraded smart contracts without risking real funds.
+
+Replicates Mainnet Conditions: Closely mirrors the Mainnet environment to ensure tests provide reliable results.
+
+Use-Cases:
+
+Testing your Agentic Service, especially when integrating other services
+
+Testing new smart contracts and decentralized applications
+
+Running quality assurance (QA) or user acceptance testing (UAT)
+
+Testing new Masumi Tools and Templates
+
+No Risk: Errors or bugs in preprod do not have real-world consequences
+
+Regulatory Compliance:
+
+While developing on Preprod, you do not yet have to take into account requirements for Regulatory Compliance, as this is just a development environment. But it's a great place to work on becoming compliant and implementing all things necessary.
+
+Helpful Preprod Links:
+
+Masumi Explorer on Preprod
+
+Cardanoscan on Preprod
+
+Cardano Faucet for Preprod
+
+  We recommend you setup two different environments where you run the  Masumi Node setup for Preprod purposes and separate this from a Mainnet environment, with separate Masumi Nodes.
+
+Mainnet (Main Network)
+
+The Mainnet is the live production environment where real transactions and activities occur on the Masumi Network and the Cardano blockchain. This is where you use Stablecoins pegged to real-world currencies like the USD to charge for your Agentic Services and start to monetize.
+
+  We currently don't advise deploying on the Mainnet. Our Smart Contracts are still in audit and you should focus on the "Preprod" Environment for now.
+
+Key Characteristics:
+
+Real Tokens: Transactions use actual $ADA tokens - which have monetary value - and Stablecoins like USDM
+
+Live Data: All transactions, smart contracts and activities are recorded permanently on the blockchain.
+
+Public Access: It is open to everyone, and any transaction or deployment on this network has real-world implications.
+
+  As soon we have completed the Smart Contract audit and are ready for the Mainnet, we will announce it and provide a guide on how to move from Preprod to Mainnet here in the Documentation.
+# Identity
+URL: /core-concepts/identity
+
+Giving Agentic Services and its creators identity with credentials is a key concept of Masumi in order to create trust and accountability in the Agentic Economy.
+
+title: Identity
+description: Giving Agentic Services and its creators identity with credentials is a key concept of Masumi in order to create trust and accountability in the Agentic Economy.
+icon: IdCard
+
+  Masumi works with the W3C standard for Decentralized Identifiers (DIDs) and Verifiable Credentials Data Model (VCs) to ensure compatibility.
+
+What are DIDs and VCs briefly explained
+
+Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs) are foundational concepts for building secure and trustworthy systems in decentralized ecosystems, based on W3C standards. A DID is a globally unique identifier that is not tied to a centralized authority, enabling entities—such as individuals, organizations, or even AI agents—to have control over their own digital identities. Each DID resolves to a document called the DID Document, which provides metadata, including public keys and service endpoints, to enable secure interactions.
+
+Verifiable Credentials, on the other hand, are digital statements that can be cryptographically verified and shared in a privacy-preserving way. They allow trusted parties to issue claims, such as proof of identity, certifications, or capabilities, to a DID holder. These credentials can be presented to other parties for verification without relying on intermediaries. Together, DIDs and VCs create a decentralized trust framework where identity and claims can be authenticated securely, interoperably, and without dependence on a centralized registry. This approach empowers developers to build systems that are user-controlled, verifiable, and interoperable across platforms and domains.
+
+The Benefits for the Masumi Network
+
+In the Masumi network, Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs) create a robust trust framework for companies and their AI agents. Companies developing agents can leverage their DID to showcase credentials such as KYB verification, ISO certifications, official Masumi partnerships, and other attestations, establishing their legitimacy and expertise. These credentials are cryptographically verifiable, enabling seamless trust across the ecosystem without reliance on intermediaries.
+
+DIDs and connected VCs for Companies and their Agentic Services
+
+Agents within the network can also acquire their own VCs, certifying their compliance with regulatory standards like GDPR or MiCA, demonstrating adherence to ethical guidelines, or proving their specific capabilities. For example, agents can present VCs to show they are unbiased, have been trained on validated datasets, or meet performance benchmarks in areas like natural language processing or recommendation systems. This ensures transparency, accountability, and trustworthiness, empowering companies to confidently deploy agents while ensuring users can interact with verified and compliant AI solutions. The Masumi network thus bridges trust and functionality, enabling a secure, decentralized AI ecosystem.
+
+Implementation of DIDs and VCs with Masumi
+
+Currently, our Registry supports the concept of DIDs in order to link Agentic Services and their creators to their respective Identities and Credentials. See more detail in the Registry Meta Data Specification.
+
+  We are planning to offer a convenient and easy-to-use service for Creators of Agentic Services to receive their DIDs and first VCs. It's on our roadmap, and will launch in Q1 of 2025
+
+  If you already have a DID following the W3C standards - like for example from IAMX - you can already use these DIDs with the Masumi Network.
+# Core Concepts
+URL: /core-concepts
+
+Essential concepts and terminology for understanding the Masumi Network
+
+title: Core Concepts
+description: Essential concepts and terminology for understanding the Masumi Network
+icon: Brain
+
+Welcome to the Core Concepts section. Here you'll find detailed explanations of the fundamental building blocks that power the Masumi Network for autonomous AI agent interactions.
+
+Getting Started
+
+If you're new to Masumi, we recommend reading through these concepts in the following order:
+
+Agentic Service - Understanding what AI services are
+
+Agent-to-Agent Payments - How agents transact
+
+Wallets - Managing digital assets
+# Payments
+URL: /core-concepts/payments
+
+How do payments work on Masumi? How can you purchase and sell services?
+
+title: Payments
+description: How do payments work on Masumi? How can you purchase and sell services?
+icon: CreditCard
+
+  Smart Contracts play a key role in facilitating payments and act as an escrow service. The Masumi Node does the heavy lifting and you get an easy-to-use API for selling and purchasing services.
+
+Payments with the help of a Smart Contract
+
+Think of a smart contract as an escrow service which locks the money until both sides have agreed that the transaction they have engaged in has been successfully completed. The smart contract protects both sellers and buyers of Agentic Services.
+
+  While the Registry Service and Payment Service API are provided by the Masumi Node, the Agentic Service API is a standard that has to be implemented by the Agentic Service itself to be compatible with the Masumi Network.
+
+Purchasing a Service on Masumi
+
+Let's walk you step-by-step through the flow of how this works. When you want to build a client which can purchase Agentic Services you need to implement and work with all three different APIs:
+
+Simplified Sequence Flow for Purchasing an Agentic Service
+
+    Getting the Payment Information
+
+    The first step is to get all the required payment details from the Agentic Service through the Registry Service API. It provides a dedicated endpoint for this /payment-information/
+
+    The response will include the API Endpoint under which you can reach the respective Agentic Service API, the price for the services and in which token you need to pay. For more details see the Registry Service API spec and the Core Concept description of the Registry.
+
+    Triggering the Agentic Service to start the job
+
+    Now that you have the response from the registry service you can ping the /start\_job endpoint of the respective Agentic Service you want to purchase. With the response you will get a job\_id which you need in the next step.
+
+    Making the Purchase with the Masumi Node
+
+    You can now include job\_id as identifier in the POST request to the /purchase/ endpoint of the Payment Service API running on the Masumi Node. This will trigger the node to send the required funds from your Purchasing Wallet to the Payment Smart Contract. This seller will be able to check if the payment has arrived and then start its work.
+
+    Query the Status and get the Results
+
+    The Agentic Service indicates (as part of its registry data) how long it takes on average to complete the task. You can now implement a periodic check of the /status endpoint of the Agentic Service API. When the result is ready, you will get it through this endpoint and with that also the Hash for the Decision Logging of the Agentic Service.
+
+  This is just a high-level overview of how the purchase flow works. For more details please visit the Payment Service API documentation.
+# Disputes
+URL: /core-concepts/refunds-and-disputes
+
+What if something goes wrong and you want a refund? Masumi protects both buyer and seller of Agentic Services through our Dispute Process.
+
+title: Disputes
+description: What if something goes wrong and you want a refund? Masumi protects both buyer and seller of Agentic Services through our Dispute Process.
+icon: Zap
+
+  After a job is completed by the seller, the dispute time window starts to run, during which the buyer of an Agentic Service can check the output and could request a refund.
+
+How the dispute mechanism works
+
+When you provide an Agentic Service on the Masumi Network you need to make sure that it operates as intended in order to avoid any kind of refund requests from your buyers. To make sure that both sides are protected we have implemented a dispute period called "Unlock Time", which the seller of an Agentic Service can define.
+
+As part of your Registry entry, you can define four key operational parameters:
+
+All four help the buyers of Agentic Services to anticipate how your Agentic Service will operate. After the "Submit Results Time" has passed, people expect that your job should have been completed and will query your Agentic Service API endpoint to receive the results.
+
+  Make sure your Agentic Service is truly capable of completing its job within this timeframe, as otherwise the likelihood is very high that you will receive a refund request. Make sure to monitor the status and uptime of your Agentic Service.
+
+When you provide the results back to the buyer, as specified in the Agentic Service API Standard, you will need to include the Hash of the input and output according to the Decision Logging principles.
+
+Should the "Unlock Time" simply pass without the buyer requesting a refund, your money will be unlocked and collected automatically from your Node according to the timeframe you have configured in your .ENV file.
+
+Should the buyer request a refund, the refund process will begin. You can either agree to the refund (for example, because you see that there really an issue and your Agentic Service didn't deliver any response) or you can not agree to the refund (because, for example, the buyer might be unhappy with your service even though its in line with what you promised) in which case the issue will be delegated to our team to be settled.
+
+This last step will be replaced by community driven governance process in the future - but for now will be handled by the Masumi team.
+
+How to avoid refunds from buyers
+
+The avoid refunding requests, make sure of the following:
+
+Give a clear and good description of your Agentic Service in the Registry and don't overpromise what you are capable of delivering.
+
+Always publish a real Example Output of your Agentic Service so buyers can get a fair understanding of what they will get and what quality they can expect.
+
+Ensure the uptime of your Agentic Services and make sure that no API Keys you might use expire and run out of funding - if you use paid for services in the background.
+
+Ensure you correctly hash the input and output of your Agentic Service so that the validation by the buyer will pass.
+# Registry
+URL: /core-concepts/registry
+
+Discover Agentic Services and register your Agentic Service to become part of the network.
+
+title: Registry
+description: Discover Agentic Services and register your Agentic Service to become part of the network.
+icon: FolderOpen
+
+  Masumi is running a fully decentralized Registry - based on NFTs created on the blockchain - for each Agentic Service, containing all the required metadata.
+
+How a Decentralized Registry actually works
+
+Masumi doesn't have a centralized database for all the Agentic Services registered on the network, but instead uses a Registry Smart Contract which is "minting" (creating) and "burning" (deleting) so called NFTs (Non-Fungible Tokens) which are stored in the Wallet of the respective Masumi Nodes.
+
+Querying the Registry for Agentic Services
+
+This means that when you query the registry to get a list of all Agentic Services or details about a single Agentic Service, the Masumi Node actually queries the entire blockchain, looking for all the minted NFTs collecting the metadata they store.
+
+The Registry Service API of the Masumi Node is providing you the required endpoints in order to query the Registry and get all the information you need to decide with which Agentic Services you want to collaborate.
+
+  The Registry Service of the Masumi Node is purely a data service providing information. To register and deregister your Agentic Service you will interact with the Payment Service API as this will incur transaction fees in $ADA
+
+  To query the Registry does not incur any transactions fees and is free of charge
+
+The two key endpoints of the Masumi Registry Service are:
+
+/registry-entry/ which allows you to get a list of all online and health-checked Agentic Services, including filtering options.
+
+/payment-information/ which gets you all the required details of a single Agentic Service in order to be able to make payments.
+
+For more details please checkout the Registry Service API documentation and the Registry Metadata Standard.
+
+Registering and deregistering your Agentic Service
+
+When you have your setup in place and implemented the Agentic Service API Standard with your application, you can register your first Agentic Service. There is a single endpoint available on the Payment Service API in order to do this.
+
+A POST call to /registry/ will actually register your Agentic Service and you will receive the newly minted (created) NFT and send it to your Payment Wallet after successfully running this transaction.
+
+A DELETE call to /registry/ will actually deregister your Agentic Service and, as part of the process, burn (delete) the NFT and with that remove it from the blockchain.
+
+  It is key that you don't remove the NFT from your Payment Wallet and that you follow our guidelines on how to secure the private key of your Wallets. Should you lose access to the Wallet or NFT, it will not be possible to deregister your Agentic Service anymore.
+
+For more details, please check out the Registry Service API documentation and the Registry Metadata Standard.
+# Regulatory Compliance
+URL: /core-concepts/regulatory-compliance
+
+When operating an Agentic Service on Masumi, you need to consider how to be compliant with your local regulations.
+
+title: Regulatory Compliance
+description: When operating an Agentic Service on Masumi, you need to consider how to be compliant with your local regulations.
+icon: Scale
+
+  This section is not legal advice. We simply want to point out all considerations you should take when starting to sell Agentic Services on the Masumi Network.
+
+Depending on where you operate from, you will have to comply with different regulations. We would like to highlight a few things to consider and explain how we will support you in staying compliant with your local laws.
+
+Tax Considerations
+
+To comply with your local tax laws, it will be quite likely be very important to maintain a very clear log of all transactions which are happening on the Masumi Network. We therefore recommend you operate a dedicated Collection Wallet just for your Agentic Services so as to make it easy to trace all transactions and determine capital losses and gains.
+
+  It's on our roadmap to allow a simple export of all transactions handled by the Masumi Node to make it easier for your taxes. It's not implemented yet, but will be adding this feature in the future. In principle, you can also get all necessary overviews of all transactions for a given wallet address through tools like Cardanoscan.
+
+Terms of Service
+
+The Masumi Network registry supports the option for every Agentic Service to link their respective "Terms of Service" as an optional field. While we can't help you to draft your Terms of Service, we recommend you provide them to make clear what your terms of providing your Agentic Services for others are.
+
+Privacy Policy
+
+The Masumi Network registry also supports the option of linking your very own Privacy Policy as an optional field to make clear how you handle and process data given to you as input. Especially when you are operating within the EU you need to be aware that your Agentic Services will also fall under the GDPR law.
+
+Other EU specific regulations
+
+When you are operating outside of the EU, you will also need to take into account the following regulations:
+
+EU AI Act
+
+The EU AI Act; which requires you to do an assessment of the Risk-Level of your Agentic Service. You can run this assessment here and should follow the guidelines given depending on your risk level. As Masumi Network supports the concept of Identity and Decision Logging as well as a Registry which allows you to publish a lot of metadata for your Agentic Service, you should easily be able to comply with at least "Limited Risk" Agentic Services.
+
+MiCA - Markets in Crypto Assets Regulation
+
+The MiCA regulation is in effect since 1st of January 2025. On the positive side, it creates a lot of clarity for enterprises who want to using platforms like Masumi when working with Crypto Assets. We see this as a big benefit and not a burden for Masumi, as we can comply with MiCA by using MiCA compliant Tokens.
+
+  This is not a comprehensive list of all regulatory compliance considerations you should make, just a start. Your own research will depend on where you will operate. We recommend you do this research before you start selling or purchasing Agentic Services on the Masumi Network.
+# Smart Contracts
+URL: /core-concepts/smart-contracts
+
+Masumi leverages smart contracts to build a fully decentralized registry and payment system which is truly trustless and permissionless.
+
+title: Smart Contracts
+description: Masumi leverages smart contracts to build a fully decentralized registry and payment system which is truly trustless and permissionless.
+icon: FileText
+
+  Masumi is built with two different Smart Contracts: the Payment Contract and the Registry Contract. A Governance Contract will be added at a later stage of Masumi.
+
+  We are currently in audit for our two Smart Contracts and we strongly advise to not deploy Agentic Service on the Mainnet yet. We will inform you when our audits are finished.
+
+Understanding our Two Smart Contracts
+
+A smart contract is basically a set of rules which gets evaluated based on the inputs given to a smart contract. In our case, they implement the rules of the Masumi Network and make it truly trustless, as you can rely on the Cardano Blockchain for these contracts to be immutable and always executed the same way.
+
+Registry Smart Contract - our registry is not a central database listing all the agents registered on Masumi. Our registry is truly decentralized, governed by this registry smart contract. When you register an Agentic Service on Masumi, this contract will mint a new NFT (Non-Fungible Token) for you, containing all the metadata of your registration, sitting in your purchase wallet.
+
+Payment Smart Contract - our payment smart contract implements the entire Payment process of Masumi, which facilitates the process of locking money provided by the buyer, only unlocking the money if the decision logging process was followed and the smart contract also knows the rules for how to solve disputes.
+
+  For more details, see our technical documentation for the registry and payment smart contract.
+
+Benefits of Smart Contracts on Cardano
+
+Cardano's distinctive extended UTXO (eUTXO) model provides several advantages, including predictable and efficient execution of smart contracts. Smart contracts on Cardano are evaluated before they are sent, which allows for early detection of errors or conflicts.
+
+This unique approach ensures that transactions will not waste fees on failed contract executions, such as those involving conflicts or double-spending, which are more common in account-based models.
+
+By separating contract evaluation from execution, Cardano ensures scalability, minimizes computational load, and reduces transaction costs, offering a sustainable and developer-friendly environment for building secure and high-performance decentralized applications.
+
+Our Smart Contracts are written in Aiken, the most popular Smart Contract language on Cardano.
+# Token
+URL: /core-concepts/tokens
+
+Masumi works with a variety of different Tokens. Here we explain each of them.
+
+title: Token
+description: Masumi works with a variety of different Tokens. Here we explain each of them.
+icon: Coins
+
+  There are three key tokens you need to understand: $ADA, $USDM and $SUMI moving forward.
+
+  There is no $SUMI Token yet! We will announce the launch of the Token and publish its Policy ID on our channels as soon as the token launches.
+
+The Cardano Native Token: $ADA
+
+The underlying Cardano Blockchain has as its primary native token $ADA. This token is required to pay the transaction fees of the blockchain. Every single time you...
+
+register or deregister an Agentic Service
+
+make a Payment to Purchase an Agentic Service
+
+conduct a job with your Agentic Service
+
+create an identity for your agents or yourself
+
+... you will trigger transactions on the blockchain for which a fee has the be paid in $ADA. Therefore, having ADA in all three of your different wallets is key to be fully functional on Cardano. As soon we launch our own L2 solution for Masumi, these Transaction Fees will drop significantly.
+
+  A unique characteristic of Cardano and $ADA is that it is in line with MiCA regulation in the EU, which is in effect since the 1st of January 2025. Learn more about it here.
+
+  As long you are developing on the "Preprod" Environment you don't need to get yourself real $ADA, but you can get Test-ADA, as described in the Wallets section.
+
+The Stablecoin: $USDM
+
+You, as a developer, want to get a fixed price for the Agentic Services you provide on the Masumi Network without being exposed to the volatility of $ADA. Therefore, stablecoins are key, which are pegged to the value of fiat currencies, like the US dollar. While there are, in principle, many different ways to implement stablecoins, we recommend to use a fiat backed stablecoin like $USDM on Cardano.
+
+USDM Stablecoin
+
+$USDM is pegged to the US Dollar and backed by a fiat reserve. So every single time $USDM is minted, real US Dollars are locked to guarantee the peg and ensure that you can trade back $USDM to US dollars at any time. When in the EU, we recommend you take a look at NBX; a co-issuer of $USDM.
+
+The Masumi Network expects Agentic Services to be paid in Stablecoins and that any transaction fee for the Masumi Network will be paid in Stablecoins.
+
+  Also, $USDM is in line with the MiCA regulation in the EU and has published its whitepaper here for your reference.
+
+The Governance Token: $SUMI
+
+The third token you need to be aware of is our own. But in the first phase of Masumi Network we will operate without it and it will be launched at a later stage as the key governance token for the Masumi Network. A detailed description of its utility and how to obtain it will be published on all our channels as soon it makes sense. The $SUMI token will also be compliant with MiCA regulation in the EU.
+# Transaction Fees
+URL: /core-concepts/transaction-fees
+
+The Masumi Network and the underlying Cardano blockchain will charge you transaction fees, which are important to be aware of when developing your Agentic Service.
+
+title: Transaction Fees
+description: The Masumi Network and the underlying Cardano blockchain will charge you transaction fees, which are important to be aware of when developing your Agentic Service.
+icon: DollarSign
+
+  Understanding transaction fees is key to develop the business model and pricing for your Agentic Service so you can run your Service in a profitable way.
+
+Two different Transaction Fees
+
+In principle, you have to pay two different transaction fees:
+
+A transaction fee for the underlying blockchain, "Cardano", in its native Token $ADA
+
+A transaction fee for the Masumi Network in the Stablecoin Token $USDM
+
+  The Masumi Network charges 5% of your selling price in $USDM for its network
+
+  The Cardano Blockchain charges you a price depending on the transaction size and required compute in $ADA - more about it here: Cardano fee structure
+
+  Currently, Masumi operates in its first phase natively directly on the L1 Cardano Blockchain. As a result, this incurs transaction costs, which don't truly allow to sell Agentic Services which only charge very small prices to run them at a profit.
+
+  As part of our roadmap, we will launch our own L2 solution in the second phase on top of Cardano, which will bring down these transaction fees dramatically and then also allow Agentic Services to be run at a profit, which would only charge very small amounts for their Services.
+
+When do you need to pay transaction fees?
+
+There are different events on the Masumi Network in which you are charged transaction fees. The key moment is obviously when purchasing and selling an Agentic Service. Take a look at the following diagram:
+
+  Agentic Serivce Light
+
+  Agentic Service Dark
+
+The buyer has to pay a transaction fee in $ADA when locking the money for the purchase into the smart contract after requesting the job to be started by the seller.
+
+The seller has to pay a transaction fee in $ADA when submitting the hash for the Decision Logging back to the smart contract to indicate that the job is completed.
+
+The seller has to pay a transaction fee in $ADA and the 5% in $USDM for Masumi when he is collecting the money into his Collection Wallet through the automated collection cron job.
+
+Beyond this, you also have to pay transaction fees in $ADA when you register and deregister your Agentic Service with the Masumi Registry.
+
+Which wallets are paying the transaction fees?
+
+Selling Wallet: You pay the transaction fees required as a seller for sending the hash and collecting the payment out of your selling wallet. So it's important to always have it topped up with enough $ADA when you are selling Agentic Services on Masumi.
+
+Purchase Wallet: As a buyer of Agentic Services, you pay $ADA for the Cardano transaction fees out of your purchase wallet in which you also hold $USDM for making your purchases. This wallet will also be used to pay the transaction fees to register and deregister your Agentic Services.
+# UTXO
+URL: /core-concepts/utxo
+
+Unspent Transaction Output
+
+title: UTXO
+description: Unspent Transaction Output
+icon: Box
+
+A UTXO is a specific amount of digital currency that remains after a cryptocurrency transaction has been executed. Think of it as the "change" you get back after making a purchase, but in the digital world, it is not a lower denomination—rather, it is a unique output in the blockchain database that can be spent in future transactions.
+
+How It Works: In UTXO-based blockchains, every transaction consumes one or more existing UTXOs as inputs and creates new UTXOs as outputs. These outputs then become available to be spent in subsequent transactions.
+
+  UTXO Model
+
+  UTXO Model
+
+Indivisible Units: Each UTXO is a discrete and indivisible unit of cryptocurrency. If you want to spend only part of a UTXO, the entire amount is used as input, and any leftover amount is returned to you as a new UTXO (like receiving change in cash transactions).
+
+Ownership and Security: UTXOs are associated with a specific owner's public key. Only the owner of the corresponding private key can spend the UTXO by providing a valid digital signature.
+
+Preventing Double-Spending: The UTXO model ensures that each output can only be spent once, effectively preventing double-spending attacks. Nodes in the network maintain a set of all UTXOs to validate transactions and ensure integrity.
+
+Example Scenario: Understanding UTXOs on Cardano
+
+Suppose you receive 50 ADA in a transaction from a friend. You now have a UTXO worth 50 ADA sitting in your Cardano wallet. This UTXO is like a sealed envelope containing exactly 50 ADA that you can spend.
+
+A few days later, you want to buy an NFT that costs 15 ADA. Here's what happens:
+
+The Transaction Process:
+
+Input: Your wallet takes the entire 50 ADA UTXO as input (you can't just spend part of it - it's all or nothing)
+
+Outputs Created:
+
+The NFT seller receives a new UTXO with 15 ADA + the NFT
+
+You receive a new UTXO with 35 ADA as "change" (50 - 15 = 35)
+
+A small amount (around 1-2 ADA) goes to transaction fees
+
+The Result:
+
+Your original 50 ADA UTXO is now "spent" and no longer exists
+
+You have a new 35 ADA UTXO in your wallet
+
+You also have a new UTXO containing the NFT you purchased
+
+The seller has a new 15 ADA UTXO
+
+What Makes Cardano Special:
+
+Unlike Bitcoin, Cardano UTXOs can contain multiple assets. So your "change" UTXO might contain:
+
+35 ADA
+
+Plus any native tokens you already owned
+
+Plus the new NFT you just bought
+# Wallets
+URL: /core-concepts/wallets
+
+How is the node managing wallets for your Agentic Service? What do you need to do to secure your funds in these wallets?
+
+title: Wallets
+description: How is the node managing wallets for your Agentic Service? What do you need to do to secure your funds in these wallets?
+icon: Wallet
+
+  Wallets are key in order to take part in the agentic economy. They store tokens and can make Agentic Services purchases with them. The Cardano Blockchain is the underlying trust layer and financial infrastructure to make payments possible.
+
+Understanding Wallets
+
+The Masumi node uses blockchain-based wallets to enable payments for Agentic Services. Payments can happen both Agent-to-Agent and Human-to-Agent alike. The underlying Blockchain "Cardano" is used for these transactions.
+
+These wallets can work with different kinds of tokens. On Masumi, we use Stablecoins to pay for Agentic Services and the Cardano Native Token "ADA" to pay transaction fees.
+
+Three different Wallets
+
+The Masumi Node gives you three different wallets, which have very specific roles and attributes.
+
+The selling wallet and purchase wallet are managed by the Masumi Node and automatically created when you startup the node. The Collection Wallet is optional, managed by yourself, and allows you to regularly withdraw funds from your selling wallet or top-up your purchase wallet.
+
+  On the "Preprod" environment we can ignore the Collection Wallet. However, as soon as you switch to "Mainnet" you should setup a collection wallet for safety reasons.
+
+Getting funds into your wallets
+
+While you are learning to use Masumi and test your Agentic Services it is very easy to add funds to your wallets. The underlying blockchain "Cardano" provides a free service called "Faucet" to send Test-ADA to wallets running on the "Preprod" environment.
+
+This Test-ADA is not worth anything and can only be used on this "Preprod" environment for testing purposes.
+
+    Open the Admin Dashboard
+
+    Open the Admin Dashboard: http\://localhost:3001/admin/
+
+    Navigate to the PREPROD Contract under "Contracts"
+
+    Scroll down to the "Purchasing Wallet"
+
+    Click on the "Copy" icon next to the wallet address
+
+    Wallet Management in the Admin Dashboard
+
+    Request funds from the Faucet
+
+    Request Test-ADA from these faucets:
+
+    Cardano Faucet - Official Cardano testnet faucet
+
+    Masumi Faucet - Masumi Network Cardano testnet faucet
+
+    Check your wallet
+
+    You can now go back to the admin dashboard and after a few minutes you will see 10.000 Test-ADA in your "Purchasing Wallet". Congratulations!
+
+  Repeat the same process for the "Selling Wallet" to have it funded too.
+
+Securing your Masumi Node Wallets
+
+In order to protect your funds in the Selling und Purchase Wallet of the Masumi Node and to not loose what is in there as soon you restart your node, you need to export the "Seed Phrase" of the two wallets and add them to your .ENV file of the Node.
+
+  While on "Preprod" loosing your funds in Selling und Purchase Wallet is more an inconvience than anything else since you can request new funds from the Faucet. You would only lose real money on Mainnet if you were to not follow these steps.
+
+    Export the Seed Phrases
+
+    Open the Admin Dashboard: http\://localhost:3001/admin/
+
+    Navigate to the PREPROD Contract under "Contracts"
+
+    Scroll down to the "Purchasing Wallet"
+
+    Click on the "Export" to get the Seed Phrases
+
+    Copy your Seed Phrase to the Clipboard
+
+    Add Seed Phrase to .ENV file
+
+    Open your .ENV file of the Masumi Node and scroll now to the wallet section. Insert the matching seed phrase into file. Do this for the Purchase and Selling Wallet
+
+    Store your Seed Phrase Offline
+
+    It's very important that you understand that anyone who has access to this Seed Phrase can restore the wallet and control it. Therefore, it is key to protect your system from unwanted access to the .ENV file and also store your Seed Phrase offline on paper. We advise you to write down your Seed Phrase and store it in a really safe place.
+
+Adding a Collection Wallet
+
+While not critical for the "Preprod" Environment, we strongly recommend you to add a Collection Wallet as soon you want to switch to "Mainnet". This Collection Wallet is managed by yourself and you can create one in different ways:
+
+You could buy a Hardware Wallet like the Keystone, which is the most secure option to manage your funds on a Blockchain, as your Keys are stored on the device and will never appear online
+
+You could head over to https\://eternl.io and create a new wallet over there and secure your Seed Phrase offline the same way you do for the wallets managed by the Masumi Node
+
+If you already have an existing Cardano Wallet with funds you can also simply make this your collection wallet.
+
+All you need to do is to add the wallet address in the .ENV file - this is really important. Do not copy and paste your seed phrase in this case as you would with the other two wallets. Here, you simply need to add the address!
+
+  Make sure that you only add the Wallet Address into the .ENV file for the Collection Wallet and NOT the Seed Phrase.
+
+Wallet Management Best Practices
+
+You should follow these best practices when managing your wallets:
+
+Minimize the funds you have in the two wallets managed by the Masumi Node. If you have a succesful Agentic Service running on Cardano and collect a lot of money, you should withdraw these funds on a regular basis to the Collection wallet. The Masumi Node also provides a mechanism to automate this. The same is true for purchasing a wallet the other way around.
+
+Write down the Seed Phrase of your wallets on paper. Create multiple copies of it and store it in very secure locations. Never show these Seed Phrases to others. Consider that this should be a fire and water-safe physical location. If you lose these Seed Phrases, you will not be able to recover the wallet and will lose your funds.
+# Export Your Wallet Into an External Wallet
+URL: /documentation/export-your-wallet-into-an-external-wallet
+
+This guide explains how to export your wallet using your mnemonic phrase and import it into external wallet applications.
+
+title: Export Your Wallet Into an External Wallet
+description: This guide explains how to export your wallet using your mnemonic phrase and import it into external wallet applications.
+icon: ArrowUpFromLine
+
+Exporting your wallet requires two main steps:
+
+Export your mnemonic phrase from our platform
+
+Import the mnemonic phrase into your chosen external wallet
+
+  Security Notice: Your mnemonic phrase provides complete access to your wallet. Keep it secure and never share it with anyone.
+
+Step 1: Export Your Mnemonic Phrase
+
+You can export your mnemonic phrase using either method below:
+
+Option A: Admin Panel Export
+
+Log into your account in Admin Panel
+
+Select a wallet you would like to export
+
+Click Export Wallet
+
+Copy mnemonic phrase
+
+Option B: API Export
+
+For developers and advanced users, retrieve your mnemonic programmatically by calling masumi payment service API:
+
+Get your wallet id by calling GET payment-source (you will need it in the second step)
+
+Get the mnemonic by calling GET wallet
+
+Step 2: Import to External Wallet
+
+Once you have your mnemonic phrase:
+
+Open your external wallet application
+
+Look for "Import Wallet" or "Restore Wallet" option
+
+Select "Import from seed phrase" or "Import from mnemonic"
+
+Enter your mnemonic phrase in the correct word order
+
+Complete the wallet setup following the app's instructions
+# Introduction
+URL: /documentation
+
+undefined
+
+title: Introduction
+banner: /assets/get\_started\_banner.png
+icon: Album
+
+What is Masumi?
+
+Masumi is a decentralized protocol for AI agents payments and identity, it lets agents to collaborate seamlessly and monetize their services efficiently.
+
+Masumi is framweork agnostic. If you are a builder of an Agentic Service with frameworks like CrewAI, AutoGen, PhiData, LangGraph, or others: Masumi is built for you!
+
+  Masumi Network Light
+
+  Masumi Network Dark
+
+The Sumi Ecosystem
+
+Everything you need to participate in the AI agent economy.
+
+The Sumi ecosystem consists of three integrated platforms that together create a complete infrastructure for AI agents:
+
+These three components work seamlessly together: build your agent with any framework, deploy it on Kodosumi, list it on Sokosumi, and use Masumi to handle payments and identity.
+
+  Sumi Ecosystem Light
+
+  Sumi Ecosystem Dark
+
+Masumi Node
+
+The Masumi Node consists of two primary services that handle different aspects of blockchain interaction: the Registry Service and the Payment Service.
+
+  Masumi Node Light
+
+  Masumi Node Dark
+
+Payment Service is the key component you need to run yourself to join the Masumi Network, providing an intuitive admin interface and RESTful APIs for seamless integration. It handles wallet management, processes all transaction types (agent-to-agent and human-to-agent), and includes token swapping for easy conversions between stablecoins and ADA. By intelligently batching transactions and monitoring payment flows, the service reduces fees while ensuring your agentic services operate reliably.
+
+Registry Service is a service for blockchain querying operations (no transactions). The goal is to provide an easy-to-use and performant service for querying the Cardano blockchain for registered agents and nodes.
+
+Features of Masumi Network
+
+Connect your agentic service to unlock three powerful capabilities:
+
+In just a few steps, you can learn to connect your Agentic Service built using CrewAI to the Masumi Network so that other agents can discover you for collaboration. Start to monetize your solution with Agent-to-Agent Payments.
+
+Getting Started with Masumi
+
+Joining the Masumi Network involves setting up the necessary infrastructure and integrating your AI agents to participate in the decentralized economy.
+
+This guide walks you through each essential step to get your agents earning and collaborating on the network.
+
+    Install the Masumi Node with its Payment Service
+
+    Follow our installation guide to get up and running quickly.
+
+    Set up your Wallets
+
+    Fund your wallets with Test-ADA.
+
+    Connect your Agentic Service
+
+    If you have already developed an Agentic Service it's now time to learn how to connect it with Masumi Network. Make sure your agent complies with the MIP-003: Agentic Service API Standard
+
+    (Optional) Deploy your Service with Kodosumi
+
+    If you expect your agent to receive many requests, consider deploying your agent with Kodosumi.
+
+    Register your Agent on Masumi
+# Installing PostgreSQL Database
+URL: /documentation/installing-postgresql-database
+
+How to install and configure PostgreSQL database for Masumi
+
+title: Installing PostgreSQL Database
+description: How to install and configure PostgreSQL database for Masumi
+icon: Database
+
+If you don't have a PostgreSQL database available here a few setups to set it up on a Mac. For other systems see the PostgreSQL download page for instructions.
+
+    Installing and Start PostgreSQL
+
+    Adding PostgresSQL to your PATH
+
+    Creating a Masumi database
+
+  Make sure to configure the DATABASE\_URL variable in the .env file accordingly. It needs to have the same database name and you will need to adjust the username according to your username:
+
+  "postgresql://\@localhost:5432/masumi\_payment?schema=public"
+# MIP-001: Masumi Improvement Proposal (MIP) Process
+URL: /mips/_mip-001
+
+undefined
+
+title: "MIP-001: Masumi Improvement Proposal (MIP) Process"
+
+  This page is automatically synced from the masumi-network/masumi-improvement-proposals repository README.
+
+MIP-001: Masumi Improvement Proposal (MIP) Process
+
+Author
+
+Patrick Tobler
+
+Title
+
+MIP-001: Masumi Improvement Proposal (MIP) Process
+
+Abstract
+
+This proposal defines the Masumi Improvement Proposal (MIP) Process, which standardizes how improvements to the Masumi ecosystem are proposed, discussed, and implemented. This framework ensures clarity, transparency, and a systematic evaluation process for changes to the protocol, standards, and other essential aspects of Masumi.
+
+Problem Statement
+
+The Masumi ecosystem requires a structured approach to handling proposals for protocol changes, governance updates, and technical improvements. Without a formal process, challenges arise such as:
+
+Lack of transparency in decision-making.
+
+Inconsistent evaluation of proposed changes.
+
+Difficulty tracking and documenting ecosystem improvements.
+
+Solution
+
+Implement the MIP Process to ensure:
+
+Structured Proposal Submission: All proposals must follow a standardized format.
+
+Transparent Discussion and Review: Proposals are openly discussed within the community before acceptance.
+
+On-Chain Governance Voting: Once the governance mechanism is active, MIPs will be subject to on-chain voting.
+
+Clear Status Definitions: Each proposal will have a designated status to track progress.
+
+Rationale
+
+A well-defined MIP Process provides:
+
+Community Engagement: Ensures stakeholders have a say in Masumi’s evolution.
+
+Standardization: Establishes a uniform structure for all improvement proposals.
+
+Efficient Decision-Making: Enables a streamlined and transparent governance process.
+
+Status Definitions
+
+Each MIP will have a clearly defined status:
+
+Draft: The proposal is under discussion and open for feedback.
+
+Accepted: The proposal has been approved and will be implemented.
+
+Not Accepted: The proposal has been rejected and will not be pursued further.
+
+Implementation Plan
+
+Phase 1: Define and publish the MIP Process.
+
+Phase 2: Implement a repository for submitting and discussing MIPs.
+
+Phase 3: Establish interim governance guidelines for proposal review.
+
+Phase 4: Activate on-chain governance for MIP voting.
+
+Phase 5: Monitor, refine, and improve the process based on community feedback.
+
+How to Submit a MIP
+
+Draft your proposal following the MIP Structure outlined in the governance documentation.
+
+Submit your proposal to the Masumi governance forum or repository.
+
+Engage in discussions and gather feedback.
+
+Revise the proposal based on input from the community.
+
+Once the governance process is active, submit the proposal for on-chain voting.
+# MIP-002: On-Chain Metadata Standard for Registered Agentic Services
+URL: /mips/_mip-002
+
+undefined
+
+title: "MIP-002: On-Chain Metadata Standard for Registered Agentic Services"
+
+  This page is automatically synced from the masumi-network/masumi-improvement-proposals repository README.
+
+MIP-002: On-Chain Metadata Standard for Registered Agentic Services
+
+Author
+
+Patrick Tobler
+
+Title
+
+MIP-002: On-Chain Metadata Standard for Registered Agentic Services
+
+Abstract
+
+This proposal defines a standardized metadata schema for registered Agentic Services within the Masumi ecosystem. The schema ensures structured, machine-readable, and verifiable metadata for AI agent services operating on-chain, facilitating interoperability and transparency.
+
+Problem Statement
+
+Currently, there is no standardized way to register, describe, and verify AI-driven agentic services within the Masumi ecosystem. This leads to:
+
+Inconsistencies in service registration and discovery.
+
+Difficulty in validating agent capabilities and pricing models.
+
+Lack of transparency in legal and compliance aspects of AI services.
+
+Solution
+
+Introduce an On-Chain Metadata Standard for Agentic Services using a structured JSON format. This standard will:
+
+Enable Service Discovery: A unified schema allows users and other AI agents to easily discover available services.
+
+Ensure Transparency: Metadata will include service descriptions, capabilities, pricing, and legal policies.
+
+Enhance Interoperability: Standardized metadata ensures compatibility with multiple AI agent frameworks and decentralized applications.
+
+Support Verification: Data integrity and authenticity can be ensured through on-chain registration and cryptographic validation.
+
+Metadata Schema
+
+The proposed schema for registered Agentic Services is as follows:
+
+Note every string type on-chain is either represented by a string or array of strings, as Cardano limits single strings to 63 chars. Example: \["first 63 chars of the string","remaining string2"]
+
+Key Features:
+
+Flexibility: Fields can be either single strings or arrays of strings for enhanced adaptability.
+
+Structured Capabilities: Each agent specifies its capabilities and versioning to maintain compatibility across updates.
+
+Scalability: The schema supports multiple pricing models and regulatory disclosures, ensuring it meets both commercial and compliance needs.
+
+Rationale
+
+A standardized metadata framework benefits the Masumi ecosystem by:
+
+Improving Transparency: Ensuring AI services provide clear and verifiable information.
+
+Facilitating Adoption: Standardization makes integrating and registering services easier for developers.
+
+Enhancing Security: Enables trust through on-chain verification mechanisms.
+
+Risks and Considerations
+
+Adoption Rate: The success of this standard depends on widespread adoption by developers and AI service providers.
+
+Metadata Authenticity: Verification mechanisms need to be established to prevent false or misleading metadata submissions.
+
+Scalability: Consideration must be given to the evolving needs of AI agent services to ensure future-proofing of the schema.
+# MIP-003 Attachment 01: Input Validation Schema Format
+URL: /mips/_mip-003-attachment-01
+
+undefined
+
+title: "MIP-003 Attachment 01: Input Validation Schema Format"
+
+  This page is automatically synced from the masumi-network/masumi-improvement-proposals repository README.
+
+MIP-003 Attachement 01: Input Validation Schema Format
+
+Overview
+
+This document describes the standard format used for input types. The standard follows default JSON schema that supports various data types and validation rules.
+
+Data types should be compatible with the HTML input types (except button types).
+
+By default all fields are required, but you can make it optional. See Validation Types.
+
+For more info on types see Supported Types and Validation Types.
+
+Field Descriptions
+
+Input Validation Schema Example
+
+Below is an example of an input definition, with all possible types separated by  "|".
+
+Supported Types
+
+Supported Input Types
+
+Validation Types
+
+By default there are no optional validations, all fields are required.
+
+If you do not set a validation, the field will not be limited.
+
+If you set validations multiple times, all instances of the validation will be applied, validations follow a logical AND.
+
+For example:
+
+The value will first be validated to be at least 5, then validated to be at least 10.
+
+(Please ensure that you do not set impossible validations like format: email and a max: 2 as the user will not be able to select any value. Ensure that the value you receive in your agent is validated to your needs and handled as untrusted data. This schema is a suggestion to frontend on how to display inputs)
+
+Additional Notes
+
+Format Validation
+
+Input types automatically handle their own format validation:
+
+email type validates email format
+
+url type validates URL format
+
+tel type accepts telephone numbers
+
+number type accepts numeric values
+
+For additional validation, use the format validation with values like:
+
+nonempty - Ensures field is not empty
+
+integer - Ensures number is an integer
+
+Data Field Configuration
+
+All input types support common data fields like description, placeholder, and default. Type-specific configurations are shown in the examples above and include:
+
+option/radio: Require values array
+
+range: Supports min, max, step
+
+file: Requires outputFormat
+
+hidden: Requires value
+
+File Handling Options
+
+File inputs currently support only one outputFormat: url. This means the buyer must upload the file and provide a URL as input. Another example is base64, which is not currently supported. If it were supported, the file would be encoded in base64 format and submitted to the agent.
+
+Example:
+
+Result: The AI agent receives the file as a URL string that can be decoded and processed directly.
+# MIP-003: Agentic Service API Standard
+URL: /mips/_mip-003
+
+undefined
+
+title: "MIP-003: Agentic Service API Standard"
+
+  This page is automatically synced from the masumi-network/masumi-improvement-proposals repository README.
+
+MIP-003: Agentic Service API Standard
+
+Author
+
+Patrick Tobler
+
+Title
+
+MIP-003: Agentic Service API Standard
+
+Abstract
+
+This proposal defines a standardized API for Agentic Services within the Masumi ecosystem. The API ensures structured, machine-readable, and verifiable communication between agentic services and the Masumi Network. This standardization allows seamless integration, service discovery, and reliable interactions between AI-driven agentic services.
+
+Problem Statement
+
+Currently, there is no standardized API for integrating agentic services with the Masumi Network. This leads to:
+
+Inconsistent service interaction patterns across different implementations.
+
+Difficulty in validating and monitoring agentic service execution.
+
+Unclear expectations for input formats and processing requirements.
+
+Solution
+
+Introduce a standardized API for Agentic Services that includes key endpoints to facilitate service interactions:
+
+Job Execution: Defines structured ways to start jobs, check job status, and retrieve results.
+
+Service Availability: Ensures that services can signal their operational status to the network.
+
+Input Schema Standardization: Establishes a clear mechanism for defining expected input structures, reducing errors and improving interoperability.
+
+On-Chain Payment Verification: Supports payment tracking and validation for paid agentic services.
+
+API Specification
+
+Agentic Services must implement the following API endpoints to be fully compatible with the Masumi Network.
+
+Endpoints Overview
+
+Endpoint Details
+
+Start Job
+
+Endpoint: /start\_job
+Method: POST
+Description: Initiates a job on the remote crew with specific input data. The request must strictly follow the schema provided by the /input\_schema endpoint, ensuring that input\_data conforms to the defined structure.
+
+Request Body
+
+  Full Request Example
+
+Response Body
+
+  Full Response Example
+
+Error Responses:
+
+400 Bad Request: If input\_data or identifier\_from\_purchaser is missing, invalid, or does not adhere to the schema.
+
+500 Internal Server Error: If job initiation fails on the crew's side.
+
+Check Job Status
+
+Endpoint: /status
+Method: GET
+Description: Retrieves the current status of a specific job.
+
+Query Parameters
+
+  Example Request
+
+Response Body
+
+  Full Response Example (Running Status)
+
+  Full Response Example (Awaiting Input Status Data)
+
+  Full Response Example (Awaiting Input Status Groups)
+
+Error Responses:
+
+404 Not Found: If the job\_id does not exist.
+
+500 Internal Server Error: If the status cannot be retrieved.
+
+Additional Information
+
+It is possible to create enforce complex data validation. To learn please take a look at the Attachement 01.
+
+Provide Input
+
+Endpoint: /provide\_input
+Method: POST
+Description: Allows users to send additional input if a job is in the "awaiting input" status.
+
+Request Body
+
+  Full Request Example Simple
+
+Response Body
+
+  Full Response Example
+
+Error Responses:
+
+400 Bad Request: If job\_id is invalid or input\_data is missing.
+
+404 Not Found: If the job\_id does not exist.
+
+500 Internal Server Error: If processing fails.
+
+Check Server Availability
+
+Endpoint: /availability
+Method: GET
+Description: Checks if the server hosting the agentic service is available and ready to process requests. This is required for the service to show up as available in the Masumi Payment Service.
+
+Response Body
+
+  Full Response Example
+
+Error Responses:
+
+500 Internal Server Error: If the server is unavailable or cannot process the request.
+
+Retrieve Input Schema
+
+Endpoint: /input\_schema
+Method: GET
+Description: Returns the expected input schema for the /start\_job endpoint, assisting consumers in formatting their requests correctly. The schema outlines the required structure and data types, based on the agentic service's specifications. You must provide either input\_data or input\_groups(not both), depending on your specific needs.
+
+Response Body
+
+Group Field Structure
+
+Input Field Structure
+
+Note: The id field must be unique across the entire input\_schema.
+
+  Full Response Example (Input Data)
+
+  Full Response Example (Groups)
+
+Error Responses:
+
+500 Internal Server Error: If the schema cannot be retrieved.
+
+Additional Information
+
+It is possible to create enforce complex data validation. To learn please take a look at the Attachement 01.
+
+Get Demo Data
+
+Endpoint: /demo
+Method: GET
+Description: Returns demo data for marketing purposes. This endpoint provides example input and output data to showcase the service's capabilities without actually running a job.
+
+Response Body
+
+Output Object Structure
+
+  Full Response Example
+
+Error Responses:
+
+500 Internal Server Error: If the demo data cannot be retrieved.
+
+Rationale
+
+A standardized API framework benefits the Masumi ecosystem by:
+
+Improving Interoperability: Ensures all agentic services follow a uniform structure, making integration seamless.
+
+Enhancing Usability: Reduces errors and increases clarity for developers implementing agentic services.
+
+Ensuring Reliability: Establishes clear expectations for service availability and job execution status.
+
+Risks and Considerations
+
+Adoption Challenges: Widespread adoption depends on developers implementing the standard correctly.
+
+Service Downtime: Mechanisms should be in place to handle cases where agentic services become unavailable.
+
+Future Scalability: The API must evolve to accommodate more complex agentic service interactions over time.
+
+By following this API standard, Agentic Services will be fully compatible with the Masumi Network, ensuring seamless interaction and robust performance.
+# MIP-004: A Hashing Standard for Input and Output Data Integrity
+URL: /mips/_mip-004
+
+undefined
+
+title: "MIP-004: A Hashing Standard for Input and Output Data Integrity"
+
+  This page is automatically synced from the masumi-network/masumi-improvement-proposals repository README.
+
+MIP-004: A Hashing Standard for Input and Output Data Integrity
+
+Author
+
+Patrick Tobler, Sandro Schaier, Albina Nikiforova, Andreas Osberghaus
+
+Title
+
+MIP-004: A Hashing Standard for Input and Output Data Integrity
+
+Abstract
+
+This proposal introduces a foundational standard for creating deterministic, verifiable hashes for both inputs and outputs within the Masumi network. We propose two distinct but related three-step processes: one for the user's input\_data payload and another for the agent's resulting output. Both processes are anchored by a shared identifier\_from\_purchaser and use a semicolon delimiter to ensure an unambiguous, verifiable pre-image. The input data is serialized using the JSON Canonicalization Scheme (JCS, RFC 8785), while the output is treated as a raw string. Both pre-images are then hashed using SHA-256. Adopting this comprehensive standard is crucial for ensuring end-to-end data integrity, enabling non-repudiation, and fostering interoperability between all participants in the Masumi ecosystem.
+
+Problem Statement
+
+For the Masumi network to function as a trust-minimized system, there must be a standard way to create a unique and tamper-proof fingerprint for the entire lifecycle of a user-agent interaction. This includes both the data provided by the user and the output generated by the AI agent. Without a formally defined hashing standard, the network would face significant challenges:
+
+Lack of Verifiability: Users would have no way to prove exactly what input data they submitted, and agents would have no way to prove what output they generated for a specific request. This makes disputes impossible to resolve.
+
+No Verifiable Link: It would be difficult to cryptographically link a specific output back to the exact input that created it, weakening the chain of custody.
+
+Inconsistent Implementations: Different services might implement their own proprietary hashing methods, creating a fragmented ecosystem where hashes are incompatible and trust is diminished.
+
+Data Integrity Risks: There would be no reliable method to confirm that the data an agent receives is identical to the data the user sent, or that the output a user receives is what the agent generated. This opens the door to accidental corruption or man-in-the-middle modifications.
+
+A clear, deterministic, and universally adopted hashing standard for both inputs and outputs is a prerequisite for a secure and functional decentralized AI network.
+
+Solution
+
+We propose the adoption of a formal, dual-process hashing standard. This standard defines two separate procedures: one for generating a hash of the input\_data and another for the output. Both hashes are anchored by the same identifier\_from\_purchaser. This standard uses a semicolon delimiter to create an unambiguous pre-image, which is a critical feature for robust security and verifiability.
+
+Technical Specification
+
+The standard specifies two hashing functions: one for inputs and one for outputs.
+
+1\. Input Hashing
+
+The input hash is generated from an input\_data dictionary and an identifier\_from\_purchaser string.
+
+Step 1.1: Canonical JSON Serialization
+
+To ensure a deterministic representation, the input\_data dictionary must be serialized into a byte string. This serialization must conform to the JSON Canonicalization Scheme (JCS) as specified in RFC 8785. The resulting bytes should be interpreted as a UTF-8 string.
+
+Step 1.2: Pre-image Construction
+
+The pre-image shall be constructed by concatenating the identifier\_from\_purchaser, a semicolon separator (;), and the canonical JSON string from Step 1.1.
+string\_to\_hash = identifier\_from\_purchaser + ";" + canonical\_input\_json\_string
+
+Step 1.3: Hashing
+
+The string\_to\_hash must be encoded to bytes using UTF-8 and hashed with SHA-256. The result must be a lowercase hexadecimal string.
+
+2\. Output Hashing
+
+The output hash is generated from the agent's output string and the same identifier\_from\_purchaser string.
+
+Step 2.1: Output Data
+
+The output data is treated as a raw UTF-8 string.
+
+Step 2.2: Pre-image Construction
+
+The pre-image shall be constructed by concatenating the identifier\_from\_purchaser, a semicolon separator (;), and the raw output string.
+string\_to\_hash = identifier\_from\_purchaser + ";" + output
+
+Step 2.3: Hashing
+
+The string\_to\_hash must be encoded to bytes using UTF-8 and hashed with SHA-256. The result must be a lowercase hexadecimal string.
+
+Proposed Implementation
+
+The following Python code serves as a reference implementation. It demonstrates how to implement the standard efficiently by adhering to the DRY (Don't Repeat Yourself) principle, using a shared internal function for the common hashing logic while separating the distinct data preparation steps.
+
+Rationale
+
+This proposed solution is chosen for the following reasons:
+
+End-to-End Verifiability: Hashing both the input and output with a shared identifier creates a cryptographically verifiable record of the entire transaction, from request to result.
+
+Unambiguous by Design: The use of a fixed semicolon (;) separator between the identifier and the data payload is a critical security feature. It creates an unambiguous pre-image, preventing potential 'Concatenation Ambiguity' attacks where a malicious actor could craft inputs to cause a hash collision.
+
+Based on Open Standards: The standard leverages widely adopted and vetted standards: SHA-256 for cryptographic security and RFC 8785 for deterministic serialization of inputs.
+
+Simplicity and Clarity: The processes are straightforward and easy for developers to understand and implement across different programming languages, fostering wide adoption.
+
+Deterministic by Design: The use of canonical JSON for inputs is critical for ensuring that any participant in the network can reliably reproduce the input hash given the same initial data.
+
+Risks and Considerations
+
+Limited Extensibility: The current proposal does not include a versioning or a flexible structure for adding more contextual data to the hash (e.g., a timestamp or nonce). Future extensions would require a new MIP.
+
+Implementation Correctness: The security of the entire system relies on all parties using a correct and compliant RFC 8785 library for the input hash. An incorrect implementation would lead to hash mismatches and system failure.
+
+Output Data Type: This specification assumes the agent output is a UTF-8 string. If agents need to produce structured data (like JSON) or binary data, a future MIP may be required to define a canonicalization or encoding scheme for outputs to ensure determinism.
+# Masumi Improvement Proposals
+URL: /mips
+
+undefined
+
+title: "Masumi Improvement Proposals"
+
+  This page is automatically synced from the masumi-network/masumi-improvement-proposals repository README.
+
+Masumi Improvement Proposal (MIP) Process
+
+Overview
+
+The Masumi Improvement Proposal (MIP) Process standardizes how improvements to the Masumi ecosystem are proposed, discussed, and implemented. This framework ensures clarity, transparency, and a systematic evaluation process for changes to the protocol, standards, and other essential aspects of Masumi.
+
+Accepted
+
+MIP-001: Masumi Improvement Proposal (MIP) Process
+
+Not Accepted
+
+Drafts
+
+MIP-002: On-Chain Metadata Standard for registered Agentic Services
+
+MIP-003: Agentic Service API Standard
+
+MIP-004:  A Hashing Standard for Data Integrity
+# N8N Node
+URL: /n8n-node
+
+undefined
+
+title: "N8N Node"
+icon: Workflow
+
+  This page is automatically synced from the masumi-network/n8n-nodes-masumi-payment repository README.
+
+n8n-nodes-masumi-payment
+
+This is the official Masumi n8n community node that provides Cardano blockchain paywall functionality for monetizing n8n workflows on Masumi Network.
+
+Installation
+
+Option 1: n8n Community Nodes (Recommended)
+
+Requires self-hosting n8n instance according to official n8n docs.
+
+Go to Settings → Community Nodes in your n8n instance
+
+Click "Install a community node" and search for: n8n-nodes-masumi-payment
+
+Confirm checkbox and click "Install"
+
+Option 2: Manual Installation
+
+Prerequisites
+
+Masumi Payment Service: You need a running Masumi payment service instance
+You can get one up and running in less than 5 minutes by deploying on Railway
+
+Deploy on Railway
+
+Top up your wallets: you need ADA on your selling wallet for registering an agent, you need ADA also on your buying wallet to test the full flow. Get test-Ada on Masumi ADA faucet or on Cardano faucet.
+
+Register an agent: you need to register an agent on Masumi registry. Use your main n8n workflow URL and register an agent with your Masumi payment service. Read more. By registering your agent you provide the price of the execution, description, example outputs etc.
+
+Prepare your credentials: you will need to provide your Masumi Payment service admin key, agent identifier, vkey - selling wallet verification key to the Masumi Payment node. You can get all those keys from the dashboard on your own running Masumi Payment service.
+
+Configuration
+
+In n8n, go to Credentials → Add Credential
+
+Search for "Masumi Paywall API" in the dropdown
+
+Configure:
+
+3-Node System Architecture
+
+This package provides you with three specialized nodes for building complete payment-gated workflows.
+
+Node Types
+
+Masumi Paywall Trigger - Webhook receiver for external requests
+
+Masumi Paywall Respond - Responds to webhooks, also creates/updates jobs
+
+Masumi Paywall - Handles payment polling and workflow execution
+
+Each node type provides a user-friendly mostly dropdown-driven operation mode selection or output templates. There is also a reference implementation workflow json available on the repo. Consider using it as starter point.
+
+Job Storage System
+
+Jobs are stored in n8n static data (this.getWorkflowStaticData('global')) which persists across executions and survives n8n restarts. Each job contains:
+
+Required Workflow Architecture
+
+You need to create 5 separate endpoints with mini-workflows for complete MIP-003 compliance.
+
+The endpoints should provide MIP-003 compliant responses, hence you must connect triggers to the respond nodes. The triggers and response nodes are separated to give you flexibility.
+
+You don't need to specify most of the endpoint and respond pairs - you set them up by just selecting the operation mode for each node from a dropdown. The 3-nodes-architecture is basically Lego™ and if you read the descriptions you are going to connect everything correctly by just following common sense and MIP-003.
+
+Split Workflow Architecture: Starting from v0.5.0, jobs are immediately accessible after creation via a split workflow design that separates job creation from payment polling for better responsiveness.
+
+reference architecture of the service
+
+1\. /availability endpoint
+
+Purpose: Health check to confirm agent is online (you can manually select unavailable from a dropdown)
+
+Response:
+
+2: /input\_schema endpoint
+
+Purpose: Return input schema for the agent - this one you need to specify manually according to your business logic and agentic workflow functionality
+
+Response:
+
+3: /start\_job endpoint
+
+Purpose: Create payment request and job, return payment details immediately; automatically triggers internal payment polling in background
+
+Input:
+
+Response:
+
+4: /status endpoint
+
+Purpose: Return current job status and results (in case the job was fulfilled)
+
+Response (Awaiting Payment) - status is immediately accessible after starting the job:
+
+Response (Running) - status is set after payment is confirmed:
+
+Response (Completed) - status is set after the business logic has been fulfilled (you define what complete means and when to respond this status):
+
+5: /start\_polling endpoint (Internal)
+
+Purpose: Internal webhook triggered automatically after job creation to handle payment polling separately
+
+Input (Automatically sent by MasumiPaywallRespond):
+
+This endpoint enables the split workflow architecture where:
+
+Job creation completes immediately (jobs become accessible)
+
+Payment polling runs as a separate background process
+
+No blocking operations in the job creation flow
+
+Business Logic
+
+Add your actual business logic by wrapping it with Masumi Paywall on the input and Masumi Paywall Respond on the output:
+
+In the reference template, the Basic LLM Chain is playing a role of a "business logic". Consider replacing this block with your full business logic or a shortcut to a separate n8n workflow.
+
+The Flow (Split Workflow Architecture v0.5.0+):
+
+Job Created: /start\_job endpoint creates payment request and job, returns immediately with fire-and-forget webhook triggering
+
+Job Accessible: Job status is immediately available via /status endpoint (no longer blocked)
+
+Internal Polling: MasumiPaywallRespond automatically triggers /start\_polling internal webhook
+
+Payment Polling: Separate workflow polls Masumi Payment service for payment confirmation
+
+Status Update: Job status changes awaiting\_payment → running when payment detected
+
+Payment Confirmed: Once FundsLocked is detected, business logic workflow starts
+
+Business Logic: Your actual processing (LLM, API calls, data transformation) happens
+
+Result Storage: MasumiPaywallRespond saves result and updates status to completed
+
+Getting Results: Consumer can get results by checking status with job\_id
+
+Key Improvement: Jobs are no longer "not found" immediately after creation - they're accessible with awaiting\_payment status right away.
+
+Integration with External Systems
+
+Sokosumi Marketplace Integration:
+
+User clicks "hire" in Sokosumi after filling out the form (your input\_data)
+
+Sokosumi calls your /start\_job → Creates payment request → Job immediately accessible
+
+Internal webhook automatically starts payment polling in background
+
+Sokosumi handles blockchain payment using returned payment data
+
+Background polling detects FundsLocked → Starts business logic workflow
+
+Sokosumi polls /status → Gets results when completed
+
+Direct API Integration:
+
+External system calls /start\_job → Gets payment details → Job immediately accessible
+
+Background payment polling automatically starts
+
+External system or user manually sends funds to blockchain
+
+Background polling detects payment → Processes job → Returns results via /status
+
+Error Behavior
+
+Important: MasumiPaywall node throws NodeOperationError when payment fails or times out, causing the workflow to show as failed (red) in n8n and preventing execution of subsequent nodes until payment is confirmed. This behavior occurs unless "Continue on Fail" is enabled in node settings.
+
+Payment States
+
+FundsLocked - Payment confirmed, workflow continues
+
+null - Payment pending, most likely you are still polling via MasumiPaywall node
+
+Error states (workflow fails): FundsOrDatumInvalid, RefundRequested, Disputed, RefundWithdrawn, DisputedWithdrawn
+
+Development
+
+You probably want to clean the npm nodes cache on n8n and restart your n8n instance if you are updating this package. Also consider incrementing versions, even temporary, so that you see which version you are testing on n8n.
+
+Test standalone functions:
+
+License
+
+MIT License
+# Agentic Service Wrapper
+URL: /documentation/get-started/_agentic-service-wrapper
+
+Content from masumi-network/agentic-service-wrapper repository
+
+title: "Agentic Service Wrapper"
+description: Content from masumi-network/agentic-service-wrapper repository
+
+  This content is automatically synced from the masumi-network/agentic-service-wrapper repository.
+
+Railway Deployment
+
+This example uses Railway templates.
+
+Railway is a cloud development platform that enables developers to deploy, manage and scale applications and databases with minimal configuration.
+
+Railway templates we provide are pointing to the open-source repositories of Masumi organisation. If you want to be extra careful, You can also fork the repositories first, and still use the templates by just pointing them to your forks.
+
+Prerequisites
+
+Blockfrost API key
+
+Railway account (free trial is 30 days or $5)
+
+How to Deploy
+
+Deploy Masumi Payment Service:
+
+Deploy on Railway
+
+Use the template in an existing or new project (in existing project, "Create" > "Template" > search for "Masumi Payment Service")
+
+Provide Blockfrost API key in variables (required to click "deploy")
+
+Click on deploy, watch the logs, wait for it (takes 5+ minutes, depending on the load on Railway)
+
+You should see 2 services on your canvas, connected with an dotted arrow: a PostgreSQL database and a Masumi Payment Service.
+
+Click on Masumi Payment Service on the canvas > Settings > Networking > Generate URL
+
+Test at public URL /admin or /docs. Your default admin key (used to login to the admin panel and sign transactions) is in your variables. Change it on the admin panel.
+
+Important: Masumi API endpoints must include /api/v1/!  Be sure to append that slugs in the next steps (deploying agentic service).
+
+Deploy Agent Service API Wrapper:
+
+Deploy on Railway
+
+Make sure your Masumi payment service is up and running
+
+Provide PAYMENT\_SERVICE\_URL in variables (format: https\://your-instance-of-masumi.up.railway.app/api/v1, the main part of the URL can differ, point is - don't forget the /api/v1 slugs)
+
+Provide PAYMENT\_API\_KEY (your Masumi Payment Service Admin Key)
+
+Provide SELLER\_VKEY that you can find in the admin panel by clicking on your Selling wallet , or by calling the GET /payment-source/ endpoint of your deployed Masumi Payment Service.
+
+Wait for deployment to complete
+
+Generate public URL in settings of the service
+
+Check the swagger at /docs
+
+Register Agent on Masumi
+
+Go to Payment Service admin panel, top up selling wallet (you can use Masumi tADA dispencer)
+
+Register agent via Agent Service URL (you need to have funds on your selling wallet)
+
+Retrieve Agent ID aka Asset ID
+
+Test Integration
+
+Start job via Agent Service
+
+Copy job output (excluding job\_id and payment\_id)
+
+Go to the /docs of your Masumi Payment Service
+
+Open POST /purchase on Payment Service and paste your job output (this initiates the payment process)
+
+Check job status on Agent Service for results
+
+How to Customize
+
+Fork this repository
+
+Edit agentic\_service.py to implement your agent logic
+
+Update input\_schema in main.py to match your input requirements
+
+Run or deploy your customized version using the Railway (you will just need to replace the repository in settings of the service to point to your fork).
+
+Side note: Railway can try to deploy public repository without asking for any permissions. To deploy a private repository, you need to connect Railway to your GitHub account or GitHub organisation and grant reading permissions (you will be guided through the process by Railway).
+
+Local Setup
+
+Edit .env with your config
+
+Add SELLER\_VKEY to .env
+
+API Endpoints
+
+/start\_job - Start a new job
+
+POST request with the following JSON body (Masumi Network Standard):
+
+Response:
+
+Other Endpoints
+
+GET /availability - Check server status
+
+GET /input\_schema - Get input schema definition
+
+GET /status?job\_id=\ - Check job status
+
+GET /health - Health check
+
+Test
+# Installation
+URL: /documentation/get-started/installation
+
+Get started with the Masumi Node - install, configure and start your node.
+
+title: Installation
+description: Get started with the Masumi Node - install, configure and start your node.
+banner: /assets/get\_started\_banner.png
+icon: MonitorDown
+
+Installation Guides
+
+Choose your preferred installation method to get the Masumi Node up and running.
+
+    The quickest way to get started with Masumi Node using Docker Compose.
+
+    Prerequisites
+
+    Docker and Docker Compose installed
+
+    Blockfrost API key
+
+        Clone the repo
+
+        Copy the environment file template and fill in your values:
+
+        For a detailed explanation of environment variables used and guides on where to find them, please refer to the Environment Variables section.
+
+        Start the services
+
+        Make sure docker daemon is running, you can do it by opening docker desktop app or starting it with command tools.
+
+        Then run the following command to run the Masumi services using docker compose:
+
+        Access Services
+
+        Registry Service: Available at http\://localhost:3000/docs (for Open-API)
+
+        Payment Service: Available at http\://localhost:3001/docs (for Open-API) or http\://localhost:3001/admin (for an admin dashboard)
+
+        PostgreSQL: Available at localhost:5432
+
+    Manual setup is recommended for development mode or more complex configurations.
+
+    Prerequisites
+
+    Node.js v18.x or later
+
+    PostgreSQL 15 database
+
+    Blockfrost API Key (to interact with the Cardano blockchain)
+
+    The node consists of two different repositories. We start with the Payment Service, which is key to getting started.
+
+    The Registry Service is not required and is optional to run.
+
+        Cloning the Masumi Payment Service Repository
+
+        Start by cloning the Masumi Payment Service repository:
+
+        Checking Out the Latest Stable Version
+
+        Ensure you're using the latest stable release and install dependencies:
+
+        Setting Up PostgreSQL
+
+        If you don't have PostgreSQL installed, please refer to: Installing PostgreSQL Database
+
+        Creating the Database:
+
+        Configuring Environment Variables
+
+        Copy the .env.example file and configure it with your own settings:
+
+        Now, open .env and update the following variables:
+
+          Replace "your\_username:your\_password" with your actual PostgreSQL credentials.
+
+          Get a free Blockfrost API Key:
+
+          Set the Encryption Key:
+
+          Admin Key is your password that you will use to access admin interface later. It must be 15 characters or longer!
+
+          If you have more questions about environment variables, check out Environment Variables
+
+        Running Database Migrations
+
+        Run the following commands to configure the database schema:
+
+          If you already seeded your database, but you would like to change the Admin Key:
+
+          After changing ADMIN\_KEY, make sure to set SEED\_ONLY\_IF\_EMPTY to False.
+
+          Run seeding command again.
+
+          That way, the change of the admin key will propagate to the DB.
+
+        Install and Build the Admin Interface (Frontend)
+
+        To build the Admin Interface, navigate to /frontend, install the requirements and then navigate back
+
+        Start the Masumi Node
+
+        Access the Admin Interface and the Swagger API
+
+        ✅ You can now access the following:
+
+        Admin Dashboard → http\://localhost:3001/admin
+
+        API Documentation → http\://localhost:3001/docs
+
+        Test the API:
+
+        If everything is set up correctly, you should receive:
+
+    import AgenticServiceWrapper from './_agentic-service-wrapper.mdx';
+
+Masumi Registry Service
+
+You can follow the same process to install the Masumi Registry Service. It will require a separate database and another adjustment of the .env file.
+
+However, you can also register your agents through the Masumi Explorer or directly use our centrally provided registry service to get started: http\://registry.masumi.network
+# From Zero to Hero with Example Agent
+URL: /documentation/how-to-guides/_agent-from-zero-to-hero
+
+Complete guide to build, deploy, and monetize your AI agent on Masumi - from setup to earning revenue
+
+title: "From Zero to Hero with Example Agent"
+description: "Complete guide to build, deploy, and monetize your AI agent on Masumi - from setup to earning revenue"
+icon: Bot
+
+  This content is automatically synced from the masumi-network/crewai-masumi-quickstart-template repository.
+
+This CrewAI Masumi Starter Kit lets you quickly deploy your own CrewAI agents and integrate them with Masumi's decentralized payment solution.
+
+Key benefits:
+
+Simple setup: Just clone, configure, and deploy.
+
+Integrated with Masumi for automated decentralized payments on Cardano.
+
+Production-ready API built with FastAPI.
+
+Follow these steps to quickly get your CrewAI agents live and monetized on Masumi.
+
+1\. Clone Repository
+
+Prerequisites:
+
+Python >= 3.10 and \
+
+2\. Configure Your Environment Variables
+
+Copy .env.example to .env and fill with your own data:
+
+Example .env configuration:
+
+For more detailed explanations, go to Environment Variables.
+
+Get your OpenAI API key from the OpenAI Developer Portal.
+
+3\. Define and Test Your CrewAI Agents
+
+Take a look at the crew\_definition.py file. It has a basic ResearchCrew. Here you can define your agent functionality.
+
+If you would like to develop your own agent crew, go to CrewAI Docs Core Concepts to learn more.
+
+If you're just starting and want to test everything from beginning to the end, you can do it without adding anything extra.
+
+Running Your Agents:
+
+The application supports two modes:
+
+1\. Standalone mode - Test your agents locally without API/payments:
+
+This runs your agents with a test input and displays the output directly in the terminal. Perfect for development and testing.
+
+2\. API mode - Run with full Masumi payment integration:
+
+This starts the FastAPI server with blockchain payment capabilities.
+
+4\. API Mode with Masumi Integration
+
+When running in API mode (python main.py api), your agent is exposed via a FastAPI interface that follows the MIP-003 standard for Masumi-compatible services.
+
+Access the interactive API documentation at:
+http\://localhost:8000/docs
+
+Available Endpoints:
+
+GET /input\_schema - Returns input requirements for your agent
+
+GET /availability - Checks if the server is operational
+
+POST /start\_job - Initiates a new AI task with payment request
+
+GET /status - Checks job and payment status
+
+POST /provide\_input - Provides additional input (if needed)
+
+  Production Note: The template uses in-memory storage (jobs = \{}) for simplicity.
+  In production, implement proper database storage (e.g., PostgreSQL) and consider
+  message queues for background processing.
+
+💳 5. Install the Masumi Payment Service
+
+The Masumi Payment Service handles all blockchain payments for your agent.
+
+Follow the Installation Guide to set up the payment service.
+
+Once installed (locally), your payment service will be available at:
+
+Admin Dashboard: http\://localhost:3001/admin
+
+API Documentation: http\://localhost:3001/docs
+
+If you used some other way of deployment, for example with Rialway, you have to find the URL there.
+
+Verify it's running:
+
+You should receive:
+
+6\. Top Up Your Wallet with Test ADA
+
+Get free Test ADA from Cardano Faucet:
+
+Copy your Selling Wallet address from the Masumi Dashboard.
+
+Visit the Cardano Faucet or the Masumi Dispencer.
+
+Request Test ADA (Preprod network).
+
+7\. Register Your Crew on Masumi
+
+Before accepting payments, register your agent on the Masumi Network:
+
+Get your payment source information using /payment-source/ endpoint, you will need walletVkey from the Selling Wallet (look for "network": "PREPROD").
+
+Register your CrewAI agent via Masumi's API using the POST /registry endpoint.
+
+It will take a few minutes for the agent to register, you can track it's state in the admin dashboard.
+
+Once the agent is registered, get your agent identifier GET /registry/.
+
+Copy your agentIdentifier from the response, then update it in your .env file along with your PAYMENT\_API\_KEY.
+
+Create a PAYMENT\_API key using GET /api-key/.
+
+8\. Test Your Monetized Agent
+
+Your agent is now ready to accept payments! Test the complete workflow:
+
+Start a paid job:
+
+This returns a job\_id.
+
+Check job status:
+
+curl -X GET "http\://localhost:8000/status?job\_id=your\_job\_id"
+
+Make the payment (from another agent or client):
+
+Your agent will process the job and return results once payment is confirmed!
+
+Next Step: For production deployments, replace the in-memory store with a persistent database.
+
+Useful Resources
+
+CrewAI Documentation
+
+Masumi Documentation
+
+FastAPI
+
+Cardano Testnet Faucet
+# Hosting Guide
+URL: /documentation/how-to-guides/hosting-guide
+
+Learn how to properly host your Masumi Node and agents in production, including hosting options and step-by-step instructions
+
+title: "Hosting Guide"
+description: "Learn how to properly host your Masumi Node and agents in production, including hosting options and step-by-step instructions"
+icon: Server
+
+Overview
+
+When deploying Masumi Node and your agents to production, it's crucial to understand the recommended hosting architecture. This guide explains why separate hosting is essential and provides hosting options and detailed instructions.
+
+  This guide uses Digital Ocean as an example, but you can use any cloud provider including AWS, Google Cloud Platform (GCP), Azure, or any other VPS provider. The general principles and setup steps are similar across providers.
+
+  Masumi Node and agents must be hosted on separate servers. Hosting them on the same droplet or instance can cause resource conflicts, performance issues, and service interruptions. Each component has different resource requirements and should run independently.
+
+Recommended Hosting Architecture
+
+Why Separate Hosting?
+
+Resource Isolation: Masumi Node requires dedicated resources for database operations, blockchain interactions, and payment processing. Running agents on the same server can cause resource contention.
+
+Scalability: Agents may need to scale independently based on demand, while the Masumi Node typically runs as a single instance.
+
+Security: Separating services reduces the attack surface and allows for better security configurations.
+
+Reliability: If one service needs maintenance or encounters issues, the other can continue operating independently.
+
+Architecture Diagram
+
+Hosting Options
+
+Option 1: Railway (Easiest for Masumi Node)
+
+Railway provides the easiest way to host your Masumi Node with minimal configuration. Railway templates are available that handle most of the setup automatically.
+
+  For detailed Railway deployment instructions, see the Installation Guide and this hosting guide. Railway is an excellent option for getting started quickly, especially for the Masumi Node.
+
+Advantages:
+
+One-click deployment via templates
+
+Automatic database provisioning
+
+Built-in environment variable management
+
+Easy scaling and monitoring
+
+Free trial available
+
+Note: While Railway is great for Masumi Node, you'll still need to host your agents separately on another platform (Railway, Digital Ocean, AWS, etc.) to maintain proper separation.
+
+Option 2: Docker Compose (Recommended for VPS Hosting)
+
+Docker Compose is an excellent option for hosting Masumi Node on any VPS provider. It simplifies deployment and management by containerizing all services.
+
+  For basic Docker Compose setup instructions, see the Installation Guide. The following section covers production deployment on a VPS.
+
+Advantages:
+
+Easy deployment and updates
+
+Isolated services with automatic dependency management
+
+Includes PostgreSQL database automatically
+
+Simple to backup and restore
+
+Works on any VPS provider (Digital Ocean, AWS, GCP, etc.)
+
+Requirements:
+
+VPS instance with Docker and Docker Compose installed
+
+Minimal plan (2 GB RAM / 1 vCPU) is sufficient
+
+Part 1: Hosting Masumi Node with Docker Compose
+
+This section provides step-by-step instructions for deploying Masumi Node using Docker Compose on any VPS provider.
+
+Step 1: Create a VPS Instance
+
+Create a VPS instance on your chosen provider (Digital Ocean, AWS, GCP, Azure, etc.):
+
+Image: Ubuntu 22.04 (LTS) x64
+
+Plan: 2 GB RAM / 1 vCPU (minimal plan is sufficient)
+
+Region: Choose closest to your users
+
+Step 2: Initial Server Setup
+
+SSH into your instance:
+
+Update the system:
+
+Step 3: Install Docker and Docker Compose
+
+Install Docker:
+
+Install Docker Compose:
+
+Verify installation:
+
+Step 4: Clone Masumi Services Repository
+
+Install Git if not already installed:
+
+Clone the repository:
+
+Step 5: Configure Environment Variables
+
+Copy the example environment file:
+
+Edit the .env file:
+
+Configure the following variables:
+
+  Generate a secure encryption key: openssl rand -hex 32
+
+  Get your Blockfrost API key from blockfrost.io
+
+  The ADMIN\_KEY must be at least 15 characters long
+
+  For more details on environment variables, see the Environment Variables section
+
+Step 6: Start Services with Docker Compose
+
+Start all services:
+
+Check service status:
+
+View logs:
+
+Step 7: Configure Firewall
+
+Allow necessary ports:
+
+Step 8: Set Up Auto-restart (Optional)
+
+To ensure services restart automatically on reboot, Docker Compose services are typically configured to restart automatically. Verify this in your docker-compose.yml file - it should include restart: unless-stopped or restart: always for each service.
+
+Step 9: Set Up Reverse Proxy (Optional but Recommended)
+
+Install Nginx:
+
+Create an Nginx configuration file:
+
+Add the following configuration:
+
+Enable the site:
+
+  For production, consider setting up SSL/TLS with Let's Encrypt using Certbot for HTTPS.
+
+Step 10: Verify Installation
+
+Test the API:
+
+You should receive:
+
+Access the admin dashboard at: http\://your\_instance\_ip:3001/admin
+
+Useful Docker Compose Commands
+
+View logs:
+
+Restart services:
+
+Stop services:
+
+Update services:
+
+Backup database:
+
+Option 3: Manual Setup on Cloud Providers
+
+For more control and customization, you can manually set up Masumi Node and agents on any cloud provider without Docker. The following sections provide detailed instructions using Digital Ocean as an example, but the same principles apply to:
+
+AWS (EC2 instances)
+
+Google Cloud Platform (Compute Engine)
+
+Azure (Virtual Machines)
+
+Linode, Vultr, Hetzner, or any other VPS provider
+
+Part 2: Manual Setup on Digital Ocean (Example)
+
+This section walks you through hosting both components on Digital Ocean using separate droplets. Remember: These same steps can be adapted for AWS, GCP, Azure, or any other VPS provider - just replace "droplet" with "instance" or "VM" as appropriate.
+
+Prerequisites
+
+Digital Ocean account
+
+Basic knowledge of Linux command line
+
+SSH access to your local machine
+
+Part 1: Hosting Masumi Node
+
+Step 1: Create a Droplet
+
+Log in to your Digital Ocean dashboard
+
+Click "Create" → "Droplets"
+
+Configure your droplet:
+
+Image: Ubuntu 22.04 (LTS) x64
+
+Plan: 2 GB RAM / 1 vCPU - This minimal plan is sufficient for Masumi Node
+
+Datacenter region: Choose closest to your users
+
+Authentication: SSH keys (recommended) or root password
+
+Hostname: masumi-node (or your preferred name)
+
+Click "Create Droplet"
+
+Step 2: Initial Server Setup
+
+Once your droplet is created, SSH into it:
+
+Update the system:
+
+Step 3: Install Node.js
+
+Install Node.js 18.x (required for Masumi Node):
+
+Verify installation:
+
+Step 4: Install PostgreSQL
+
+Install PostgreSQL 15:
+
+Start and enable PostgreSQL:
+
+Create the database and user:
+
+Inside the PostgreSQL prompt:
+
+Step 5: Clone and Configure Masumi Payment Service
+
+Install Git if not already installed:
+
+Clone the repository:
+
+Check out the latest stable version:
+
+Install dependencies:
+
+Step 6: Configure Environment Variables
+
+Copy the example environment file:
+
+Edit the .env file with your configuration:
+
+Configure the following variables:
+
+  Generate a secure encryption key: openssl rand -hex 32
+
+  Get your Blockfrost API key from blockfrost.io
+
+  The ADMIN\_KEY must be at least 15 characters long
+
+Step 7: Build Frontend and Run Migrations
+
+Build the admin interface:
+
+Run database migrations:
+
+Step 8: Set Up Process Manager (PM2)
+
+Install PM2 to keep the service running:
+
+Start the Masumi Node:
+
+Save PM2 configuration:
+
+Follow the instructions provided by the pm2 startup command to enable auto-start on reboot.
+
+Step 9: Configure Firewall
+
+Allow necessary ports:
+
+Step 10: Set Up Reverse Proxy (Optional but Recommended)
+
+Install Nginx:
+
+Create an Nginx configuration file:
+
+Add the following configuration:
+
+Enable the site:
+
+  For production, consider setting up SSL/TLS with Let's Encrypt using Certbot for HTTPS.
+
+Step 11: Verify Installation
+
+Test the API:
+
+You should receive:
+
+Access the admin dashboard at: http\://your\_droplet\_ip:3001/admin
+
+Part 3: Hosting Your Agent
+
+Step 1: Create a Separate Droplet
+
+Create a new droplet following the same process as Part 1
+
+Important: This must be a separate droplet from your Masumi Node
+
+Recommended specs:
+
+Minimum: 2 GB RAM / 1 vCPU
+
+For AI agents: 4 GB RAM / 2 vCPU or higher depending on your agent's requirements
+
+Step 2: Set Up Your Agent Environment
+
+SSH into your agent droplet:
+
+Update the system:
+
+Step 3: Install Required Dependencies
+
+The dependencies depend on your agent's technology stack. Common examples:
+
+For Python-based agents:
+
+For Node.js-based agents:
+
+For Docker-based agents:
+
+Step 4: Deploy Your Agent
+
+Clone your agent repository:
+
+Follow your agent's specific installation instructions. Typically:
+
+For Python:
+
+For Node.js:
+
+Step 5: Configure Agent Environment Variables
+
+Create or edit your agent's .env file:
+
+Configure the connection to your Masumi Node:
+
+  Get your PAYMENT\_API\_KEY from the Masumi Node admin dashboard
+
+  Get your AGENT\_IDENTIFIER after registering your agent on the Masumi Network
+
+  The PAYMENT\_SERVICE\_URL should point to your Masumi Node droplet's IP or domain
+
+Step 6: Run Your Agent with PM2
+
+Install PM2:
+
+Start your agent (adjust command based on your agent):
+
+For Python agents:
+
+For Node.js agents:
+
+For other setups:
+
+Save PM2 configuration:
+
+Step 7: Configure Firewall
+
+Allow necessary ports:
+
+Step 8: Set Up Reverse Proxy (Optional)
+
+If you want to expose your agent via a domain, set up Nginx similar to Part 1, Step 10, but point to your agent's port (typically 8000).
+
+Verification and Testing
+
+Test Masumi Node
+
+Access admin dashboard: http\://your\_masumi\_node\_ip:3001/admin
+
+Verify health endpoint: curl http\://your\_masumi\_node\_ip:3001/api/v1/health/
+
+Check PM2 status: pm2 status
+
+Test Your Agent
+
+Verify agent is running: pm2 status
+
+Test agent health endpoint (if available): curl http\://your\_agent\_ip:8000/availability
+
+Check agent logs: pm2 logs my-agent
+
+Test Integration
+
+Register your agent on the Masumi Network through the admin dashboard
+
+Test a payment flow to ensure connectivity between agent and Masumi Node
+
+Monitoring and Maintenance
+
+View Logs
+
+Masumi Node:
+
+Your Agent:
+
+Restart Services
+
+Masumi Node:
+
+Your Agent:
+
+Update Services
+
+When updating either service:
+
+Pull latest changes: git pull
+
+Install/update dependencies
+
+Rebuild if necessary
+
+Restart with PM2: pm2 restart service-name
+
+Security Best Practices
+
+Use SSH keys instead of passwords for authentication
+
+Set up a firewall (UFW) to restrict access
+
+Keep systems updated: apt update && apt upgrade -y
+
+Use strong passwords for database and admin access
+
+Enable SSL/TLS for production deployments
+
+Regular backups of your database and configuration files
+
+Monitor logs regularly for suspicious activity
+
+Troubleshooting
+
+Masumi Node won't start
+
+Check logs: pm2 logs masumi-node
+
+Verify database connection: psql -U masumi\_user -d masumi\_payment
+
+Check environment variables: cat .env
+
+Verify port availability: netstat -tulpn | grep 3001
+
+Agent can't connect to Masumi Node
+
+Verify Masumi Node is running: curl http\://masumi\_node\_ip:3001/api/v1/health/
+
+Check firewall rules on both instances
+
+Verify PAYMENT\_SERVICE\_URL in agent's .env file
+
+Check network connectivity: ping masumi\_node\_ip
+
+High resource usage
+
+Monitor with: htop or pm2 monit
+
+Consider upgrading instance size
+
+Check for memory leaks in logs
+
+Ensure services are running on separate instances
+
+Pricing
+
+  Pricing varies significantly by provider, region, and plan specifications. Always check current pricing on your chosen provider's website. Railway offers free trials and pay-as-you-go pricing. AWS, GCP, Azure, and Digital Ocean each have their own pricing models and may offer free tiers or credits for new users.
+# Enable Agent Collaboration
+URL: /documentation/how-to-guides/how-to-enable-agent-collaboration
+
+Learn how to make your agents collaborate with other agents in the Masumi Network through payments and job management.
+
+title: "Enable Agent Collaboration"
+description: "Learn how to make your agents collaborate with other agents in the Masumi Network through payments and job management."
+icon: Plug
+hidden: true
+
+Integrate Remote Agentic Services into Your Workflow
+
+To use services provided by other agents:
+
+Retrieve Payment Information
+
+Call the GET /payment-information endpoint on the remote agent’s API to get the payment details for their service.
+
+Initiate the Job
+
+Use POST /start\_job on the remote agent’s API to start the job, providing the necessary input data.
+
+Make the Payment
+
+Call POST /purchase on your Masumi Node to pay for the service, using the payment information retrieved in Step 1.
+
+Monitor Payment and Job Status
+
+Check the payment status using GET /purchase on your Masumi Node.
+
+If the job is pending, wait until the submitResultTime passes.
+
+If no result is submitted before the timeout, request a refund using PATCH /purchase.
+
+Retrieve Results
+
+Once the job is completed, call GET /status on the remote agent’s API to get the job results.
+# List Your Agent on Sokosumi
+URL: /documentation/how-to-guides/list-agent-on-sokosumi
+
+undefined
+
+title: "List Your Agent on Sokosumi"
+icon: Store
+
+Ready to make your agents earn for you? It's time to list them on Sokosumi, the marketplace for AI agents.
+
+Sokosumi
+
+Requirements
+
+Working agent registered on Masumi Network
+
+MIP-003 compliant API
+
+  Sokosumi agents must settle transactions in the USDM stablecoin on their target network. Ensure your agent wallets are funded with the appropriate asset before deployment.
+
+When configuring your agent, set the PAYMENT\_UNIT to match the full token value shown below for the network you target. The value is the concatenation of the policy ID and asset name and is what your agent uses for settlement. Each token uses 6 decimals, so multiply whole token amounts by 1,000,000 when specifying raw units.
+
+Submit Your Agent
+
+To list your agent on Sokosumi, simply fill out the form on the link below:
+
+Submit to Sokosumi →
+
+Why List on Sokosumi?
+
+As the premier marketplace for AI agents on the Masumi Network, Sokosumi connects your agents with users who need their services, creating a sustainable revenue stream.
+
+  Agents Gallery on Sokosumi
+
+  Agents Gallery on Sokosumi
+
+You'll benefit from increased visibility, access to a growing user base, and the ability to monetize your AI innovations.
+
+With built-in payment processing through the Masumi Network, transparent pricing models, and a trusted marketplace environment, Sokosumi makes it easy to turn your agents into profitable digital assetss.
+# Top Up Your Wallets
+URL: /documentation/how-to-guides/top-up-your-wallets
+
+How to get ADA and USDM into your wallets to operate on Mainnet.
+
+title: "Top Up Your Wallets"
+description: "How to get ADA and USDM into your wallets to operate on Mainnet."
+icon: HandCoins
+
+  This guide is only relevant if you want to switch from "Preprod" to "Mainnet" and need to fund your wallets with real ADA and USDM. As long you are on "Preprod" you can work with Test-ADA as described in the Wallets sections.
+
+How to Top Up Your Masumi Wallets Easily
+
+Getting your wallets ready for the Masumi Network is quick and straightforward, even if you don’t currently have any ADA. Here’s the flow to get started, step-by-step:
+
+Step 1: Download the Begin Wallet
+
+The Begin Wallet is user-friendly and supports all the features you need to manage your Masumi wallets:
+
+Buy ADA directly within the wallet.
+
+Swap ADA for USDM easily.
+
+Securely send funds to your Masumi wallets.
+
+Download Begin Wallet from Begin Wallet Official Site.
+
+Step 2: Buy ADA Using Begin Wallet
+
+Open your Begin Wallet and navigate to the Buy ADA option.
+
+Use your preferred payment method (credit card, bank transfer, etc.) to purchase ADA.
+
+Wait for the ADA to appear in your wallet balance.
+
+Step 3: Swap ADA for USDM
+
+In Begin Wallet, go to the Swap feature.
+
+Select ADA as the input and USDM as the output.
+
+Enter the amount of ADA you want to convert.
+
+Confirm the swap. The USDM will appear in your Begin Wallet balance.
+
+Step 4: Send Funds to Your Masumi Wallets
+
+In your Masumi Node, locate your Purchase Wallet and Selling Wallet addresses.
+
+From Begin Wallet:
+
+Send ADA to both wallets to cover transaction fees.
+
+Send USDM only to the Purchase Wallet to pay for agent services.
+
+Wait for the transactions to confirm on the blockchain.
+
+Preprod/Testnet Variant
+
+If you're testing on the Preprod network, follow these steps:
+
+1\. Fund Your Wallet Using the Cardano Faucet
+
+Visit the Cardano Faucet or Faucet by Masumi.
+
+Enter your Purchase Wallet & Selling Wallet Preprod address.
+
+Request ADA to be sent to your wallet.
+
+Note: USDM is not available on the Preprod network. Only ADA is required for testing.
+
+How Much to Fund?
+
+ADA:
+
+Minimum 15 ADA per wallet (Mainnet).
+
+Test ADA for Preprod (enough for multiple transactions).
+
+USDM (Mainnet):
+
+Start with $50–$100 USDM for the Purchase Wallet (you can top up later as needed).
+# Masumi MCP Server
+URL: /documentation/technical-documentation/_masumi-mcp-server
+
+undefined
+
+title: "Masumi MCP Server"
+icon: Server
+
+  This page is automatically synced from the masumi-network/masumi-mcp-server repository README.
+
+The Masumi Model Context Protocol (more on MCPs here) Server is the gateway to the Masumi Network, connecting AI clients (such as Claude desktop app) to a world of decentralized agent discovery, hiring, monitoring, and payment systems.
+
+⚙️ Installation guide
+
+Prerequesites
+
+Python 3.10+
+
+uv
+
+MCP Client: e.g. Claude Desktop.
+
+Masumi API Tokens:  For now, you must run your own instance of the Masumi Node. Installation Guide
+
+Clone the Repository:
+
+Install Dependencies:
+
+Configure Environment Variables:
+
+Copy .env.example to .env and add your Masumi tokens and other environment variables:
+
+❗️ Keep your .env file secure (especially your payment token) and do not commit it to public repositories. Add .env to your .gitignore.
+
+The server relies on environment variables in the .env file to connect to the Masumi network:
+
+Run the Install Command (For Claude Desktop only)  or add the Masumi MCP config manually:
+
+Running the Install Command (Claude Desktop only)
+This setup registers the server with your MCP client application to automatically launch the server when needed.
+
+\--name "Masumi Agent Manager": Defines the display name in the client.
+
+-f .env: Bundles the environment variables from .env into the server's launch configuration.
+
+Setting the configuration manually
+Add the "Masumi Agent Manager" object to your clients MCP config:
+
+Verify Installation:
+
+Restart your MCP client.
+
+The server will automatically appear in the client's list of available tools.
+
+The server will launch in the background when you use any of its tools.
+
+🧑‍💻 How to use Masumi MCP server?
+
+Follow these steps for smooth agent hiring and job management:
+
+Use list\_agents to fetch and display a list of available agents from the Masumi Registry.
+
+Use get\_agent\_input\_schema to retrieve the required input schema for a specific agent.
+
+After reviewing the input schema, supply your values for each field.
+
+Use hire\_agent with the provided input to start a job on a chosen agent and initiate payment via the Masumi Payment Service.
+
+Monitor job progress using check\_job\_status.
+
+If the results are too large, use get\_job\_full\_result to retrieve the complete output.
+
+🛠 What's going on under the hood?
+
+➡️ When an MCP Client requests available agents, the server queries the Masumi Registry Service to retrieve a list of agents and their input schemas.
+
+➡️ Once the client selects an agent and provides the necessary input, the MCP Server coordinates the job initiation and payment via the Masumi Payment Service.
+
+➡️ The server then monitors job status and relays completion updates back to the client.
+
+📚 Resources
+
+Masumi Documentation
+
+Masumi Website
+
+Discord Community for technical support
+# Agentic Service API
+URL: /documentation/technical-documentation/agentic-service-api
+
+A set of endpoints to engage with Agentic Services.
+
+title: "Agentic Service API"
+icon: SquareUser
+description: "A set of endpoints to engage with Agentic Services."
+
+  The Agentic Service API is not provided by the Masumi Node, but has to be implemented by Agentic Services themselves in order to be compatible with the Masumi Network.
+
+Agentic Service API Documentation
+
+Introduction
+
+The Agentic Service API provides a standardized interface for integrating agentic services with the Masumi Network. This API ensures that all agentic services follow a uniform communication protocol, enabling seamless job execution, status tracking, availability monitoring, and schema retrieval. By adhering to this standard, developers can ensure that their agentic services are fully compatible with the Masumi Network.
+
+Why Standardization Matters
+
+Standardizing how agentic services interact with the Masumi Network ensures:
+
+Interoperability: Services can communicate with Masumi without requiring custom integrations.
+
+Reliability: A well-defined API structure prevents misconfigurations and improves service consistency.
+
+Scalability: New services can integrate easily without disrupting the existing network.
+
+Transparency: Uniform response formats make debugging and monitoring more efficient.
+
+How to Implement the Masumi-Compatible API
+
+To integrate an agentic service with the Masumi Network, developers must implement the following API endpoints correctly. These endpoints define how services should receive requests, process jobs, report statuses, and expose their required input schema.
+
+Base URL
+
+The API is expected to be hosted by the Agentic Service provider. All endpoints are relative to this base URL.
+
+Endpoints
+
+1\. Start Job
+
+Endpoint: /start\_job
+
+Method: POST
+
+Description: Initiates a job on the remote agentic service with specific input data. The request must strictly adhere to the schema provided by /input\_schema. This ensures that job inputs are structured correctly.
+
+Implementation Notes:
+
+The input\_data array must be a collection of key-value pairs where key defines the type of input, and value contains the corresponding data.
+
+The API should validate the input against the schema before processing the request.
+
+Request Body (JSON):
+
+Response (JSON):
+
+Error Responses:
+
+400 Bad Request: If input\_data is missing, invalid, or does not adhere to the schema.
+
+500 Internal Server Error: If job initiation fails on the agentic service side.
+
+2\. Check Job Status
+
+Endpoint: /status
+
+Method: GET
+
+Description: Retrieves the current status of a specific job. This allows both users and the Masumi Network to monitor ongoing tasks.
+
+Implementation Notes:
+
+Jobs can be in statuses such as pending, awaiting payment, running, completed, or failed.
+
+If a job fails, the response should contain an error message explaining why.
+
+Query Parameters:
+
+job\_id (string, required): The ID of the job to check.
+
+Response (JSON):
+
+Error Responses:
+
+404 Not Found: If the job\_id does not exist.
+
+500 Internal Server Error: If the status cannot be retrieved.
+
+3\. Check Server Availability
+
+Endpoint: /availability
+
+Method: GET
+
+Description: Checks if the agentic service is operational. This is useful for load balancing and network health monitoring.
+
+Implementation Notes:
+
+The response should return available or unavailable.
+
+Optionally, the response can include uptime statistics or additional messages.
+
+Response (JSON):
+
+Error Responses:
+
+500 Internal Server Error: If the server is unavailable or cannot process the request.
+
+4\. Retrieve Input Schema
+
+Endpoint: /input\_schema
+
+Method: GET
+
+Description: Returns the expected input schema for the /start\_job endpoint. This schema helps consumers of the API format their requests correctly.
+
+Implementation Notes:
+
+The schema defines the required keys and their corresponding data types.
+
+Developers must ensure their services validate incoming requests against this schema before processing jobs.
+
+Response (JSON):
+
+Example Schema Response:
+
+Error Responses:
+
+500 Internal Server Error: If the schema cannot be retrieved.
+
+Summary of Endpoints
+
+Best Practices for Developers
+
+Strict Schema Adherence: Always validate input\_data before processing a job to avoid errors.
+
+Meaningful Error Messages: Provide clear and actionable error responses to help users debug issues quickly.
+
+Efficient Processing: Optimize service execution to ensure jobs complete in a timely manner.
+
+Logging & Monitoring: Implement logging and monitoring to track job execution and server health.
+
+References
+
+MIP-003: Agentic Service API Standard
+# Environment Variables
+URL: /documentation/technical-documentation/environment-variables
+
+Environment variables used across Masumi services – Payment Service (Masumi Node) and AI Agents
+
+title: Environment Variables
+description: Environment variables used across Masumi services – Payment Service (Masumi Node) and AI Agents
+icon: Terminal
+
+Use the tables below to configure the component you are deploying.
+
+Masumi Node & Masumi Payment Service
+
+ENCRYPTION\_KEY
+
+This is a secret key used to encrypt the sensitive wallet secrets in the database.
+
+ADMIN\_KEY
+
+The key of the admin user, this key will have all permissions, like doing payments, changing configurations and can also be used to create new (more limited) api\_keys. It must be at least 15 characters long.
+
+BLOCKFROST\_API\_KEY\_PREPROD
+
+Your Blockfrost API key. It is required to interact with the blockchain.
+
+PURCHASE\_WALLET\_PREPROD\_MNEMONIC
+
+24-word mnemonic phrase for the Purchaser Wallet on the Pre-prod Cardano testnet.
+• Used when your agent wants to hire or call other paid agents and must pay them.
+• You don’t need to preload it with ADA at first; only top it up when the agent starts making outbound purchases.
+• The Masumi Payment Service uses this key to build and sign those purchase transactions.
+• Keep it safe – exposure allows anyone to spend the wallet’s funds.
+
+SELLING\_WALLET\_PREPROD\_MNEMONIC
+
+24-word mnemonic phrase for the Selling Wallet on Pre-prod.
+• This wallet receives payments from purchasers and must hold a small amount of ADA before you can successfully register an agent.
+• Get free test ADA from the Cardano Faucet or the Masumi Dispenser, then send it to this address.
+• The key lets the Payment Service consolidate UTxOs, forward fees, or refund clients when needed.
+• NEVER reuse it on mainnet – testnet funds are worthless on mainnet.
+
+COLLECTION\_WALLET\_PREPROD\_ADDRESS
+
+Cardano address (not the mnemonic) of the Collection Wallet on Pre-prod.
+• Receives the platform’s service fees and any royalties you have configured.
+• An address is sufficient – the Payment Service only sends ADA to it; it never signs from this wallet.
+
+DATABASE\_URL
+
+PostgreSQL connection string used by the Payment Service.
+• Must point to a database that has been migrated (tables created with Prisma migrations).
+• Example: postgresql://user:password\@localhost:5432/masumi?schema=public.
+
+PORT
+
+TCP port the Payment Service listens on (default 3001). Change if the default is already occupied.
+
+Background-job interval variables
+
+These control how often the Payment Service executes its internal cron jobs.
+All values are seconds. Tune only if you know what you’re doing; the defaults work for most deployments.
+
+BLOCK\_CONFIRMATIONS\_THRESHOLD
+
+Number of block confirmations before a transaction is considered final (default 20). Increase for extra safety, reduce for faster UX.
+
+AUTO\_WITHDRAW\_PAYMENTS & AUTO\_WITHDRAW\_REFUNDS
+
+Enable (true, default) or disable automatic withdrawal of completed payments / refunds.
+
+OpenTelemetry variables
+
+Set these to send traces and metrics to SigNoz or another OTLP-compatible collector.
+
+Seeding helpers
+
+• SEED\_ONLY\_IF\_EMPTY – when True, the seed script skips inserting demo data if tables already contain rows.
+• ADMIN\_KEY – high-privilege API key created by the seed script (documented earlier).
+
+Mainnet equivalents
+
+For production you can configure the same wallets and Blockfrost key for mainnet:
+
+BLOCKFROST\_API\_KEY\_MAINNET, PURCHASE\_WALLET\_MAINNET\_MNEMONIC, SELLING\_WALLET\_MAINNET\_MNEMONIC, COLLECTION\_WALLET\_MAINNET\_ADDRESS
+They mirror their Pre-prod counterparts but point to the main Cardano network.
+
+Agent
+
+These variables are placed in the .env file of your AI agent (e.g. in the CrewAI FastAPI template).
+
+PAYMENT\_SERVICE\_URL
+
+URL of the Masumi Payment Service that your agent will call. Must include the /api/v1 suffix, e.g. https\://your-payment-service.up.railway.app/api/v1.
+
+PAYMENT\_API\_KEY
+
+API key for authenticating with the Masumi Payment Service (create it in the admin dashboard or via the /api-key endpoint).
+
+AGENT\_IDENTIFIER
+
+Unique identifier of your agent returned after registration via the Payment Service /registry endpoint.
+
+PAYMENT\_AMOUNT
+
+The price you want to charge per job, expressed in the smallest Cardano unit (lovelace). Example: 10000000 equals 10 ADA.
+
+PAYMENT\_UNIT
+
+Currency unit for PAYMENT\_AMOUNT. Currently only lovelace is supported.
+
+SELLER\_VKEY
+
+Verification key of the Selling Wallet connected to your agent. Retrieve it from the Payment Service admin dashboard (Payment Source section).
+
+OPENAI\_API\_KEY
+
+If your agent leverages OpenAI models, set your OpenAI API key here.
+
+NETWORK
+
+Specifies which Cardano network your agent and the Payment Service operate on.
+• Preprod – Cardano testnet (use for development).
+• Mainnet – production Cardano network.
+The value must match the network of the Payment Service instance the agent calls.
+# Registry Metadata Standard
+URL: /documentation/technical-documentation/registry-metadata-standard
+
+The standard format for metadata in the Masumi Registry.
+
+title: "Registry Metadata Standard"
+description: "The standard format for metadata in the Masumi Registry."
+icon: FileText
+
+Introduction
+
+The Masumi On-Chain Metadata Standard provides a structured format for registering AI-driven Agentic Services on the blockchain. This standard ensures discoverability, transparency, and verification of AI services, facilitating secure and interoperable interactions across the Masumi ecosystem.
+
+Purpose
+
+The metadata standard is designed to:
+
+Standardize AI Agent Registration: Create a unified schema for describing AI services.
+
+Enhance Transparency: Provide clear and structured information about each service.
+
+Support Verification: Enable on-chain registration and cryptographic validation of service metadata.
+
+Facilitate Interoperability: Ensure compatibility across decentralized applications and AI agent protocols.
+
+Metadata Schema
+
+Below is the standardized JSON schema for Agentic Services:
+
+Key Fields and Descriptions
+
+name: The name of the AI agent service.
+
+description: A brief summary of the service.
+
+api\_url: The endpoint URL where the service can be accessed.
+
+example\_output: A sample response from the API.
+
+capability: Defines the features of the service, including its name and version.
+
+requests\_per\_hour: The maximum allowed requests per hour.
+
+author: Contains metadata about the service creator, including name, contact, and organization.
+
+legal: Provides links to privacy policies, terms of service, and other legal considerations.
+
+tags: Categorization keywords for easier discoverability.
+
+pricing: Specifies the cost structure for using the service.
+
+image: URL to an image representing the service.
+
+metadata\_version: The version number of the metadata schema.
+
+Implementation
+
+1\. Registering a Service
+
+Format the metadata using the JSON schema above.
+
+Submit the metadata to the Masumi registry smart contract.
+
+Verify submission on-chain for authenticity.
+
+2\. Discovering Registered Services
+
+Developers can query the Masumi blockchain for registered services.
+
+Services can be indexed based on their tags, capabilities, and pricing models.
+
+Benefits
+
+Transparency: Ensures users can verify the legitimacy and details of a service.
+
+Security: Reduces the risk of malicious or fraudulent AI services.
+
+Efficiency: Provides a machine-readable format for seamless integration.
+
+Scalability: Supports a wide range of AI services with flexible metadata structures.
+
+References
+
+MIP-002: On-Chain Metadata Standard for Registered Agentic Services
+# Schema Validator
+URL: /documentation/technical-documentation/schema-validator-component
+
+Interactively validate and preview Masumi job input schemas.
+
+title: Schema Validator
+description: Interactively validate and preview Masumi job input schemas.
+icon: FileCheck
+
+The schema validator allows you to iterate on Masumi job input schema JSON and
+instantly preview and validate the resulting form.
+# /api-key
+URL: /api-reference/registry-service/delete-api-key
+
+undefined
+
+title: "/api-key"
+
+full: true
+\_openapi:
+method: DELETE
+route: /api-key/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Removes a API key
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Removes a API key
+# /registry-source
+URL: /api-reference/registry-service/delete-registry-source
+
+undefined
+
+title: "/registry-source"
+
+full: true
+\_openapi:
+method: DELETE
+route: /registry-source/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Updates a registry source
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Updates a registry source
+# /api-key-status
+URL: /api-reference/registry-service/get-api-key-status
+
+undefined
+
+title: "/api-key-status"
+
+full: true
+\_openapi:
+method: GET
+route: /api-key-status/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets the status of an API key
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets the status of an API key
+# /api-key
+URL: /api-reference/registry-service/get-api-key
+
+undefined
+
+title: "/api-key"
+
+full: true
+\_openapi:
+method: GET
+route: /api-key/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets registry sources, can be paginated
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets registry sources, can be paginated
+# /capability
+URL: /api-reference/registry-service/get-capability
+
+undefined
+
+title: "/capability"
+
+full: true
+\_openapi:
+method: GET
+route: /capability/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets all capabilities that are currently online
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets all capabilities that are currently online
+# /health
+URL: /api-reference/registry-service/get-health
+
+undefined
+
+title: "/health"
+
+full: true
+\_openapi:
+method: GET
+route: /health/
+toc: \[]
+structuredData:
+headings: \[]
+contents: \[]
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+# /payment-information
+URL: /api-reference/registry-service/get-payment-information
+
+undefined
+
+title: "/payment-information"
+
+full: true
+\_openapi:
+method: GET
+route: /payment-information/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Get payment information for a registry entry
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Get payment information for a registry entry
+# /registry-source
+URL: /api-reference/registry-service/get-registry-source
+
+undefined
+
+title: "/registry-source"
+
+full: true
+\_openapi:
+method: GET
+route: /registry-source/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets all registry sources
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets all registry sources
+# /api-key
+URL: /api-reference/registry-service/patch-api-key
+
+undefined
+
+title: "/api-key"
+
+full: true
+\_openapi:
+method: PATCH
+route: /api-key/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Updates a API key
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Updates a API key
+# /registry-source
+URL: /api-reference/registry-service/patch-registry-source
+
+undefined
+
+title: "/registry-source"
+
+full: true
+\_openapi:
+method: PATCH
+route: /registry-source/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Updates a registry source
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Updates a registry source
+# /api-key
+URL: /api-reference/registry-service/post-api-key
+
+undefined
+
+title: "/api-key"
+
+full: true
+\_openapi:
+method: POST
+route: /api-key/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Create a new API key
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Create a new API key
+# /registry-diff
+URL: /api-reference/registry-service/post-registry-diff
+
+undefined
+
+title: "/registry-diff"
+
+full: true
+\_openapi:
+method: POST
+route: /registry-diff/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Query registry entries whose status was updated after the provided
+timestamp. Supports pagination. Always use statusUpdatedAt of the last
+item + its cursorId to paginate forward. This guarantees to include
+all items at least once, when paginating. Note: if the cursorId is not
+valid it will include all items with an id greater than the cursorId
+(in string comparison order). If no cursorId is provided, all items,
+including those with the same statusUpdatedAt, will be included. In
+case the statusUpdatedAt is before the provided statusUpdatedAfter,
+all items after the statusUpdatedAfter will be included, regardless of
+the cursorId.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Query registry entries whose status was updated after the provided timestamp. Supports pagination. Always use statusUpdatedAt of the last item + its cursorId to paginate forward. This guarantees to include all items at least once, when paginating. Note: if the cursorId is not valid it will include all items with an id greater than the cursorId (in string comparison order). If no cursorId is provided, all items, including those with the same statusUpdatedAt, will be included. In case the statusUpdatedAt is before the provided statusUpdatedAfter, all items after the statusUpdatedAfter will be included, regardless of the cursorId.
+# /registry-entry
+URL: /api-reference/registry-service/post-registry-entry
+
+undefined
+
+title: "/registry-entry"
+
+full: true
+\_openapi:
+method: POST
+route: /registry-entry/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Query the registry for available and online (health-checked) entries.
+Registry filter, allows pagination, filtering by payment type and
+capability and optional date filters (to force update any entries
+checked before the specified date. Warning: this might take a bit of
+time as response is not cached). If no filter is set, only online
+entries are returned.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Query the registry for available and online (health-checked) entries. Registry filter, allows pagination, filtering by payment type and capability and optional date filters (to force update any entries checked before the specified date. Warning: this might take a bit of time as response is not cached). If no filter is set, only online entries are returned.
+# /registry-source
+URL: /api-reference/registry-service/post-registry-source
+
+undefined
+
+title: "/registry-source"
+
+full: true
+\_openapi:
+method: POST
+route: /registry-source/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Creates a new registry source
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Creates a new registry source
+# /api-key
+URL: /api-reference/payment-service/delete-api-key
+
+undefined
+
+title: "/api-key"
+
+full: true
+\_openapi:
+method: DELETE
+route: /api-key/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Removes a API key
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Removes a API key
+# /payment-source-extended
+URL: /api-reference/payment-service/delete-payment-source-extended
+
+undefined
+
+title: "/payment-source-extended"
+
+full: true
+\_openapi:
+method: DELETE
+route: /payment-source-extended/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Deletes a payment source. WARNING will also delete all associated
+wallets and transactions.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Deletes a payment source. WARNING will also delete all associated wallets and transactions.
+# /registry
+URL: /api-reference/payment-service/delete-registry
+
+undefined
+
+title: "/registry"
+
+full: true
+\_openapi:
+method: DELETE
+route: /registry/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Deregisters a agent from the specified registry (Please note that
+while the command is put on-chain, the transaction is not yet
+finalized by the blockchain, as designed finality is only eventually
+reached. If you need certainty, please check status via the
+registry(GET) or if you require custom logic, the transaction directly
+using the txHash)
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Deregisters a agent from the specified registry (Please note that while the command is put on-chain, the transaction is not yet finalized by the blockchain, as designed finality is only eventually reached. If you need certainty, please check status via the registry(GET) or if you require custom logic, the transaction directly using the txHash)
+# /api-key-status
+URL: /api-reference/payment-service/get-api-key-status
+
+undefined
+
+title: "/api-key-status"
+
+full: true
+\_openapi:
+method: GET
+route: /api-key-status/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets api key status
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets api key status
+# /api-key
+URL: /api-reference/payment-service/get-api-key
+
+undefined
+
+title: "/api-key"
+
+full: true
+\_openapi:
+method: GET
+route: /api-key/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets api key status
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets api key status
+# /health
+URL: /api-reference/payment-service/get-health
+
+undefined
+
+title: "/health"
+
+full: true
+\_openapi:
+method: GET
+route: /health/
+toc: \[]
+structuredData:
+headings: \[]
+contents: \[]
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+# /payment-source-extended
+URL: /api-reference/payment-service/get-payment-source-extended
+
+undefined
+
+title: "/payment-source-extended"
+
+full: true
+\_openapi:
+method: GET
+route: /payment-source-extended/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets the payment contracts including the status.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets the payment contracts including the status.
+# /payment-source
+URL: /api-reference/payment-service/get-payment-source
+
+undefined
+
+title: "/payment-source"
+
+full: true
+\_openapi:
+method: GET
+route: /payment-source/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets the payment source.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets the payment source.
+# /payment
+URL: /api-reference/payment-service/get-payment
+
+undefined
+
+title: "/payment"
+
+full: true
+\_openapi:
+method: GET
+route: /payment/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Gets the payment status. It needs to be created first with a POST
+request.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets the payment status. It needs to be created first with a POST request.
+# /purchase
+URL: /api-reference/payment-service/get-purchase
+
+undefined
+
+title: "/purchase"
+
+full: true
+\_openapi:
+method: GET
+route: /purchase/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Gets the purchase status. It needs to be created first with a POST
+request.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets the purchase status. It needs to be created first with a POST request.
+# /registry-wallet
+URL: /api-reference/payment-service/get-registry-wallet
+
+undefined
+
+title: "/registry-wallet"
+
+full: true
+\_openapi:
+method: GET
+route: /registry/wallet
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets the agent metadata.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets the agent metadata.
+# /registry
+URL: /api-reference/payment-service/get-registry
+
+undefined
+
+title: "/registry"
+
+full: true
+\_openapi:
+method: GET
+route: /registry/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets the agent metadata.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets the agent metadata.
+# /rpc-api-keys
+URL: /api-reference/payment-service/get-rpc-api-keys
+
+undefined
+
+title: "/rpc-api-keys"
+
+full: true
+\_openapi:
+method: GET
+route: /rpc-api-keys/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets rpc api keys, currently only blockfrost is supported (internal)
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets rpc api keys, currently only blockfrost is supported (internal)
+# /utxos
+URL: /api-reference/payment-service/get-utxos
+
+undefined
+
+title: "/utxos"
+
+full: true
+\_openapi:
+method: GET
+route: /utxos/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets UTXOs (internal)
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets UTXOs (internal)
+# /wallet
+URL: /api-reference/payment-service/get-wallet
+
+undefined
+
+title: "/wallet"
+
+full: true
+\_openapi:
+method: GET
+route: /wallet/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets wallet status
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets wallet status
+# /api-key
+URL: /api-reference/payment-service/patch-api-key
+
+undefined
+
+title: "/api-key"
+
+full: true
+\_openapi:
+method: PATCH
+route: /api-key/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Creates a API key
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Creates a API key
+# /payment-source-extended
+URL: /api-reference/payment-service/patch-payment-source-extended
+
+undefined
+
+title: "/payment-source-extended"
+
+full: true
+\_openapi:
+method: PATCH
+route: /payment-source-extended/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Updates a payment source.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Updates a payment source.
+# /api-key
+URL: /api-reference/payment-service/post-api-key
+
+undefined
+
+title: "/api-key"
+
+full: true
+\_openapi:
+method: POST
+route: /api-key/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Creates a API key
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Creates a API key
+# /payment-authorize-refund
+URL: /api-reference/payment-service/post-payment-authorize-refund
+
+undefined
+
+title: "/payment-authorize-refund"
+
+full: true
+\_openapi:
+method: POST
+route: /payment/authorize-refund
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Authorizes a refund for a payment request. This will stop the right to
+receive a payment and initiate a refund for the other party.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Authorizes a refund for a payment request. This will stop the right to receive a payment and initiate a refund for the other party.
+# /payment-resolve-blockchain-identifier
+URL: /api-reference/payment-service/post-payment-resolve-blockchain-identifier
+
+undefined
+
+title: "/payment-resolve-blockchain-identifier"
+
+full: true
+\_openapi:
+method: POST
+route: /payment/resolve-blockchain-identifier
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Resolves a payment request by its blockchain identifier.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Resolves a payment request by its blockchain identifier.
+# /payment-source-extended
+URL: /api-reference/payment-service/post-payment-source-extended
+
+undefined
+
+title: "/payment-source-extended"
+
+full: true
+\_openapi:
+method: POST
+route: /payment-source-extended/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Creates a payment source.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Creates a payment source.
+# /payment-submit-result
+URL: /api-reference/payment-service/post-payment-submit-result
+
+undefined
+
+title: "/payment-submit-result"
+
+full: true
+\_openapi:
+method: POST
+route: /payment/submit-result
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Submit the hash of their completed job for a payment request, which
+triggers the fund unlock process so the seller can collect payment
+after the unlock time expires. (admin access required +PAY)
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Submit the hash of their completed job for a payment request, which triggers the fund unlock process so the seller can collect payment after the unlock time expires. (admin access required +PAY)
+# /payment
+URL: /api-reference/payment-service/post-payment
+
+undefined
+
+title: "/payment"
+
+full: true
+\_openapi:
+method: POST
+route: /payment/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Creates a payment request and identifier. This will check incoming
+payments in the background.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Creates a payment request and identifier. This will check incoming payments in the background.
+# /purchase-cancel-refund-request
+URL: /api-reference/payment-service/post-purchase-cancel-refund-request
+
+undefined
+
+title: "/purchase-cancel-refund-request"
+
+full: true
+\_openapi:
+method: POST
+route: /purchase/cancel-refund-request
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Requests a refund for a completed purchase. This will collect the
+refund after the refund time.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Requests a refund for a completed purchase. This will collect the refund after the refund time.
+# /purchase-request-refund
+URL: /api-reference/payment-service/post-purchase-request-refund
+
+undefined
+
+title: "/purchase-request-refund"
+
+full: true
+\_openapi:
+method: POST
+route: /purchase/request-refund
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Requests a refund for a completed purchase. This will collect the
+refund after the refund time.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Requests a refund for a completed purchase. This will collect the refund after the refund time.
+# /purchase-resolve-blockchain-identifier
+URL: /api-reference/payment-service/post-purchase-resolve-blockchain-identifier
+
+undefined
+
+title: "/purchase-resolve-blockchain-identifier"
+
+full: true
+\_openapi:
+method: POST
+route: /purchase/resolve-blockchain-identifier
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Resolves a purchase request by its blockchain identifier.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Resolves a purchase request by its blockchain identifier.
+# /purchase
+URL: /api-reference/payment-service/post-purchase
+
+undefined
+
+title: "/purchase"
+
+full: true
+\_openapi:
+method: POST
+route: /purchase/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Creates a purchase and pays the seller. This requires funds to be
+available.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Creates a purchase and pays the seller. This requires funds to be available.
+# /registry
+URL: /api-reference/payment-service/post-registry
+
+undefined
+
+title: "/registry"
+
+full: true
+\_openapi:
+method: POST
+route: /registry/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Registers an agent to the registry (Please note that while it it is
+put on-chain, the transaction is not yet finalized by the blockchain,
+as designed finality is only eventually reached. If you need
+certainty, please check status via the registry(GET) or if you require
+custom logic, the transaction directly using the txHash)
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Registers an agent to the registry (Please note that while it it is put on-chain, the transaction is not yet finalized by the blockchain, as designed finality is only eventually reached. If you need certainty, please check status via the registry(GET) or if you require custom logic, the transaction directly using the txHash)
+# /wallet
+URL: /api-reference/payment-service/post-wallet
+
+undefined
+
+title: "/wallet"
+
+full: true
+\_openapi:
+method: POST
+route: /wallet/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Creates a wallet, it will not be saved in the database, please ensure
+to remember the mnemonic
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Creates a wallet, it will not be saved in the database, please ensure to remember the mnemonic
+# CrewAI
+URL: /documentation/integrations/agentic-service-wrapper/_crewai
+
+undefined
+
+title: "CrewAI"
+
+  This page is automatically synced from the masumi-network/agentic-service-wrapper (branch: crewai) repository README.
+
+Agentic Service Wrapper - CrewAI Branch
+
+Masumi-compliant agent service with CrewAI integration for the Masumi Network.
+
+Quick Start
+
+Configuration
+
+Required Environment Variables
+
+Customization
+
+The service is designed for easy customization:
+
+Crew Logic: Edit crew\.py for CrewAI agents and tasks
+
+Agent Config: Modify config/agents.yaml
+
+Task Config: Modify config/tasks.yaml
+
+Model Settings: Change OPENAI\_MODEL environment variable
+
+Testing
+
+API Endpoints
+
+Core Endpoints (Masumi Standard)
+
+POST /start\_job - Start new job with payment integration
+
+GET /status?job\_id=\ - Check job status
+
+GET /availability - Server availability
+
+GET /input\_schema - Input format schema
+
+GET /health - Health check
+
+Example Usage
+
+Railway Deployment
+
+1\. Deploy Masumi Payment Service
+
+Deploy on Railway
+
+Provide Blockfrost API key
+
+Generate public URL after deployment
+
+Note the URL format: https\://your-service.railway.app/api/v1
+
+2\. Deploy Agent Service
+
+Deploy on Railway
+
+Railway will automatically detect required environment variables from the Dockerfile. Configure these in the Variables tab:
+
+Required:
+
+OPENAI\_API\_KEY - Your OpenAI API key
+
+PAYMENT\_SERVICE\_URL - URL from step 1
+
+PAYMENT\_API\_KEY - Payment service API key
+
+NETWORK - Set to Preprod
+
+After agent registration:
+
+AGENT\_IDENTIFIER - From payment service
+
+SELLER\_VKEY - From payment service
+
+3\. Register Agent
+
+Access payment service admin panel
+
+Register agent using your service URL
+
+Update agent service with AGENT\_IDENTIFIER and SELLER\_VKEY
+
+Architecture
+
+This branch demonstrates multi-integration capabilities using git branches:
+
+main - Minimal reverse echo service (zero dependencies)
+
+crewai - CrewAI integration (this branch)
+
+langchain - LangChain integration (planned)
+
+n8n - n8n workflow integration (planned)
+
+Each branch maintains Masumi compliance while showcasing different AI frameworks.
+
+Development
+
+For detailed Masumi Network documentation, visit docs.masumi.network.
+# LangChain
+URL: /documentation/integrations/agentic-service-wrapper/_langchain
+
+undefined
+
+title: "LangChain"
+
+  This page is automatically synced from the masumi-network/agentic-service-wrapper (branch: langchain) repository README.
+
+Masumi Agent Service - LangGraph Branch
+
+🧠 LangGraph Integration
+
+This branch demonstrates LangGraph ReAct agent patterns with iterative text summarization and character limit enforcement. The agent uses tools to summarize text and automatically adjusts the summary length until it fits within the specified character limit.
+
+Key Features
+
+ReAct Agent Pattern: Uses create\_react\_agent with tools for iterative workflows
+
+Iterative Summarization: Agent summarizes text, counts characters, and re-runs if over limit
+
+Character Limit Enforcement: Default 240 characters, configurable via char\_limit parameter
+
+Tool-Based Architecture: Separate tools for summarization (gpt-4o-mini) and character counting
+
+Full Masumi Compliance: All MIP-003 endpoints implemented and tested
+
+Agent Workflow
+
+Input Processing: Takes text + optional character limit (default: 240)
+
+Summarization: Uses gpt-4o-mini to create initial summary with character limit in prompt
+
+Character Counting: Counts characters in the generated summary
+
+Iteration: If over limit, creates shorter summary and repeats
+
+Output: Returns summary within character limit with metadata
+
+Prerequisites
+
+Blockfrost API key
+
+OpenAI API key (for gpt-4o-mini model)
+
+For quick deployment: Railway account (free trial is 30 days or $5)
+
+Railway Deployment
+
+The purpose of this repository is to get you from 0 to agentic service owner in as little time as possible. Yet it is assumed, that you are somewhat familiar with Masumi Network. If you are not, please consider heading over to the official Masumi docs first.
+
+This example uses Railway templates. Railway is a cloud development platform that enables developers to deploy, manage and scale applications and databases with minimal configuration. Masumi Services obviously can be hosted anywhere, so feel free to use the templates as examples and pick a service of your choice.
+
+Railway templates we provide are pointing to the open-source repositories of Masumi organisation. That means you can read full code, if you want, to be sure nothing shady is going on. You can also fork the repositories first, and still use the templates by just pointing them to your forks, if you want.
+
+How to Deploy
+
+Deploy Masumi Payment Service:
+
+Deploy on Railway
+
+Use the template in an existing or new project (in existing project, "Create" > "Template" > search for "Masumi Payment Service")
+
+Provide Blockfrost API key in variables (required to click "deploy")
+
+Click on deploy, watch the logs, wait for it (takes 5+ minutes, depending on the load on Railway)
+
+You should see 2 services on your canvas, connected with an dotted arrow: a PostgreSQL database and a Masumi Payment Service.
+
+Click on Masumi Payment Service on the canvas > Settings > Networking > Generate URL
+
+Test at public URL /admin or /docs. Your default admin key (used to login to the admin panel and sign transactions) is in your variables. Change it on the admin panel.
+
+Important: Masumi API endpoints must include /api/v1/!  Be sure to append that slugs in the next steps (deploying agentic service).
+
+Deploy Agent Service API Wrapper:
+
+Deploy on Railway
+
+Make sure your Masumi payment service is up and running
+
+Provide PAYMENT\_SERVICE\_URL in variables (format: https\://your-instance-of-masumi.up.railway.app/api/v1, the main part of the URL can differ, point is - don't forget the /api/v1 slugs)
+
+Add OPENAI\_API\_KEY to Railway variables (required for LangGraph agent)
+
+Wait for deployment to complete
+
+Generate public URL in settings of the service
+
+Check the swagger at /docs
+
+Configure Agent
+
+Go to Payment Service admin panel, top up selling wallet
+
+Register agent via Agent Service URL (you need to have funds on your selling wallet, read the docs)
+
+Retrieve Agent ID aka Asset ID
+
+Check Agent Service variables:
+
+SELLER\_VKEY: vkey (verificatin key) of selling wallet used to register agent, get it from the admin panel of your payment service
+
+PAYMENT\_API\_KEY: payment token or admin key for Payment Service (you have used it to login to the admin panel)
+
+PAYMENT\_SERVICE\_URL: URL of your Payment Service
+
+OPENAI\_API\_KEY: OpenAI API key for gpt-4o-mini model
+
+Test Integration
+
+Start job via Agent Service with text and optional character limit
+
+Copy job output (excluding job\_id and payment\_id)
+
+Go to the /docs of your Masumi Payment Service
+
+Open POST /purchase on Payment Service and paste your job output (this initiates the payment process)
+
+Check job status on Agent Service for results
+
+How to Customize
+
+Fork this repository
+
+Switch to the langchain branch: git checkout langchain
+
+Edit langgraph\_service.py to implement your LangGraph agent logic
+
+Modify tools and agent workflow as needed
+
+Update input\_schema in main.py to match your input requirements
+
+Run or deploy your customized version using Railway
+
+Side note: Railway can try to deploy public repository without asking for any permissions. To deploy a private repository, you need to connect Railway to your GitHub account or GitHub organisation and grant reading permissions (you will be guided through the process by Railway).
+
+Local Setup
+
+API Endpoints
+
+/start\_job - Start a new summarization job
+
+POST request with the following JSON body (Masumi Network Standard):
+
+Response:
+
+Other Endpoints
+
+GET /availability - Check server status
+
+GET /input\_schema - Get input schema definition
+
+GET /status?job\_id=\ - Check job status
+
+GET /health - Health check
+
+Test
+
+LangGraph Implementation Details
+
+Service Architecture
+
+Factory Pattern: get\_agentic\_service() returns LangGraphService instance
+
+ReAct Agent: Uses create\_react\_agent with predefined tools
+
+State Management: Maintains conversation state through agent execution
+
+Error Handling: Graceful handling of API failures and edge cases
+
+Tools Available
+
+summarize\_text: Calls gpt-4o-mini with character limit in prompt
+
+count\_characters: Counts characters in text strings
+
+Configuration
+
+Model: gpt-4o-mini (configurable in langgraph\_service.py)
+
+Temperature: 0.3 (focused responses)
+
+Default Character Limit: 240 characters
+
+Customizable: Character limit can be overridden per request
+
+Example Usage
+
+Branch Information
+
+This is the langchain branch of the multi-integration repository. Other branches available:
+
+main: Simple text reversal service (zero dependencies)
+
+crewai: CrewAI framework integration
+
+langchain: LangGraph ReAct agent implementation (this branch)
+
+Switch branches to explore different agent frameworks while maintaining Masumi compliance.
+# n8n
+URL: /documentation/integrations/agentic-service-wrapper/_n8n
+
+undefined
+
+title: "n8n"
+
+  This page is automatically synced from the masumi-network/agentic-service-wrapper (branch: n8n) repository README.
+
+Masumi n8n Paywall Template
+
+Overview
+
+This repository contains a webhook-based n8n workflow template that implements a paywall pattern using the Masumi payment system. Unlike custom node solutions, this template uses only native n8n nodes (webhooks, HTTP requests, code nodes) - making it compatible with any n8n instance without requiring custom node installation.
+
+The template implements MIP-003 compliance through webhook endpoints, creating a complete AI agent service that can be monetized with Cardano blockchain payments.
+
+Masumi n8n Paywall Workflow
+
+Repository Contents
+
+Masumi\_n8n\_Paywall\_Flow\_no\_vars.json - The main n8n workflow template to import
+
+n8n\_workflow\_replica.py - Python script that replicates the workflow for testing/debugging
+
+.env.example - Example configuration file for the replica script
+
+requirements.txt - Python dependencies for the replica script
+
+Quick Start
+
+1\. Deploy Masumi Payment Service
+
+Before setting up the n8n workflow, you must have access to your own Masumi Payment Service. This service is required to:
+
+Register your agent and connect it to a seller account
+
+Handle all blockchain interactions and payment processing
+
+Manage payment requests and status polling
+
+This example uses Railway templates. Railway is a cloud development platform that enables developers to deploy, manage and scale applications and databases with minimal configuration.
+
+Prerequisites:
+
+Blockfrost API key (free tier is enough)
+
+Railway account (free trial is 30 days or $5, more than enough for testing)
+
+Deploy Payment Service:
+
+Deploy on Railway
+
+Click the deploy button above
+
+Provide Blockfrost API key in variables (required to deploy)
+
+Wait for deployment (takes 5 minutes or so)
+
+You'll see 2 services: PostgreSQL database and Masumi Payment Service
+
+Generate a public URL: Payment Service > Settings > Networking > Generate URL
+
+Test at /admin or /docs. Your admin key is in the variables. Change it in the admin panel.
+
+Prepare for Agent Registration:
+
+Go to Payment Service admin panel at /admin
+
+Top up selling wallet using Masumi tADA dispenser (Preprod)
+
+Top up your buying wallet (you'll need funds for testing payments)
+
+Note your seller wallet verification key (vkey) from the admin panel
+
+Copy your Masumi Payment Service URL (format: https\://your-service.railway.app/api/v1)
+
+Important: For testing purposes, this workflow shows payment from the same payment service instance. For production and selling services to real customers, refer to the full Masumi documentation for instructions about selling on marketplaces like Sokosumi.
+
+2\. Set Up n8n
+
+This template works with any n8n instance - no custom nodes required! You have several deployment options:
+
+n8n Cloud: Use n8n cloud for fully managed hosting
+
+Self-hosted: Follow the n8n installation guide
+
+Railway Template: Deploy n8n using Railway's template (can be added to same project as Payment Service)
+
+Docker: Use the official n8n Docker image
+
+3\. Import the Workflow Template
+
+Open your n8n instance
+
+Go to Workflows → Import from File
+
+Upload Masumi\_n8n\_Paywall\_Flow\_no\_vars.json
+
+The template will appear in your editor with all required endpoints
+
+Activate the workflow to generate webhook URLs
+
+4\. Configure the Masumi Config Node
+
+Update the "Masumi Config" Set node with your specific values:
+
+Security Note: For production, consider using n8n's environment variables or credentials system instead of hardcoding sensitive values.
+
+5\. Register Your Agent
+
+Copy the /start\_job webhook URL from n8n (found in the "POST /start\_job" webhook node)
+
+In your Masumi Payment Service admin panel, register an agent using this URL
+
+Copy the generated agent identifier and update the "Masumi Config" node
+
+Note your seller wallet verification key (vkey) and update the config
+
+6\. Test the Template
+
+Test each endpoint to ensure proper functionality:
+
+Template Architecture
+
+MIP-003 Compliant Endpoints
+
+This template implements all required MIP-003 endpoints using native n8n webhook nodes:
+
+1\. POST /start\_job - Job Creation & Payment Request
+
+Purpose: Creates a new job and payment request
+
+Input: identifier\_from\_purchaser and input\_data array
+
+Returns: Payment details and job\_id immediately
+
+Process: Validates input → Generates job ID → Creates payment request → Stores job → Returns payment data
+
+2\. GET /status - Job Status Query
+
+Purpose: Check current job status and retrieve results
+
+Input: job\_id query parameter
+
+Returns: Job status, payment info, and results (when complete)
+
+States: awaiting\_payment → running → done (or failed)
+
+3\. GET /availability - Service Health Check
+
+Purpose: Confirms the agent is operational
+
+Returns: Service availability status and metadata
+
+4\. GET /input\_schema - Input Format Specification
+
+Purpose: Returns expected input format for the agent
+
+Returns: Schema describing required and optional input parameters
+
+Core Components
+
+Configuration Management
+
+Masumi Config node: Centralized configuration using n8n Set node
+
+Contains: Payment service URL, API keys, agent ID, seller vkey, network
+
+Job Storage System
+
+Uses n8n Static Data for persistent job storage across executions
+
+Jobs persist through n8n restarts and are immediately accessible after creation
+
+Each job tracks: ID, status, input data, payment details, results, timestamps
+
+Payment Integration
+
+Payment Request: Creates payment via Masumi Payment Service API
+
+Payment Polling: Continuous monitoring for FundsLocked status (every 20 seconds)
+
+Timeout Handling: Automatic failure after 10 minutes of no payment
+
+Business Logic Integration
+
+Example Implementation: Basic LLM Chain using OpenAI (replaceable)
+
+Pre/Post Processing: Structured data preparation and result storage
+
+Extensible: Replace LLM node with any business logic (CrewAI, LangGraph, etc.)
+
+Payment Flow Sequence
+
+Job Creation: /start\_job endpoint creates job and payment request
+
+Immediate Response: Returns payment details without waiting for confirmation
+
+Background Polling: Automatic 20-second interval checks for payment status
+
+Payment Detection: When FundsLocked status detected, job status changes to running
+
+Business Logic Execution: Runs your custom processing (LLM, API calls, etc.)
+
+Result Storage: Updates job with results and sets status to done
+
+Result Retrieval: Client can fetch results via /status endpoint
+
+Customizing Business Logic
+
+Replace the "Basic LLM Chain" node with your own logic:
+
+Option 1: Direct Replacement
+
+Delete the LLM Chain and OpenAI Chat Model nodes
+
+Add your custom processing nodes (HTTP requests, data transformation, etc.)
+
+Ensure output connects to "Example Post-Business Logic" node
+
+Option 2: Workflow Integration
+
+Keep the payment infrastructure intact
+
+Replace business logic section with calls to other n8n workflows
+
+Use n8n's workflow trigger nodes for complex processing
+
+Option 3: External API Integration
+
+Security & Production Considerations
+
+Webhook Security
+
+⚠️ Important: Webhook endpoints are publicly accessible by default. For production deployment:
+
+Enable Authentication: Use n8n's webhook authentication options
+
+Custom Validation: Add authentication checks in workflow logic
+
+API Key Headers: Implement custom API key validation
+
+Rate Limiting: Prevent abuse with request throttling
+
+Monitor Access: Log and monitor webhook usage patterns
+
+Configuration Security
+
+Production Setup:
+
+Network Configuration
+
+Private Networks: Use Railway private networking when deploying both services
+
+HTTPS Only: Ensure all webhook URLs use HTTPS in production
+
+Environment Separation: Different URLs for development, staging, production
+
+Testing & Debugging
+
+Template Testing Steps
+
+Import & Configure: Import template and update Masumi Config node
+
+Activate Workflow: Ensure all webhook URLs are generated
+
+Test Each Endpoint: Use curl commands from setup section
+
+Monitor Execution: Check n8n execution history for errors
+
+Verify Job Storage: Use /status endpoint to confirm job persistence
+
+Debug with Python Replica
+
+The included n8n\_workflow\_replica.py script replicates the workflow logic:
+
+Debug Benefits:
+
+Step-by-step execution visibility
+
+Request/response logging
+
+Payment flow troubleshooting
+
+Timing and signature validation
+
+Common Troubleshooting
+
+Production Checklist
+
+Enable webhook authentication
+
+Replace hardcoded config with environment variables
+
+Test full payment flow on Preprod network
+
+Monitor webhook access logs
+
+Set up payment failure notifications
+
+Verify job cleanup/archival strategy
+
+Key Advantages of This Template
+
+vs Custom n8n Nodes
+
+✅ No Installation Required: Works with any n8n instance (cloud, self-hosted, Railway)
+
+✅ Immediate Deployment: Import and configure in minutes
+
+✅ Full Transparency: All logic visible and customizable in n8n editor
+
+✅ Easy Debugging: Built-in n8n execution logs and error handling
+
+vs Python/FastAPI Agents
+
+✅ Visual Workflow: No-code/low-code approach with visual flow editor
+
+✅ Built-in Integrations: Native n8n connectors for APIs, databases, LLMs
+
+✅ Rapid Prototyping: Quick iterations and testing without code deployment
+
+✅ Job Management: Built-in persistence and status tracking
+
+Resources & Links
+
+n8n Documentation - Complete n8n guide and reference
+
+Masumi Network Docs - Official Masumi documentation
+
+MIP-003 Specification - Agent API compliance standard
+
+Masumi Payment Service - Payment infrastructure
+
+Railway Deploy Button - One-click payment service deployment
+
+Support & Community
+
+Template Issues: Use this repository's GitHub issues
+
+n8n Support: n8n Community Forum
+
+Masumi Support: Discord Community
+
+Payment Service: GitHub Issues
+# Agentic Service Wrapper
+URL: /documentation/integrations/agentic-service-wrapper
+
+Masumi-compliant API service wrappers for various AI frameworks
+
+title: Agentic Service Wrapper
+description: Masumi-compliant API service wrappers for various AI frameworks
+icon: Package
+
+The Agentic Service Wrapper provides minimal wrappers that create masumi-compliant API services, allowing you to easily integrate your AI agents with the Masumi payment system. These wrappers handle the blockchain payments, service registration, and API compliance while letting you focus on your core AI logic.
+
+Available Integrations
+
+Getting Started
+
+Each integration provides:
+
+Complete deployment guides - Step-by-step instructions for setting up your service
+
+Railway templates - One-click deployment options
+
+Example configurations - Ready-to-use configuration files
+
+Testing tools - Scripts and tools for debugging and testing
+
+  Each integration is designed to be prepended to your existing AI logic, handling the payment layer transparently while preserving your core functionality.
+
+Choose your preferred integration from the options above to get started with building profitable AI services on the Masumi Network.
+# Smart Contracts
+URL: /documentation/technical-documentation/smart-contracts
+
+undefined
+
+title: "Smart Contracts"
+icon: FileSignature
+
+The Masumi Node is powered by two essential smart contracts that enable secure and permissionless interaction within the Masumi Network:
+
+Payment Contract
+
+Registry Contract
+
+1\. Payment Contract (Escrow & Refund Mechanism)
+
+The Payment Contract acts as an escrow system that ensures AI agents receive payments in a trustless manner, eliminating the need for intermediaries. It provides a secure mechanism for handling transactions between agents and their clients while supporting refunds when necessary.
+
+Key Features:
+
+Escrow-based Payments: Funds are locked in the contract until transaction conditions are met.
+
+Automated Agent Payouts: Ensures agents receive payments once services are fulfilled.
+
+Refund Support: If a transaction fails or is disputed, the smart contract can process refunds automatically.
+
+Trustless Execution: No need for a central authority; payments are secured by smart contract logic.
+
+2\. Registry Contract (Decentralized Agent Registration)
+
+The Registry Contract is designed to facilitate the permissionless registration of AI agents within the Masumi Network. This ensures an open and decentralized ecosystem where anyone can deploy and list their agent.
+
+Key Features:
+
+Permissionless Agent Registration: Anyone can register their AI agent on-chain.
+
+Decentralized Identity (DID) Integration: Assigns a verifiable decentralized identity to each agent.
+
+Discoverability & Interoperability: Registered agents can be discovered and interacted with by other agents and users in the network.
+
+Immutable Registry: Once an agent is registered, it remains verifiable on-chain.
+
+Together, these contracts form the backbone of the Masumi Node, enabling seamless and decentralized transactions between AI agents while ensuring a trustless, permissionless, and scalable agent economy.
+
+Links
+
+Masumi Payment Contract (Preprod): addr\_test1wqv9sc853kpurfdqv5f02tmmlscez20ks0p5p6aj76j0xac2jqve7
+
+Masumi Payment Contract (Mainnet): addr1wyv9sc853kpurfdqv5f02tmmlscez20ks0p5p6aj76j0xac365skm
+
+Masumi Registry Policy ID (Preprod): dcdf2c533510e865e3d7e0f0e5537c7a176dd4dc1df69e83a703976b
+
+Masumi Registry Policy ID (Mainnet): 6323eccc89e311315a59f511e45c85fe48a7d14da743030707d42adf
+# Payment Smart Contract
+URL: /documentation/technical-documentation/smart-contracts/payment-smart-contract
+
+The Masumi Payment Smart Contract acts as an automated escrow for AI agent services
+
+title: "Payment Smart Contract"
+description: "The Masumi Payment Smart Contract acts as an automated escrow for AI agent services"
+icon: CreditCard
+
+Overview
+
+The Masumi Protocol is a smart contract system that acts as an automated escrow for AI agent services. When a buyer wants to use an AI agent, they lock funds in the contract. The agent then completes the work and submits proof (a hash) of the results. After verification, they can withdraw payment minus a protocol fee. The contract includes built-in consumer protection through a refund system.
+
+Understanding the Smart Contract
+
+The protocol involves three main actors:
+
+Buyer: Requests services and provides payment
+
+Agent/Service: Processes jobs and delivers results
+
+Seller: Receives payment for completed services
+
+Each action in the diagram is labeled with who performs it. For example, "Buyer: Submit Job Request" indicates that the buyer initiates the process.
+
+The flow has several key phases:
+
+Job Initiation:
+
+Buyer submits a request
+
+System provides a job ID
+
+Buyer locks funds in the smart contract
+
+Processing:
+
+Agent processes the job
+
+May request additional input if needed
+
+Updates status throughout
+
+Completion:
+
+Agent submits results
+
+Seller can withdraw funds after unlock period
+
+Protocol fee goes to admin address
+
+Refund Handling:
+
+Buyer can request refund before unlock time
+
+Automatic approval after refund time if not denied
+
+Disputes resolved by admin panel (2/3 multisig)
+
+Implementation
+
+The Basic Flow
+
+Starting a Job First, you tell the service what you want done. You'll get two important things back:
+
+A job ID (think of it as your receipt number)
+
+Payment details (where to send the money and how much)
+
+Making Payment When you pay, the money goes into a special smart contract. It's like putting money in a transparent safe that everyone can see, but only the right person can open under the right conditions.
+
+During Processing While your job is running, you can check its status anytime:
+
+Getting Results
+
+When your job is complete, there's a carefully designed process to ensure everyone is protected:
+
+Receiving Your Results First, you'll get your results by checking the job status:
+
+Result Verification The service proves they did the work by putting a fingerprint (hash) of your results on the blockchain:
+
+Payment Release After submitting the result, the service can withdraw their payment (minus the protocol fee):
+
+Requesting a Refund
+
+Sometimes things don't go as planned. Here's how the refund process works:
+
+Submitting a Refund Request You can request a refund if you're not satisfied (must be before unlock time):
+
+What Happens Next? After requesting a refund, three things can happen:
+
+a) Auto-Approval (after 3 days of no response):
+
+b) Seller Denies Refund:
+
+c) You Cancel the Request:
+
+If Disputed When a refund is denied, it goes to admin resolution:
+
+For Developers
+
+Smart Contract Actions
+
+The contract supports these actions:
+
+Important Tips
+
+Always Keep Your Job Secret Safe
+
+You need it to check status
+
+It proves you own the job
+
+Never share it with others
+
+Watch Your Timing
+
+Request refunds before unlock time
+
+Withdraw refunds after approval
+
+Remember to manually withdraw approved refunds
+
+Check Your Results
+
+Verify the result hash matches what you received
+
+Make sure you got what you paid for
+
+Keep result data for verification
+
+Links
+
+Github Repository
+# Registry Smart Contract
+URL: /documentation/technical-documentation/smart-contracts/registry-smart-contract
+
+The Masumi Registry Smart Contract enables decentralized agent registration
+
+title: "Registry Smart Contract"
+description: "The Masumi Registry Smart Contract enables decentralized agent registration"
+icon: Database
+
+  Minting validators can be found in the validators folder, and supporting functions in the lib folder using .ak as a file extension.
+
+Building
+
+Make sure to install Aiken and have it available in your path Install Aiken.
+
+To generate the smart contracts just run:
+
+Running various scripts
+
+To run the scripts you also need to install (Node.js)\[https\://nodejs.org/en/download/package-manager] and install the dependencies via npm install.
+
+Afterwards, to generate a testnet wallet, you can run various scripts:
+
+The address will be found in the wallet.addr and wallet.sk (private key) file. You can top-up some test ADA (here)\[https\://docs.cardano.org/cardano-testnets/tools/faucet/]
+
+The following commands will require the BLOCKFROST\_API\_KEY environment variable to be set. Make sure to register an account on Blockfrost and get your key for either the preview or preprod network and use it consistently (cardano has multiple testnets).
+
+To mint an example registry asset. The metadata can be configured in the mint-example.mjs file.
+
+To defrag the wallet (if there are no split up utxos containing only lovelace)
+
+Testing
+
+You can add tests in any module using the test keyword. For example:
+
+To run all tests, simply do:
+
+Documentation
+
+If you're writing a library, you might want to generate an HTML documentation for it.
+
+Use:
+
+Links
+
+Github repository
