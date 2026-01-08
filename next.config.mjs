@@ -4,6 +4,7 @@ const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
 const config = {
+  output: 'standalone', // Required for Docker deployment
   reactStrictMode: true,
   // Optimize memory usage
   experimental: {
