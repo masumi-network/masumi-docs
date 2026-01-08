@@ -1,9 +1,11 @@
 name: Build and Deploy to DigitalOcean
 
+# NOTE: Currently set to run on feat/digitalocean-cicd for testing
+# After testing, change back to 'main' branch
 on:
   push:
     branches:
-      - main
+      - feat/digitalocean-cicd
   workflow_dispatch:
 
 env:
@@ -44,6 +46,11 @@ jobs:
 
       - name: Log in to DigitalOcean Container Registry
         run: doctl registry login --expiry-seconds 1200
+
+      - name: Verify App Platform configuration
+        run: |
+          echo "Verifying App Platform app configuration..."
+          doctl apps get ${{ secrets.DO_APP_ID }} --format Name,ActiveDeployment.ID || echo "Warning: Could not verify app configuration"
 
       - name: Build and push Docker image
         run: |
