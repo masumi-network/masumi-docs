@@ -22,18 +22,14 @@ function getSharedProcessor() {
 }
 
 /**
- * Clean the processed text by removing imports and JSX tags
+ * Clean the processed text by removing imports and ALL JSX/HTML tags
  */
 function cleanText(text: string): string {
   return text
     // Remove import statements
     .replace(/^import\s+.*?;?\s*$/gm, '')
-    // Remove JSX self-closing tags: <Card ... />
-    .replace(/<[A-Z][a-zA-Z0-9]*\s+[^>]*\/>/g, '')
-    // Remove JSX opening tags: <Cards>
-    .replace(/<[A-Z][a-zA-Z0-9]*\s*[^>]*>/g, '')
-    // Remove JSX closing tags: </Cards>
-    .replace(/<\/[A-Z][a-zA-Z0-9]*>/g, '')
+    // Remove ALL HTML/JSX tags (both self-closing and paired)
+    .replace(/<[^>]+>/g, '')
     // Remove multiple blank lines
     .replace(/\n\s*\n\s*\n/g, '\n\n')
     // Trim whitespace
