@@ -6,8 +6,9 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copy package files
+# Copy package files and config files (needed for postinstall script)
 COPY package.json package-lock.json ./
+COPY source.config.ts tsconfig.json ./
 RUN npm ci
 
 # Rebuild the source code only when needed
