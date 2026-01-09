@@ -34,6 +34,17 @@ A `source.config.ts` config file has been included, you can customise different 
 
 Read the [Introduction](https://fumadocs.dev/docs/mdx) for further details.
 
+## Branch Strategy
+
+This repository uses a staging branch workflow:
+
+- **`main`** - Production/stable branch
+- **`staging-docs`** - Integration and testing branch for parallel development
+
+**Documentation:**
+- [STAGING.md](./STAGING.md) - Workflow overview and best practices
+- [STAGING_SETUP_GUIDE.md](./STAGING_SETUP_GUIDE.md) - **Step-by-step setup and daily workflow guide**
+
 ## Learn More
 
 To learn more about Next.js and Fumadocs, take a look at the following
