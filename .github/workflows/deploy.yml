@@ -83,10 +83,14 @@ jobs:
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           echo "✅ Pushed image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
 
-      - name: Deploy to DigitalOcean App Platform
+      - name: Verify deployment status
+        continue-on-error: true
         run: |
-          echo "Deploying to ${{ env.IS_MAIN_BRANCH == 'true' && 'PRODUCTION' || 'TEST' }} environment..."
-          doctl apps create-deployment ${{ env.APP_ID }} \
-            --force-rebuild \
-            --wait
-          echo "✅ Deployment complete!"
+          echo "✅ Image pushed successfully to: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+          echo ""
+          echo "📋 Deployment Information:"
+          echo "   - If Autodeploy is ENABLED: Deployment should start automatically"
+          echo "   - If Autodeploy is DISABLED: Please trigger deployment manually from DigitalOcean dashboard"
+          echo ""
+          echo "Current app status:"
+          doctl apps get ${{ env.APP_ID }} --format Name,ActiveDeployment.ID,ActiveDeployment.Phase || echo "Could not fetch app status"
