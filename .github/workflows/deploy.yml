@@ -40,15 +40,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate MDX source files
-        run: npm run postinstall
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate llms.txt
-        run: npm run generate-llms-txt
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Clean previous build artifacts
+        run: |
+          rm -rf .source .contentlayer .content-collections
+          echo "✅ Cleaned build artifacts"
 
       - name: Build Next.js app
         run: npm run build

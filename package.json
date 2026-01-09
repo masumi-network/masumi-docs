@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "fumadocs-mdx && node scripts/generate-openapi.mjs && node scripts/fetch-readme.mjs && next build",
+    "build": "fumadocs-mdx && node scripts/generate-openapi.mjs && node scripts/fetch-readme.mjs && npm run generate-llms-txt && next build",
     "dev": "next dev",
     "start": "next start",
     "postinstall": "fumadocs-mdx",
