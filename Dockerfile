@@ -20,7 +20,6 @@ COPY . .
 # Set environment variables for build
 ENV NEXT_TELEMETRY_DISABLED 1
 
-# Generate llms.txt (requires GITHUB_TOKEN if fetching READMEs)
 ARG GITHUB_TOKEN
 ENV GITHUB_TOKEN=$GITHUB_TOKEN
 

@@ -10,20 +10,12 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  REGISTRY: registry.digitalocean.com
-  # DO_REGISTRY_NAME is the registry name (masumi-docs)
-  # Repository and App ID change based on branch
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     
-    # Determine environment based on branch
     env:
       REGISTRY: registry.digitalocean.com
-      IS_MAIN_BRANCH: ${{ github.ref == 'refs/heads/main' }}
-      REPOSITORY_NAME: ${{ github.ref == 'refs/heads/main' && 'masumi-docs' || 'digitalocean-cicd' }}
       APP_ID: ${{ github.ref == 'refs/heads/main' && secrets.DO_APP_ID_PROD || secrets.DO_APP_ID_TEST }}
       IMAGE_NAME: ${{ secrets.DO_REGISTRY_NAME }}/${{ github.ref == 'refs/heads/main' && 'masumi-docs' || 'digitalocean-cicd' }}
     
@@ -41,9 +33,7 @@ jobs:
         run: npm ci
 
       - name: Clean previous build artifacts
-        run: |
-          rm -rf .source .contentlayer .content-collections
-          echo "✅ Cleaned build artifacts"
+        run: rm -rf .source .contentlayer .content-collections
 
       - name: Build Next.js app
         run: npm run build
@@ -58,20 +48,6 @@ jobs:
       - name: Log in to DigitalOcean Container Registry
         run: doctl registry login --expiry-seconds 1200
 
-      - name: Display deployment info
-        run: |
-          echo "Deployment Configuration:"
-          echo "Branch: ${{ github.ref_name }}"
-          echo "Environment: ${{ env.IS_MAIN_BRANCH == 'true' && 'PRODUCTION' || 'TEST' }}"
-          echo "Repository: ${{ env.REPOSITORY_NAME }}"
-          echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
-          echo "App ID: ${{ env.APP_ID }}"
-
-      - name: Verify App Platform configuration
-        run: |
-          echo "Verifying App Platform app configuration..."
-          doctl apps get ${{ env.APP_ID }} --format Name,ActiveDeployment.ID || echo "Warning: Could not verify app configuration"
-
       - name: Build and push Docker image
         run: |
           docker build \
@@ -81,16 +57,3 @@ jobs:
             .
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          echo "✅ Pushed image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
-
-      - name: Verify deployment status
-        continue-on-error: true
-        run: |
-          echo "✅ Image pushed successfully to: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
-          echo ""
-          echo "📋 Deployment Information:"
-          echo "   - If Autodeploy is ENABLED: Deployment should start automatically"
-          echo "   - If Autodeploy is DISABLED: Please trigger deployment manually from DigitalOcean dashboard"
-          echo ""
-          echo "Current app status:"
-          doctl apps get ${{ env.APP_ID }} --format Name,ActiveDeployment.ID,ActiveDeployment.Phase || echo "Could not fetch app status"
