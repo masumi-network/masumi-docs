@@ -92,13 +92,14 @@ const REPOS = [
   },
   {
     owner: 'masumi-network',
-    repo: 'crewai-masumi-quickstart-template',
-    outputPath: './content/docs/documentation/how-to-guides/_agent-from-zero-to-hero.mdx',
+    repo: 'pip-masumi',
+    branch: 'main',
+    filePath: 'QUICKSTART.md',
+    outputPath: './content/docs/documentation/how-to-guides/_quickstart.mdx',
     isTabContent: false,
-    customTitle: 'From Zero to Hero with Example Agent',
+    customTitle: 'Build an Agent',
     customIcon: 'Bot',
-    preserveImports: true,
-    customDescription: 'Complete guide to build, deploy, and monetize your AI agent on Masumi - from setup to earning revenue'
+    preserveImports: true
   },
   // n8n node
   {
@@ -383,6 +384,7 @@ async function generateReadmePages() {
     contentWithJsxAttributes = contentWithJsxAttributes.replace(/=\\\{([\s\S]*?)\\\}/g, '={$1}');
 
     const needsTabsImport = /<Tabs\b/i.test(contentWithJsxAttributes) || /<Tab\b/i.test(contentWithJsxAttributes);
+    const needsFilesImport = /<Files\b/i.test(contentWithJsxAttributes) || /<File\b/i.test(contentWithJsxAttributes);
 
     let fullContent;
     
@@ -399,6 +401,10 @@ async function generateReadmePages() {
 
       if (needsTabsImport) {
         imports.push(`import { Tabs, Tab } from 'fumadocs-ui/components/tabs';`);
+      }
+
+      if (needsFilesImport) {
+        imports.push(`import { File, Files } from 'fumadocs-ui/components/files';`);
       }
 
       const frontmatter = `---
