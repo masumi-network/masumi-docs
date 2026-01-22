@@ -2,6 +2,7 @@ import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 import { ImageCard, ImageCards } from '@/components/image-card';
 import * as TabsComponents from 'fumadocs-ui/components/tabs';
+import { File, Files } from 'fumadocs-ui/components/files';
 import { Banner } from '@/components/banner';
 import { APIPage } from 'fumadocs-openapi/ui';
 import { openapi } from '@/lib/source';
@@ -20,6 +21,8 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ImageCards,
     Banner,
     Mermaid,
+    File,
+    Files,
     ...TabsComponents,
     ...components,
   };

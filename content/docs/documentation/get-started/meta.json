@@ -4,6 +4,6 @@
   "separator": true,
   "pages": [
     "quickstart",
-    "installation"
+    "install-masumi-node"
   ]
 }

@@ -5,9 +5,9 @@
   "pages": [
     "---Get Started---",
     "index",
-    "get-started/installation",
+    "get-started/install-masumi-node",
+    "how-to-guides/_quickstart",
     "---Guides---",
-    "how-to-guides/_agent-from-zero-to-hero",
     "how-to-guides/list-agent-on-sokosumi",
     "how-to-guides/how-to-enable-agent-collaboration",
     "how-to-guides/top-up-your-wallets",
