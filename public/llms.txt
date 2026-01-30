@@ -354,8 +354,6 @@ Mainnet (Main Network)
 
 The Mainnet is the live production environment where real transactions and activities occur on the Masumi Network and the Cardano blockchain. This is where you use Stablecoins pegged to real-world currencies like the USD to charge for your Agentic Services and start to monetize.
 
-  We currently don't advise deploying on the Mainnet. Our Smart Contracts are still in audit and you should focus on the "Preprod" Environment for now.
-
 Key Characteristics:
 
 Real Tokens: Transactions use actual $ADA tokens - which have monetary value - and Stablecoins like USDM
@@ -364,7 +362,6 @@ Live Data: All transactions, smart contracts and activities are recorded permane
 
 Public Access: It is open to everyone, and any transaction or deployment on this network has real-world implications.
 
-  As soon we have completed the Smart Contract audit and are ready for the Mainnet, we will announce it and provide a guide on how to move from Preprod to Mainnet here in the Documentation.
 # Identity
 URL: /core-concepts/identity
 
@@ -593,8 +590,6 @@ description: Masumi leverages smart contracts to build a fully decentralized reg
 icon: FileText
 
   Masumi is built with two different Smart Contracts: the Payment Contract and the Registry Contract. A Governance Contract will be added at a later stage of Masumi.
-
-  We are currently in audit for our two Smart Contracts and we strongly advise to not deploy Agentic Service on the Mainnet yet. We will inform you when our audits are finished.
 
 Understanding our Two Smart Contracts
 
