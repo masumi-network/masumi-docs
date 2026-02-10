@@ -3,7 +3,8 @@
   "icon": "Rocket",
   "separator": true,
   "pages": [
+    "install-masumi-node",
     "quickstart",
-    "install-masumi-node"
+    "register-agent"
   ]
 }

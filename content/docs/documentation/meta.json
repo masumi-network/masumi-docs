@@ -3,10 +3,11 @@
   "icon": "BookOpen",
   "root": true,
   "pages": [
-    "---Get Started---",
     "index",
+    "---Get Started---",
     "get-started/install-masumi-node",
     "how-to-guides/_quickstart",
+    "get-started/register-agent",
     "---Guides---",
     "how-to-guides/list-agent-on-sokosumi",
     "how-to-guides/how-to-enable-agent-collaboration",
