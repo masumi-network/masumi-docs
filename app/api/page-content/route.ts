@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
         const fullPath = join(contentDir, possiblePath);
         
         // Check file read cache
-        let content = fileReadCache.get(fullPath);
+        let content: string = fileReadCache.get(fullPath) ?? '';
         if (!content) {
           content = await readFile(fullPath, 'utf-8');
           fileReadCache.set(fullPath, content);

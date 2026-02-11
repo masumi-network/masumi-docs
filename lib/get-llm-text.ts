@@ -37,25 +37,30 @@ function cleanText(text: string): string {
 }
 
 export async function getLLMText(page: Page): Promise<string> {
+  const absolutePath = page.absolutePath;
+  if (!absolutePath) {
+    throw new Error(`Page "${page.url}" has no absolutePath`);
+  }
+
   // Check cache first
-  const cacheKey = `llm-text:${page.absolutePath}:${page.url}`;
+  const cacheKey = `llm-text:${absolutePath}:${page.url}`;
   const cached = llmTextCache.get(cacheKey);
   if (cached) {
     return cached;
   }
 
   // Check file read cache
-  let rawContent = fileReadCache.get(page.absolutePath);
+  let rawContent: string = fileReadCache.get(absolutePath) ?? '';
   if (!rawContent) {
-    rawContent = await readFile(page.absolutePath, 'utf-8');
-    fileReadCache.set(page.absolutePath, rawContent);
+    rawContent = await readFile(absolutePath, 'utf-8');
+    fileReadCache.set(absolutePath, rawContent);
   }
 
   // Use shared processor instance (reusable, more memory efficient)
   const processor = getSharedProcessor();
 
   const processed = await processor.process({
-    path: page.absolutePath,
+    path: absolutePath,
     value: rawContent,
   });
 

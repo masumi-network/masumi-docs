@@ -1,4 +1,5 @@
 import { generateFiles } from 'fumadocs-openapi';
+import { createOpenAPI } from 'fumadocs-openapi/server';
 import { rimraf } from 'rimraf';
 import { promises as fs } from 'fs';
 import path from 'path';
@@ -196,6 +197,17 @@ async function createMetaJsonFiles() {
   console.log('✅ Meta.json files created successfully!');
 }
 
+async function generateServiceDocs(specUrl, outputPath, serviceName) {
+  const input = createOpenAPI({ input: [specUrl] });
+  await generateFiles({
+    input,
+    output: outputPath,
+    per: 'operation',
+    includeDescription: true,
+  });
+  console.log(`✅ ${serviceName} API generated`);
+}
+
 export async function generateDocs() {
   console.log('🧹 Cleaning generated directories...');
   await rimraf('./content/docs/api-reference/(generated)');
@@ -204,21 +216,16 @@ export async function generateDocs() {
   
   // Generate both payment and registry docs in parallel
   await Promise.all([
-    // Payment Service API
-    generateFiles({
-      input: [paymentSpecUrl],
-      output: './content/docs/api-reference/(generated)/payment-service',
-      per: 'operation',
-      includeDescription: true,
-    }).then(() => console.log('✅ Payment Service API generated')),
-    
-    // Registry Service API
-    generateFiles({
-      input: [registrySpecUrl],
-      output: './content/docs/api-reference/(generated)/registry-service',
-      per: 'operation',
-      includeDescription: true,
-    }).then(() => console.log('✅ Registry Service API generated'))
+    generateServiceDocs(
+      paymentSpecUrl,
+      './content/docs/api-reference/(generated)/payment-service',
+      'Payment Service'
+    ),
+    generateServiceDocs(
+      registrySpecUrl,
+      './content/docs/api-reference/(generated)/registry-service',
+      'Registry Service'
+    ),
   ]);
 
   // Reorganize files into flat structure

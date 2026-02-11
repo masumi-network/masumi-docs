@@ -7,6 +7,35 @@
 @source "../node_modules/masumi-schema-validator-component/dist/index.mjs";
 @source "../node_modules/masumi-schema-validator-component/dist/index.js";
 
+/* Define missing fumadocs diff utility classes for Tailwind v4 */
+@utility bg-fd-diff-remove {
+  background-color: hsl(0, 100%, 97%);
+  @variant dark {
+    background-color: hsl(0, 65%, 15%);
+  }
+}
+
+@utility text-fd-diff-remove-symbol {
+  color: hsl(0, 100%, 50%);
+  @variant dark {
+    color: hsl(0, 100%, 70%);
+  }
+}
+
+@utility bg-fd-diff-add {
+  background-color: hsl(142, 76%, 96%);
+  @variant dark {
+    background-color: hsl(142, 70%, 20%);
+  }
+}
+
+@utility text-fd-diff-add-symbol {
+  color: hsl(142, 70%, 45%);
+  @variant dark {
+    color: hsl(142, 70%, 65%);
+  }
+}
+
 /* Fix search field hover - only border, not full background */
 .hover\:bg-fd-accent:hover {
   background-color: transparent !important;

@@ -1,16 +1,14 @@
 import { docs } from '@/.source';
 import { loader } from 'fumadocs-core/source';
-import { createOpenAPI, attachFile } from 'fumadocs-openapi/server';
+import { createOpenAPI, openapiPlugin } from 'fumadocs-openapi/server';
 import { icons } from 'lucide-react';
 import { createElement } from 'react';
 
-// See https://fumadocs.vercel.app/docs/headless/source-api for more info
+// See https://fumadocs.dev/docs/headless/source-api for more info
 export const source = loader({
   baseUrl: '/',
   source: docs.toFumadocsSource(),
-  pageTree: {
-    attachFile, // adds badge to page tree items
-  },
+  plugins: [openapiPlugin()],
   icon(icon) {
     if (!icon) {
       // You may set a default icon
