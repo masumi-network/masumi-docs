@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const EXAMPLES = [
     {
@@ -9,7 +9,7 @@ export const EXAMPLES = [
       value: `[
     {
       "id": "name",
-      "type": "string",
+      "type": "text",
       "name": "Full Name",
       "data": {
         "placeholder": "Enter your full name",
@@ -22,7 +22,7 @@ export const EXAMPLES = [
     },
     {
       "id": "email",
-      "type": "string",
+      "type": "email",
       "name": "Email Address",
       "data": {
         "placeholder": "your.email@example.com",
@@ -40,6 +40,7 @@ export const EXAMPLES = [
         "description": "Your current age (optional)"
       },
       "validations": [
+        { "validation": "optional", "value": "boolean" },
         { "validation": "min", "value": "18" },
         { "validation": "max", "value": "120" },
         { "validation": "format", "value": "integer" }
@@ -64,15 +65,18 @@ export const EXAMPLES = [
       "name": "Newsletter Subscription",
       "data": {
         "description": "Subscribe to our newsletter for updates (optional)"
-      }
+      },
+      "validations": [
+        { "validation": "optional", "value": "boolean" }
+      ]
     }
   ]`,
     },
     {
-      label: 'String Input',
+      label: 'Email Input',
       value: `{
     "id": "email-input",
-    "type": "string",
+    "type": "email",
     "name": "Email",
     "data": {
       "placeholder": "Enter your email",
@@ -95,6 +99,7 @@ export const EXAMPLES = [
       "description": "User's age in years (optional)"
     },
     "validations": [
+      { "validation": "optional", "value": "boolean" },
       { "validation": "min", "value": "18" },
       { "validation": "max", "value": "120" },
       { "validation": "format", "value": "integer" }
@@ -135,11 +140,14 @@ export const EXAMPLES = [
     "type": "file",
     "name": "Document Upload",
     "data": {
-      "accept": ".pdf,.doc,.docx",
-      "maxSize": "10485760",
-      "description": "PDF or Word documents only (max 10MB)",
-      "outputFormat": "base64"
-    }
+      "description": "PDF or Word documents only (max 4.5MB)",
+      "outputFormat": "url"
+    },
+    "validations": [
+      { "validation": "accept", "value": ".pdf,.doc,.docx" },
+      { "validation": "min", "value": "1" },
+      { "validation": "max", "value": "1" }
+    ]
   }`,
     },
     {
@@ -148,7 +156,7 @@ export const EXAMPLES = [
     "input_data": [
       {
         "id": "project-name",
-        "type": "string",
+        "type": "text",
         "name": "Project Name",
         "data": {
           "placeholder": "Enter project name",
@@ -161,13 +169,14 @@ export const EXAMPLES = [
       },
       {
         "id": "description",
-        "type": "string", 
+        "type": "textarea", 
         "name": "Description",
         "data": {
           "placeholder": "Describe your project",
           "description": "Brief description of the project (optional)"
         },
         "validations": [
+          { "validation": "optional", "value": "boolean" },
           { "validation": "max", "value": "500" }
         ]
       },
@@ -177,8 +186,13 @@ export const EXAMPLES = [
         "name": "Project Document",
         "data": {
           "description": "Upload project documentation (PDF/Word, max 4.5MB)",
-          "outputFormat": "string"
-        }
+          "outputFormat": "url"
+        },
+        "validations": [
+          { "validation": "accept", "value": ".pdf,.doc,.docx" },
+          { "validation": "min", "value": "1" },
+          { "validation": "max", "value": "1" }
+        ]
       },
       {
         "id": "priority",
@@ -215,11 +229,41 @@ const SchemaPlayground = dynamic(
 );
 
 export const SchemaValidator = () => {
+  // Detect theme from the app (single source of truth)
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof document !== 'undefined') {
+      return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    }
+    return 'light';
+  });
+
+  useEffect(() => {
+    // Watch for theme changes on the document element
+    const checkTheme = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setTheme(isDark ? 'dark' : 'light');
+    };
+
+    checkTheme();
+
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <SchemaPlayground 
       examples={EXAMPLES}
       initialSchema={EXAMPLES[0].value}
       onSchemaChange={() => {}}
+      className="not-prose"
+      theme={theme}
     />
   );
 };

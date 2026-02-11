@@ -3,6 +3,10 @@
 @import 'fumadocs-ui/css/preset.css';
 @import 'fumadocs-openapi/css/preset.css';
 
+/* Ensure Tailwind scans external schema validator classes (including dark variants). */
+@source "../node_modules/masumi-schema-validator-component/dist/index.mjs";
+@source "../node_modules/masumi-schema-validator-component/dist/index.js";
+
 /* Fix search field hover - only border, not full background */
 .hover\:bg-fd-accent:hover {
   background-color: transparent !important;
