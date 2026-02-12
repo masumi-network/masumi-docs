@@ -39,7 +39,7 @@
 /* Fix search field hover - only border, not full background */
 .hover\:bg-fd-accent:hover {
   background-color: transparent !important;
-  border-color: hsl(345, 70%, 52%) !important; /* Masumi brand pink/red/orange border */
+  border-color: hsl(340, 37%, 48%) !important; /* Masumi brand pink/red/orange border */
 }
 
 .hover\:text-fd-accent-foreground:hover {
@@ -89,13 +89,13 @@
   color: hsl(345, 70%, 65%) !important;
 }
 
-/* Light mode links - Masumi brand accent (only apply when not in dark mode) */
+/* Light mode links and h2 - Masumi brand accent (only apply when not in dark mode) */
 :not(.dark) a:not([class*="bg-"]):not([class*="text-fd-muted"]) {
-  color: hsl(345, 70%, 52%) !important;
+  color: hsl(343, 67%, 61%) !important;
 }
 
 :not(.dark) a:not([class*="bg-"]):not([class*="text-fd-muted"]):hover {
-  color: hsl(345, 70%, 47%) !important;
+  color: hsl(337, 58%, 45%) !important;
 }
 
 /* Fix search result highlighting - use subtle background instead of solid accent */
@@ -141,4 +141,22 @@
 .dark [data-highlighted].bg-fd-accent svg,
 .dark [aria-selected="true"].bg-fd-accent svg {
   color: hsl(345, 70%, 65%) !important;
+}
+
+/* Internal page anchor links - same color as normal text */
+a[href^="#"]:not([class*="bg-"]):not([class*="text-fd-muted"]) {
+  color: hsl(220, 13%, 9%) !important; /* Same as normal text in light mode */
+}
+
+a[href^="#"]:not([class*="bg-"]):not([class*="text-fd-muted"]):hover {
+  color: hsl(258, 5%, 38%) !important; /* Keep same color on hover */
+}
+
+/* Big heading links in dark mode - white main color, light grey on hover */
+.dark :is(h1, h2, h3, h4, h5 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5) a:not([class*="bg-"]):not([class*="text-fd-muted"]) {
+  color: hsl(0, 0%, 100%) !important; /* White */
+}
+
+.dark :is(h1, h2, h3, h4, h5, .prose h1, .prose h2, .prose h3, .prose h4, .prose h5) a:not([class*="bg-"]):not([class*="text-fd-muted"]):hover {
+  color: hsl(220, 8%, 75%) !important; /* Light grey on hover */
 }
