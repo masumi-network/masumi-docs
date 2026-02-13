@@ -79,7 +79,7 @@ Manual setup is recommended for development mode or more complex configurations.
 **Prerequisites**
 
 * Node.js v18.x or later
-* PostgreSQL 15 database
+* PostgreSQL 15 database (or go to [Installing PostgreSQL Database](/documentation/installing-postgresql-database))
 * Blockfrost API Key (to interact with the Cardano blockchain)
 
 The node consists of two different repositories. We start with the [Payment Service](https://github.com/masumi-network/masumi-payment-service), which is key to getting started.
@@ -114,15 +114,47 @@ npm install
 <Step>
 **Setting Up PostgreSQL**
 
-If you **don't have PostgreSQL installed**, please refer to: [Installing PostgreSQL Database](/documentation/installing-postgresql-database)
+If you had postgres already installed use this commands to create the database. If not, please refer to [Installing PostgreSQL Database](/documentation/installing-postgresql-database).
 
-**Creating the Database:**
+<Tabs items={['macOS', 'Windows', 'Linux (Ubuntu)']}>
 
+<Tab value="macOS">
+Change '**your_secure_password**' to an **own password** if you don't have already one for user postgres. 
 ```bash
 psql postgres
-create database masumi_payment;
+CREATE DATABASE masumi_payment;
+ALTER USER postgres PASSWORD 'your_secure_password';
 \q
 ```
+</Tab>
+
+<Tab value="Windows">
+```bash
+psql -U postgres
+```
+```bash
+CREATE DATABASE masumi_payment;
+\q
+```
+<Callout type="info">
+Your postgres user password should already have been set during installation.
+</Callout>
+</Tab>
+
+<Tab value="Linux (Ubuntu)">
+```bash
+sudo -u postgres createdb masumi_payment;
+```
+Change '**your_secure_password**' to an **own password** if you don't have already one for user postgres:
+```bash
+sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'your_secure_password';"
+```
+<Callout type="info">
+If you see a "Permission denied" message, don't worry - it's harmless. The database was created successfully.
+</Callout>
+</Tab>
+
+</Tabs>
 </Step>
 
 <Step>
@@ -144,8 +176,8 @@ BLOCKFROST_API_KEY_PREPROD="your_blockfrost_api_key"
 ```
 
 <Callout type="info">
-* **Replace** `"your_username:your_password"` with your actual PostgreSQL credentials.
-* Get a free Blockfrost API Key: 
+* **DATABASE_URL**: "postgresql://**&lt;USERNAME&gt;**:**&lt;PASSWORD&gt;**@localhost:5432/**&lt;DATABASE&gt;**"
+* Get a free Blockfrost API Key for blockchain interactions:
 <GetBlockfrostKey/>
 * Set the Encryption Key: 
 <GenerateEncryptionKey/>
@@ -161,6 +193,7 @@ BLOCKFROST_API_KEY_PREPROD="your_blockfrost_api_key"
 Run the following commands to configure the database schema:
 
 ```bash
+npm run prisma:generate
 npm run prisma:migrate
 npm run prisma:seed
 ```
@@ -192,7 +225,8 @@ cd ..
 **Start the Masumi Node**
 
 ```bash
-npm run build && npm start
+npm run build
+npm start
 ```
 </Step>
 
@@ -206,11 +240,21 @@ npm run build && npm start
 
 Test the API:
 
+<Tabs items={['macOS/Linux', 'Windows']}>
+
+<Tab value="macOS/Linux">
 ```bash
-curl -X 'GET' \
-  'http://localhost:3001/api/v1/health/' \
-  -H 'accept: application/json'
+curl -X GET "http://localhost:3001/api/v1/health/" -H "accept: application/json"
 ```
+</Tab>
+
+<Tab value="Windows">
+```bash
+curl.exe -X GET "http://localhost:3001/api/v1/health/" -H "accept: application/json"
+```
+</Tab>
+
+</Tabs>
 
 If everything is set up correctly, you should receive:
 
