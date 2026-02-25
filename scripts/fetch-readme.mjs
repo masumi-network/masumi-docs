@@ -24,42 +24,11 @@ try {
 const REPOS = [
   {
     owner: 'masumi-network',
-    repo: 'agentic-service-wrapper',
-    outputPath: './content/docs/documentation/get-started/_agentic-service-wrapper.mdx',
-    isTabContent: true
-  },
-  {
-    owner: 'masumi-network',
     repo: 'masumi-mcp-server',
     outputPath: './content/docs/documentation/technical-documentation/_masumi-mcp-server.mdx',
     isTabContent: false,
     customTitle: 'Masumi MCP Server',
     customIcon: 'Server'
-  },
-  // Integration branches
-  {
-    owner: 'masumi-network',
-    repo: 'agentic-service-wrapper',
-    branch: 'n8n',
-    outputPath: './content/docs/documentation/integrations/agentic-service-wrapper/_n8n.mdx',
-    isTabContent: false,
-    customTitle: 'n8n'
-  },
-  {
-    owner: 'masumi-network',
-    repo: 'agentic-service-wrapper',
-    branch: 'langchain',
-    outputPath: './content/docs/documentation/integrations/agentic-service-wrapper/_langchain.mdx',
-    isTabContent: false,
-    customTitle: 'LangChain'
-  },
-  {
-    owner: 'masumi-network',
-    repo: 'agentic-service-wrapper',
-    branch: 'crewai',
-    outputPath: './content/docs/documentation/integrations/agentic-service-wrapper/_crewai.mdx',
-    isTabContent: false,
-    customTitle: 'CrewAI'
   },
   // MIPs
   {
@@ -507,7 +476,60 @@ ${imports.join('\n')}
     console.log(`✅ Generated ${outputPath}`);
   }
   
+  // Write static (hardcoded) pages that are no longer fetched from external repos
+  await writeStaticPages();
+
   console.log('✅ All README files fetched successfully!');
+}
+
+async function writeStaticPages() {
+  const staticPages = [
+    {
+      outputPath: './content/docs/documentation/get-started/_agentic-service-wrapper.mdx',
+      content: `---
+title: "Railway Deployment"
+description: Deploy Masumi Payment Service using Railway templates
+
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
+
+## Railway Deployment
+
+This example uses <a href="https://railway.com?referralCode=pa1ar" target="_blank">Railway</a> templates.
+
+Railway is a cloud development platform that enables developers to deploy, manage and scale applications and databases with minimal configuration.
+
+Railway templates we provide are pointing to the open-source repositories of Masumi organisation. If you want to be extra careful, You can also fork the repositories first, and still use the templates by just pointing them to your forks.
+
+### Prerequisites
+
+- <a href="https://blockfrost.io/" target="_blank">Blockfrost</a> API key
+- <a href="https://railway.com?referralCode=pa1ar" target="_blank">Railway account</a> (free trial is 30 days or $5)
+
+### How to Deploy
+
+1. **Deploy <a href="https://github.com/masumi-network/masumi-payment-service" target="_blank">Masumi Payment Service</a>**:
+
+    [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/masumi-payment-service-official?referralCode=padierfind)
+   - Use the template in an existing or new project (in existing project, "Create" > "Template" > search for "Masumi Payment Service")
+   - Provide Blockfrost API key in variables (required to click "deploy")
+   - Click on deploy, watch the logs, wait for it (takes 5+ minutes, depending on the load on Railway)
+   - You should see 2 services on your canvas, connected with an dotted arrow: a PostgreSQL database and a Masumi Payment Service.
+   - Click on Masumi Payment Service on the canvas > Settings > Networking > Generate URL
+   - Test at public URL \`/admin\` or \`/docs\`. Your default admin key (used to login to the admin panel and sign transactions) is in your variables. **Change it on the admin panel.**
+   - **Important:** Masumi API endpoints must include \`/api/v1/\`!  Be sure to append that slugs in the next steps (deploying agentic service).
+`
+    }
+  ];
+
+  for (const { outputPath, content } of staticPages) {
+    const dir = path.dirname(outputPath);
+    await fs.mkdir(dir, { recursive: true });
+    await fs.writeFile(outputPath, content);
+    console.log(`✅ Generated static page ${outputPath}`);
+  }
 }
 
 await generateReadmePages().catch((e) => {
