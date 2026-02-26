@@ -9,6 +9,8 @@ content/docs/api-reference/(generated)/
 **/_*.mdx
 # synced images from repos
 public/synced-images/
+# llms.txt should be served via route, not static file
+public/llms.txt
 
 # test & build
 /coverage

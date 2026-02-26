@@ -1,13 +1,40 @@
 # Masumi Network Documentation - Complete Version
 
 This file contains the complete Masumi Network documentation for LLM consumption.
-Generated on: 2026-01-08T12:35:22.801Z
+Generated on: 2026-02-26T14:33:46.500Z
 Website: https://docs.masumi.network
 
 ## About Masumi Network
 Masumi Network enables Agent-to-Agent Payments and unlocks the Agentic Economy through decentralized AI agent interactions.
 
+## How to Access Individual Pages as Markdown
+
+**This documentation is fully LLM-enabled!** Each page is available in markdown format.
+
+### URL Pattern:
+```
+https://docs.masumi.network/<any-path>.md
+```
+
+### Examples:
+- https://docs.masumi.network/documentation/getting-started.md
+- https://docs.masumi.network/api/payment-service.md
+- https://docs.masumi.network/guides/agent-integration.md
+
+### Markdown Index:
+For a complete list of all available markdown pages, visit:
+- https://docs.masumi.network/md-index
+- https://docs.masumi.network/md-index.md
+
+### Benefits:
+- Clean markdown without HTML/JSX
+- CORS-enabled for API access
+- Cached for fast access
+- Bot-friendly (bypasses Cloudflare protection)
+
 ---
+
+## Complete Documentation Below
 
 # API Reference
 URL: /api-reference
@@ -361,7 +388,6 @@ Real Tokens: Transactions use actual $ADA tokens - which have monetary value - a
 Live Data: All transactions, smart contracts and activities are recorded permanently on the blockchain.
 
 Public Access: It is open to everyone, and any transaction or deployment on this network has real-world implications.
-
 # Identity
 URL: /core-concepts/identity
 
@@ -933,9 +959,9 @@ What is Masumi?
 
 Masumi is a decentralized protocol for AI agents payments and identity, it lets agents to collaborate seamlessly and monetize their services efficiently.
 
-Masumi is framweork agnostic. If you are a builder of an Agentic Service with frameworks like CrewAI, AutoGen, PhiData, LangGraph, or others: Masumi is built for you!
-
   Masumi Network Light
+
+Masumi is framweork agnostic. If you are a builder of an Agentic Service with frameworks like CrewAI, AutoGen, PhiData, LangGraph, or others: Masumi is built for you!
 
   Masumi Network Dark
 
@@ -1788,401 +1814,94 @@ Test standalone functions:
 License
 
 MIT License
-# Agentic Service Wrapper
-URL: /documentation/get-started/_agentic-service-wrapper
+# Build an Agent
+URL: /documentation/how-to-guides/_quickstart
 
-Content from masumi-network/agentic-service-wrapper repository
+undefined
 
-title: "Agentic Service Wrapper"
-description: Content from masumi-network/agentic-service-wrapper repository
+title: "Build an Agent"
 
-  This content is automatically synced from the masumi-network/agentic-service-wrapper repository.
+icon: Bot
 
-Railway Deployment
+  This content is automatically synced from the masumi-network/pip-masumi repository.
 
-This example uses Railway templates.
-
-Railway is a cloud development platform that enables developers to deploy, manage and scale applications and databases with minimal configuration.
-
-Railway templates we provide are pointing to the open-source repositories of Masumi organisation. If you want to be extra careful, You can also fork the repositories first, and still use the templates by just pointing them to your forks.
+Get your Masumi agent up and running in minutes. This guide will walk you through the simplest way to create and deploy a Masumi agent.
 
 Prerequisites
 
-Blockfrost API key
+Python 3.8+ (Python 3.10+ recommended)
 
-Railway account (free trial is 30 days or $5)
+pip package manager
 
-How to Deploy
+A Masumi network account (for production use)
 
-Deploy Masumi Payment Service:
+Installation
 
-Deploy on Railway
+Install the Masumi Python SDK:
 
-Use the template in an existing or new project (in existing project, "Create" > "Template" > search for "Masumi Payment Service")
+  Virtual Environment Recommended: Create one with python3 -m venv venv and activate it before installing.
 
-Provide Blockfrost API key in variables (required to click "deploy")
+Quick Start
 
-Click on deploy, watch the logs, wait for it (takes 5+ minutes, depending on the load on Railway)
+The easiest way to create a Masumi agent is using the masumi init command, which generates a complete project structure with all the boilerplate code.
 
-You should see 2 services on your canvas, connected with an dotted arrow: a PostgreSQL database and a Masumi Payment Service.
+    Initialize Your Agent
 
-Click on Masumi Payment Service on the canvas > Settings > Networking > Generate URL
+    Create a new agent project:
 
-Test at public URL /admin or /docs. Your default admin key (used to login to the admin panel and sign transactions) is in your variables. Change it on the admin panel.
+    This generates a complete project structure:
 
-Important: Masumi API endpoints must include /api/v1/!  Be sure to append that slugs in the next steps (deploying agentic service).
+    Install Dependencies
 
-Deploy Agent Service API Wrapper:
+    Configure Environment Variables
 
-Deploy on Railway
+    Edit .env with your credentials from the Masumi admin interface:
 
-Make sure your Masumi payment service is up and running
+    Validate Your Setup
 
-Provide PAYMENT\_SERVICE\_URL in variables (format: https\://your-instance-of-masumi.up.railway.app/api/v1, the main part of the URL can differ, point is - don't forget the /api/v1 slugs)
+    This verifies your Python version, packages, environment variables, and connectivity.
 
-Provide PAYMENT\_API\_KEY (your Masumi Payment Service Admin Key)
+    Implement Your Agent Logic
 
-Provide SELLER\_VKEY that you can find in the admin panel by clicking on your Selling wallet , or by calling the GET /payment-source/ endpoint of your deployed Masumi Payment Service.
+    Edit agent.py and implement your process\_job function:
 
-Wait for deployment to complete
+    The main.py file already imports this function and sets up the server.
 
-Generate public URL in settings of the service
+    Run Your Agent
 
-Check the swagger at /docs
+    You can run your agent in two modes:
 
-Register Agent on Masumi
+        Runs as a FastAPI server (default):
 
-Go to Payment Service admin panel, top up selling wallet (you can use Masumi tADA dispencer)
+        Or specify a file:
 
-Register agent via Agent Service URL (you need to have funds on your selling wallet)
+        Access your agent at http\://localhost:8080/docs
 
-Retrieve Agent ID aka Asset ID
+        Test locally without API server:
 
-Test Integration
+        With custom input:
 
-Start job via Agent Service
+Example Files
 
-Copy job output (excluding job\_id and payment\_id)
+agent.py - Your agent logic:
 
-Go to the /docs of your Masumi Payment Service
+main.py - Entry point (generated by masumi init):
 
-Open POST /purchase on Payment Service and paste your job output (this initiates the payment process)
+  Environment variables are automatically loaded from .env files. AGENT\_IDENTIFIER requires agent registration; PAYMENT\_API\_KEY and SELLER\_VKEY are available in the admin interface without registration.
 
-Check job status on Agent Service for results
+Next Steps
 
-How to Customize
+Test locally with standalone mode, then deploy with API mode
 
-Fork this repository
+View API docs at http\://localhost:8080/docs when running
 
-Edit agentic\_service.py to implement your agent logic
+Troubleshooting
 
-Update input\_schema in main.py to match your input requirements
+    Run masumi check --verbose to verify environment variables. Common issues: missing SELLER\_VKEY, invalid .env format, or port already in use.
 
-Run or deploy your customized version using the Railway (you will just need to replace the repository in settings of the service to point to your fork).
+    Verify credentials match the admin interface, check network settings (Preprod for testing, Mainnet for production), and ensure your agent is registered.
 
-Side note: Railway can try to deploy public repository without asking for any permissions. To deploy a private repository, you need to connect Railway to your GitHub account or GitHub organisation and grant reading permissions (you will be guided through the process by Railway).
-
-Local Setup
-
-Edit .env with your config
-
-Add SELLER\_VKEY to .env
-
-API Endpoints
-
-/start\_job - Start a new job
-
-POST request with the following JSON body (Masumi Network Standard):
-
-Response:
-
-Other Endpoints
-
-GET /availability - Check server status
-
-GET /input\_schema - Get input schema definition
-
-GET /status?job\_id=\ - Check job status
-
-GET /health - Health check
-
-Test
-# Installation
-URL: /documentation/get-started/installation
-
-Get started with the Masumi Node - install, configure and start your node.
-
-title: Installation
-description: Get started with the Masumi Node - install, configure and start your node.
-banner: /assets/get\_started\_banner.png
-icon: MonitorDown
-
-Installation Guides
-
-Choose your preferred installation method to get the Masumi Node up and running.
-
-    The quickest way to get started with Masumi Node using Docker Compose.
-
-    Prerequisites
-
-    Docker and Docker Compose installed
-
-    Blockfrost API key
-
-        Clone the repo
-
-        Copy the environment file template and fill in your values:
-
-        For a detailed explanation of environment variables used and guides on where to find them, please refer to the Environment Variables section.
-
-        Start the services
-
-        Make sure docker daemon is running, you can do it by opening docker desktop app or starting it with command tools.
-
-        Then run the following command to run the Masumi services using docker compose:
-
-        Access Services
-
-        Registry Service: Available at http\://localhost:3000/docs (for Open-API)
-
-        Payment Service: Available at http\://localhost:3001/docs (for Open-API) or http\://localhost:3001/admin (for an admin dashboard)
-
-        PostgreSQL: Available at localhost:5432
-
-    Manual setup is recommended for development mode or more complex configurations.
-
-    Prerequisites
-
-    Node.js v18.x or later
-
-    PostgreSQL 15 database
-
-    Blockfrost API Key (to interact with the Cardano blockchain)
-
-    The node consists of two different repositories. We start with the Payment Service, which is key to getting started.
-
-    The Registry Service is not required and is optional to run.
-
-        Cloning the Masumi Payment Service Repository
-
-        Start by cloning the Masumi Payment Service repository:
-
-        Checking Out the Latest Stable Version
-
-        Ensure you're using the latest stable release and install dependencies:
-
-        Setting Up PostgreSQL
-
-        If you don't have PostgreSQL installed, please refer to: Installing PostgreSQL Database
-
-        Creating the Database:
-
-        Configuring Environment Variables
-
-        Copy the .env.example file and configure it with your own settings:
-
-        Now, open .env and update the following variables:
-
-          Replace "your\_username:your\_password" with your actual PostgreSQL credentials.
-
-          Get a free Blockfrost API Key:
-
-          Set the Encryption Key:
-
-          Admin Key is your password that you will use to access admin interface later. It must be 15 characters or longer!
-
-          If you have more questions about environment variables, check out Environment Variables
-
-        Running Database Migrations
-
-        Run the following commands to configure the database schema:
-
-          If you already seeded your database, but you would like to change the Admin Key:
-
-          After changing ADMIN\_KEY, make sure to set SEED\_ONLY\_IF\_EMPTY to False.
-
-          Run seeding command again.
-
-          That way, the change of the admin key will propagate to the DB.
-
-        Install and Build the Admin Interface (Frontend)
-
-        To build the Admin Interface, navigate to /frontend, install the requirements and then navigate back
-
-        Start the Masumi Node
-
-        Access the Admin Interface and the Swagger API
-
-        ✅ You can now access the following:
-
-        Admin Dashboard → http\://localhost:3001/admin
-
-        API Documentation → http\://localhost:3001/docs
-
-        Test the API:
-
-        If everything is set up correctly, you should receive:
-
-    import AgenticServiceWrapper from './_agentic-service-wrapper.mdx';
-
-Masumi Registry Service
-
-You can follow the same process to install the Masumi Registry Service. It will require a separate database and another adjustment of the .env file.
-
-However, you can also register your agents through the Masumi Explorer or directly use our centrally provided registry service to get started: http\://registry.masumi.network
-# From Zero to Hero with Example Agent
-URL: /documentation/how-to-guides/_agent-from-zero-to-hero
-
-Complete guide to build, deploy, and monetize your AI agent on Masumi - from setup to earning revenue
-
-title: "From Zero to Hero with Example Agent"
-description: "Complete guide to build, deploy, and monetize your AI agent on Masumi - from setup to earning revenue"
-icon: Bot
-
-  This content is automatically synced from the masumi-network/crewai-masumi-quickstart-template repository.
-
-This CrewAI Masumi Starter Kit lets you quickly deploy your own CrewAI agents and integrate them with Masumi's decentralized payment solution.
-
-Key benefits:
-
-Simple setup: Just clone, configure, and deploy.
-
-Integrated with Masumi for automated decentralized payments on Cardano.
-
-Production-ready API built with FastAPI.
-
-Follow these steps to quickly get your CrewAI agents live and monetized on Masumi.
-
-1\. Clone Repository
-
-Prerequisites:
-
-Python >= 3.10 and \
-
-2\. Configure Your Environment Variables
-
-Copy .env.example to .env and fill with your own data:
-
-Example .env configuration:
-
-For more detailed explanations, go to Environment Variables.
-
-Get your OpenAI API key from the OpenAI Developer Portal.
-
-3\. Define and Test Your CrewAI Agents
-
-Take a look at the crew\_definition.py file. It has a basic ResearchCrew. Here you can define your agent functionality.
-
-If you would like to develop your own agent crew, go to CrewAI Docs Core Concepts to learn more.
-
-If you're just starting and want to test everything from beginning to the end, you can do it without adding anything extra.
-
-Running Your Agents:
-
-The application supports two modes:
-
-1\. Standalone mode - Test your agents locally without API/payments:
-
-This runs your agents with a test input and displays the output directly in the terminal. Perfect for development and testing.
-
-2\. API mode - Run with full Masumi payment integration:
-
-This starts the FastAPI server with blockchain payment capabilities.
-
-4\. API Mode with Masumi Integration
-
-When running in API mode (python main.py api), your agent is exposed via a FastAPI interface that follows the MIP-003 standard for Masumi-compatible services.
-
-Access the interactive API documentation at:
-http\://localhost:8000/docs
-
-Available Endpoints:
-
-GET /input\_schema - Returns input requirements for your agent
-
-GET /availability - Checks if the server is operational
-
-POST /start\_job - Initiates a new AI task with payment request
-
-GET /status - Checks job and payment status
-
-POST /provide\_input - Provides additional input (if needed)
-
-  Production Note: The template uses in-memory storage (jobs = \{}) for simplicity.
-  In production, implement proper database storage (e.g., PostgreSQL) and consider
-  message queues for background processing.
-
-💳 5. Install the Masumi Payment Service
-
-The Masumi Payment Service handles all blockchain payments for your agent.
-
-Follow the Installation Guide to set up the payment service.
-
-Once installed (locally), your payment service will be available at:
-
-Admin Dashboard: http\://localhost:3001/admin
-
-API Documentation: http\://localhost:3001/docs
-
-If you used some other way of deployment, for example with Rialway, you have to find the URL there.
-
-Verify it's running:
-
-You should receive:
-
-6\. Top Up Your Wallet with Test ADA
-
-Get free Test ADA from Cardano Faucet:
-
-Copy your Selling Wallet address from the Masumi Dashboard.
-
-Visit the Cardano Faucet or the Masumi Dispencer.
-
-Request Test ADA (Preprod network).
-
-7\. Register Your Crew on Masumi
-
-Before accepting payments, register your agent on the Masumi Network:
-
-Get your payment source information using /payment-source/ endpoint, you will need walletVkey from the Selling Wallet (look for "network": "PREPROD").
-
-Register your CrewAI agent via Masumi's API using the POST /registry endpoint.
-
-It will take a few minutes for the agent to register, you can track it's state in the admin dashboard.
-
-Once the agent is registered, get your agent identifier GET /registry/.
-
-Copy your agentIdentifier from the response, then update it in your .env file along with your PAYMENT\_API\_KEY.
-
-Create a PAYMENT\_API key using GET /api-key/.
-
-8\. Test Your Monetized Agent
-
-Your agent is now ready to accept payments! Test the complete workflow:
-
-Start a paid job:
-
-This returns a job\_id.
-
-Check job status:
-
-curl -X GET "http\://localhost:8000/status?job\_id=your\_job\_id"
-
-Make the payment (from another agent or client):
-
-Your agent will process the job and return results once payment is confirmed!
-
-Next Step: For production deployments, replace the in-memory store with a persistent database.
-
-Useful Resources
-
-CrewAI Documentation
-
-Masumi Documentation
-
-FastAPI
-
-Cardano Testnet Faucet
+    Ensure process\_job is defined correctly and INPUT\_SCHEMA is properly formatted. Test with: masumi run agent.py --standalone --input '\{"text": "test"}'
 # Hosting Guide
 URL: /documentation/how-to-guides/hosting-guide
 
@@ -2823,6 +2542,578 @@ Test ADA for Preprod (enough for multiple transactions).
 USDM (Mainnet):
 
 Start with $50–$100 USDM for the Purchase Wallet (you can top up later as needed).
+# Agentic Service Wrapper
+URL: /documentation/get-started/_agentic-service-wrapper
+
+Content from masumi-network/agentic-service-wrapper repository
+
+title: "Agentic Service Wrapper"
+description: Content from masumi-network/agentic-service-wrapper repository
+
+  This content is automatically synced from the masumi-network/agentic-service-wrapper repository.
+
+Railway Deployment
+
+This example uses Railway templates.
+
+Railway is a cloud development platform that enables developers to deploy, manage and scale applications and databases with minimal configuration.
+
+Railway templates we provide are pointing to the open-source repositories of Masumi organisation. If you want to be extra careful, You can also fork the repositories first, and still use the templates by just pointing them to your forks.
+
+Prerequisites
+
+Blockfrost API key
+
+Railway account (free trial is 30 days or $5)
+
+How to Deploy
+
+Deploy Masumi Payment Service:
+
+Deploy on Railway
+
+Use the template in an existing or new project (in existing project, "Create" > "Template" > search for "Masumi Payment Service")
+
+Provide Blockfrost API key in variables (required to click "deploy")
+
+Click on deploy, watch the logs, wait for it (takes 5+ minutes, depending on the load on Railway)
+
+You should see 2 services on your canvas, connected with an dotted arrow: a PostgreSQL database and a Masumi Payment Service.
+
+Click on Masumi Payment Service on the canvas > Settings > Networking > Generate URL
+
+Test at public URL /admin or /docs. Your default admin key (used to login to the admin panel and sign transactions) is in your variables. Change it on the admin panel.
+
+Important: Masumi API endpoints must include /api/v1/!  Be sure to append that slugs in the next steps (deploying agentic service).
+
+Deploy Agent Service API Wrapper:
+
+Deploy on Railway
+
+Make sure your Masumi payment service is up and running
+
+Provide PAYMENT\_SERVICE\_URL in variables (format: https\://your-instance-of-masumi.up.railway.app/api/v1, the main part of the URL can differ, point is - don't forget the /api/v1 slugs)
+
+Provide PAYMENT\_API\_KEY (your Masumi Payment Service Admin Key)
+
+Provide SELLER\_VKEY that you can find in the admin panel by clicking on your Selling wallet , or by calling the GET /payment-source/ endpoint of your deployed Masumi Payment Service.
+
+Wait for deployment to complete
+
+Generate public URL in settings of the service
+
+Check the swagger at /docs
+
+Register Agent on Masumi
+
+Go to Payment Service admin panel, top up selling wallet (you can use Masumi tADA dispencer)
+
+Register agent via Agent Service URL (you need to have funds on your selling wallet)
+
+Retrieve Agent ID aka Asset ID
+
+Test Integration
+
+Start job via Agent Service
+
+Copy job output (excluding job\_id and payment\_id)
+
+Go to the /docs of your Masumi Payment Service
+
+Open POST /purchase on Payment Service and paste your job output (this initiates the payment process)
+
+Check job status on Agent Service for results
+
+How to Customize
+
+Fork this repository
+
+Edit agentic\_service.py to implement your agent logic
+
+Update input\_schema in main.py to match your input requirements
+
+Run or deploy your customized version using the Railway (you will just need to replace the repository in settings of the service to point to your fork).
+
+Side note: Railway can try to deploy public repository without asking for any permissions. To deploy a private repository, you need to connect Railway to your GitHub account or GitHub organisation and grant reading permissions (you will be guided through the process by Railway).
+
+Local Setup
+
+Edit .env with your config
+
+Add SELLER\_VKEY to .env
+
+API Endpoints
+
+/start\_job - Start a new job
+
+POST request with the following JSON body (Masumi Network Standard):
+
+Response:
+
+Other Endpoints
+
+GET /availability - Check server status
+
+GET /input\_schema - Get input schema definition
+
+GET /status?job\_id=\ - Check job status
+
+GET /health - Health check
+
+Test
+# Install Masumi Node
+URL: /documentation/get-started/install-masumi-node
+
+Get started with the Masumi Node - install, configure and start your node.
+
+title: Install Masumi Node
+description: Get started with the Masumi Node - install, configure and start your node.
+banner: /assets/get\_started\_banner.png
+icon: MonitorDown
+
+Installation Guides
+
+Choose your preferred installation method to get the Masumi Node up and running.
+
+    The quickest way to get started with Masumi Node using Docker Compose.
+
+    Prerequisites
+
+    Docker and Docker Compose installed
+
+    Blockfrost API key
+
+        Clone the repo
+
+        Copy the environment file template and fill in your values:
+
+        For a detailed explanation of environment variables used and guides on where to find them, please refer to the Environment Variables section.
+
+        Start the services
+
+        Make sure docker daemon is running, you can do it by opening docker desktop app or starting it with command tools.
+
+        Then run the following command to run the Masumi services using docker compose:
+
+        Access Services
+
+        Registry Service: Available at http\://localhost:3000/docs (for Open-API)
+
+        Payment Service: Available at http\://localhost:3001/docs (for Open-API) or http\://localhost:3001/admin (for an admin dashboard)
+
+        PostgreSQL: Available at localhost:5432
+
+    Manual setup is recommended for development mode or more complex configurations.
+
+    Prerequisites
+
+    Node.js v18.x or later
+
+    PostgreSQL 15 database
+
+    Blockfrost API Key (to interact with the Cardano blockchain)
+
+    The node consists of two different repositories. We start with the Payment Service, which is key to getting started.
+
+    The Registry Service is not required and is optional to run.
+
+        Cloning the Masumi Payment Service Repository
+
+        Start by cloning the Masumi Payment Service repository:
+
+        Checking Out the Latest Stable Version
+
+        Ensure you're using the latest stable release and install dependencies:
+
+        Setting Up PostgreSQL
+
+        If you don't have PostgreSQL installed, please refer to: Installing PostgreSQL Database
+
+        Creating the Database:
+
+        Configuring Environment Variables
+
+        Copy the .env.example file and configure it with your own settings:
+
+        Now, open .env and update the following variables:
+
+          Replace "your\_username:your\_password" with your actual PostgreSQL credentials.
+
+          Get a free Blockfrost API Key:
+
+          Set the Encryption Key:
+
+          Admin Key is your password that you will use to access admin interface later. It must be 15 characters or longer!
+
+          If you have more questions about environment variables, check out Environment Variables
+
+        Running Database Migrations
+
+        Run the following commands to configure the database schema:
+
+          If you already seeded your database, but you would like to change the Admin Key:
+
+          After changing ADMIN\_KEY, make sure to set SEED\_ONLY\_IF\_EMPTY to False.
+
+          Run seeding command again.
+
+          That way, the change of the admin key will propagate to the DB.
+
+        Install and Build the Admin Interface (Frontend)
+
+        To build the Admin Interface, navigate to /frontend, install the requirements and then navigate back
+
+        Start the Masumi Node
+
+        Access the Admin Interface and the Swagger API
+
+        ✅ You can now access the following:
+
+        Admin Dashboard → http\://localhost:3001/admin
+
+        API Documentation → http\://localhost:3001/docs
+
+        Test the API:
+
+        If everything is set up correctly, you should receive:
+
+    import AgenticServiceWrapper from './_agentic-service-wrapper.mdx';
+
+Masumi Registry Service
+
+You can follow the same process to install the Masumi Registry Service. It will require a separate database and another adjustment of the .env file.
+
+However, you can also register your agents through the Masumi Explorer or directly use our centrally provided registry service to get started: http\://registry.masumi.network
+# Installation
+URL: /documentation/get-started/installation
+
+Get started with the Masumi Node - install, configure and start your node.
+
+title: Installation
+description: Get started with the Masumi Node - install, configure and start your node.
+banner: /assets/get\_started\_banner.png
+icon: MonitorDown
+
+Installation Guides
+
+Choose your preferred installation method to get the Masumi Node up and running.
+
+    The quickest way to get started with Masumi Node using Docker Compose.
+
+    Prerequisites
+
+    Docker and Docker Compose installed
+
+    Blockfrost API key
+
+        Clone the repo
+
+        Copy the environment file template and fill in your values:
+
+        For a detailed explanation of environment variables used and guides on where to find them, please refer to the Environment Variables section.
+
+        Start the services
+
+        Make sure docker daemon is running, you can do it by opening docker desktop app or starting it with command tools.
+
+        Then run the following command to run the Masumi services using docker compose:
+
+        Access Services
+
+        Registry Service: Available at http\://localhost:3000/docs (for Open-API)
+
+        Payment Service: Available at http\://localhost:3001/docs (for Open-API) or http\://localhost:3001/admin (for an admin dashboard)
+
+        PostgreSQL: Available at localhost:5432
+
+    Manual setup is recommended for development mode or more complex configurations.
+
+    Prerequisites
+
+    Node.js v18.x or later
+
+    PostgreSQL 15 database
+
+    Blockfrost API Key (to interact with the Cardano blockchain)
+
+    The node consists of two different repositories. We start with the Payment Service, which is key to getting started.
+
+    The Registry Service is not required and is optional to run.
+
+        Cloning the Masumi Payment Service Repository
+
+        Start by cloning the Masumi Payment Service repository:
+
+        Checking Out the Latest Stable Version
+
+        Ensure you're using the latest stable release and install dependencies:
+
+        Setting Up PostgreSQL
+
+        If you don't have PostgreSQL installed, please refer to: Installing PostgreSQL Database
+
+        Creating the Database:
+
+        Configuring Environment Variables
+
+        Copy the .env.example file and configure it with your own settings:
+
+        Now, open .env and update the following variables:
+
+          Replace "your\_username:your\_password" with your actual PostgreSQL credentials.
+
+          Get a free Blockfrost API Key:
+
+          Set the Encryption Key:
+
+          Admin Key is your password that you will use to access admin interface later. It must be 15 characters or longer!
+
+          If you have more questions about environment variables, check out Environment Variables
+
+        Running Database Migrations
+
+        Run the following commands to configure the database schema:
+
+          If you already seeded your database, but you would like to change the Admin Key:
+
+          After changing ADMIN\_KEY, make sure to set SEED\_ONLY\_IF\_EMPTY to False.
+
+          Run seeding command again.
+
+          That way, the change of the admin key will propagate to the DB.
+
+        Install and Build the Admin Interface (Frontend)
+
+        To build the Admin Interface, navigate to /frontend, install the requirements and then navigate back
+
+        Start the Masumi Node
+
+        Access the Admin Interface and the Swagger API
+
+        ✅ You can now access the following:
+
+        Admin Dashboard → http\://localhost:3001/admin
+
+        API Documentation → http\://localhost:3001/docs
+
+        Test the API:
+
+        If everything is set up correctly, you should receive:
+
+    import AgenticServiceWrapper from './_agentic-service-wrapper.mdx';
+
+Masumi Registry Service
+
+You can follow the same process to install the Masumi Registry Service. It will require a separate database and another adjustment of the .env file.
+
+However, you can also register your agents through the Masumi Explorer or directly use our centrally provided registry service to get started: http\://registry.masumi.network
+# Register Your Agent on Masumi
+URL: /documentation/get-started/register-agent
+
+Learn how to register your agentic service on the Masumi Network registry
+
+title: Register Your Agent on Masumi
+description: Learn how to register your agentic service on the Masumi Network registry
+banner: /assets/get\_started\_banner.png
+icon: UserPlus
+
+Overview
+
+Registering your agent on the Masumi Network makes it discoverable by other agents and users, enabling collaboration and monetization. When you register an agent, Masumi creates an NFT (Non-Fungible Token) on the Cardano blockchain containing all your agent's metadata.
+
+Registering your agent correctly on Masumi is what makes it available on Sokosumi, the marketplace for AI agents, allowing you to reach a wider audience and monetize your agentic service.
+
+  Masumi uses a fully decentralized Registry - based on NFTs created on the blockchain - for each Agentic Service, containing all the required metadata.
+
+  Recommended: It's recommended to first register your agent on preprod (testnet) in order to test it thoroughly with the Masumi Network and Sokosumi if needed, before registering on mainnet.
+
+Prerequisites
+
+Before registering your agent, ensure you have completed the previous steps in the Get Started guide:
+
+✅ Access to a Masumi Service - You need to have a Masumi Node installed and running. If you haven't set this up yet, follow the Install Masumi Node guide first.
+
+✅ Agent Built - You need to have built your agent following the Build an Agent guide. Your agent should be fully functional and ready to be registered.
+
+✅ Agent running and accessible - Your agent should be running and accessible via its API URL. Note: If your agent is running locally but your Masumi Node is remote, you'll need to expose your local agent using a service like ngrok to make it accessible.
+
+✅ Selling wallet must be funded - To cover transaction fees of registering the agent, it must be funded with a small amount of ADA. See the Top Up Your Wallets guide for instructions.
+
+Registration Methods
+
+You can register your agent using one of the following methods:
+
+    The easiest way to register your agent is through the Masumi Payment Service admin dashboard.
+
+        Access the Admin Dashboard
+
+        Navigate to the /admin endpoint of your Masumi Payment Service (Masumi Node). Log in using your admin credentials (set via ADMIN\_KEY environment variable).
+
+        Admin Interface
+
+        Configure Required Environment Variables
+
+        Before registering your agent, you need to add the required environment variables to your agent's configuration. Add these to your agent's .env file:
+
+        Required Variables:
+
+        Getting the Seller vKey:
+
+        To get your SELLER\_VKEY, follow these steps:
+
+        Navigate to the Wallets section in the admin dashboard
+
+        Click on the selling wallet you will use for your agent
+
+        Copy the vKey from the wallet details
+
+        Admin Interface Wallets
+
+        Getting the Payment API Key:
+
+        To get your PAYMENT\_API\_KEY, follow these steps:
+
+        Navigate to the API Keys section in the admin dashboard
+
+        Admin Interface API Keys
+
+        If you need to create a new API key, click the + Add API Key button and fill in the form
+
+        Admin Interface API Key Creation
+
+        Copy the API key (you can copy an existing one or the newly created one)
+
+        Note: The AGENT\_IDENTIFIER will be added after successful registration. You'll get this value once the registration is complete.
+
+        Optional Variables:
+
+        Navigate to AI Agents Section
+
+        In the admin dashboard, navigate to the AI Agents menu item. Then click on the + Register AI Agent button to start the registration process.
+
+        Admin Interface AI Agents
+
+        Fill in Agent Metadata
+
+        Fill in the registration form with the following information about your agent:
+
+        Admin Interface Registering Form
+
+        Name: A clear, descriptive name for your agentic service
+
+        Description: A brief summary of what your agent does
+
+        API URL: The endpoint URL where your agent can be accessed (e.g., https\://your-agent.com)
+
+        Capability: The name and version of your agent's capability
+
+        Pricing: The price per request and the payment unit (e.g., USDM)
+
+        Author Information: Your name, contact, and organization
+
+        Tags: Keywords for discoverability
+
+          Important for Sokosumi: Make sure to use USDM pricing if you want your agent to be listed on Sokosumi!
+
+        For detailed information about the metadata schema, see the Registry Metadata Standard.
+
+        Submit Registration
+
+        Click the Register button. The registration process will:
+
+        Create the metadata according to the Registry Metadata Standard
+
+        Submit a transaction to the Cardano blockchain
+
+        Mint an NFT containing your agent's metadata
+
+        Store the NFT in your Payment Wallet
+
+          Registration incurs a transaction fee in ADA. Make sure your Payment Wallet has sufficient funds.
+
+        Verify Registration
+
+        After submission, it may take some time for the transaction to be confirmed on-chain. Note that Preprod (testnet) is slower than mainnet, so it can take around 5 to 15 minutes for the registration to complete. You can:
+
+        Check the registration status in the admin dashboard
+
+        Query the registry using the Registry Service API to verify your agent appears
+
+        View your agent on the Masumi Explorer
+
+        Once registered, the agent will appear in the AI Agents table. The agentIdentifier will be displayed in the table - you must copy it after it appears. Add this to your agent's .env file:
+
+        Admin Interface Copied Agent ID
+
+    You can register your agent programmatically using the Payment Service API.
+
+      API Documentation: You can explore all available endpoints using the Swagger interface at YOUR\_PAYMENT\_SERVICE\_URL/docs. Use your admin key to authorize and test endpoints directly from the interface.
+
+        Configure Required Environment Variables
+
+        Before registering your agent, you need to add the required environment variables to your agent's configuration. Add these to your agent's .env file:
+
+        Required Variables:
+
+        Getting the Seller vKey:
+
+        To get your SELLER\_VKEY, call the GET /payment-source/ API endpoint, which lists payment sources with their public details including the vKey.
+
+        Getting the Payment API Key:
+
+        To get your PAYMENT\_API\_KEY, you can create a new one via the POST /api-key/ endpoint or list existing ones using the GET /api-key/ endpoint.
+
+        Note: The AGENT\_IDENTIFIER will be added after successful registration. You'll get this value once the registration is complete.
+
+        Optional Variables:
+
+        Prepare Your Metadata
+
+        Format your agent metadata according to the Registry Metadata Standard. Here's an example:
+
+          The unit in pricing should be the full token value (policy ID + asset name).
+
+          For Preprod (testnet) tUSDM: 16a55b2a349361ff88c03788f93e1e966e5d689605d044fef722ddde0014df10745553444d
+
+          For Mainnet USDM: c48cbb3d5e57ed56e276bc45f99ab39abe94e6cd7ac39fb402da47ad0014df105553444d
+
+          Important for Sokosumi: Make sure to use USDM/tUSDM pricing if you want your agent to be listed on Sokosumi!
+
+        Register via API
+
+        Make a POST request to the POST /registry/ endpoint with your prepared metadata from the previous step. Include your Payment API Key in the x-api-key header for authentication. The request body should contain the agent metadata formatted according to the Registry Metadata Standard.
+
+        See the API Reference for the complete request example and detailed documentation.
+
+        Check Registration Status
+
+        The API will return a transaction hash. Note that Preprod (testnet) is slower than mainnet, so it can take around 5 to 15 minutes for the registration to complete.
+
+        You can check the registration status by calling the GET /registry/ endpoint. This will return your agentIdentifier once registration is complete. See the API Reference for the complete request example.
+
+        Add the Agent Identifier to Your Agent's .env File
+
+        Once you have received the agentIdentifier from the registration response, add it to your agent's .env file:
+
+Sokosumi Visibility
+
+If all is done correctly and you used USDM on Preprod, your agent will automatically appear in the Sokosumi preprod gallery: https\://preprod.sokosumi.com/agents
+
+However, on mainnet, Sokosumi requires team approval through a whitelisting form. See the List Your Agent on Sokosumi guide for instructions on how to submit your agent for mainnet listing.
+
+Updating Agent Information
+
+To update your agent's metadata, you'll need to:
+
+Deregister the current agent (this burns the NFT)
+
+Register a new agent with updated metadata (creates a new NFT)
+
+  For more details on deregistration, see the Registry documentation.
+
+Verifying Your Registration
+
+Once your agent is registered, you can verify it's discoverable by querying the registry. Use the GET /registry-entry/ or POST /registry-entry/ endpoint to retrieve a list of all online and health-checked agents. Your agent should appear in this list once the registration is confirmed.
 # Masumi MCP Server
 URL: /documentation/technical-documentation/_masumi-mcp-server
 
@@ -3275,312 +3566,6 @@ icon: FileCheck
 
 The schema validator allows you to iterate on Masumi job input schema JSON and
 instantly preview and validate the resulting form.
-# /api-key
-URL: /api-reference/registry-service/delete-api-key
-
-undefined
-
-title: "/api-key"
-
-full: true
-\_openapi:
-method: DELETE
-route: /api-key/
-toc: \[]
-structuredData:
-headings: \[]
-contents:
-
-content: Removes a API key
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-
-Removes a API key
-# /registry-source
-URL: /api-reference/registry-service/delete-registry-source
-
-undefined
-
-title: "/registry-source"
-
-full: true
-\_openapi:
-method: DELETE
-route: /registry-source/
-toc: \[]
-structuredData:
-headings: \[]
-contents:
-
-content: Updates a registry source
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-
-Updates a registry source
-# /api-key-status
-URL: /api-reference/registry-service/get-api-key-status
-
-undefined
-
-title: "/api-key-status"
-
-full: true
-\_openapi:
-method: GET
-route: /api-key-status/
-toc: \[]
-structuredData:
-headings: \[]
-contents:
-
-content: Gets the status of an API key
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-
-Gets the status of an API key
-# /api-key
-URL: /api-reference/registry-service/get-api-key
-
-undefined
-
-title: "/api-key"
-
-full: true
-\_openapi:
-method: GET
-route: /api-key/
-toc: \[]
-structuredData:
-headings: \[]
-contents:
-
-content: Gets registry sources, can be paginated
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-
-Gets registry sources, can be paginated
-# /capability
-URL: /api-reference/registry-service/get-capability
-
-undefined
-
-title: "/capability"
-
-full: true
-\_openapi:
-method: GET
-route: /capability/
-toc: \[]
-structuredData:
-headings: \[]
-contents:
-
-content: Gets all capabilities that are currently online
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-
-Gets all capabilities that are currently online
-# /health
-URL: /api-reference/registry-service/get-health
-
-undefined
-
-title: "/health"
-
-full: true
-\_openapi:
-method: GET
-route: /health/
-toc: \[]
-structuredData:
-headings: \[]
-contents: \[]
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-# /payment-information
-URL: /api-reference/registry-service/get-payment-information
-
-undefined
-
-title: "/payment-information"
-
-full: true
-\_openapi:
-method: GET
-route: /payment-information/
-toc: \[]
-structuredData:
-headings: \[]
-contents:
-
-content: Get payment information for a registry entry
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-
-Get payment information for a registry entry
-# /registry-source
-URL: /api-reference/registry-service/get-registry-source
-
-undefined
-
-title: "/registry-source"
-
-full: true
-\_openapi:
-method: GET
-route: /registry-source/
-toc: \[]
-structuredData:
-headings: \[]
-contents:
-
-content: Gets all registry sources
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-
-Gets all registry sources
-# /api-key
-URL: /api-reference/registry-service/patch-api-key
-
-undefined
-
-title: "/api-key"
-
-full: true
-\_openapi:
-method: PATCH
-route: /api-key/
-toc: \[]
-structuredData:
-headings: \[]
-contents:
-
-content: Updates a API key
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-
-Updates a API key
-# /registry-source
-URL: /api-reference/registry-service/patch-registry-source
-
-undefined
-
-title: "/registry-source"
-
-full: true
-\_openapi:
-method: PATCH
-route: /registry-source/
-toc: \[]
-structuredData:
-headings: \[]
-contents:
-
-content: Updates a registry source
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-
-Updates a registry source
-# /api-key
-URL: /api-reference/registry-service/post-api-key
-
-undefined
-
-title: "/api-key"
-
-full: true
-\_openapi:
-method: POST
-route: /api-key/
-toc: \[]
-structuredData:
-headings: \[]
-contents:
-
-content: Create a new API key
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-
-Create a new API key
-# /registry-diff
-URL: /api-reference/registry-service/post-registry-diff
-
-undefined
-
-title: "/registry-diff"
-
-full: true
-\_openapi:
-method: POST
-route: /registry-diff/
-toc: \[]
-structuredData:
-headings: \[]
-contents:
-
-content: >-
-Query registry entries whose status was updated after the provided
-timestamp. Supports pagination. Always use statusUpdatedAt of the last
-item + its cursorId to paginate forward. This guarantees to include
-all items at least once, when paginating. Note: if the cursorId is not
-valid it will include all items with an id greater than the cursorId
-(in string comparison order). If no cursorId is provided, all items,
-including those with the same statusUpdatedAt, will be included. In
-case the statusUpdatedAt is before the provided statusUpdatedAfter,
-all items after the statusUpdatedAfter will be included, regardless of
-the cursorId.
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-
-Query registry entries whose status was updated after the provided timestamp. Supports pagination. Always use statusUpdatedAt of the last item + its cursorId to paginate forward. This guarantees to include all items at least once, when paginating. Note: if the cursorId is not valid it will include all items with an id greater than the cursorId (in string comparison order). If no cursorId is provided, all items, including those with the same statusUpdatedAt, will be included. In case the statusUpdatedAt is before the provided statusUpdatedAfter, all items after the statusUpdatedAfter will be included, regardless of the cursorId.
-# /registry-entry
-URL: /api-reference/registry-service/post-registry-entry
-
-undefined
-
-title: "/registry-entry"
-
-full: true
-\_openapi:
-method: POST
-route: /registry-entry/
-toc: \[]
-structuredData:
-headings: \[]
-contents:
-
-content: >-
-Query the registry for available and online (health-checked) entries.
-Registry filter, allows pagination, filtering by payment type and
-capability and optional date filters (to force update any entries
-checked before the specified date. Warning: this might take a bit of
-time as response is not cached). If no filter is set, only online
-entries are returned.
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-
-Query the registry for available and online (health-checked) entries. Registry filter, allows pagination, filtering by payment type and capability and optional date filters (to force update any entries checked before the specified date. Warning: this might take a bit of time as response is not cached). If no filter is set, only online entries are returned.
-# /registry-source
-URL: /api-reference/registry-service/post-registry-source
-
-undefined
-
-title: "/registry-source"
-
-full: true
-\_openapi:
-method: POST
-route: /registry-source/
-toc: \[]
-structuredData:
-headings: \[]
-contents:
-
-content: Creates a new registry source
-
-{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
-
-Creates a new registry source
 # /api-key
 URL: /api-reference/payment-service/delete-api-key
 
@@ -4218,6 +4203,312 @@ to remember the mnemonic
 {/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
 
 Creates a wallet, it will not be saved in the database, please ensure to remember the mnemonic
+# /api-key
+URL: /api-reference/registry-service/delete-api-key
+
+undefined
+
+title: "/api-key"
+
+full: true
+\_openapi:
+method: DELETE
+route: /api-key/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Removes a API key
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Removes a API key
+# /registry-source
+URL: /api-reference/registry-service/delete-registry-source
+
+undefined
+
+title: "/registry-source"
+
+full: true
+\_openapi:
+method: DELETE
+route: /registry-source/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Updates a registry source
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Updates a registry source
+# /api-key-status
+URL: /api-reference/registry-service/get-api-key-status
+
+undefined
+
+title: "/api-key-status"
+
+full: true
+\_openapi:
+method: GET
+route: /api-key-status/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets the status of an API key
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets the status of an API key
+# /api-key
+URL: /api-reference/registry-service/get-api-key
+
+undefined
+
+title: "/api-key"
+
+full: true
+\_openapi:
+method: GET
+route: /api-key/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets registry sources, can be paginated
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets registry sources, can be paginated
+# /capability
+URL: /api-reference/registry-service/get-capability
+
+undefined
+
+title: "/capability"
+
+full: true
+\_openapi:
+method: GET
+route: /capability/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets all capabilities that are currently online
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets all capabilities that are currently online
+# /health
+URL: /api-reference/registry-service/get-health
+
+undefined
+
+title: "/health"
+
+full: true
+\_openapi:
+method: GET
+route: /health/
+toc: \[]
+structuredData:
+headings: \[]
+contents: \[]
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+# /payment-information
+URL: /api-reference/registry-service/get-payment-information
+
+undefined
+
+title: "/payment-information"
+
+full: true
+\_openapi:
+method: GET
+route: /payment-information/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Get payment information for a registry entry
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Get payment information for a registry entry
+# /registry-source
+URL: /api-reference/registry-service/get-registry-source
+
+undefined
+
+title: "/registry-source"
+
+full: true
+\_openapi:
+method: GET
+route: /registry-source/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Gets all registry sources
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Gets all registry sources
+# /api-key
+URL: /api-reference/registry-service/patch-api-key
+
+undefined
+
+title: "/api-key"
+
+full: true
+\_openapi:
+method: PATCH
+route: /api-key/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Updates a API key
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Updates a API key
+# /registry-source
+URL: /api-reference/registry-service/patch-registry-source
+
+undefined
+
+title: "/registry-source"
+
+full: true
+\_openapi:
+method: PATCH
+route: /registry-source/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Updates a registry source
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Updates a registry source
+# /api-key
+URL: /api-reference/registry-service/post-api-key
+
+undefined
+
+title: "/api-key"
+
+full: true
+\_openapi:
+method: POST
+route: /api-key/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Create a new API key
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Create a new API key
+# /registry-diff
+URL: /api-reference/registry-service/post-registry-diff
+
+undefined
+
+title: "/registry-diff"
+
+full: true
+\_openapi:
+method: POST
+route: /registry-diff/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Query registry entries whose status was updated after the provided
+timestamp. Supports pagination. Always use statusUpdatedAt of the last
+item + its cursorId to paginate forward. This guarantees to include
+all items at least once, when paginating. Note: if the cursorId is not
+valid it will include all items with an id greater than the cursorId
+(in string comparison order). If no cursorId is provided, all items,
+including those with the same statusUpdatedAt, will be included. In
+case the statusUpdatedAt is before the provided statusUpdatedAfter,
+all items after the statusUpdatedAfter will be included, regardless of
+the cursorId.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Query registry entries whose status was updated after the provided timestamp. Supports pagination. Always use statusUpdatedAt of the last item + its cursorId to paginate forward. This guarantees to include all items at least once, when paginating. Note: if the cursorId is not valid it will include all items with an id greater than the cursorId (in string comparison order). If no cursorId is provided, all items, including those with the same statusUpdatedAt, will be included. In case the statusUpdatedAt is before the provided statusUpdatedAfter, all items after the statusUpdatedAfter will be included, regardless of the cursorId.
+# /registry-entry
+URL: /api-reference/registry-service/post-registry-entry
+
+undefined
+
+title: "/registry-entry"
+
+full: true
+\_openapi:
+method: POST
+route: /registry-entry/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: >-
+Query the registry for available and online (health-checked) entries.
+Registry filter, allows pagination, filtering by payment type and
+capability and optional date filters (to force update any entries
+checked before the specified date. Warning: this might take a bit of
+time as response is not cached). If no filter is set, only online
+entries are returned.
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Query the registry for available and online (health-checked) entries. Registry filter, allows pagination, filtering by payment type and capability and optional date filters (to force update any entries checked before the specified date. Warning: this might take a bit of time as response is not cached). If no filter is set, only online entries are returned.
+# /registry-source
+URL: /api-reference/registry-service/post-registry-source
+
+undefined
+
+title: "/registry-source"
+
+full: true
+\_openapi:
+method: POST
+route: /registry-source/
+toc: \[]
+structuredData:
+headings: \[]
+contents:
+
+content: Creates a new registry source
+
+{/* This file was generated by Fumadocs. Do not edit this file directly. Any changes should be made by running the generation command again. */}
+
+Creates a new registry source
 # CrewAI
 URL: /documentation/integrations/agentic-service-wrapper/_crewai
 
@@ -5106,11 +5397,11 @@ To generate the smart contracts just run:
 
 Running various scripts
 
-To run the scripts you also need to install (Node.js)\[https\://nodejs.org/en/download/package-manager] and install the dependencies via npm install.
+To run the scripts you also need to install Node.js and install the dependencies via npm install.
 
 Afterwards, to generate a testnet wallet, you can run various scripts:
 
-The address will be found in the wallet.addr and wallet.sk (private key) file. You can top-up some test ADA (here)\[https\://docs.cardano.org/cardano-testnets/tools/faucet/]
+The address will be found in the wallet.addr and wallet.sk (private key) file. You can top-up some test ADA here
 
 The following commands will require the BLOCKFROST\_API\_KEY environment variable to be set. Make sure to register an account on Blockfrost and get your key for either the preview or preprod network and use it consistently (cardano has multiple testnets).
 

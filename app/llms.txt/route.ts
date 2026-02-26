@@ -9,6 +9,13 @@ let cachedContent: string | null = null;
 let cacheTimestamp: number = 0;
 const CACHE_TTL = 1000 * 60 * 60 * 24; // 24 hours
 
+// CORS headers for LLM/cross-origin access (matches md-index and mdx routes)
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
 async function generateLLMsTxtContent(): Promise<string> {
   const pages = source.getPages();
   const MAX_CONCURRENT = 10;
@@ -30,7 +37,34 @@ async function generateLLMsTxtContent(): Promise<string> {
     '## About Masumi Network',
     'Masumi Network enables Agent-to-Agent Payments and unlocks the Agentic Economy through decentralized AI agent interactions.',
     '',
+    '## How to Access Individual Pages as Markdown',
+    '',
+    '**This documentation is fully LLM-enabled!** Each page is available in markdown format.',
+    '',
+    '### URL Pattern:',
+    '```',
+    'https://docs.masumi.network/<any-path>.md',
+    '```',
+    '',
+    '### Examples:',
+    '- https://docs.masumi.network/documentation/get-started/installation.md',
+    '- https://docs.masumi.network/api-reference/payment-service/post-registry.md',
+    '- https://docs.masumi.network/documentation/how-to-guides/how-to-enable-agent-collaboration.md',
+    '',
+    '### Markdown Index:',
+    'For a complete list of all available markdown pages, visit:',
+    '- https://docs.masumi.network/md-index',
+    '- https://docs.masumi.network/md-index.md',
+    '',
+    '### Benefits:',
+    '- Clean markdown without HTML/JSX',
+    '- CORS-enabled for API access',
+    '- Cached for fast access',
+    '- Bot-friendly (bypasses Cloudflare protection)',
+    '',
     '---',
+    '',
+    '## Complete Documentation Below',
     '',
     ...scanned,
   ].join('\n');
@@ -54,7 +88,9 @@ export async function GET() {
         status: 200,
         headers: {
           'Content-Type': 'text/plain; charset=utf-8',
-          'Cache-Control': 'public, max-age=86400, s-maxage=86400', // 24 hours browser, 24 hours CDN
+          // Cache aggressively: 24 hours browser, 7 days CDN, serve stale for 30 days while revalidating
+          'Cache-Control': 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000',
+          ...CORS_HEADERS,
         },
       });
     }
@@ -71,7 +107,8 @@ export async function GET() {
         status: 200,
         headers: {
           'Content-Type': 'text/plain; charset=utf-8',
-          'Cache-Control': 'public, max-age=86400, s-maxage=86400',
+          'Cache-Control': 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000',
+          ...CORS_HEADERS,
         },
       });
     } catch (fileError) {
@@ -95,18 +132,28 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
-        'Cache-Control': 'public, max-age=86400, s-maxage=86400',
+        'Cache-Control': 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000',
+        ...CORS_HEADERS,
       },
     });
   } catch (error) {
     console.error('❌ Error generating/serving llms.txt:', error);
-    return new NextResponse('Error generating llms.txt', { 
+    return new NextResponse('Error generating llms.txt', {
       status: 500,
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
+        ...CORS_HEADERS,
       },
     });
   }
+}
+
+// Handle CORS preflight requests (required for cross-origin fetch from browsers)
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: CORS_HEADERS,
+  });
 }
 
 export async function HEAD() {
@@ -114,7 +161,8 @@ export async function HEAD() {
     status: 200,
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'public, max-age=86400',
+      'Cache-Control': 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000',
+      ...CORS_HEADERS,
     },
   });
 }
