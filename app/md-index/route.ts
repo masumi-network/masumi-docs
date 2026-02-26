@@ -145,13 +145,14 @@ export async function OPTIONS() {
   });
 }
 
-// HEAD request for checking availability
+// HEAD request for checking availability (same headers as GET per HTTP spec)
 export async function HEAD() {
   return new NextResponse(null, {
     status: 200,
     headers: {
       'Content-Type': 'text/markdown; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600',
+      'Cache-Control': 'public, max-age=3600, s-maxage=21600, stale-while-revalidate=604800',
+      'X-Robots-Tag': 'all',
       ...CORS_HEADERS,
     },
   });

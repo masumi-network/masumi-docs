@@ -20,7 +20,10 @@ export async function GET(
     if (!page) {
       return new NextResponse('Page not found', {
         status: 404,
-        headers: CORS_HEADERS,
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          ...CORS_HEADERS,
+        },
       });
     }
     
@@ -68,7 +71,10 @@ export async function HEAD(
     if (!page) {
       return new NextResponse(null, {
         status: 404,
-        headers: CORS_HEADERS,
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          ...CORS_HEADERS,
+        },
       });
     }
     return new NextResponse(null, {
