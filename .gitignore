@@ -11,6 +11,8 @@ content/docs/api-reference/(generated)/
 public/synced-images/
 # llms.txt should be served via route, not static file
 public/llms.txt
+# cache directory for generated content
+.cache/
 
 # test & build
 /coverage

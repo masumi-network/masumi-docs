@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { readFile, writeFile } from 'fs/promises';
+import { readFile, writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 import { source } from '@/lib/source';
 import { getLLMText } from '@/lib/get-llm-text';
@@ -96,13 +96,14 @@ export async function GET() {
     }
 
     // Try to read from disk cache (if it exists from previous generation)
-    const filePath = join(process.cwd(), 'public', 'llms.txt');
+    // Note: Cache file is stored in .cache/ to avoid Next.js public/ route conflict
+    const filePath = join(process.cwd(), '.cache', 'llms.txt');
     try {
       const fileContent = await readFile(filePath, 'utf-8');
       // Update in-memory cache
       cachedContent = fileContent;
       cacheTimestamp = now;
-      
+
       return new NextResponse(fileContent, {
         status: 200,
         headers: {
@@ -122,11 +123,14 @@ export async function GET() {
     // Update in-memory cache
     cachedContent = content;
     cacheTimestamp = now;
-    
+
     // Optionally write to disk for persistence (non-blocking)
-    writeFile(filePath, content, 'utf-8').catch((err) => {
-      console.warn('Failed to write llms.txt to disk (non-critical):', err);
-    });
+    // Ensure .cache directory exists first
+    mkdir(join(process.cwd(), '.cache'), { recursive: true })
+      .then(() => writeFile(filePath, content, 'utf-8'))
+      .catch((err) => {
+        console.warn('Failed to write llms.txt to disk (non-critical):', err);
+      });
     
     return new NextResponse(content, {
       status: 200,
