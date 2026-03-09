@@ -283,7 +283,7 @@ For production, consider setting up SSL/TLS with Let's Encrypt using Certbot for
 Test the API:
 
 ```bash
-curl http://localhost:3001/api/v1/health/
+curl http://localhost:3001/api/v1/health
 ```
 
 You should receive:
@@ -602,7 +602,7 @@ For production, consider setting up SSL/TLS with Let's Encrypt using Certbot for
 Test the API:
 
 ```bash
-curl http://localhost:3001/api/v1/health/
+curl http://localhost:3001/api/v1/health
 ```
 
 You should receive:
@@ -787,7 +787,7 @@ If you want to expose your agent via a domain, set up Nginx similar to Part 1, S
 ### Test Masumi Node
 
 1. Access admin dashboard: `http://your_masumi_node_ip:3001/admin`
-2. Verify health endpoint: `curl http://your_masumi_node_ip:3001/api/v1/health/`
+2. Verify health endpoint: `curl http://your_masumi_node_ip:3001/api/v1/health`
 3. Check PM2 status: `pm2 status`
 
 ### Test Your Agent
@@ -863,7 +863,7 @@ When updating either service:
 
 ### Agent can't connect to Masumi Node
 
-- Verify Masumi Node is running: `curl http://masumi_node_ip:3001/api/v1/health/`
+- Verify Masumi Node is running: `curl http://masumi_node_ip:3001/api/v1/health`
 - Check firewall rules on both instances
 - Verify `PAYMENT_SERVICE_URL` in agent's `.env` file
 - Check network connectivity: `ping masumi_node_ip`
