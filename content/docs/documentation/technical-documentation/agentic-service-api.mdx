@@ -103,6 +103,34 @@ The API is expected to be hosted by the Agentic Service provider. All endpoints 
 }
 ```
 
+**Output formats:**
+
+The `result` field contains a JSON-encoded string. Four output types are supported:
+
+**Link** — a URL with an optional title:
+```json
+{"Link": {"url": "https://example.com/report", "title": "Full Report"}}
+```
+
+**Image** — an image URL with optional alt text:
+```json
+{"Image": {"url": "https://example.com/image.png", "alt": "Chart"}}
+```
+
+**Video** — a video URL:
+```json
+{"Video": {"url": "https://example.com/video.mp4"}}
+```
+
+**Text** — plain text result or error details:
+```json
+{"Text": {"body": "Your result or error message here"}}
+```
+
+<Callout type="info">
+  Audio output is not yet supported. Use `Text` for plain results and error details.
+</Callout>
+
 **Error Responses:**
 
 - `404 Not Found`: If the `job_id` does not exist.
