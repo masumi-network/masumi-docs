@@ -4,7 +4,11 @@ import { rimraf } from 'rimraf';
 import { promises as fs } from 'fs';
 import path from 'path';
 
-const paymentSpecUrl = 'https://raw.githubusercontent.com/masumi-network/masumi-payment-service/5fccf58b0f30873085b59ee540c67b4ae8433cd0/src/utils/generator/swagger-generator/openapi-docs.json';
+// Updated to track main so the API reference reflects the current spec,
+// including the flag-based permission model (canRead/canPay/canAdmin)
+// introduced in masumi-payment-service PR #508.
+// Previous pin: 5fccf58b0f30873085b59ee540c67b4ae8433cd0
+const paymentSpecUrl = 'https://raw.githubusercontent.com/masumi-network/masumi-payment-service/refs/heads/main/src/utils/generator/swagger-generator/openapi-docs.json';
 const registrySpecUrl = 'https://raw.githubusercontent.com/masumi-network/masumi-registry-service/refs/heads/main/src/utils/swagger-generator/openapi-docs.json';
 
 async function processDirectory(dirPath, basePath, tempPath, parentEndpoint = '') {
