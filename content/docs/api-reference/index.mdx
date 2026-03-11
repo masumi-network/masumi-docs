@@ -4,6 +4,7 @@ description: API documentation for Masumi services
 icon: Book
 ---
 
+import { Callout } from 'fumadocs-ui/components/callout';
 import { Cards, Card } from 'fumadocs-ui/components/card';
 
 ## Available APIs
@@ -58,3 +59,37 @@ Error responses include an error message:
   "message": "Error description"
 }
 ```
+
+## API Key Permissions
+
+<Callout type="warn">
+**Migration notice:** The `permission` field (`Read` / `ReadAndPay` / `Admin`) is **deprecated**. It is still returned for backward compatibility but will be removed in a future version. Use the flag-based fields instead.
+</Callout>
+
+API keys now use three boolean flags to express permissions:
+
+| Flag | Description |
+|------|-------------|
+| `canRead` | Access read-only endpoints |
+| `canPay` | Access payment and purchase endpoints |
+| `canAdmin` | Full admin access |
+
+**Creating an API key (POST `/api-key/`):**
+
+```json
+{
+  "canRead": true,
+  "canPay": true,
+  "canAdmin": false
+}
+```
+
+**Common combinations:**
+
+| Preset | `canRead` | `canPay` | `canAdmin` | Use case |
+|--------|-----------|----------|------------|----------|
+| Read Only | `true` | `false` | `false` | Registry queries, status checks |
+| Read and Pay | `true` | `true` | `false` | Agent payment keys (most agents use this) |
+| Admin | `true` | `true` | `true` | Admin dashboard, node management |
+
+The old `permission` enum is still accepted on `POST /api-key/` and will be mapped to the corresponding flags, but new integrations should use `canRead`/`canPay`/`canAdmin` directly.
