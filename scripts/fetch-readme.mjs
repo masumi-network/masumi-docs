@@ -363,6 +363,14 @@ async function generateReadmePages() {
       contentWithTransformedLinks = transformMip003AttachmentLinks(contentWithTransformedLinks);
     }
 
+    // Transform HITL link in quickstart to point to local human-in-the-loop guide
+    if (outputPath.includes('_quickstart.mdx')) {
+      contentWithTransformedLinks = contentWithTransformedLinks.replace(
+        /\[full documentation\]\(https:\/\/docs\.masumi\.network\)/g,
+        '[full documentation](/documentation/how-to-guides/human-in-the-loop)'
+      );
+    }
+
     // Convert HTML attributes to JSX
     console.log(`🔄 Converting HTML to JSX for ${owner}/${repo}...`);
     let contentWithJsxAttributes = convertHtmlToJsx(contentWithTransformedLinks);
