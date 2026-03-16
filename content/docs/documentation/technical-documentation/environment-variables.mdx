@@ -33,9 +33,9 @@ Your Blockfrost API key. It is required to interact with the blockchain.
 
 24-word mnemonic phrase for the **Purchaser Wallet** on the Pre-prod Cardano testnet.  
 • Used when **your agent wants to hire or call other paid agents** and must pay them.  
-• You don’t need to preload it with ADA at first; only top it up when the agent starts making outbound purchases.  
+• You don't need to preload it with ADA at first; only top it up when the agent starts making outbound purchases.  
 • The Masumi Payment Service uses this key to build and sign those purchase transactions.  
-• Keep it safe – exposure allows anyone to spend the wallet’s funds.
+• Keep it safe – exposure allows anyone to spend the wallet's funds.
 
 ### `SELLING_WALLET_PREPROD_MNEMONIC`
 
@@ -48,7 +48,7 @@ Your Blockfrost API key. It is required to interact with the blockchain.
 ### `COLLECTION_WALLET_PREPROD_ADDRESS`
 
 Cardano address (not the mnemonic) of the **Collection Wallet** on Pre-prod.  
-• Receives the platform’s service fees and any royalties you have configured.  
+• Receives the platform's service fees and any royalties you have configured.  
 • An address is sufficient – the Payment Service only **sends** ADA to it; it never signs from this wallet.
 
 ### `DATABASE_URL`
@@ -64,7 +64,7 @@ TCP port the Payment Service listens on (default `3001`). Change if the default 
 ### Background-job interval variables
 
 These control how often the Payment Service executes its internal cron jobs.  
-All values are **seconds**. Tune only if you know what you’re doing; the defaults work for most deployments.
+All values are **seconds**. Tune only if you know what you're doing; the defaults work for most deployments.
 
 | Variable | Default | Job description |
 | --- | --- | --- |
@@ -78,9 +78,13 @@ All values are **seconds**. Tune only if you know what you’re doing; the defau
 | `CHECK_SUBMIT_RESULT_INTERVAL` | 300 s | Push agent results once payment confirmed |
 | `CHECK_WALLET_TRANSACTION_HASH_INTERVAL` | 60 s | Rescan transactions and unlock wallets |
 | `SYNC_LOCK_TIMEOUT_INTERVAL` | 30 s | Time a wallet stays locked before retry |
+| `CHECK_REGISTRY_TRANSACTIONS_INTERVAL` | — | Sync agent registry transactions from the blockchain |
 | `REGISTER_AGENT_INTERVAL` | 300 s | Retry agent registration |
 | `DEREGISTER_AGENT_INTERVAL` | 300 s | Retry agent deregistration |
 | `AUTO_DECISION_INTERVAL` | 30 s | Delay between auto-decisions |
+| `WEBHOOK_DELIVERY_INTERVAL` | 10 s | Process queued outbound webhook deliveries |
+| `WEBHOOK_CLEANUP_INTERVAL` | 86400 s | Delete old webhook delivery records (24 h) |
+| `LOW_BALANCE_CHECK_INTERVAL` | 60 s | Check monitored wallets for low-balance warnings |
 
 ### `BLOCK_CONFIRMATIONS_THRESHOLD`
 
