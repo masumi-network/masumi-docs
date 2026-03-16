@@ -33,9 +33,9 @@ Your Blockfrost API key. It is required to interact with the blockchain.
 
 24-word mnemonic phrase for the **Purchaser Wallet** on the Pre-prod Cardano testnet.  
 • Used when **your agent wants to hire or call other paid agents** and must pay them.  
-• You don’t need to preload it with ADA at first; only top it up when the agent starts making outbound purchases.  
+• You don't need to preload it with ADA at first; only top it up when the agent starts making outbound purchases.  
 • The Masumi Payment Service uses this key to build and sign those purchase transactions.  
-• Keep it safe – exposure allows anyone to spend the wallet’s funds.
+• Keep it safe – exposure allows anyone to spend the wallet's funds.
 
 ### `SELLING_WALLET_PREPROD_MNEMONIC`
 
@@ -48,7 +48,7 @@ Your Blockfrost API key. It is required to interact with the blockchain.
 ### `COLLECTION_WALLET_PREPROD_ADDRESS`
 
 Cardano address (not the mnemonic) of the **Collection Wallet** on Pre-prod.  
-• Receives the platform’s service fees and any royalties you have configured.  
+• Receives the platform's service fees and any royalties you have configured.  
 • An address is sufficient – the Payment Service only **sends** ADA to it; it never signs from this wallet.
 
 ### `DATABASE_URL`
@@ -64,7 +64,7 @@ TCP port the Payment Service listens on (default `3001`). Change if the default 
 ### Background-job interval variables
 
 These control how often the Payment Service executes its internal cron jobs.  
-All values are **seconds**. Tune only if you know what you’re doing; the defaults work for most deployments.
+All values are **seconds**. Tune only if you know what you're doing; the defaults work for most deployments.
 
 | Variable | Default | Job description |
 | --- | --- | --- |
@@ -81,6 +81,8 @@ All values are **seconds**. Tune only if you know what you’re doing; the defau
 | `REGISTER_AGENT_INTERVAL` | 300 s | Retry agent registration |
 | `DEREGISTER_AGENT_INTERVAL` | 300 s | Retry agent deregistration |
 | `AUTO_DECISION_INTERVAL` | 30 s | Delay between auto-decisions |
+| `WEBHOOK_DELIVERY_INTERVAL` | 10 s | Process outbound webhook deliveries (minimum 5 s) |
+| `LOW_BALANCE_CHECK_INTERVAL` | 60 s | Check monitored wallet balances for low-balance alerts |
 
 ### `BLOCK_CONFIRMATIONS_THRESHOLD`
 
@@ -89,6 +91,23 @@ Number of block confirmations before a transaction is considered final (default 
 ### `AUTO_WITHDRAW_PAYMENTS` & `AUTO_WITHDRAW_REFUNDS`
 
 Enable (`true`, default) or disable automatic withdrawal of completed payments / refunds.
+
+### Low-balance alert defaults
+
+These set the **default threshold rules** applied to newly created hot wallets. Values are JSON objects mapping an asset unit to a threshold in raw on-chain units (lovelace or a full policy+asset identifier).
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `LOW_BALANCE_DEFAULT_RULES_PREPROD` | `{"lovelace":"5000000"}` | Default low-balance rules for newly created **Preprod** hot wallets |
+| `LOW_BALANCE_DEFAULT_RULES_MAINNET` | `{"lovelace":"5000000"}` | Default low-balance rules for newly created **Mainnet** hot wallets |
+
+Example — alert when a wallet drops below 10 ADA on mainnet:
+
+```env
+LOW_BALANCE_DEFAULT_RULES_MAINNET='{"lovelace":"10000000"}'
+```
+
+Per-wallet rules can be managed independently via the `/wallet/low-balance` API endpoint after a wallet is created. Alerts are delivered as webhook events to any subscribers configured on the payment source.
 
 ### OpenTelemetry variables
 
