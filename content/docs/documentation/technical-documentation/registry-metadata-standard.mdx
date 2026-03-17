@@ -40,6 +40,7 @@ Below is the standardized JSON schema for Agentic Services:
   "legal": {
     "privacy_policy": ["string"],
     "terms": ["string"],
+    "dpa": ["string"],
     "other": ["string"]
   },
   "tags": ["string"],
@@ -63,11 +64,22 @@ Below is the standardized JSON schema for Agentic Services:
 * **capability**: Defines the features of the service, including its name and version.
 * **requests\_per\_hour**: The maximum allowed requests per hour.
 * **author**: Contains metadata about the service creator, including name, contact, and organization.
-* **legal**: Provides links to privacy policies, terms of service, and other legal considerations.
+* **legal**: Provides links to privacy policies, terms of service, data processing agreements, and other legal considerations.
 * **tags**: Categorization keywords for easier discoverability.
 * **pricing**: Specifies the cost structure for using the service.
 * **image**: URL to an image representing the service.
 * **metadata\_version**: The version number of the metadata schema.
+
+#### Legal Fields
+
+| Field | Description | Required |
+|-------|-------------|----------|
+| `privacy_policy` | URL to the agent's privacy policy | Optional |
+| `terms` | URL to the terms of service | Optional |
+| `dpa` | URL to the Data Processing Agreement (DPA) | Optional |
+| `other` | URL to any other relevant legal document | Optional |
+
+All legal fields are optional. When present, they are rendered in the Sokosumi UI on the agent detail page, the hire dialog, and the job details footer.
 
 ### Implementation
 
