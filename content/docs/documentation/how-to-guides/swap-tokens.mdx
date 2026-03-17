@@ -36,6 +36,8 @@ export WALLET_VKEY="your_wallet_vkey"
 
 For **ADA** use `policyId: ""` and `assetName: ""`. All requests need header: `token: $ADMIN_KEY`.
 
+Pool IDs in the examples below were valid at time of writing — verify via the [SundaeSwap](https://sundaeswap.finance/) API or DEX explorer before using in production.
+
 ---
 
 ## 1. Get estimate
@@ -59,7 +61,7 @@ Returns: `rate`, `fee`, `fromDecimals`, `toDecimals`.
 
 ## 2. Execute swap
 
-`POST /api/v1/swap/` — body: `walletVkey`, `amount`, `fromToken`, `toToken`, `poolId`, `slippage` (optional, default `0.03`).
+`POST /api/v1/swap/` — body: `walletVkey`, `amount`, `fromToken`, `toToken`, `poolId`, `slippage` (optional, default `0.03`). **Amount** is in token units (e.g. `10` = 10 ADA, not lovelace). **Slippage** is a decimal: `0.03` = 3%.
 
 ```bash
 curl -X POST "$PAYMENT_SERVICE_URL/api/v1/swap/" \
@@ -79,7 +81,7 @@ curl -X POST "$PAYMENT_SERVICE_URL/api/v1/swap/" \
   }"
 ```
 
-Returns: `txHash`, `walletAddress`.
+Returns: `txHash`, `walletAddress`. Use this **txHash** as `txHash` in the confirm step and as **swapTransactionId** in cancel and acknowledge-timeout (you can also get swap IDs from the transactions list).
 
 ---
 
@@ -106,7 +108,7 @@ curl -X GET "$PAYMENT_SERVICE_URL/api/v1/swap/confirm/" \
 
 ## Cancel order
 
-`POST /api/v1/swap/cancel/` — when status is `OrderConfirmed`, use to recover funds.
+`POST /api/v1/swap/cancel/` — when status is `OrderConfirmed`, use to recover funds. `swapTransactionId` is the `txHash` from the execute step (or the transaction id from the list endpoint).
 
 ```bash
 curl -X POST "$PAYMENT_SERVICE_URL/api/v1/swap/cancel/" \
@@ -133,7 +135,7 @@ curl -X GET "$PAYMENT_SERVICE_URL/api/v1/swap/transactions/" \
 
 ## Recover after timeout
 
-`POST /api/v1/swap/acknowledge-timeout/` — if the order tx timed out, service checks chain and returns actual state.
+`POST /api/v1/swap/acknowledge-timeout/` — if the order tx timed out, service checks chain and returns actual state. `swapTransactionId` is the `txHash` from the execute step (or from the transactions list).
 
 ```bash
 curl -X POST "$PAYMENT_SERVICE_URL/api/v1/swap/acknowledge-timeout/" \
@@ -141,9 +143,3 @@ curl -X POST "$PAYMENT_SERVICE_URL/api/v1/swap/acknowledge-timeout/" \
   -H "Content-Type: application/json" \
   -d "{\"walletVkey\": \"$WALLET_VKEY\", \"swapTransactionId\": \"$SWAP_TX_ID\"}"
 ```
-
----
-
-## Contact
-
-[GitHub](https://github.com/masumi-network) · [Masumi Network](https://masumi.network)
