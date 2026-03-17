@@ -42,7 +42,7 @@ Pool IDs in the examples below were valid at time of writing — verify via the 
 
 ## 1. Get estimate
 
-`GET /api/v1/swap/estimate/` — query: `fromPolicyId`, `fromAssetName`, `toPolicyId`, `toAssetName`, `poolId`.
+`GET /api/v1/swap/estimate/` — query: `fromPolicyId`, `fromAssetName`, `toPolicyId`, `toAssetName`, `poolId`. Returns rate and fee for the pair (amount-agnostic). If the API supports an optional `amount` parameter for quantity-specific estimates, add it to the query.
 
 ```bash
 curl -X GET "$PAYMENT_SERVICE_URL/api/v1/swap/estimate/" \
@@ -87,7 +87,7 @@ Returns: `txHash`, `walletAddress`. Use this **txHash** as `txHash` in the confi
 
 ## 3. Check status
 
-`GET /api/v1/swap/confirm/` — query: `txHash`, `walletVkey`. Poll until `swapStatus` is `Completed`.
+`GET /api/v1/swap/confirm/` — query: `txHash`, `walletVkey`. Poll until `swapStatus` is `Completed`. Capture `txHash` from the execute response and set `TX_HASH` before calling confirm (e.g. `export TX_HASH=$(echo "$EXECUTE_RESPONSE" | jq -r '.txHash')` if the execute response is in `EXECUTE_RESPONSE`; requires `jq`).
 
 ```bash
 curl -X GET "$PAYMENT_SERVICE_URL/api/v1/swap/confirm/" \
@@ -106,9 +106,9 @@ curl -X GET "$PAYMENT_SERVICE_URL/api/v1/swap/confirm/" \
 
 ---
 
-## Cancel order
+## 4. Cancel order
 
-`POST /api/v1/swap/cancel/` — when status is `OrderConfirmed`, use to recover funds. `swapTransactionId` is the `txHash` from the execute step (or the transaction id from the list endpoint).
+`POST /api/v1/swap/cancel/` — use to recover funds when status is `OrderConfirmed` (order at the DEX). Cancellation is not supported for `OrderPending` (tx not yet on-chain). `swapTransactionId` is the `txHash` from the execute step (or the transaction id from the list endpoint).
 
 ```bash
 curl -X POST "$PAYMENT_SERVICE_URL/api/v1/swap/cancel/" \
@@ -119,7 +119,7 @@ curl -X POST "$PAYMENT_SERVICE_URL/api/v1/swap/cancel/" \
 
 ---
 
-## List transactions
+## 5. List transactions
 
 `GET /api/v1/swap/transactions/` — query: `walletVkey`, `limit`, optional `cursorId`. Most recent first.
 
@@ -133,7 +133,7 @@ curl -X GET "$PAYMENT_SERVICE_URL/api/v1/swap/transactions/" \
 
 ---
 
-## Recover after timeout
+## 6. Recover after timeout
 
 `POST /api/v1/swap/acknowledge-timeout/` — if the order tx timed out, service checks chain and returns actual state. `swapTransactionId` is the `txHash` from the execute step (or from the transactions list).
 
