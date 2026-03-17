@@ -1,43 +1,50 @@
 ---
-title: "Swap Tokens via the Payment Service"
-description: "How to swap ADA and Cardano Native Tokens using the built-in SundaeSwap integration."
+title: "Swap Tokens"
+description: "Swap ADA and native tokens via the Payment Service (SundaeSwap). Mainnet only, admin key required."
 icon: ArrowLeftRight
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
-import { Steps, Step } from 'fumadocs-ui/components/steps';
 
 <Callout type="warn">
-  The swap API is **mainnet-only** and requires **admin access** (your `ADMIN_KEY`). It will not work on Preprod.
+  **Mainnet only.** Requires `ADMIN_KEY`. Does not work on Preprod.
 </Callout>
 
-## Overview
+## Prerequisites
 
-The Masumi Payment Service includes a built-in integration with [SundaeSwap](https://sundaeswap.finance/), a Cardano DEX. You can use it to swap ADA for Cardano Native Tokens (CNTs) or CNTs back to ADA — directly from your node's API, without leaving the Masumi ecosystem.
+Set these (or substitute in the examples):
 
-This is useful for keeping your wallets funded with the right tokens (e.g., converting ADA revenue to USDM or USDCx for purchases).
+- **Base URL** — your Payment Service root, e.g. `http://localhost:3001` or `https://your-node.example.com`
+- **Auth** — your admin key (same as `ADMIN_KEY` in `.env`)
+- **Wallet** — the verification key of the wallet that will fund the swap
 
-### Supported tokens
-
-| Token  | Policy ID | Asset Name (hex) |
-|--------|-----------|-----------------|
-| ADA    | *(native)* | `""` (empty string) |
-| USDM   | `c48cbb3d5e57ed56e276bc45f99ab39abe94e6cd7ac39fb402da47ad` | `0014df105553444d` |
-| USDCx  | `1f3aec8bfe7ea4fe14c5f121e2a92e301afe414147860d557cac7e34` | `5553444378` |
+```bash
+export PAYMENT_SERVICE_URL="http://localhost:3001"   # your node URL
+export ADMIN_KEY="your_admin_key"
+export WALLET_VKEY="your_wallet_vkey"
+```
 
 ---
 
-## Typical Swap Workflow
+## Supported tokens
 
-<Steps>
-<Step>
-**Get a price estimate**
+| Token | Policy ID | Asset Name (hex) |
+|-------|-----------|------------------|
+| ADA | *(native)* | `""` |
+| USDM | `c48cbb3d5e57ed56e276bc45f99ab39abe94e6cd7ac39fb402da47ad` | `0014df105553444d` |
+| USDCx | `1f3aec8bfe7ea4fe14c5f121e2a92e301afe414147860d557cac7e34` | `5553444378` |
 
-Before executing a swap, fetch a live estimate from the pool to check the current rate and fee.
+For **ADA** use `policyId: ""` and `assetName: ""`. All requests need header: `token: $ADMIN_KEY`.
+
+---
+
+## 1. Get estimate
+
+`GET /api/v1/swap/estimate/` — query: `fromPolicyId`, `fromAssetName`, `toPolicyId`, `toAssetName`, `poolId`.
 
 ```bash
-curl -X GET "http://localhost:3001/api/v1/swap/estimate/" \
-  -H "token: YOUR_ADMIN_KEY" \
+curl -X GET "$PAYMENT_SERVICE_URL/api/v1/swap/estimate/" \
+  -H "token: $ADMIN_KEY" \
   -G \
   --data-urlencode "fromPolicyId=" \
   --data-urlencode "fromAssetName=" \
@@ -46,145 +53,97 @@ curl -X GET "http://localhost:3001/api/v1/swap/estimate/" \
   --data-urlencode "poolId=64f35d26b237ad58e099041bc14c687ea7fdc58969d7d5b66e2540ef"
 ```
 
-Response:
-
-```json
-{
-  "rate": 2.45,
-  "fee": 0.003,
-  "fromDecimals": 6,
-  "toDecimals": 6
-}
-```
-
-`rate` is the estimated output per 1 unit of input, after the pool fee.
-</Step>
-
-<Step>
-**Execute the swap**
-
-```bash
-curl -X POST "http://localhost:3001/api/v1/swap/" \
-  -H "token: YOUR_ADMIN_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "walletVkey": "your_wallet_vkey",
-    "amount": 10,
-    "fromToken": {
-      "policyId": "",
-      "assetName": "",
-      "name": "ADA"
-    },
-    "toToken": {
-      "policyId": "c48cbb3d5e57ed56e276bc45f99ab39abe94e6cd7ac39fb402da47ad",
-      "assetName": "0014df105553444d",
-      "name": "USDM"
-    },
-    "poolId": "64f35d26b237ad58e099041bc14c687ea7fdc58969d7d5b66e2540ef",
-    "slippage": 0.03
-  }'
-```
-
-| Field | Description |
-|-------|-------------|
-| `walletVkey` | Verification key of the wallet funding the swap |
-| `amount` | Amount to swap (in ADA or token units) |
-| `fromToken` / `toToken` | Source and destination token. Use empty strings for ADA's `policyId` and `assetName` |
-| `poolId` | SundaeSwap liquidity pool identifier |
-| `slippage` | Maximum acceptable price deviation (0–1, default `0.03` = 3%) |
-
-Response:
-
-```json
-{
-  "txHash": "abc123...",
-  "walletAddress": "addr1..."
-}
-```
-</Step>
-
-<Step>
-**Poll for confirmation**
-
-Swap orders are placed at the SundaeSwap script address and filled asynchronously by the DEX. Poll until `status` is `confirmed` and `swapStatus` reaches `Completed`.
-
-```bash
-curl -X GET "http://localhost:3001/api/v1/swap/confirm/" \
-  -H "token: YOUR_ADMIN_KEY" \
-  -G \
-  --data-urlencode "txHash=abc123..." \
-  --data-urlencode "walletVkey=your_wallet_vkey"
-```
-
-Response:
-
-```json
-{
-  "status": "confirmed",
-  "swapStatus": "OrderConfirmed",
-  "confirmations": 5
-}
-```
-
-| `swapStatus` value | Meaning |
-|--------------------|---------|
-| `OrderPending` | Order transaction submitted, not yet on-chain |
-| `OrderConfirmed` | Order is at the DEX script address, waiting to be filled |
-| `Completed` | DEX has filled the order — tokens are in your wallet |
-| `CancelPending` | Cancel transaction submitted |
-| `CancelConfirmed` | Order successfully cancelled |
-</Step>
-</Steps>
+Returns: `rate`, `fee`, `fromDecimals`, `toDecimals`.
 
 ---
 
-## Cancelling a Pending Order
+## 2. Execute swap
 
-If your order is in `OrderConfirmed` state (sitting at the DEX script), you can cancel it to recover your funds:
+`POST /api/v1/swap/` — body: `walletVkey`, `amount`, `fromToken`, `toToken`, `poolId`, `slippage` (optional, default `0.03`).
 
 ```bash
-curl -X POST "http://localhost:3001/api/v1/swap/cancel/" \
-  -H "token: YOUR_ADMIN_KEY" \
+curl -X POST "$PAYMENT_SERVICE_URL/api/v1/swap/" \
+  -H "token: $ADMIN_KEY" \
   -H "Content-Type: application/json" \
-  -d '{
-    "walletVkey": "your_wallet_vkey",
-    "swapTransactionId": "clx1abc..."
-  }'
+  -d "{
+    \"walletVkey\": \"$WALLET_VKEY\",
+    \"amount\": 10,
+    \"fromToken\": { \"policyId\": \"\", \"assetName\": \"\", \"name\": \"ADA\" },
+    \"toToken\": {
+      \"policyId\": \"c48cbb3d5e57ed56e276bc45f99ab39abe94e6cd7ac39fb402da47ad\",
+      \"assetName\": \"0014df105553444d\",
+      \"name\": \"USDM\"
+    },
+    \"poolId\": \"64f35d26b237ad58e099041bc14c687ea7fdc58969d7d5b66e2540ef\",
+    \"slippage\": 0.03
+  }"
 ```
 
-Response includes a `cancelTxHash` you can use to track the cancellation on-chain.
+Returns: `txHash`, `walletAddress`.
 
 ---
 
-## Listing Past Swap Transactions
+## 3. Check status
+
+`GET /api/v1/swap/confirm/` — query: `txHash`, `walletVkey`. Poll until `swapStatus` is `Completed`.
 
 ```bash
-curl -X GET "http://localhost:3001/api/v1/swap/transactions/" \
-  -H "token: YOUR_ADMIN_KEY" \
+curl -X GET "$PAYMENT_SERVICE_URL/api/v1/swap/confirm/" \
+  -H "token: $ADMIN_KEY" \
   -G \
-  --data-urlencode "walletVkey=your_wallet_vkey" \
+  --data-urlencode "txHash=$TX_HASH" \
+  --data-urlencode "walletVkey=$WALLET_VKEY"
+```
+
+| swapStatus | Meaning |
+|------------|---------|
+| OrderPending | Tx submitted |
+| OrderConfirmed | At DEX, waiting to be filled |
+| Completed | Filled; tokens in wallet |
+| CancelPending / CancelConfirmed | Cancel in progress / done |
+
+---
+
+## Cancel order
+
+`POST /api/v1/swap/cancel/` — when status is `OrderConfirmed`, use to recover funds.
+
+```bash
+curl -X POST "$PAYMENT_SERVICE_URL/api/v1/swap/cancel/" \
+  -H "token: $ADMIN_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{\"walletVkey\": \"$WALLET_VKEY\", \"swapTransactionId\": \"$SWAP_TX_ID\"}"
+```
+
+---
+
+## List transactions
+
+`GET /api/v1/swap/transactions/` — query: `walletVkey`, `limit`, optional `cursorId`. Most recent first.
+
+```bash
+curl -X GET "$PAYMENT_SERVICE_URL/api/v1/swap/transactions/" \
+  -H "token: $ADMIN_KEY" \
+  -G \
+  --data-urlencode "walletVkey=$WALLET_VKEY" \
   --data-urlencode "limit=10"
 ```
 
-Results are ordered most-recent-first and support cursor-based pagination via `cursorId`.
+---
+
+## Recover after timeout
+
+`POST /api/v1/swap/acknowledge-timeout/` — if the order tx timed out, service checks chain and returns actual state.
+
+```bash
+curl -X POST "$PAYMENT_SERVICE_URL/api/v1/swap/acknowledge-timeout/" \
+  -H "token: $ADMIN_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{\"walletVkey\": \"$WALLET_VKEY\", \"swapTransactionId\": \"$SWAP_TX_ID\"}"
+```
 
 ---
 
-## Handling Timeouts
+## Contact
 
-Occasionally a swap order transaction may time out before it's confirmed on-chain. Use the `acknowledge-timeout` endpoint to check on-chain state and recover to the correct status:
-
-```bash
-curl -X POST "http://localhost:3001/api/v1/swap/acknowledge-timeout/" \
-  -H "token: YOUR_ADMIN_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "walletVkey": "your_wallet_vkey",
-    "swapTransactionId": "clx1abc..."
-  }'
-```
-
-The service checks the chain and recovers to one of:
-- `OrderConfirmed` — order UTXO still exists, you can retry or cancel
-- `Completed` — DEX filled the order despite the timeout
-- Timeout state unchanged — order transaction never made it on-chain
+[GitHub](https://github.com/masumi-network) · [Masumi Network](https://masumi.network)
