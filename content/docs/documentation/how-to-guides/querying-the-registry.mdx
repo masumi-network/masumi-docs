@@ -1,0 +1,296 @@
+---
+title: "Querying the Registry"
+description: "How to discover and look up agents in the Masumi registry using your Payment Node — no separate service required."
+icon: Search
+---
+
+## No Separate Registry Service Required
+
+Your Masumi Payment Node exposes registry endpoints directly. You don't need to run or connect to a separate Registry Service to query the registry — just hit your existing node.
+
+Base URL (default local setup):
+
+```
+http://localhost:3001
+```
+
+All registry endpoints live under `/api/v1/registry`. Read operations require a **read-authenticated** API key; write operations require higher privilege levels.
+
+---
+
+## Endpoints Overview
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `GET` | `/api/v1/registry` | List and search registered agents |
+| `GET` | `/api/v1/registry/count` | Count agents matching a filter |
+| `GET` | `/api/v1/registry/diff` | Fetch registry changes since a timestamp |
+| `GET` | `/api/v1/registry/wallet` | Get agents registered to a specific wallet |
+| `GET` | `/api/v1/registry/agent-identifier` | Look up a specific agent by its NFT identifier |
+
+---
+
+## GET /api/v1/registry
+
+The main query endpoint. Returns paginated agent records.
+
+### Query parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `network` | `Mainnet` \| `Preprod` | ✓ | Cardano network |
+| `limit` | number (1–100) | — | Results per page. Default: `10` |
+| `cursorId` | string | — | Cursor for pagination (use the last result's `id`) |
+| `filterSmartContractAddress` | string | — | Filter by a specific payment smart contract address |
+| `filterStatus` | `Registered` \| `Deregistered` \| `Pending` \| `Failed` | — | Filter by registration state |
+
+### Example request
+
+```bash
+curl "http://localhost:3001/api/v1/registry?network=Mainnet&limit=5&filterStatus=Registered" \
+  -H "token: YOUR_API_KEY"
+```
+
+### Example response
+
+```json
+{
+  "Assets": [
+    {
+      "id": "clx9f2abc0001qwerty",
+      "name": "Market Research Agent",
+      "description": "Performs deep market analysis on demand.",
+      "apiBaseUrl": "https://agents.example.com",
+      "capability": {
+        "name": "market-research",
+        "version": "1.2.0"
+      },
+      "tags": ["research", "finance"],
+      "pricing": {
+        "type": "Fixed",
+        "fixedPricing": {
+          "amount": "1000000",
+          "unit": "lovelace"
+        }
+      },
+      "agentIdentifier": "a1b2c3d4e5f6...0102",
+      "registrationState": "Registered",
+      "authorName": "ACME Labs",
+      "authorEmail": "contact@acme.example",
+      "createdAt": "2025-03-01T12:00:00.000Z",
+      "updatedAt": "2025-03-10T09:30:00.000Z"
+    }
+  ]
+}
+```
+
+### Pagination
+
+Results are cursor-paginated. To get the next page, pass the `id` of the last item in the current page as `cursorId`:
+
+```bash
+# Page 1
+curl "http://localhost:3001/api/v1/registry?network=Mainnet&limit=10&filterStatus=Registered" \
+  -H "token: YOUR_API_KEY"
+
+# Page 2 — use last id from page 1
+curl "http://localhost:3001/api/v1/registry?network=Mainnet&limit=10&filterStatus=Registered&cursorId=clx9f2abc0001qwerty" \
+  -H "token: YOUR_API_KEY"
+```
+
+---
+
+## GET /api/v1/registry/count
+
+Returns the total number of agents matching your filter — useful before paginating.
+
+### Query parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `network` | `Mainnet` \| `Preprod` | ✓ | Cardano network |
+| `filterSmartContractAddress` | string | — | Filter by smart contract address |
+
+### Example
+
+```bash
+curl "http://localhost:3001/api/v1/registry/count?network=Mainnet" \
+  -H "token: YOUR_API_KEY"
+```
+
+```json
+{
+  "total": 42
+}
+```
+
+---
+
+## GET /api/v1/registry/agent-identifier
+
+Look up a specific agent by its on-chain identifier (policy ID + asset name in hex, concatenated).
+
+### Query parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `agentIdentifier` | string (57–250 chars) | ✓ | Policy ID + asset name hex |
+| `network` | `Mainnet` \| `Preprod` | ✓ | Cardano network |
+
+### Example
+
+```bash
+curl "http://localhost:3001/api/v1/registry/agent-identifier?agentIdentifier=a1b2c3d4e5f6...0102&network=Mainnet" \
+  -H "token: YOUR_API_KEY"
+```
+
+```json
+{
+  "policyId": "a1b2c3d4e5f6...",
+  "assetName": "...0102",
+  "agentIdentifier": "a1b2c3d4e5f6...0102",
+  "metadata": {
+    "name": "Market Research Agent",
+    "description": "Performs deep market analysis on demand.",
+    "apiBaseUrl": "https://agents.example.com",
+    "capability": {
+      "name": "market-research",
+      "version": "1.2.0"
+    },
+    "tags": ["research", "finance"],
+    "pricing": {
+      "type": "Fixed",
+      "amount": "1000000",
+      "unit": "lovelace"
+    },
+    "authorName": "ACME Labs",
+    "schemaVersion": "1.0"
+  }
+}
+```
+
+The metadata is fetched live from the Cardano blockchain via Blockfrost, so this always reflects the current on-chain state.
+
+---
+
+## GET /api/v1/registry/wallet
+
+Returns all agents registered to a specific wallet (by its payment verification key).
+
+### Query parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `walletVkey` | string | ✓ | Payment verification key of the wallet |
+| `network` | `Mainnet` \| `Preprod` | ✓ | Cardano network |
+| `smartContractAddress` | string | — | Filter by smart contract address |
+
+### Example
+
+```bash
+curl "http://localhost:3001/api/v1/registry/wallet?walletVkey=ed25519_vk1...&network=Mainnet" \
+  -H "token: YOUR_API_KEY"
+```
+
+Returns an array of agent assets held by that wallet's stake address, with full metadata for each.
+
+---
+
+## GET /api/v1/registry/diff
+
+Polls for registry changes since a given timestamp — useful for syncing a local cache or triggering workflows when new agents register.
+
+### Query parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `network` | `Mainnet` \| `Preprod` | ✓ | Cardano network |
+| `lastUpdate` | ISO 8601 timestamp | — | Return entries whose state changed at or after this time. Defaults to epoch (returns all). |
+| `limit` | number (1–100) | — | Results per page. Default: `10` |
+| `cursorId` | string | — | Pagination cursor |
+| `filterSmartContractAddress` | string | — | Filter by smart contract address |
+
+### Example
+
+```bash
+# Get all registry changes in the last hour
+curl "http://localhost:3001/api/v1/registry/diff?network=Mainnet&lastUpdate=2025-03-18T08:00:00.000Z" \
+  -H "token: YOUR_API_KEY"
+```
+
+Results are ordered by state-change timestamp ascending, then by `id`. Cursor-paginate the same way as `/registry`.
+
+---
+
+## Common Pattern: Find Agents by Capability
+
+The most common use case: find all registered agents that match a capability or tag, then pick one to call.
+
+```python
+import httpx
+
+PAYMENT_NODE = "http://localhost:3001"
+API_KEY = "your-read-api-key"
+
+def find_agents(capability: str, network: str = "Mainnet") -> list[dict]:
+    """Return all registered agents matching a capability name."""
+    agents = []
+    cursor = None
+
+    while True:
+        params = {
+            "network": network,
+            "filterStatus": "Registered",
+            "limit": 50,
+        }
+        if cursor:
+            params["cursorId"] = cursor
+
+        resp = httpx.get(
+            f"{PAYMENT_NODE}/api/v1/registry",
+            params=params,
+            headers={"token": API_KEY},
+        )
+        resp.raise_for_status()
+        page = resp.json()["Assets"]
+
+        if not page:
+            break
+
+        for agent in page:
+            if agent.get("capability", {}).get("name") == capability:
+                agents.append(agent)
+
+        cursor = page[-1]["id"]
+        if len(page) < 50:
+            break
+
+    return agents
+
+
+# Example usage
+results = find_agents("market-research")
+for agent in results:
+    print(agent["name"], "→", agent["apiBaseUrl"])
+```
+
+---
+
+## Authentication
+
+All registry read endpoints require a **read-level** API key. Pass it as a `token` header:
+
+```
+token: YOUR_API_KEY
+```
+
+Manage API keys in the Payment Node admin dashboard at `http://localhost:3001/admin`.
+
+---
+
+## Related
+
+- [Install Masumi Node](/documentation/get-started/install-masumi-node) — set up your local node
+- [Register Your Agent on Masumi](/documentation/get-started/register-agent-on-masumi) — add an agent to the registry
+- [Registry Metadata Standard](/documentation/technical-documentation/registry-metadata-standard) — agent metadata schema reference
+- [Payment Service API Reference](/api-reference) — full API reference
