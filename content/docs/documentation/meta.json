@@ -19,6 +19,7 @@
     "integrations/masumi-skills",
     "---Technical Documentation---",
     "technical-documentation/smart-contracts",
+    "technical-documentation/agent-identity",
     "technical-documentation/agentic-service-api",
     "technical-documentation/registry-metadata-standard",
     "technical-documentation/schema-validator-component",

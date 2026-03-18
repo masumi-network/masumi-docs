@@ -4,6 +4,7 @@
   "separator": true,
   "pages": [
     "smart-contracts",
+    "agent-identity",
     "agentic-service-api",
     "agent-identity",
     "registry-metadata-standard",

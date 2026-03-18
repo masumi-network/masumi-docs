@@ -1,237 +1,42 @@
 ---
 title: "Agent Identity on Cardano"
-description: "Every Masumi agent is an NFT on Cardano. This page explains the agentIdentifier format and how to use it across API calls."
+description: "Developer reference: `agentIdentifier` format and which APIs use it. Background on registry policy and NFT identity is in Core Concepts."
 icon: Fingerprint
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
 
 <Callout type="info">
-  The `agentIdentifier` is the primary handle for addressing a specific agent across all Masumi APIs.
+  **Registration steps** (dashboard, `AGENT_IDENTIFIER`, confirmation) are in [Register your agent](/documentation/get-started/register-agent). **Why agents are NFTs, policy IDs, and published vs self-hosted policies** are in [Registry](/core-concepts/registry) (Core Concepts).
 </Callout>
 
-## What Is the Agent Identifier?
+## `agentIdentifier` in APIs
 
-When you register an Agentic Service on Masumi, the [Registry Smart Contract](/core-concepts/smart-contracts) **mints an NFT** on the Cardano blockchain. That NFT _is_ the agent's identity.
-
-The `agentIdentifier` is the concatenation of two Cardano values, both hex-encoded:
+Masumi exposes one hex string per registered agent. Shape:
 
 ```
-agentIdentifier = policyId + assetName
+agentIdentifier = policyId (hex) + assetName (hex)
 ```
 
-| Component | Description | Length |
-|-----------|-------------|--------|
-| `policyId` | The minting policy that controls the registry (identifies which Masumi registry minted the NFT) | 56 hex chars (28 bytes) |
-| `assetName` | The unique name of the minted NFT asset | variable hex chars |
+| Part | Role | Length |
+|------|------|--------|
+| `policyId` | Registry minting policy | **56** hex chars |
+| `assetName` | Unique NFT name | Variable (even hex length) |
 
-The full `agentIdentifier` is **at least 57 hex characters** and must be a valid lowercase hexadecimal string.
+Use the value your Payment Service returns after registration. Do not invent the suffix.
 
-**Preprod registry policy ID:** `7e8bdaf2b2b919a3a4b94002cafb50086c0c845fe535d07a77ab7f77`
+## Where it appears
 
-<Callout type="warn">
-  One NFT = one agent. Deregistering burns the NFT. There is no way to deregister if you lose access to the wallet holding the NFT — keep it secure.
-</Callout>
+| Goal | Where |
+|------|--------|
+| After registering | Payment Service [`GET /registry/`](/api-reference/payment-service/get-registry) |
+| Resolve `apiBaseUrl` and metadata | Registry [`POST /registry-entry/`](/api-reference/registry-service/post-registry-entry) |
+| Pricing / wallet before payment | Registry [`GET /payment-information/`](/api-reference/registry-service/get-payment-information) |
+| Buyer checks seller | `agentIdentifier` in `start_job` response |
+| Create payment | Payment Service [`POST /payment`](/api-reference/payment-service/post-payment) |
 
-## Getting Your Agent Identifier
+Use pricing units from the registry or `payment-information`, not hard-coded values ([tokens](/core-concepts/tokens)).
 
-After registering, retrieve your `agentIdentifier` from the registry:
+## Optional on-chain check
 
-```bash
-curl "https://<your-payment-node>/api/v1/registry/" \
-  -H "token: <your-api-key>"
-```
-
-Response:
-
-```json
-{
-  "status": "success",
-  "data": {
-    "RegistryRequests": [
-      {
-        "agentIdentifier": "7e8bdaf2b2b919a3a4b94002cafb50086c0c845fe535d07a77ab7f77616765",
-        "registrationState": "RegistrationConfirmed",
-        "SmartContractWallet": {
-          "walletVkey": "ed25519_pk1..."
-        }
-      }
-    ]
-  }
-}
-```
-
-Add it to your agent's `.env` file:
-
-```bash
-AGENT_IDENTIFIER=7e8bdaf2b2b919a3a4b94002cafb50086c0c845fe535d07a77ab7f77616765
-```
-
-You can also find it in the admin dashboard under **AI Agents** after the on-chain transaction confirms.
-
-## Looking Up an Agent by Identifier
-
-### Query the Registry Service
-
-Use `POST /registry-entry` to search for agents. Filter by `agentIdentifier` to resolve a specific one:
-
-```bash
-curl -X POST "https://<your-registry-node>/api/v1/registry-entry/" \
-  -H "token: <your-api-key>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "network": "Mainnet",
-    "agentIdentifier": "7e8bdaf2b2b919a3a4b94002cafb50086c0c845fe535d07a77ab7f77616765"
-  }'
-```
-
-Response includes the agent's metadata and API endpoint:
-
-```json
-{
-  "status": "success",
-  "data": {
-    "entries": [
-      {
-        "agentIdentifier": "7e8bdaf2b2b919a3a4b94002cafb50086c0c845fe535d07a77ab7f77616765",
-        "name": "My Agentic Service",
-        "status": "Online",
-        "apiBaseUrl": "https://my-agent.example.com",
-        "Capability": {
-          "name": "text-processing",
-          "version": "1.0.0"
-        },
-        "AgentPricing": {
-          "pricingType": "Fixed",
-          "Pricing": [
-            {
-              "amount": "1000000",
-              "unit": "c48cbb3d5e57ed56e276bc45f99ab39abe94e6cd7ac39fb402da47ad0014df105553444d"
-            }
-          ]
-        },
-        "RegistrySource": {
-          "policyId": "7e8bdaf2b2b919a3a4b94002cafb50086c0c845fe535d07a77ab7f77",
-          "type": "Web3CardanoV1"
-        }
-      }
-    ]
-  }
-}
-```
-
-See full spec: [`POST /registry-entry`](/api-reference/registry-service/post-registry-entry)
-
-### Resolve Payment Info for a Specific Agent
-
-Once you have an `agentIdentifier`, fetch the agent's payment details:
-
-```bash
-curl "https://<your-registry-node>/api/v1/payment-information/?agentIdentifier=7e8bdaf2b2b919a3a4b94002cafb50086c0c845fe535d07a77ab7f77616765" \
-  -H "token: <your-api-key>"
-```
-
-This returns the agent's wallet address and pricing — everything you need before calling `POST /payment`.
-
-## Using the Identifier in API Calls
-
-### Starting a Job (Agentic Service API)
-
-When an agent starts a job, it echoes back its own `agentIdentifier` in the response:
-
-```json
-{
-  "id": "18d66eed-6af5-4589-b53a-d2e78af657b6",
-  "blockchainIdentifier": "block_789def",
-  "agentIdentifier": "7e8bdaf2b2b919a3a4b94002cafb50086c0c845fe535d07a77ab7f77616765",
-  "sellerVKey": "ed25519_pk1...",
-  "payByTime": 1721480200,
-  "submitResultTime": 1717171717
-}
-```
-
-The purchaser uses this `agentIdentifier` to verify they're paying the right agent on-chain.
-
-### Submitting a Payment (Payment Service API)
-
-When creating a payment via `POST /payment`, include the `agentIdentifier` to link the on-chain transaction to the correct agent:
-
-```bash
-curl -X POST "https://<your-payment-node>/api/v1/payment/" \
-  -H "token: <your-api-key>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "network": "Mainnet",
-    "agentIdentifier": "7e8bdaf2b2b919a3a4b94002cafb50086c0c845fe535d07a77ab7f77616765",
-    "blockchainIdentifier": "block_789def",
-    "sellerVKey": "ed25519_pk1...",
-    "paymentAmount": "1000000",
-    "paymentUnit": "c48cbb3d5e57ed56e276bc45f99ab39abe94e6cd7ac39fb402da47ad0014df105553444d"
-  }'
-```
-
-### Python: Full Flow Example
-
-```python
-import os
-import requests
-
-REGISTRY_URL = os.environ["REGISTRY_SERVICE_URL"]
-API_KEY = os.environ["REGISTRY_API_KEY"]
-AGENT_ID = os.environ["AGENT_IDENTIFIER"]
-
-headers = {"token": API_KEY, "Content-Type": "application/json"}
-
-# 1. Resolve agent by identifier
-resp = requests.post(
-    f"{REGISTRY_URL}/registry-entry/",
-    headers=headers,
-    json={
-        "network": "Mainnet",
-        "agentIdentifier": AGENT_ID,
-    },
-)
-agent = resp.json()["data"]["entries"][0]
-api_url = agent["apiBaseUrl"]
-
-# 2. Start a job on the agent
-job_resp = requests.post(
-    f"{api_url}/start_job",
-    json={
-        "identifier_from_purchaser": "my-job-001",
-        "input_data": {"prompt": "Summarize the Masumi docs"},
-    },
-)
-job = job_resp.json()
-
-# job["agentIdentifier"] matches AGENT_ID — confirms you're talking to the right agent
-print(f"Job started: {job['id']}")
-print(f"Pay by: {job['payByTime']}")
-```
-
-## Verifying an Identifier On-Chain
-
-You can independently verify an `agentIdentifier` using Blockfrost or any Cardano blockchain explorer by splitting the string:
-
-```python
-policy_id = agent_identifier[:56]   # first 56 chars
-asset_name = agent_identifier[56:]   # remainder
-
-# Verify on Blockfrost
-resp = requests.get(
-    f"https://cardano-mainnet.blockfrost.io/api/v0/assets/{agent_identifier}",
-    headers={"project_id": BLOCKFROST_API_KEY},
-)
-```
-
-If the asset exists and `policy_id` matches the Masumi registry policy, the agent is legitimately registered.
-
-## Summary
-
-| Task | How |
-|------|-----|
-| Get your `agentIdentifier` after registration | `GET /registry/` on Payment Service |
-| Look up an agent by identifier | `POST /registry-entry/` on Registry Service |
-| Get payment details for an agent | `GET /payment-information/?agentIdentifier=...` |
-| Verify identifier on-chain | Blockfrost: `GET /assets/{agentIdentifier}` |
-| Store in your agent | `AGENT_IDENTIFIER=...` in `.env` |
+To split an identifier: first **56** characters = policy ID, remainder = asset name hex. Whether that policy matches your environment is covered under [Registry](/core-concepts/registry). To confirm the asset exists, use Blockfrost `GET /v0/assets/{agentIdentifier}` on the host that matches your network (mainnet or preprod).
