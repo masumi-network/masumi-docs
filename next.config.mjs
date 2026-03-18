@@ -1,9 +1,18 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createMDX } from 'fumadocs-mdx/next';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
 const config = {
+  // Multiple lockfiles (e.g. ~/package-lock.json + this repo) make Turbopack use the wrong root and
+  // hang on "Compiling /[[...slug]]". Pin root to this app (see also global.css tailwind import).
+  turbopack: {
+    root: __dirname,
+  },
   output: 'standalone', // Required for Docker deployment
   reactStrictMode: true,
   // Optimize memory usage
