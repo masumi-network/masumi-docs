@@ -26,6 +26,7 @@
     "technical-documentation/schema-validator-component",
     "technical-documentation/_masumi-mcp-server",
     "technical-documentation/environment-variables",
+    "technical-documentation/multi-agent-limitations",
     "---Additional Resources---",
     "installing-postgresql-database",
     "export-your-wallet-into-an-external-wallet"
