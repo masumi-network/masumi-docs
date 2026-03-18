@@ -22,6 +22,7 @@
     "technical-documentation/registry-metadata-standard",
     "technical-documentation/schema-validator-component",
     "technical-documentation/agent-identity-nft",
+    "technical-documentation/agent-state-persistence",
     "technical-documentation/_masumi-mcp-server",
     "technical-documentation/environment-variables",
     "---Additional Resources---",
