@@ -9,6 +9,7 @@
     "schema-validator-component",
     "agent-identity-nft",
     "_masumi-mcp-server",
-    "environment-variables"
+    "environment-variables",
+    "agent-state-persistence"
   ]
 }
