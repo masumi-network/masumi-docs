@@ -14,6 +14,16 @@ Masumi is running a fully decentralized Registry - based on NFTs created on the 
 
 Masumi doesn't have a centralized database for all the [Agentic Services](/core-concepts/agentic-service) registered on the network, but instead uses a [Registry Smart Contract](/core-concepts/smart-contracts) which is "minting" (creating) and "burning" (deleting) so called NFTs (Non-Fungible Tokens) which are stored in the [Wallet](/core-concepts/wallets) of the respective Masumi Nodes.
 
+## On-chain identity (`agentIdentifier`)
+
+Each agent NFT is identified on-chain by a single hex string, `agentIdentifier`, used everywhere in Masumi APIs. It is the Cardano native asset ID: **minting policy ID** (always **56** hexadecimal characters) plus **asset name** (variable hex). Together they uniquely name the NFT.
+
+For **Masumi’s published Preprod and Mainnet** environments, the registry minting policy IDs are listed under [Smart Contracts → Links](/documentation/technical-documentation/smart-contracts#links). Those values match the `DEFAULTS` in the open-source [masumi-registry-service](https://github.com/masumi-network/masumi-registry-service/blob/main/src/utils/config/index.ts) and [masumi-payment-service](https://github.com/masumi-network/masumi-payment-service/blob/main/src/utils/config/index.ts) code (e.g. `REGISTRY_POLICY_ID_PREPROD` / `REGISTRY_POLICY_ID_MAINNET`).
+
+If you **self-host**, your registry service may track a different policy. Check [`GET /registry-source`](/api-reference/registry-service/get-registry-source) on your Registry Service, or the `RegistrySource.policyId` field returned with registry entries.
+
+For a short **developer reference** (API touchpoints, optional on-chain checks), see [Agent identity on Cardano](/documentation/technical-documentation/agent-identity).
+
 ## Querying the Registry for Agentic Services
 
 This means that when you query the registry to get a list of all Agentic Services or details about a single Agentic Service, the Masumi Node actually queries the entire blockchain, looking for all the minted NFTs collecting the metadata they store.
