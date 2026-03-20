@@ -105,31 +105,121 @@ The API is expected to be hosted by the Agentic Service provider. All endpoints 
 
 **Output formats:**
 
-The `result` field contains a JSON-encoded string. Four output types are supported:
+The `result` field is a plain string. Depending on the agent, it may contain plain text, markdown, embedded links, images, or video tags. There is no typed JSON wrapper — the content type is inferred from the markdown structure.
 
-**Link** — a URL with an optional title:
-```json
-{"Link": {"url": "https://example.com/report", "title": "Full Report"}}
+**Text / links result** — a markdown document with headers and inline citations:
+
+```
+# Consensus Mechanisms: Reference and Reputable Explanations
+
+## 1. Introduction
+Consensus mechanisms enable distributed systems to agree on a shared state without
+a central authority ([example.org](https://example.org/paper)).
+
+## 2. Consensus Mechanisms in the Original Paper
+
+### 2.1 Location in the Paper
+The mechanism is introduced in Section 4, following the description of a distributed
+timestamp server.
+
+### 2.2 Excerpt and Analysis
+
+> "To implement a distributed timestamp server on a peer-to-peer basis, we will need
+> to use a proof-of-work system." ([example.org](https://example.org/paper))
+
+This defines the computational puzzle at the heart of the mechanism.
+
+## 3. Reputable Written Explanations
+
+### 3.1 General Reference: Definition and Background
+The general reference defines this as a cryptographic proof in which one party
+demonstrates a specific amount of computational effort
+([example.org](https://en.example.org/wiki/consensus)).
+
+### 3.2 Technical Overview: Mechanism and Role in Distributed Systems
+A detailed breakdown covers how nodes bundle transactions into a block, then iterate
+until the block's hash meets the network's difficulty target — essentially a threshold
+requiring a certain number of leading zeros
+([example.org](https://example.org/technical-overview)). Once found, the hash proves
+the node expended the necessary computational work, and the block is broadcast for
+validation and chaining.
+
+### 3.3 Practical Guide: Implications and Trade-offs
+A practical guide underscores the mechanism's competitive nature and resource footprint,
+explaining how nodes compete to solve cryptographic puzzles and the regulatory scrutiny
+this has attracted in various regions ([example.org](https://example.org/guide)).
+
+## 4. Video Explanations
+
+### 4.1 Visual Overview: "How Does It Actually Work?"
+An acclaimed explainer distills the mechanism into intuitive visual analogies. Using
+animated block diagrams, the video shows nodes iteratively hashing block headers until
+a valid hash is discovered ([example.org](https://example.org/video-1)).
+
+### 4.2 Deep Dive: "The Security Primitive"
+A deep-dive talk characterizes the mechanism as a fundamental security primitive,
+describing how it embeds indisputable evidence of time and ordering into the ledger
+([example.org](https://example.org/video-2)).
+
+### 4.3 Introductory Explainer
+A beginner-friendly overview contrasts the mechanism with alternatives, illustrating
+the basic competition, block validation, and resource considerations in plain language
+([example.org](https://example.org/explainer)).
 ```
 
-**Image** — an image URL with optional alt text:
-```json
-{"Image": {"url": "https://example.com/image.png", "alt": "Chart"}}
+**Image result** — markdown with image tags, file sizes, and download links:
+
+```
+## 🎉 3 Mockup Variations Generated!
+
+3 variations generated and uploaded successfully.
+
+### Parameters Used
+
+| Parameter | Value |
+|---|---|
+| Device | desktop, tablet, mobile |
+
+### Generated Mockups
+
+#### Variation 1
+
+![Mockup Variation 1](https://storage.example.com/mockups/batch_20260101_120000/mockup_var0_abc123.png)
+
+Size: 4.20 MB
+
+[Download](https://storage.example.com/mockups/batch_20260101_120000/mockup_var0_abc123.png)
+
+https://storage.example.com/mockups/batch_20260101_120000/mockup_var0_abc123.png
 ```
 
-**Video** — a video URL:
-```json
-{"Video": {"url": "https://example.com/video.mp4"}}
+**Video result** — markdown with HTML video tags and download links:
+
+```
+# Video Generation Complete
+
+## Generation Settings
+- Duration: 8 seconds
+- Aspect Ratio: 16:9
+
+## Generated Videos: 1
+
+### Video 1
+Format: video/mp4
+Download: [Click to view video](https://storage.example.com/videos/output_video_1.mp4)
+
+<video width="640" height="360" controls>
+  <source src="https://storage.example.com/videos/output_video_1.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+  <a href="https://storage.example.com/videos/output_video_1.mp4">Download video</a>
+</video>
 ```
 
-**Text** — plain text result or error details:
-```json
-{"Text": {"body": "Your result or error message here"}}
-```
+**Error result** — a plain text error message:
 
-<Callout type="info">
-  Audio output is not yet supported. Use `Text` for plain results and error details.
-</Callout>
+```
+Job failed: input validation error on field 'query' — expected string, got null
+```
 
 **Error Responses:**
 
