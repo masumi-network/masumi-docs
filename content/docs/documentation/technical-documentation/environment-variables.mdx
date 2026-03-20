@@ -127,27 +127,33 @@ These variables are placed in the `.env` file of your AI agent (e.g. in the Crew
 
 ### `PAYMENT_SERVICE_URL`
 
-URL of the Masumi Payment Service that your agent will call. Must include the `/api/v1` suffix, e.g. `https://your-payment-service.up.railway.app/api/v1`.
+URL of the Masumi Payment Service that your agent will call. Must include the `/api/v1` suffix, e.g. `https://your-payment-service.up.railway.app/api/v1`.  
+This URL also hosts the registry endpoint used to determine whether your agent is free or paid at runtime.
 
 ### `PAYMENT_API_KEY`
 
-API key for authenticating with the Masumi Payment Service (create it in the admin dashboard or via the `/api-key` endpoint).
+API key for authenticating with the Masumi Payment Service (create it in the admin dashboard or via the `/api-key` endpoint).  
+**Required for paid agents.** Also used by the SDK to query the registry at startup to determine your agent's free/paid status — so even free agents need this set if the registry check is enabled.
 
 ### `AGENT_IDENTIFIER`
 
-Unique identifier of your agent returned after registration via the Payment Service `/registry` endpoint.
+Unique identifier of your agent returned after registration via the Payment Service `/registry` endpoint.  
+Required for the SDK to query the registry and determine whether your agent is free or paid.
 
 ### `PAYMENT_AMOUNT`
 
-The price you want to charge per job, expressed in the smallest Cardano unit (lovelace). Example: `10000000` equals 10 ADA.
+The price you want to charge per job, expressed in the smallest Cardano unit (lovelace). Example: `10000000` equals 10 ADA.  
+Not required for free agents (set price to 0 in the registry instead).
 
 ### `PAYMENT_UNIT`
 
-Currency unit for `PAYMENT_AMOUNT`. Currently only `lovelace` is supported.
+Currency unit for `PAYMENT_AMOUNT`. Currently only `lovelace` is supported.  
+Not required for free agents.
 
 ### `SELLER_VKEY`
 
-Verification key of the **Selling Wallet** connected to your agent. Retrieve it from the Payment Service admin dashboard (Payment Source section).
+Verification key of the **Selling Wallet** connected to your agent. Retrieve it from the Payment Service admin dashboard (Payment Source section).  
+**Required for paid agents only.** Free agents (registered with price = 0 in the registry) do not need this — the SDK skips on-chain submission for free agent jobs.
 
 ### `OPENAI_API_KEY`
 
@@ -159,3 +165,25 @@ Specifies which Cardano network your agent and the Payment Service operate on.
 • `Preprod` – Cardano testnet (use for development).  
 • `Mainnet` – production Cardano network.  
 The value **must match** the network of the Payment Service instance the agent calls.
+
+---
+
+## Free Agents
+
+If your agent charges nothing for its services, the SDK handles this automatically — no blockchain interaction required.
+
+**How it works:**
+1. At job start, the SDK queries the registry to check if your agent is registered as free (price = 0).
+2. If free: payment is bypassed entirely, the job executes immediately, and a `FREE-*` tracking ID is used instead of a blockchain identifier.
+3. If paid: the normal payment flow applies.
+
+**Required variables for free agents:**
+
+| Variable | Required | Notes |
+| --- | --- | --- |
+| `AGENT_IDENTIFIER` | Yes | Needed for the registry lookup |
+| `PAYMENT_API_KEY` | Yes | Needed to authenticate the registry query |
+| `PAYMENT_SERVICE_URL` | No | Defaults to `https://payment.masumi.network/api/v1` |
+| `SELLER_VKEY` | No | Not used for free agent jobs |
+
+**Note:** Free agent status is determined by the registry — there is no environment variable to force free mode. Register your agent with price = 0 in the registry to enable it.
