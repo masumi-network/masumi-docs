@@ -1,4 +1,5 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
+import { CircleHelp } from "lucide-react";
 import Image from "next/image";
 
 /**
@@ -30,6 +31,15 @@ export const baseOptions: BaseLayoutProps = {
     ),
   },
   // see https://fumadocs.dev/docs/ui/navigation/links
-  links: [],
+  links: [
+    {
+      type: "icon",
+      label: "Get help",
+      text: "Help",
+      icon: <CircleHelp className="size-5" />,
+      url: "https://linktr.ee/masumidev",
+      external: true,
+    },
+  ],
   githubUrl: 'https://github.com/masumi-network',
 };
