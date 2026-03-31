@@ -1,5 +1,5 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import { CircleHelp } from "lucide-react";
+import { Settings } from "lucide-react";
 import Image from "next/image";
 
 /**
@@ -34,9 +34,14 @@ export const baseOptions: BaseLayoutProps = {
   links: [
     {
       type: "icon",
-      label: "Get help",
-      text: "Help",
-      icon: <CircleHelp className="size-5" />,
+      label: "Support (opens Linktree in a new tab)",
+      text: "Support",
+      icon: (
+        <span className="inline-flex items-center gap-2 rounded-full border border-fd-border/60 bg-fd-secondary px-3 py-1 text-sm font-medium text-fd-foreground transition-colors hover:bg-fd-accent">
+          <Settings className="size-4 shrink-0" aria-hidden />
+          <span>Support</span>
+        </span>
+      ),
       url: "https://linktr.ee/masumidev",
       external: true,
     },
