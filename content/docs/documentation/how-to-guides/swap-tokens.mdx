@@ -1,0 +1,145 @@
+---
+title: "Swap Tokens"
+description: "Swap ADA and native tokens via the Payment Service (SundaeSwap). Mainnet only, admin key required."
+icon: ArrowLeftRight
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+<Callout type="warn">
+  **Mainnet only.** Requires `ADMIN_KEY`. Does not work on Preprod.
+</Callout>
+
+## Prerequisites
+
+Set these (or substitute in the examples):
+
+- **Base URL** — your Payment Service root, e.g. `http://localhost:3001` or `https://your-node.example.com`
+- **Auth** — your admin key (same as `ADMIN_KEY` in `.env`)
+- **Wallet** — the verification key of the wallet that will fund the swap
+
+```bash
+export PAYMENT_SERVICE_URL="http://localhost:3001"   # your node URL
+export ADMIN_KEY="your_admin_key"
+export WALLET_VKEY="your_wallet_vkey"
+```
+
+---
+
+## Supported tokens
+
+| Token | Policy ID | Asset Name (hex) |
+|-------|-----------|------------------|
+| ADA | *(native)* | `""` |
+| USDM | `c48cbb3d5e57ed56e276bc45f99ab39abe94e6cd7ac39fb402da47ad` | `0014df105553444d` |
+| USDCx | `1f3aec8bfe7ea4fe14c5f121e2a92e301afe414147860d557cac7e34` | `5553444378` |
+
+For **ADA** use `policyId: ""` and `assetName: ""`. All requests need header: `token: $ADMIN_KEY`.
+
+Pool IDs in the examples below were valid at time of writing — verify via the [SundaeSwap](https://sundaeswap.finance/) API or DEX explorer before using in production.
+
+---
+
+## 1. Get estimate
+
+`GET /api/v1/swap/estimate/` — query: `fromPolicyId`, `fromAssetName`, `toPolicyId`, `toAssetName`, `poolId`. Returns rate and fee for the pair (amount-agnostic). If the API supports an optional `amount` parameter for quantity-specific estimates, add it to the query.
+
+```bash
+curl -X GET "$PAYMENT_SERVICE_URL/api/v1/swap/estimate/" \
+  -H "token: $ADMIN_KEY" \
+  -G \
+  --data-urlencode "fromPolicyId=" \
+  --data-urlencode "fromAssetName=" \
+  --data-urlencode "toPolicyId=c48cbb3d5e57ed56e276bc45f99ab39abe94e6cd7ac39fb402da47ad" \
+  --data-urlencode "toAssetName=0014df105553444d" \
+  --data-urlencode "poolId=64f35d26b237ad58e099041bc14c687ea7fdc58969d7d5b66e2540ef"
+```
+
+Returns: `rate`, `fee`, `fromDecimals`, `toDecimals`.
+
+---
+
+## 2. Execute swap
+
+`POST /api/v1/swap/` — body: `walletVkey`, `amount`, `fromToken`, `toToken`, `poolId`, `slippage` (optional, default `0.03`). **Amount** is in token units (e.g. `10` = 10 ADA, not lovelace). **Slippage** is a decimal: `0.03` = 3%.
+
+```bash
+curl -X POST "$PAYMENT_SERVICE_URL/api/v1/swap/" \
+  -H "token: $ADMIN_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"walletVkey\": \"$WALLET_VKEY\",
+    \"amount\": 10,
+    \"fromToken\": { \"policyId\": \"\", \"assetName\": \"\", \"name\": \"ADA\" },
+    \"toToken\": {
+      \"policyId\": \"c48cbb3d5e57ed56e276bc45f99ab39abe94e6cd7ac39fb402da47ad\",
+      \"assetName\": \"0014df105553444d\",
+      \"name\": \"USDM\"
+    },
+    \"poolId\": \"64f35d26b237ad58e099041bc14c687ea7fdc58969d7d5b66e2540ef\",
+    \"slippage\": 0.03
+  }"
+```
+
+Returns: `txHash`, `walletAddress`. Use this **txHash** as `txHash` in the confirm step and as **swapTransactionId** in cancel and acknowledge-timeout (you can also get swap IDs from the transactions list).
+
+---
+
+## 3. Check status
+
+`GET /api/v1/swap/confirm/` — query: `txHash`, `walletVkey`. Poll until `swapStatus` is `Completed`. Capture `txHash` from the execute response and set `TX_HASH` before calling confirm (e.g. `export TX_HASH=$(echo "$EXECUTE_RESPONSE" | jq -r '.txHash')` if the execute response is in `EXECUTE_RESPONSE`; requires `jq`).
+
+```bash
+curl -X GET "$PAYMENT_SERVICE_URL/api/v1/swap/confirm/" \
+  -H "token: $ADMIN_KEY" \
+  -G \
+  --data-urlencode "txHash=$TX_HASH" \
+  --data-urlencode "walletVkey=$WALLET_VKEY"
+```
+
+| swapStatus | Meaning |
+|------------|---------|
+| OrderPending | Tx submitted |
+| OrderConfirmed | At DEX, waiting to be filled |
+| Completed | Filled; tokens in wallet |
+| CancelPending / CancelConfirmed | Cancel in progress / done |
+
+---
+
+## 4. Cancel order
+
+`POST /api/v1/swap/cancel/` — use to recover funds when status is `OrderConfirmed` (order at the DEX). Cancellation is not supported for `OrderPending` (tx not yet on-chain). `swapTransactionId` is the `txHash` from the execute step (or the transaction id from the list endpoint).
+
+```bash
+curl -X POST "$PAYMENT_SERVICE_URL/api/v1/swap/cancel/" \
+  -H "token: $ADMIN_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{\"walletVkey\": \"$WALLET_VKEY\", \"swapTransactionId\": \"$SWAP_TX_ID\"}"
+```
+
+---
+
+## 5. List transactions
+
+`GET /api/v1/swap/transactions/` — query: `walletVkey`, `limit`, optional `cursorId`. Most recent first.
+
+```bash
+curl -X GET "$PAYMENT_SERVICE_URL/api/v1/swap/transactions/" \
+  -H "token: $ADMIN_KEY" \
+  -G \
+  --data-urlencode "walletVkey=$WALLET_VKEY" \
+  --data-urlencode "limit=10"
+```
+
+---
+
+## 6. Recover after timeout
+
+`POST /api/v1/swap/acknowledge-timeout/` — if the order tx timed out, service checks chain and returns actual state. `swapTransactionId` is the `txHash` from the execute step (or from the transactions list).
+
+```bash
+curl -X POST "$PAYMENT_SERVICE_URL/api/v1/swap/acknowledge-timeout/" \
+  -H "token: $ADMIN_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{\"walletVkey\": \"$WALLET_VKEY\", \"swapTransactionId\": \"$SWAP_TX_ID\"}"
+```
