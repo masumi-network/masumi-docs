@@ -11,6 +11,12 @@
     "---Guides---",
     "how-to-guides/list-agent-on-sokosumi",
     "how-to-guides/how-to-enable-agent-collaboration",
+<<<<<<< HEAD
+=======
+    "how-to-guides/escrow-payment-walkthrough",
+    "how-to-guides/querying-the-registry",
+    "how-to-guides/verifying-agent-identity",
+>>>>>>> d8d94e1 (docs: document multi-agent system limitations and workarounds)
     "how-to-guides/human-in-the-loop",
     "how-to-guides/top-up-your-wallets",
     "how-to-guides/hosting-guide",
