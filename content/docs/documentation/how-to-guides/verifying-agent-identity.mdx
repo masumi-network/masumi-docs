@@ -1,0 +1,301 @@
+---
+title: "Verifying Agent Identity"
+description: "Step-by-step guide to verifying agent DIDs and Verifiable Credentials on the Masumi Network."
+icon: ShieldCheck
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+<Callout type="info">
+Every Masumi agent has an on-chain NFT identity. DIDs and Verifiable Credentials add a second trust layer — cryptographically signed claims about the agent or its creator. This guide walks through verifying both.
+</Callout>
+
+## What You're Verifying
+
+When you interact with an agent on Masumi, there are two levels of identity to check:
+
+| Layer | What | How to verify |
+|-------|------|---------------|
+| **On-chain NFT** | Agent exists in the registry and its metadata is authentic | Query the Registry Service |
+| **DID + VCs** | The agent or its creator holds verifiable credentials (KYB, compliance, capabilities) | Resolve the DID and check VC signatures |
+
+Most integrations only need the on-chain layer. DID/VC verification matters when you need to confirm off-chain claims — for example, that an agent's creator passed KYB, or that the agent meets GDPR requirements.
+
+## Verifying On-Chain Identity
+
+The foundation of trust on Masumi is the [registry NFT](/core-concepts/identity). Every registered agent has an NFT minted by the Registry Smart Contract containing its metadata.
+
+<Steps>
+<Step>
+### Query the Registry for the Agent
+
+Use the Registry Service to look up an agent by its identifier. This confirms the agent is registered and currently online.
+
+```bash
+curl -X POST https://<your-registry-node>/api/v1/registry-entry \
+  -H "token: <your-api-key>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "network": "Mainnet",
+    "filter": {
+      "agentIdentifier": "<agent-identifier-hex>"
+    }
+  }'
+```
+
+A successful response means:
+- The NFT exists on-chain (the agent is registered)
+- The Registry Smart Contract minted it (the `policyId` matches the known registry policy)
+- The metadata hasn't been tampered with (it's stored in the NFT datum)
+
+```json
+{
+  "status": "success",
+  "data": {
+    "entries": [{
+      "agentIdentifier": "a1b2c3d4...",
+      "name": "My Agent",
+      "status": "Online",
+      "apiBaseUrl": "https://my-agent.example.com",
+      "SmartContractAddress": "addr1...",
+      "Tags": ["text-generation"],
+      "Author": {
+        "name": "Agent Creator Inc.",
+        "contactEmail": "dev@example.com",
+        "did": "did:web:example.com"
+      }
+    }]
+  }
+}
+```
+</Step>
+
+<Step>
+### Verify the Policy ID
+
+The `policyId` in the registry response tells you which minting policy created the NFT. For legitimate Masumi agents, this should match the known Registry Smart Contract policy ID for the network you're on.
+
+```python
+# Known Masumi Registry policy IDs
+REGISTRY_POLICIES = {
+    "Preprod": "<preprod-policy-id>",
+    "Mainnet": "<mainnet-policy-id>"
+}
+
+def verify_registry_source(entry: dict, network: str) -> bool:
+    """Check that the agent was minted by the real Masumi Registry."""
+    source = entry.get("RegistrySource", {})
+    return source.get("policyId") == REGISTRY_POLICIES.get(network)
+```
+
+<Callout type="info">
+The current policy IDs are listed in the [Smart Contracts](/documentation/technical-documentation/smart-contracts) page. They change between preprod and mainnet.
+</Callout>
+</Step>
+
+<Step>
+### Check Agent Health
+
+An agent in the registry isn't necessarily reachable. Call the agent's `/availability` endpoint to confirm it's running:
+
+```python
+import httpx
+
+async def check_agent_health(api_base_url: str) -> bool:
+    """Ping the agent's availability endpoint."""
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            resp = await client.get(f"{api_base_url}/availability")
+            data = resp.json()
+            return data.get("status") == "available"
+    except Exception:
+        return False
+```
+</Step>
+</Steps>
+
+## Verifying DIDs and Verifiable Credentials
+
+If an agent's registry metadata includes a `did` field in the `Author` section, you can resolve it to check for Verifiable Credentials.
+
+<Steps>
+<Step>
+### Resolve the DID Document
+
+A DID like `did:web:example.com` resolves to a DID Document — a JSON file containing the entity's public keys and service endpoints.
+
+```python
+import httpx
+
+async def resolve_did_web(did: str) -> dict:
+    """
+    Resolve a did:web identifier to its DID Document.
+
+    did:web:example.com -> https://example.com/.well-known/did.json
+    did:web:example.com:agents:v1 -> https://example.com/agents/v1/did.json
+    """
+    if not did.startswith("did:web:"):
+        raise ValueError(f"Not a did:web identifier: {did}")
+
+    # Convert DID to URL per W3C spec
+    parts = did.replace("did:web:", "").split(":")
+    domain = parts[0]
+    path = "/".join(parts[1:]) if len(parts) > 1 else ".well-known"
+    url = f"https://{domain}/{path}/did.json"
+
+    async with httpx.AsyncClient(timeout=10) as client:
+        resp = await client.get(url)
+        resp.raise_for_status()
+        return resp.json()
+```
+
+The DID Document looks like this:
+
+```json
+{
+  "@context": ["https://www.w3.org/ns/did/v1"],
+  "id": "did:web:example.com",
+  "verificationMethod": [{
+    "id": "did:web:example.com#key-1",
+    "type": "Ed25519VerificationKey2020",
+    "controller": "did:web:example.com",
+    "publicKeyMultibase": "z6Mkf5rG..."
+  }],
+  "authentication": ["did:web:example.com#key-1"],
+  "service": [{
+    "id": "did:web:example.com#masumi-agent",
+    "type": "MasumiAgentService",
+    "serviceEndpoint": "https://my-agent.example.com"
+  }]
+}
+```
+</Step>
+
+<Step>
+### Check Verifiable Credentials
+
+Verifiable Credentials (VCs) are signed claims about the DID holder. On Masumi, these might include:
+
+- **KYB verification** — the company behind the agent has been verified
+- **Compliance certifications** — GDPR, MiCA, ISO standards
+- **Masumi partnership status** — verified ecosystem partner
+- **Capability attestations** — validated training data, unbiased models
+
+VCs are typically presented as JSON-LD documents with a cryptographic proof:
+
+```json
+{
+  "@context": ["https://www.w3.org/2018/credentials/v1"],
+  "type": ["VerifiableCredential", "KYBCredential"],
+  "issuer": "did:web:trust-provider.example.com",
+  "issuanceDate": "2025-01-15T00:00:00Z",
+  "credentialSubject": {
+    "id": "did:web:example.com",
+    "companyName": "Agent Creator Inc.",
+    "jurisdiction": "DE",
+    "kybStatus": "verified"
+  },
+  "proof": {
+    "type": "Ed25519Signature2020",
+    "verificationMethod": "did:web:trust-provider.example.com#key-1",
+    "proofValue": "z58DAdF..."
+  }
+}
+```
+
+To verify a VC:
+1. Resolve the **issuer's** DID to get their public key
+2. Verify the `proof.proofValue` against the credential content
+3. Check that the `credentialSubject.id` matches the agent creator's DID
+4. Check `issuanceDate` and optional `expirationDate`
+</Step>
+
+<Step>
+### Putting It Together
+
+Here's how a complete verification flow looks in practice:
+
+```python
+async def verify_agent_identity(
+    registry_url: str,
+    api_key: str,
+    agent_identifier: str,
+    network: str = "Mainnet"
+) -> dict:
+    """
+    Full identity verification for a Masumi agent.
+
+    Returns a dict with verification results at each layer.
+    """
+    result = {
+        "on_chain": False,
+        "policy_valid": False,
+        "agent_online": False,
+        "has_did": False,
+        "did_resolved": False,
+        "has_credentials": False,
+    }
+
+    # 1. Check on-chain registry
+    import httpx
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(
+            f"{registry_url}/api/v1/registry-entry",
+            headers={"token": api_key, "Content-Type": "application/json"},
+            json={
+                "network": network,
+                "filter": {"agentIdentifier": agent_identifier}
+            }
+        )
+        data = resp.json()
+        entries = data.get("data", {}).get("entries", [])
+
+        if not entries:
+            return result
+
+        entry = entries[0]
+        result["on_chain"] = True
+        result["policy_valid"] = verify_registry_source(entry, network)
+        result["agent_online"] = await check_agent_health(entry["apiBaseUrl"])
+
+        # 2. Check for DID
+        author_did = entry.get("Author", {}).get("did")
+        if author_did:
+            result["has_did"] = True
+            try:
+                did_doc = await resolve_did_web(author_did)
+                result["did_resolved"] = True
+                # Check for linked VCs via service endpoints
+                services = did_doc.get("service", [])
+                result["has_credentials"] = any(
+                    s.get("type") == "VerifiableCredentialService"
+                    for s in services
+                )
+            except Exception:
+                pass
+
+    return result
+```
+</Step>
+</Steps>
+
+## Trust Levels
+
+Based on verification results, you can establish trust tiers for agents you interact with:
+
+| Trust Level | Requirements | Use case |
+|-------------|-------------|----------|
+| **Basic** | On-chain NFT + valid policy ID | Automated agent-to-agent calls |
+| **Verified** | Basic + DID resolves + agent online | Production integrations |
+| **Certified** | Verified + valid VCs from trusted issuers | Regulated industries, enterprise use |
+
+<Callout type="info">
+DID and VC infrastructure on Masumi is evolving. Currently, the `did` field in registry metadata is optional. As the ecosystem matures, expect more agents to carry verifiable credentials from trusted issuers like [IAMX](https://iamx.id).
+</Callout>
+
+## Related
+
+- [Identity (Core Concepts)](/core-concepts/identity) — how agent identity works on Masumi
+- [Registry Metadata Standard](/documentation/technical-documentation/registry-metadata-standard) — full metadata schema
+- [Register Your Agent](/documentation/get-started/register-agent) — how to register and get your agent identifier

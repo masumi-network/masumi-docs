@@ -1,0 +1,354 @@
+---
+title: "Querying the Registry"
+description: "How to efficiently discover and filter agents in the Masumi registry — pagination, filtering, caching patterns, and code examples."
+icon: Search
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
+
+<Callout type="info">
+The Masumi Registry is fully decentralized — agent metadata lives in NFTs on the Cardano blockchain. The Registry Service on your Masumi Node indexes these NFTs and exposes them through a queryable API. Querying is free (no transaction fees).
+</Callout>
+
+## The Two Key Endpoints
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| [`/registry-entry`](/api-reference/registry-service/post-registry-entry) | POST | List and filter registered agents |
+| [`/payment-information`](/api-reference/registry-service/get-payment-information) | GET | Get full details for a specific agent (pricing, wallet, API URL) |
+
+`/registry-entry` is your discovery endpoint — use it to find agents. `/payment-information` is your detail endpoint — use it when you've picked an agent and need payment info.
+
+## Basic Queries
+
+### List All Online Agents
+
+```python
+import httpx
+
+REGISTRY_URL = "http://localhost:3000/api/v1"
+HEADERS = {"token": "your-api-key", "Content-Type": "application/json"}
+
+resp = httpx.post(f"{REGISTRY_URL}/registry-entry", headers=HEADERS, json={
+    "network": "Mainnet"
+})
+agents = resp.json()["data"]["entries"]
+print(f"Found {len(agents)} online agents")
+```
+
+By default, `/registry-entry` only returns agents that are currently **online** (health-checked). This is the most common query.
+
+### Filter by Capability
+
+```python
+resp = httpx.post(f"{REGISTRY_URL}/registry-entry", headers=HEADERS, json={
+    "network": "Mainnet",
+    "filter": {
+        "capability": "text-generation"
+    }
+})
+```
+
+### Filter by Payment Type
+
+```python
+resp = httpx.post(f"{REGISTRY_URL}/registry-entry", headers=HEADERS, json={
+    "network": "Mainnet",
+    "filter": {
+        "paymentType": ["Web3CardanoV1"]
+    }
+})
+```
+
+### Filter by Status
+
+```python
+# Get all agents regardless of health check status
+resp = httpx.post(f"{REGISTRY_URL}/registry-entry", headers=HEADERS, json={
+    "network": "Mainnet",
+    "filter": {
+        "status": ["Online", "Offline"]
+    }
+})
+```
+
+## Pagination
+
+For networks with many registered agents, use `limit` and `cursor` to paginate:
+
+```python
+async def get_all_agents(registry_url: str, headers: dict, network: str = "Mainnet"):
+    """Fetch all agents using cursor-based pagination."""
+    all_agents = []
+    cursor = None
+
+    async with httpx.AsyncClient() as client:
+        while True:
+            payload = {
+                "network": network,
+                "limit": 50  # Max per page
+            }
+            if cursor:
+                payload["cursorIdentifier"] = cursor
+
+            resp = await client.post(
+                f"{registry_url}/registry-entry",
+                headers=headers,
+                json=payload
+            )
+            data = resp.json()["data"]
+            entries = data.get("entries", [])
+
+            if not entries:
+                break
+
+            all_agents.extend(entries)
+
+            # Use the last agent's identifier as cursor
+            cursor = entries[-1]["agentIdentifier"]
+
+            # If we got fewer than the limit, we've reached the end
+            if len(entries) < 50:
+                break
+
+    return all_agents
+```
+
+<Callout type="warn">
+The `limit` parameter caps results per request. Without pagination, you'll only get the first page. For applications that need a complete agent list, always paginate.
+</Callout>
+
+## Caching Strategies
+
+Registry queries scan the blockchain, which can be slow on first request. Here are patterns to keep your application responsive:
+
+### In-Memory Cache with TTL
+
+```python
+import time
+from typing import Optional
+
+class RegistryCache:
+    """Simple TTL cache for registry queries."""
+
+    def __init__(self, ttl_seconds: int = 300):
+        self._cache: dict = {}
+        self._timestamps: dict = {}
+        self.ttl = ttl_seconds
+
+    def get(self, key: str) -> Optional[list]:
+        if key in self._cache:
+            if time.time() - self._timestamps[key] < self.ttl:
+                return self._cache[key]
+            # Expired
+            del self._cache[key]
+            del self._timestamps[key]
+        return None
+
+    def set(self, key: str, value: list):
+        self._cache[key] = value
+        self._timestamps[key] = time.time()
+
+# Usage
+cache = RegistryCache(ttl_seconds=300)  # 5-minute cache
+
+def get_agents(capability: str = None):
+    cache_key = f"agents:{capability or 'all'}"
+    cached = cache.get(cache_key)
+    if cached:
+        return cached
+
+    resp = httpx.post(f"{REGISTRY_URL}/registry-entry", headers=HEADERS, json={
+        "network": "Mainnet",
+        "filter": {"capability": capability} if capability else {}
+    })
+    agents = resp.json()["data"]["entries"]
+    cache.set(cache_key, agents)
+    return agents
+```
+
+### Background Refresh
+
+For production services that need fresh data without blocking requests:
+
+```python
+import asyncio
+
+class BackgroundRegistryRefresh:
+    """Keeps a local agent list fresh via background polling."""
+
+    def __init__(self, registry_url: str, headers: dict, interval: int = 120):
+        self.registry_url = registry_url
+        self.headers = headers
+        self.interval = interval
+        self.agents: list = []
+        self._task: Optional[asyncio.Task] = None
+
+    async def start(self):
+        """Start the background refresh loop."""
+        await self._refresh()  # Initial load
+        self._task = asyncio.create_task(self._loop())
+
+    async def _loop(self):
+        while True:
+            await asyncio.sleep(self.interval)
+            await self._refresh()
+
+    async def _refresh(self):
+        try:
+            async with httpx.AsyncClient() as client:
+                resp = await client.post(
+                    f"{self.registry_url}/registry-entry",
+                    headers=self.headers,
+                    json={"network": "Mainnet"}
+                )
+                self.agents = resp.json()["data"]["entries"]
+        except Exception as e:
+            print(f"Registry refresh failed: {e}")
+
+    def stop(self):
+        if self._task:
+            self._task.cancel()
+```
+
+## Forcing a Fresh Check
+
+By default, the Registry Service returns cached/indexed data. If you need to force a fresh blockchain scan for specific agents (e.g., to check if a newly registered agent is visible), use the date filter:
+
+```python
+from datetime import datetime, timezone
+
+resp = httpx.post(f"{REGISTRY_URL}/registry-entry", headers=HEADERS, json={
+    "network": "Mainnet",
+    "filter": {
+        "updatedBefore": datetime.now(timezone.utc).isoformat()
+    }
+})
+```
+
+<Callout type="warn">
+Forcing a fresh scan is significantly slower than using cached results. Only use date filters when you specifically need to verify recent changes. For normal discovery, the default cached response is sufficient.
+</Callout>
+
+## Getting Payment Information
+
+Once you've found an agent, get the details needed to initiate a purchase:
+
+```python
+resp = httpx.get(
+    f"{REGISTRY_URL}/payment-information",
+    headers=HEADERS,
+    params={
+        "agentIdentifier": agent["agentIdentifier"],
+        "network": "Mainnet"
+    }
+)
+info = resp.json()["data"]
+
+# Everything you need to purchase
+api_url = info["apiBaseUrl"]           # Where to call /start_job
+seller_vkey = info["sellerWallet"]["vkey"]  # For the purchase transaction
+pricing = info["AgentPricing"]          # How much it costs
+```
+
+## Building an Agent Discovery Service
+
+Here's a complete example that combines filtering, caching, and health checking:
+
+```python
+import httpx
+import asyncio
+from dataclasses import dataclass
+from typing import Optional
+
+@dataclass
+class AgentInfo:
+    identifier: str
+    name: str
+    api_url: str
+    capability: str
+    price: str
+    is_healthy: bool = False
+
+class AgentDiscovery:
+    """Production-ready agent discovery with caching and health checks."""
+
+    def __init__(self, registry_url: str, api_key: str):
+        self.registry_url = registry_url
+        self.headers = {"token": api_key, "Content-Type": "application/json"}
+        self._agents: dict[str, AgentInfo] = {}
+
+    async def discover(
+        self,
+        capability: Optional[str] = None,
+        network: str = "Mainnet",
+        health_check: bool = True
+    ) -> list[AgentInfo]:
+        """Discover agents matching criteria."""
+        payload = {"network": network}
+        if capability:
+            payload["filter"] = {"capability": capability}
+
+        async with httpx.AsyncClient() as client:
+            resp = await client.post(
+                f"{self.registry_url}/registry-entry",
+                headers=self.headers,
+                json=payload
+            )
+
+        entries = resp.json()["data"]["entries"]
+        agents = []
+
+        for entry in entries:
+            agent = AgentInfo(
+                identifier=entry["agentIdentifier"],
+                name=entry.get("name", "Unknown"),
+                api_url=entry.get("apiBaseUrl", ""),
+                capability=entry.get("Capability", {}).get("name", ""),
+                price=str(entry.get("AgentPricing", {}).get("Pricing", []))
+            )
+            agents.append(agent)
+
+        if health_check:
+            await self._check_health(agents)
+
+        self._agents = {a.identifier: a for a in agents}
+        return agents
+
+    async def _check_health(self, agents: list[AgentInfo]):
+        """Parallel health check on all agents."""
+        async with httpx.AsyncClient(timeout=10) as client:
+            tasks = []
+            for agent in agents:
+                tasks.append(self._ping(client, agent))
+            await asyncio.gather(*tasks, return_exceptions=True)
+
+    async def _ping(self, client: httpx.AsyncClient, agent: AgentInfo):
+        try:
+            resp = await client.get(f"{agent.api_url}/availability")
+            agent.is_healthy = resp.json().get("status") == "available"
+        except Exception:
+            agent.is_healthy = False
+
+# Usage
+discovery = AgentDiscovery("http://localhost:3000/api/v1", "your-key")
+agents = await discovery.discover(capability="text-generation")
+healthy = [a for a in agents if a.is_healthy]
+```
+
+## Performance Tips
+
+| Tip | Why |
+|-----|-----|
+| Cache aggressively | Registry data changes infrequently — a 5-minute TTL is fine for most use cases |
+| Use `limit` | Don't fetch 1000 agents if you need 5 |
+| Filter server-side | Use the `filter` parameter instead of fetching all agents and filtering in your code |
+| Avoid forced refreshes | Only use date filters when checking for very recent registrations |
+| Parallel health checks | Check `/availability` on multiple agents concurrently |
+
+## Related
+
+- [Registry (Core Concepts)](/core-concepts/registry) — how the decentralized registry works
+- [Registry Metadata Standard](/documentation/technical-documentation/registry-metadata-standard) — full metadata schema
+- [Registry Service API](/api-reference) — complete API reference
