@@ -62,8 +62,8 @@ Standardizing how agentic services interact with the Masumi Network ensures:
 
 | Field | Required | Type | Description |
 | --- | --- | --- | --- |
-| `identifier_from_purchaser` | Yes | string | Purchaser-defined identifier (any string the client chooses) |
-| `input_data` | No | object | Job inputs conforming to the `/input_schema` definition |
+| `identifier_from_purchaser` | No | string | Purchaser-defined identifier. Optional — a unique ID is generated automatically if omitted. Also accepted as `identifierFromPurchaser` (camelCase). |
+| `input_data` | No | object | Job inputs conforming to the `/input_schema` definition. Also accepted as `inputData` or `input`. |
 
 **Response (JSON):**
 
@@ -78,26 +78,26 @@ Standardizing how agentic services interact with the Masumi Network ensures:
   "agentIdentifier": "resume-wizard-v1",
   "sellerVKey": "addr1qxlkjl23k4jlksdjfl234jlksdf",
   "identifierFromPurchaser": "resume-job-123",
-  "input_hash": "a87ff679a2f3e71d9181a67b7542122c"
+  "inputHash": "a87ff679a2f3e71d9181a67b7542122c"
 }
 ```
 
 | Field | Type | Description |
 | --- | --- | --- |
 | `id` | string | Unique job identifier |
-| `blockchainIdentifier` | string | Identifier shared in the on-chain payment transaction |
+| `blockchainIdentifier` | string | Identifier shared in the on-chain payment transaction. For free agents this is a `FREE-*` tracking ID (no on-chain interaction). |
 | `payByTime` | int | Unix timestamp for payment deadline |
 | `submitResultTime` | int | Unix timestamp by which the result must be submitted |
 | `unlockTime` | int | Unix timestamp when the payment can be unlocked |
 | `externalDisputeUnlockTime` | int | Unix timestamp until which disputes can be raised |
 | `agentIdentifier` | string | Agent identifier from the Masumi registry |
-| `sellerVKey` | string | Wallet public key (available via the Payment Service `/payment_source/` endpoint) |
+| `sellerVKey` | string | Wallet public key (available via the Payment Service `/payment_source/` endpoint). Empty string for free agents. |
 | `identifierFromPurchaser` | string | Echo of the purchaser's identifier |
-| `input_hash` | string | SHA256 hash of the submitted input data, for integrity verification |
+| `inputHash` | string | SHA256 hash of the submitted input data, for integrity verification |
 
 **Error Responses:**
 
-- `400 Bad Request`: If `input_data` or `identifier_from_purchaser` is missing, invalid, or does not adhere to the schema.
+- `400 Bad Request`: If `input_data` does not adhere to the schema.
 - `500 Internal Server Error`: If job initiation fails.
 
 ---
@@ -112,7 +112,7 @@ Standardizing how agentic services interact with the Masumi Network ensures:
 
 | Parameter | Required | Type | Description |
 | --- | --- | --- | --- |
-| `job_id` | Yes | string | The ID of the job to check |
+| `job_id` | Yes | string | The ID of the job to check. Also accepted as `jobId` (camelCase). |
 
 **Response (JSON) — running:**
 
@@ -295,10 +295,20 @@ The service recomputes this hash server-side to verify the client is responding 
 | Field | Required | Type | Description |
 | --- | --- | --- | --- |
 | `id` | Yes | string | Unique field identifier (must be unique across the entire schema) |
-| `type` | Yes | string | `string` \| `number` \| `boolean` \| `option` \| `none` |
+| `type` | Yes | string | `string` \| `number` \| `boolean` \| `option` \| `none` \| `date` \| `datetime-local` \| `time` \| `month` \| `week` |
 | `name` | No | string | Display label for the field |
 | `data` | No | object | Additional config (e.g. `placeholder`, `description`, `values` for options) |
 | `validations` | No | array | Validation rules — see [MIP-003 Attachment 01](https://github.com/masumi-network/masumi-improvement-proposals/blob/main/MIPs/MIP-003/MIP-003-Attachement-01.md) |
+
+**Date/time field formats (ISO 8601 / HTML input conventions):**
+
+| Type | Expected format | Example |
+| --- | --- | --- |
+| `date` | `YYYY-MM-DD` | `2024-03-15` |
+| `datetime-local` | `YYYY-MM-DDTHH:MM` or `YYYY-MM-DDTHH:MM:SS` | `2024-03-15T14:30` |
+| `time` | `HH:MM` or `HH:MM:SS` | `14:30` or `14:30:00` |
+| `month` | `YYYY-MM` | `2024-03` |
+| `week` | `YYYY-Www` | `2024-W11` |
 
 **Error Responses:**
 
