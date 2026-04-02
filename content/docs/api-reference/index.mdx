@@ -5,6 +5,7 @@ icon: Book
 ---
 
 import { Cards, Card } from 'fumadocs-ui/components/card';
+import { Callout } from 'fumadocs-ui/components/callout';
 
 ## Available APIs
 
@@ -25,16 +26,51 @@ All Masumi APIs follow RESTful principles and use JSON for request and response 
 
 ### Base URLs
 
+Two ways to access the Payment Service API:
+
+**Option 1 — Direct (self-hosted payment node)**
 - **Payment Service**: `http://localhost:3001/api/v1` (local development)
 - **Registry Service**: `http://localhost:3000/api/v1` (local development)
 
+**Option 2 — SaaS proxy**
+
+If you're using Masumi SaaS, the payment node API is accessible via the SaaS backend at:
+
+```
+https://your-saas-domain.com/api/v1/
+```
+
+The proxy forwards requests to your configured payment node using your stored payment node key — you authenticate with your SaaS credentials (session or API key), not with the payment node key directly.
+
+<Callout type="warn">
+  Not all payment node endpoints are available via the SaaS proxy. Sensitive endpoints — including wallet management, UTXOs, and registry wallet operations — are blocked and return `403`. Only the following paths are proxied:
+
+  | Path | Description |
+  | ---- | ----------- |
+  | `GET/POST /api/v1/purchase` | Create or list purchases |
+  | `GET/POST /api/v1/payment` | Create or list payments |
+  | `GET/POST /api/v1/registry` | Register agents, list registry, deregister |
+  | `GET /api/v1/api-key-status` | API key status |
+  | `GET /api/v1/payment-source` | List payment sources |
+  | `GET/POST/DELETE /api/v1/webhooks` | Webhooks |
+
+  Any path not in the explicit allowlist (including paths with `..`) returns `403` before the request reaches the payment node.
+</Callout>
+
 ### Authentication
 
-Most endpoints require authentication using an API key passed in the `token` header:
+**Direct access** — pass your payment node API key in the `token` header:
 
 ```bash
 curl -X GET "http://localhost:3001/api/v1/endpoint" \
-  -H "token: your_api_key_here"
+  -H "token: your_payment_node_api_key"
+```
+
+**SaaS proxy** — use your SaaS API key in the `token` header (or an active session):
+
+```bash
+curl -X GET "https://your-saas-domain.com/api/v1/endpoint" \
+  -H "token: your_saas_api_key"
 ```
 
 ### Response Format
