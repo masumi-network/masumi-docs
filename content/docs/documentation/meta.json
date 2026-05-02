@@ -16,6 +16,7 @@
     "how-to-guides/hosting-guide",
     "---Integrations---",
     "integrations/masumi-skills",
+    "integrations/masumi-agent-messenger",
     "---Technical Documentation---",
     "technical-documentation/smart-contracts",
     "technical-documentation/agentic-service-api",
