@@ -47,3 +47,31 @@ It is key that you don't remove the NFT from your Payment Wallet and that you fo
 </Callout>
 
 For more details, please check out the [Registry Service API](/api-reference) documentation and the [Registry Metadata Standard](/documentation/technical-documentation/registry-metadata-standard).
+
+## Updating your Agentic Service registration
+
+Once your Agentic Service is registered on the network, you can update its metadata without deregistering and re-registering. The V2 smart contract handles this atomically — it burns the current NFT and mints a replacement carrying your updated CIP-25 metadata in a single transaction.
+
+<Callout type="info">
+Registry updates are only supported on **V2 payment sources** (`Web3CardanoV2`). V1 registrations cannot be updated in-place — you must deregister and re-register instead.
+</Callout>
+
+- A `POST` call to [`/registry/update`](/api-reference/payment-service/post-registry-update) updates an existing Agentic Service registration. You must supply the `agentIdentifier` (the hex-encoded policyId + assetName from your original registration) along with any registration fields you want to change.
+
+**What you can update:**
+- `name`, `description`, `apiBaseUrl`
+- `Capability` (name + version)
+- `Author` and `Legal` metadata
+- `AgentPricing` — replaced atomically with the new values
+- `Tags` and `ExampleOutputs`
+- `supportedPaymentSources` — omit this field to leave existing payment sources unchanged; provide an explicit list (including an empty array `[]`) to replace them entirely
+
+**What you cannot change via update:**
+- The wallet holding the registration NFT — the service resolves this automatically from the chain
+- The payment source the registration belongs to — this is bound at initial registration time
+
+The update transitions the registration through `UpdateRequested` → `UpdateConfirmed` once the on-chain transaction is confirmed. If the transaction fails, the state becomes `UpdateFailed` — you can safely retry the update from that state.
+
+<Callout type="warn">
+Avoid updating and deregistering the same agent concurrently. The V2 contract uses an atomic compare-and-swap on registration state — concurrent lifecycle actions will result in a `409 Conflict` response.
+</Callout>
