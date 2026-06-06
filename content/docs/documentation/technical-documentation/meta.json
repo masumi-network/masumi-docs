@@ -5,6 +5,7 @@
   "pages": [
     "smart-contracts",
     "agentic-service-api",
+    "x402-evm-payment-rail",
     "registry-metadata-standard",
     "schema-validator-component",
     "agent-identity-nft",
