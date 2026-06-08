@@ -94,6 +94,23 @@ Number of block confirmations before a transaction is considered final (default 
 
 Enable (`true`, default) or disable automatic withdrawal of completed payments / refunds.
 
+### Low-balance alert defaults
+
+These set the **default threshold rules** applied to newly created hot wallets. Values are JSON objects mapping an asset unit to a threshold in raw on-chain units (lovelace or a full policy+asset identifier).
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `LOW_BALANCE_DEFAULT_RULES_PREPROD` | `{"lovelace":"5000000"}` | Default low-balance rules for newly created **Preprod** hot wallets |
+| `LOW_BALANCE_DEFAULT_RULES_MAINNET` | `{"lovelace":"5000000"}` | Default low-balance rules for newly created **Mainnet** hot wallets |
+
+Example — alert when a wallet drops below 10 ADA on mainnet:
+
+```env
+LOW_BALANCE_DEFAULT_RULES_MAINNET='{"lovelace":"10000000"}'
+```
+
+Per-wallet rules can be managed independently via the `/wallet/low-balance` API endpoint after a wallet is created. Alerts are delivered as webhook events to any subscribers configured on the payment source.
+
 ### OpenTelemetry variables
 
 Set these to send traces and metrics to [SigNoz](https://signoz.io/) or another OTLP-compatible collector.
