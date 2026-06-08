@@ -7,6 +7,8 @@
     "agentic-service-api",
     "registry-metadata-standard",
     "schema-validator-component",
+    "agent-identity-nft",
+    "agent-state-persistence",
     "_masumi-mcp-server",
     "environment-variables"
   ]

@@ -78,11 +78,13 @@ All values are **seconds**. Tune only if you know what you're doing; the default
 | `CHECK_SUBMIT_RESULT_INTERVAL` | 300 s | Push agent results once payment confirmed |
 | `CHECK_WALLET_TRANSACTION_HASH_INTERVAL` | 60 s | Rescan transactions and unlock wallets |
 | `SYNC_LOCK_TIMEOUT_INTERVAL` | 30 s | Time a wallet stays locked before retry |
+| `CHECK_REGISTRY_TRANSACTIONS_INTERVAL` | — | Sync agent registry transactions from the blockchain |
 | `REGISTER_AGENT_INTERVAL` | 300 s | Retry agent registration |
 | `DEREGISTER_AGENT_INTERVAL` | 300 s | Retry agent deregistration |
 | `AUTO_DECISION_INTERVAL` | 30 s | Delay between auto-decisions |
-| `WEBHOOK_DELIVERY_INTERVAL` | 10 s | Process outbound webhook deliveries (minimum 5 s) |
-| `LOW_BALANCE_CHECK_INTERVAL` | 60 s | Check monitored wallet balances for low-balance alerts |
+| `WEBHOOK_DELIVERY_INTERVAL` | 10 s | Process queued outbound webhook deliveries |
+| `WEBHOOK_CLEANUP_INTERVAL` | 86400 s | Delete old webhook delivery records (24 h) |
+| `LOW_BALANCE_CHECK_INTERVAL` | 60 s | Check monitored wallets for low-balance warnings |
 
 ### `BLOCK_CONFIRMATIONS_THRESHOLD`
 

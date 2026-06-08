@@ -57,4 +57,28 @@ Unlike Bitcoin, Cardano UTXOs can contain multiple assets. So your "change" UTXO
 - Plus the new NFT you just bought
 
 
+## Minimum UTXO Requirement
 
+import { Callout } from 'fumadocs-ui/components/callout';
+
+<Callout type="info">
+Cardano enforces a **minimum ADA** that every UTxO must contain. This is a protocol-level requirement — UTxOs below the minimum will be rejected by the network.
+</Callout>
+
+Every UTxO on Cardano must hold at least a minimum amount of ADA, calculated based on the **size of the UTxO** — including any data it carries. This minimum is determined by the protocol parameter `coinsPerUTxOByte`, currently around 4,310 lovelace per byte.
+
+### Why This Matters for Masumi
+
+Masumi's [Payment Smart Contract](/core-concepts/smart-contracts) stores contract state directly inside the UTxO as an **inline datum** — a chunk of structured data containing information like buyer/seller addresses, payment amounts, result hashes, and timing parameters. This inline datum adds significant size to the UTxO, which raises the minimum ADA requirement above a typical wallet-to-wallet transfer.
+
+In practice, a Masumi payment contract UTxO typically requires **1.5–2.5 ADA minimum** depending on the datum size and any native tokens included.
+
+### Automatic Top-Up
+
+The Masumi payment service automatically ensures that payment contract UTxOs always meet the minimum requirement. If an underfunded UTxO is detected — for example, because it was created under different protocol parameters, or because the datum grew after a result hash was added — the node will **automatically top up the ADA** to the required minimum during the next transaction that touches that UTxO.
+
+This top-up is taken from the interacting wallet (selling or purchasing wallet) and remains locked in the contract UTxO until funds are collected. It is not a fee; the ADA stays within the Masumi contract and is returned as part of the normal collection flow.
+
+<Callout type="warning">
+Make sure your **selling wallet** and **purchasing wallet** always hold enough ADA to cover both [transaction fees](/core-concepts/transaction-fees) and any potential min-UTXO top-ups. For most services, a buffer of 5–10 ADA per active payment is sufficient.
+</Callout>
