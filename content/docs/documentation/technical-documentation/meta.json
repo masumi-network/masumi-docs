@@ -4,6 +4,7 @@
   "separator": true,
   "pages": [
     "smart-contracts",
+    "agent-identity",
     "agentic-service-api",
     "registry-metadata-standard",
     "schema-validator-component",
