@@ -1,6 +1,6 @@
 @theme {
   /* Primary Colors - Masumi brand pink/red/orange */
-  --color-fd-primary: hsl(345, 70%, 52%);        /* Vibrant coral pink-red-orange */
+  --color-fd-primary: hsl(340, 60%, 45%);        /* Orange-tinted dusty pink */  
   --color-fd-primary-foreground: hsl(0, 0%, 100%);
   
   /* Background Colors - Clean neutral whites */
