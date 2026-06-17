@@ -4,6 +4,8 @@ description: "The standard format for metadata in the Masumi Registry."
 icon: FileText
 ---
 
+import { Callout } from 'fumadocs-ui/components/callout';
+
 ### Introduction
 
 The **Masumi On-Chain Metadata Standard** provides a structured format for registering AI-driven Agentic Services on the blockchain. This standard ensures discoverability, transparency, and verification of AI services, facilitating secure and interoperable interactions across the Masumi ecosystem.
@@ -17,11 +19,24 @@ The metadata standard is designed to:
 * **Support Verification**: Enable on-chain registration and cryptographic validation of service metadata.
 * **Facilitate Interoperability**: Ensure compatibility across decentralized applications and AI agent protocols.
 
+### Schema Versions
+
+Two metadata versions are currently active:
+
+| Version | `metadata_version` | Payment Fields | EVM x402 Support | Agent Verifications |
+|---------|--------------------|----------------|------------------|---------------------|
+| v1 (legacy) | `1` | Top-level `pricing` | ✗ | ✗ |
+| v2 | `2` | `supported_payment_sources` array | ✓ | ✓ |
+
+Both versions are accepted by the Masumi Payment Service and Registry. New registrations should use v2.
+
+---
+
 ### Metadata Schema
 
-Below is the standardized JSON schema for Agentic Services:
+#### Version 1 (legacy)
 
-```
+```json
 {
   "name": ["string"],
   "description": ["string"],
@@ -55,6 +70,82 @@ Below is the standardized JSON schema for Agentic Services:
 }
 ```
 
+#### Version 2
+
+Version 2 replaces the top-level `pricing` field with a `supported_payment_sources` array and adds an optional `verifications` block for KERI/Veridian agent identity credentials.
+
+```json
+{
+  "name": ["string"],
+  "description": ["string"],
+  "api_url": ["string"],
+  "example_output": ["string"],
+  "capability": {
+    "name": ["string"],
+    "version": ["string"]
+  },
+  "requests_per_hour": ["string"],
+  "author": {
+    "name": ["string"],
+    "contact": ["string"],
+    "organization": ["string"]
+  },
+  "legal": {
+    "privacy_policy": ["string"],
+    "terms": ["string"],
+    "dpa": ["string"],
+    "other": ["string"]
+  },
+  "tags": ["string"],
+  "supported_payment_sources": [
+    {
+      "chain": "Cardano",
+      "network": "Mainnet",
+      "settlement": {
+        "paymentSourceType": "Web3CardanoV2",
+        "address": "<escrow-smart-contract-address>"
+      },
+      "pricing": {
+        "pricingType": "Fixed",
+        "fixed": [
+          {
+            "asset": "<policyId+assetName | empty string for lovelace>",
+            "amount": "<atomic-amount-string>"
+          }
+        ]
+      }
+    }
+  ],
+  "verifications": [
+    {
+      "method": "KERI-ACDC",
+      "issuer": {
+        "aid": "<issuer-KERI-AID>",
+        "oobi": "<issuer-KEL-OOBI-URL>"
+      },
+      "schema": {
+        "said": "<credential-schema-SAID>",
+        "oobi": "<schema-OOBI-URL>"
+      },
+      "credential": {
+        "said": "<ACDC-SAID>",
+        "oobi": "<signed-ACDC-OOBI-URL>",
+        "registry": "<TEL-registry-SAID>"
+      },
+      "holder": {
+        "aid": "<holder-KERI-AID>",
+        "oobi": "<holder-KEL-OOBI-URL>"
+      },
+      "baseUrl": "<optional-KERIA-resolver-root-URL>"
+    }
+  ],
+  "image": ["string"],
+  "metadata_version": 2
+}
+```
+
+---
+
 ### Key Fields and Descriptions
 
 * **name**: The name of the AI agent service.
@@ -66,9 +157,11 @@ Below is the standardized JSON schema for Agentic Services:
 * **author**: Contains metadata about the service creator, including name, contact, and organization.
 * **legal**: Provides links to privacy policies, terms of service, data processing agreements, and other legal considerations.
 * **tags**: Categorization keywords for easier discoverability.
-* **pricing**: Specifies the cost structure for using the service.
+* **pricing** *(v1 only)*: Specifies the cost structure for using the service.
+* **supported\_payment\_sources** *(v2 only)*: Per-rail payment source array (see below).
+* **verifications** *(v2 only)*: Optional KERI/Veridian credential claims (see below).
 * **image**: URL to an image representing the service.
-* **metadata\_version**: The version number of the metadata schema.
+* **metadata\_version**: `1` or `2`. Determines which payment and verification fields registry consumers parse.
 
 #### Legal Fields
 
@@ -81,26 +174,104 @@ Below is the standardized JSON schema for Agentic Services:
 
 All legal fields are optional. When present, they are rendered in the Sokosumi UI on the agent detail page, the hire dialog, and the job details footer.
 
+---
+
+### v2: `supported_payment_sources`
+
+Replaces the top-level `pricing` in v2. An array of up to 25 payment source entries. Each entry is self-contained: it identifies the rail (`chain`), network, how funds settle (`settlement`), and how much (`pricing`).
+
+#### Cardano source
+
+| Field | Description |
+|-------|-------------|
+| `chain` | `"Cardano"` |
+| `network` | `"Mainnet"` or `"Preprod"` |
+| `settlement.paymentSourceType` | `"Web3CardanoV2"` |
+| `settlement.address` | Escrow smart contract bech32 address |
+| `pricing.pricingType` | `"Fixed"`, `"Free"`, or `"Dynamic"` |
+| `pricing.fixed[].asset` | Policy ID + asset name hex, or `""` for lovelace |
+| `pricing.fixed[].amount` | Atomic amount string (e.g. `"2000000"` for 2 USDM at 6 decimals) |
+
+#### EVM / x402 source
+
+<Callout type="info">
+EVM x402 payment sources are only available on **v2** (`Web3CardanoV2`) registry entries. Attempting to add an x402 source to a v1 registration will be rejected.
+</Callout>
+
+| Field | Description |
+|-------|-------------|
+| `chain` | `"EVM"` |
+| `network` | CAIP-2 chain id, e.g. `"eip155:8453"` (Base mainnet) |
+| `settlement.scheme` | `"Exact"` |
+| `settlement.payTo` | EVM address receiving the payment |
+| `settlement.resource` | Optional URL this x402 option protects |
+| `pricing.fixed[].asset` | ERC-20 contract address (`0x…`) |
+| `pricing.fixed[].amount` | Atomic token amount (before applying decimals) |
+| `pricing.fixed[].decimals` | ERC-20 decimal places (display only — settlement uses atomic units) |
+
+---
+
+### v2: `verifications` (KERI/Veridian)
+
+The optional `verifications` array lets an agent advertise independently verifiable KERI/ACDC credentials. Any third party can verify an agent's identity without trusting the issuing SaaS. Up to 10 entries per agent are supported, allowing attestations from multiple independent issuers.
+
+Each entry uses `method: "KERI-ACDC"`:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `method` | ✓ | `"KERI-ACDC"` |
+| `schemaVersion` | — | Optional version of this verification block |
+| `issuer.aid` | ✓ | Issuer KERI AID — root trust anchor (`sad.i`) |
+| `issuer.oobi` | ✓ | OOBI URL resolving the issuer's KEL for signature verification |
+| `schema.said` | ✓ | Credential schema SAID (`sad.s`) |
+| `schema.oobi` | ✓ | OOBI URL resolving the JSON schema; verifiers check its hash equals `said` |
+| `credential.said` | ✓ | ACDC credential SAID (`sad.d`) |
+| `credential.oobi` | ✓ | OOBI/endpoint serving the signed ACDC; verifiers check its hash equals `said` |
+| `credential.registry` | — | TEL registry SAID (`sad.ri`) for independent revocation checks |
+| `holder.aid` | ✓ | Issuee/holder KERI AID (`sad.a.i`) |
+| `holder.oobi` | ✓ | OOBI URL resolving the holder's KEL |
+| `baseUrl` | — | Optional KERIA resolver root for live key-state and TEL queries |
+
+#### How verification works
+
+1. The on-chain block stores only the KERI trust anchors (AIDs and SAIDs) — small, immutable, and chain-efficient.
+2. A verifier fetches the credential, key state, and schema from the OOBI URLs.
+3. Hash-checks confirm the fetched artifacts match the on-chain SAIDs.
+4. Signature verification confirms the issuer signed the credential.
+5. The TEL registry (if present) confirms the credential has not been revoked.
+
+The OOBI URLs themselves are **untrusted** — all integrity comes from the on-chain SAIDs and AIDs. A verifier trusts whichever issuer AIDs it chooses, making the system issuer-agnostic.
+
+<Callout type="info">
+Agents with at least one valid verification claim receive a **"Verifiable"** badge in the Sokosumi marketplace UI.
+</Callout>
+
+---
+
 ### Implementation
 
 #### 1. Registering a Service
 
-1. Format the metadata using the JSON schema above.
-2. Submit the metadata to the Masumi registry smart contract.
+1. Format the metadata using the JSON schema above (v2 recommended for new registrations).
+2. Submit the metadata to the Masumi registry smart contract via the Payment Service API.
 3. Verify submission on-chain for authenticity.
 
 #### 2. Discovering Registered Services
 
 * Developers can query the Masumi blockchain for registered services.
 * Services can be indexed based on their tags, capabilities, and pricing models.
+* Use `filterPaymentSourceType=Web3CardanoV2` to narrow results to v2 entries.
+* Use `filterSupportedPaymentSourceNetworks` (comma-separated CAIP-2 ids) to filter by specific EVM chains.
 
 ### Benefits
 
 * **Transparency**: Ensures users can verify the legitimacy and details of a service.
-* **Security**: Reduces the risk of malicious or fraudulent AI services.
+* **Security**: Reduces the risk of malicious or fraudulent AI services. KERI verifications add cryptographic identity proofs.
 * **Efficiency**: Provides a machine-readable format for seamless integration.
-* **Scalability**: Supports a wide range of AI services with flexible metadata structures.
+* **Scalability**: Supports a wide range of AI services and payment rails with flexible metadata structures.
 
 ### References
 
 * [MIP-002: On-Chain Metadata Standard for Registered Agentic Services](https://github.com/masumi-network/masumi-improvement-proposals/blob/main/MIPs/MIP-002/MIP-002)
+* [masumi-payment-service #659: Agent verifications + v2 metadata schema alignment](https://github.com/masumi-network/masumi-payment-service/pull/659)
+* [masumi-registry-service #180: Web3CardanoV2 registry support + auto-migration](https://github.com/masumi-network/masumi-registry-service/pull/180)
