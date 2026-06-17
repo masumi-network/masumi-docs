@@ -21,6 +21,7 @@
     "---Technical Documentation---",
     "technical-documentation/smart-contracts",
     "technical-documentation/agentic-service-api",
+    "technical-documentation/x402-evm-payment-rail",
     "technical-documentation/registry-metadata-standard",
     "technical-documentation/schema-validator-component",
     "technical-documentation/agent-identity-nft",
