@@ -1,0 +1,146 @@
+---
+title: "Payment Source Types & API Compatibility"
+icon: CreditCard
+description: "How Web3CardanoV1 and Web3CardanoV2 payment sources coexist, and how to query each type correctly."
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+## Overview
+
+The Masumi Payment Service supports two Cardano payment source types that run side-by-side:
+
+| Type | Description |
+| --- | --- |
+| `Web3CardanoV1` | Original Cardano smart contract payment flow |
+| `Web3CardanoV2` | Upgraded Cardano contract with multi-sig, `buyerReturnAddress`/`sellerReturnAddress`, and `SupportedPaymentSource` child table |
+
+Both types share the same `/api/v1` route namespace. To preserve backward compatibility for existing clients, all payment list, count, diff, and aggregate endpoints default to `Web3CardanoV1` when no V2-aware filter is supplied.
+
+<Callout type="warn">
+  **Builders querying V2 agents must explicitly opt in.** Without a V2-aware filter, payment, purchase, and registry endpoints return only `Web3CardanoV1` results — V2 agents will be silently absent from the response.
+</Callout>
+
+---
+
+## Default Filter Behavior
+
+The V1 compatibility default applies to:
+
+- Payment list, count, and diff endpoints
+- Purchase list, count, and diff endpoints
+- Registry list and count endpoints
+- Inbox registry endpoints
+- Payment income and purchase spending aggregates
+
+The following do **not** apply the V1 default:
+
+- `filterAgentIdentifier` — exact on-chain identifier lookup, no default filter
+- `filterSupportedPaymentSourceAddress` — V2-aware; opts out of default
+- `filterSupportedPaymentSourceNetworks` — V2-aware; opts out of default
+
+---
+
+## Querying V2 Agents and Payments
+
+### Option 1: Filter by smart contract address
+
+Supply the exact address of a V1 or V2 payment source:
+
+```http
+GET /api/v1/payments?filterSmartContractAddress=<contract_address>
+```
+
+This queries that specific source and bypasses the V1 default. Works for both V1 and V2 addresses.
+
+### Option 2: Filter by payment source type
+
+```http
+GET /api/v1/payments?filterPaymentSourceType=Web3CardanoV2
+```
+
+Returns results across all V2 payment sources. Omit to get V1-only results (the default).
+
+### Option 3: Query both types
+
+There is no single "return all types" parameter. To combine V1 and V2 results, make separate requests per `filterPaymentSourceType` and merge client-side, or query per source using `filterSmartContractAddress`.
+
+---
+
+## Registry Endpoint — Discovery Filters
+
+The registry endpoint has two additional filters that also opt out of the V1 default:
+
+| Filter | Description |
+| --- | --- |
+| `filterSupportedPaymentSourceAddress` | Return agents advertising a payment source at this exact address (Cardano contract address or EVM x402 `payTo`). Combined with `filterSupportedPaymentSourceNetworks` as a logical OR. |
+| `filterSupportedPaymentSourceNetworks` | Comma-separated list of networks to match — Cardano network names or CAIP-2 EVM chain IDs (e.g. `eip155:8453`). Returns agents on any of the listed networks. Combined with `filterSupportedPaymentSourceAddress` as a logical OR. |
+
+Both filters opt out of the V1 compatibility default and return agents across all matching payment source types.
+
+**Example — find all agents on Base:**
+
+```http
+GET /api/v1/registry?filterSupportedPaymentSourceNetworks=eip155:8453
+```
+
+**Example — find the agent at a specific V2 contract:**
+
+```http
+GET /api/v1/registry?filterSupportedPaymentSourceAddress=<v2_contract_address>
+```
+
+---
+
+## Scheduler Entry Points
+
+Both types run in parallel. Each type's scheduled jobs filter to its own `PaymentSourceType`:
+
+| Concern | V1 | V2 |
+| --- | --- | --- |
+| Collect outstanding payments | `web3CardanoV1.collectOutstandingPayments` | `web3CardanoV2.collectOutstandingPayments` |
+| Submit result | `web3CardanoV1.submitResult` | `web3CardanoV2.submitResult` |
+| Authorize refund | `web3CardanoV1.authorizeRefund` | `web3CardanoV2.authorizeRefund` |
+| Cancel refund (V1) / Authorize withdrawal (V2) | `web3CardanoV1.cancelRefunds` | `web3CardanoV2.authorizeWithdrawals` |
+| Collect refund | `web3CardanoV1.collectRefund` | `web3CardanoV2.collectRefund` |
+| Request refund | `web3CardanoV1.requestRefunds` | `web3CardanoV2.requestRefunds` |
+| Batch payments | `web3CardanoV1.batchLatestPaymentEntries` | `web3CardanoV2.batchLatestPaymentEntries` |
+| Register agent | `web3CardanoV1.registerAgent` | `web3CardanoV2.registerAgent` |
+| Deregister agent | `web3CardanoV1.deRegisterAgent` | `web3CardanoV2.deRegisterAgent` |
+| Registry tx sync | `web3CardanoV1.checkRegistryTransactions` | `web3CardanoV2.checkRegistryTransactions` |
+| Inbox register | `web3CardanoV1.registerInboxAgent` | `web3CardanoV2.registerInboxAgent` |
+| Inbox deregister | `web3CardanoV1.deRegisterInboxAgent` | `web3CardanoV2.deRegisterInboxAgent` |
+| Inbox tx sync | `web3CardanoV1.checkInboxAgentRegistrationTransactions` | `web3CardanoV2.checkInboxAgentRegistrationTransactions` |
+| Auto decisions | `web3CardanoV1.handleAutomaticDecisions` | `web3CardanoV2.handleAutomaticDecisions` |
+
+---
+
+## V2 Environment Variables
+
+V2 wallet mnemonics are required before running `pnpm prisma db seed`. The seed throws if any are missing:
+
+```bash
+PURCHASE_WALLET_V2_PREPROD_MNEMONIC=...
+SELLING_WALLET_V2_PREPROD_MNEMONIC=...
+PURCHASE_WALLET_V2_MAINNET_MNEMONIC=...
+SELLING_WALLET_V2_MAINNET_MNEMONIC=...
+```
+
+<Callout type="warn">
+  Do not use randomly generated V2 mnemonics. The smart contract address is derived from the wallet — a random mnemonic produces an unverifiable contract address that cannot be registered on-chain.
+</Callout>
+
+Use `SEED_ONLY_IF_EMPTY=true` for production-safe re-runs. The guard checks both `apiKey.count()` and `paymentSource.count()` and exits early if either is non-empty.
+
+---
+
+## Quick Reference
+
+| Goal | Query parameter |
+| --- | --- |
+| Query V1 only (default) | *(omit filters)* |
+| Query a specific V1 or V2 source | `filterSmartContractAddress=<address>` |
+| Query all V2 sources | `filterPaymentSourceType=Web3CardanoV2` |
+| Find agents by supported network | `filterSupportedPaymentSourceNetworks=<network>` |
+| Find agents by source address | `filterSupportedPaymentSourceAddress=<address>` |
+| Exact agent lookup (any type) | `filterAgentIdentifier=<identifier>` |
