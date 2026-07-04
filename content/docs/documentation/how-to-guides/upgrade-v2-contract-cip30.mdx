@@ -1,0 +1,101 @@
+---
+title: "Upgrade to V2 CIP-30 Contract (Aiken v1.1.23)"
+description: "How to migrate from the V2 Aiken v1.1.21 smart contracts to the v1.1.23 CIP-30 upgrade — new script addresses, admin signing changes, and UTxO migration options."
+icon: ArrowUpCircle
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+<Callout type="warn">
+  The Aiken v1.1.23 upgrade **changes the compiled script hash**, which means all V2 contract addresses change. UTxOs locked at the old payment address **cannot** be spent by the new validator. Plan your migration before deploying.
+</Callout>
+
+## What changed
+
+This upgrade (shipped 2026-07-03) makes two on-chain changes to the V2 smart contracts:
+
+1. **CIP-30 admin signatures** — `WithdrawDisputed` now accepts full CIP-30-compatible `COSE_Sign1` signatures (both raw and CIP-8 hashed-mode payloads). Standard browser wallets (Eternl, Lace, Mesh) work without header rewriting. Tools that emit bare `{1: -8}` headers remain supported.
+
+2. **Aiken compiler bump v1.1.21 → v1.1.23** — Adds an on-chain threshold-reachability guard (`required_admins_multi_sig <= len(admin_vks)`). Combined with the CIP-30 fix, the compiled blueprint changes and every derived address changes even when your validator parameters stay the same.
+
+## New contract addresses
+
+With the **default seed admin wallets** and `DEFAULT_ADMIN_SIGNATURES_V2 = 2`, `COOLDOWN_TIME = 7 minutes`:
+
+| Artifact | Old (v1.1.21) | New (v1.1.23) |
+|---|---|---|
+| Payment script hash | `bdbde1ee…` | `2d6abca3…` |
+| Registry policy id | `7890b485…` | `67ab0c92…` |
+
+| Network | New payment script address | New registry policy id |
+|---|---|---|
+| **Mainnet** | `addr1wxs4e6wc95hkwezlccjw9mdvq0r0rsgx6zk34avptga3ftgge2j6d` | `67ab0c92c4ac1610895a1c965ee50aba41a8f1513b15240723b3bd0b` |
+| **Preprod** | `addr_test1wzs4e6wc95hkwezlccjw9mdvq0r0rsgx6zk34avptga3ftgn37w4g` | `67ab0c92c4ac1610895a1c965ee50aba41a8f1513b15240723b3bd0b` |
+
+Previous preprod payment address (for reference when draining UTxOs):
+`addr_test1wqsztux7j6c23ukjj3328vvxe3yqug43fs9vufysg6ddxpg8xqev4`
+
+The canonical constants live in `packages/payment-core/src/config.ts` (`PAYMENT_SMART_CONTRACT_ADDRESS_V2_*`, `REGISTRY_POLICY_ID_V2_*`).
+
+## Handling locked UTxOs
+
+<Callout type="error">
+  UTxOs at the **old** payment address can only be spent using the **old** validator (v1.1.21 `plutus.json`). Transactions built against the new blueprint will fail on those UTxOs.
+</Callout>
+
+You have three options:
+
+**Option 1 — Drain before deploy (recommended for most operators)**
+Settle or refund every open escrow at the old address, then deploy the new payment source. No parallel infrastructure needed.
+
+**Option 2 — Parallel sources**
+Keep the old `PaymentSource` row (mark it inactive after drain) and create a new `Web3CardanoV2` row with the new addresses. New purchases use the new source; the tx-sync jobs for each source watch their own address independently.
+
+**Option 3 — Admin dispute on old UTxOs**
+If disputes remain open on the old contract, admins must sign with tooling built against the **old** validator. After you deploy the new source, browser-wallet `signData` only works on the new validator.
+
+## Deploy sequence
+
+1. **Build contracts with the pinned compiler**
+
+   ```sh
+   aikup install v1.1.23
+   cd smart-contracts/payment-v2 && aiken build && aiken check
+   cd ../registry-v2 && aiken build && aiken check
+   cd ../.. && bash scripts/check-v2-contracts.sh
+   ```
+
+2. **Verify dispute settlement on preprod (recommended)**
+
+   ```sh
+   cd smart-contracts/payment-v2
+   pnpm install
+   pnpm run generate-wallet
+   pnpm run verify-onchain
+   ```
+
+   This locks a test `Disputed` UTxO and submits a `WithdrawDisputed` transaction signed by two admin wallets. Both raw CIP-30 and CIP-8 hashed-mode signatures are tested.
+
+3. **Deploy application code** with the updated `plutus.json` files committed.
+
+4. **Create or re-seed payment sources** — run `prisma/seed.ts` on a fresh DB, or insert a new `PaymentSource` row via the admin API using addresses from `getPaymentScriptV2` / `getRegistryScriptV2` with your production admin wallet set. Do **not** assume the old row's address still matches the new contract.
+
+5. **Re-register agents** — mint new registry assets under the new policy id (`67ab0c92…`) and update `SupportedPaymentSource` metadata to point buyers at the new payment script address.
+
+6. **Smoke-test** — open a V2 purchase, run submit-result and refund paths, and settle a test dispute using `wallet.signData` (CIP-30) via admin tooling.
+
+## Admin signing after upgrade
+
+`WithdrawDisputed` accepts any CIP-8 `COSE_Sign1` protected header map up to 256 bytes, as long as the ed25519 signature verifies over the reconstructed `Sig_structure`.
+
+- **Standard CIP-30** (`api.signData(addr, payload)` from Eternl, Lace, Mesh): works directly, no header rewriting needed.
+- **Raw `{1: -8}` headers**: still supported.
+- **Hardware wallets** (`hashed: true`): the signed `Sig_structure` carries `blake2b_224(payload)`. Exactly one hash level is accepted.
+
+See `smart-contracts/payment-v2/README.md` (Admin signing runbook) for the off-chain signing payload and timing rules.
+
+## Source
+
+Triggered by merged changes to [`masumi-payment-service`](https://github.com/masumi-network/masumi-payment-service) commits on 2026-07-03 (Sandro Schaier): CIP-30 admin signatures (#679), detect + migrate retired V2 contract sources (#684), collateral-prep failure bound (#686); and [`masumi-registry-service`](https://github.com/masumi-network/masumi-registry-service) commits on 2026-07-03: V2 Aiken v1.1.23 repoint (#187). Source migration doc: `masumi-payment-service/docs/migrations/v2-contract-cip30-upgrade.md`.
+
+_Created by nori-bot as part of the daily doc coherence scan._
