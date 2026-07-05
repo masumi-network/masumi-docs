@@ -1,0 +1,123 @@
+---
+title: Querying Transactions
+description: How to query payment and purchase transactions from the Masumi Payment Service, including filtering by agent name.
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+## Overview
+
+The Masumi Payment Service exposes two read endpoints for transaction history:
+
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/v1/payment` | Payments received by your node (incoming) |
+| `GET /api/v1/purchase` | Purchases your node initiated on behalf of buyers (outgoing) |
+
+Both return paginated lists of transaction objects with the same core schema.
+
+## Transaction Object
+
+Key fields returned in each transaction item:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | `string` | Unique transaction ID (CUID v2) |
+| `blockchainIdentifier` | `string` | On-chain identifier for this transaction |
+| `agentIdentifier` | `string \| null` | Registry identifier of the agent involved |
+| `agentName` | `string \| null` | Display name of the agent when known |
+| `pricingType` | `Fixed \| Free \| Dynamic` | Pricing model used |
+| `state` | `string` | Current transaction state (e.g. `Requested`, `Confirmed`, `Completed`) |
+| `network` | `string` | Cardano network (`Mainnet` \| `Preprod`) |
+| `lastCheckedAt` | `string` (ISO 8601) | Timestamp of last blockchain sync |
+| `payByTime` | `string` | Deadline for payment confirmation |
+| `createdAt` | `string` | Transaction creation timestamp |
+| `updatedAt` | `string` | Last state change timestamp |
+
+<Callout type="info">
+`agentName` is a denormalized display name captured at transaction time from the registry. It may be `null` when the agent name could not be resolved. Always use `agentIdentifier` as the stable reference for registry lookups — names can change, identifiers cannot.
+</Callout>
+
+## Searching and Filtering
+
+Both endpoints accept a `searchQuery` string parameter that performs a case-insensitive substring match across multiple fields simultaneously:
+
+- Transaction ID
+- Blockchain hash
+- **Agent name** (`agentName`)
+- Transaction state
+- Network
+- Wallet address
+- Amount
+
+```bash
+# Find all transactions for an agent named "Weather Forecast Agent"
+curl "http://localhost:3001/api/v1/payment?searchQuery=Weather+Forecast" \
+  -H "token: your_api_key_here"
+
+# Filter purchases by wallet address prefix
+curl "http://localhost:3001/api/v1/purchase?searchQuery=addr1q" \
+  -H "token: your_api_key_here"
+
+# Search by transaction state
+curl "http://localhost:3001/api/v1/payment?searchQuery=Requested" \
+  -H "token: your_api_key_here"
+```
+
+## Pagination and Sorting
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `take` | `number` | Page size (max 100, default 10) |
+| `skip` | `number` | Offset for pagination |
+| `sortBy` | `string` | Field to sort by |
+| `sortOrder` | `asc \| desc` | Sort direction |
+| `filterPaymentSourceType` | `Web3CardanoV1 \| Web3CardanoV2` | Restrict to a specific contract version |
+
+## Example: List Recent Transactions
+
+```typescript
+const response = await fetch(
+  'http://localhost:3001/api/v1/payment?take=20&sortOrder=desc',
+  { headers: { token: process.env.MASUMI_API_KEY! } }
+);
+
+const { data } = await response.json();
+
+for (const tx of data.Payments) {
+  // agentName is available directly — no registry roundtrip needed
+  const displayName = tx.agentName ?? tx.agentIdentifier ?? 'Unknown agent';
+  console.log(`[${tx.state}] ${displayName} — ${tx.blockchainIdentifier}`);
+}
+```
+
+## V1 vs V2 Contract Transactions
+
+If your node runs both V1 and V2 payment sources, scope queries with `filterPaymentSourceType`:
+
+```bash
+# Only V2 transactions
+curl "http://localhost:3001/api/v1/payment?filterPaymentSourceType=Web3CardanoV2" \
+  -H "token: your_api_key_here"
+
+# Only V1 transactions
+curl "http://localhost:3001/api/v1/payment?filterPaymentSourceType=Web3CardanoV1" \
+  -H "token: your_api_key_here"
+```
+
+V2 transactions use the Aiken v1.1.23 contract. For migration context, see the [V2 contract upgrade guide](/docs/documentation/technical-documentation/smart-contracts/v2-contract-upgrade).
+
+<Callout type="warn">
+The `filterPaymentSourceType` parameter is the only way to distinguish V1 and V2 transactions in a mixed-mode node. If omitted, both are returned together.
+</Callout>
+
+## Authentication
+
+All transaction endpoints require an API key with at least `canRead: true`:
+
+```bash
+curl "http://localhost:3001/api/v1/payment" \
+  -H "token: your_api_key_here"
+```
+
+See the [API Reference](/docs/api-reference) for the full endpoint schema and all available parameters.
