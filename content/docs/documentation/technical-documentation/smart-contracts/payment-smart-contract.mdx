@@ -364,6 +364,28 @@ Sometimes things don't go as planned. Here's how the refund process works:
 
 ### For Developers
 
+### Supported Cardano Address Types
+
+Both `buyer` and `seller` escrow participants must use one of these Cardano address types:
+
+| Type | Description | Supported |
+|------|-------------|-----------|
+| **Base address** | Payment key + staking key | ✓ Yes |
+| **Enterprise address** | Payment key only (no staking component) | ✓ Yes |
+| Script address | Plutus script payment credential | ✗ No |
+| Pointer address | — | ✗ No |
+| Reward address | Staking key only | ✗ No |
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+<Callout type="info">
+**Enterprise addresses are fully supported.** These are common in CLI-generated wallets (`cardano-cli` with no stake key), certain hardware wallet configurations, and service wallets that intentionally omit a staking credential. The payment service handles them natively across both V1 and V2 contracts — no special handling is required on your end.
+</Callout>
+
+<Callout type="warn">
+Submitting a script address, pointer address, or reward address as a `buyer` or `seller` will return an explicit validation error before the transaction is constructed. The error is intentional — these credential types are incompatible with the escrow datum structure.
+</Callout>
+
 ### Smart Contract Actions
 
 The contract supports these actions:
