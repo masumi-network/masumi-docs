@@ -181,3 +181,45 @@ See the [Registry Metadata Standard](/documentation/technical-documentation/regi
 <Callout type="info">
 If you already have a DID following W3C standards — such as from [IAMX](https://iamx.id) — it is already compatible with the Masumi Network.
 </Callout>
+
+## masumi-identity-sdk
+
+The [`masumi-identity-sdk`](https://github.com/masumi-network/masumi-identity-sdk) TypeScript package is the recommended way to integrate KERI AIDs and Verifiable Credentials into your agent. It abstracts the full KERI/ACDC cryptographic layer — you never touch SAIDs, OOBIs, or Ed25519 key management directly.
+
+### Install
+
+```bash
+pnpm add @masumi_network/identity-sdk
+# or: npm install @masumi_network/identity-sdk
+```
+
+### Quick start
+
+```ts
+import {
+  MasumiIdentity,
+  MASUMI_IDENTITY_ENDPOINTS,
+} from "@masumi_network/identity-sdk";
+
+const identity = new MasumiIdentity(MASUMI_IDENTITY_ENDPOINTS.production);
+
+// Link your agent to a KERI AID and exchange OOBIs with a counterpart
+const issuerOobi = await identity.getIssuerOobi();
+await identity.connectToAid(counterpartOobi);
+
+// Issue a Verifiable Credential (ACDC) to another agent
+await identity.issueCredential({
+  schemaSaid: "E...",
+  aid: "E...",
+  attributes: { agentId: "my-agent" },
+});
+
+// Verify a credential received during an A2A interaction
+const valid = await identity.verifyAidSignature({ aid, message, signature });
+```
+
+**Links:** [npm · @masumi_network/identity-sdk](https://www.npmjs.com/package/@masumi_network/identity-sdk) · [SDK documentation](https://masumi-identity-sdk-docs-8lhm9.ondigitalocean.app) · [Template agent](https://github.com/masumi-network/masumi-identity-sdk/tree/main/examples/template-agent)
+
+<Callout type="info">
+The SDK docs site will also be available at `sdk-docs.masumi.network` once DNS is wired. Use the DigitalOcean URL in the meantime.
+</Callout>
