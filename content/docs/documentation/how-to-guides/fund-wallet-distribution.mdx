@@ -1,0 +1,164 @@
+---
+title: "Fund Wallets & Automated Distribution"
+description: "Set up a Funding wallet to automatically top up your Selling and Purchasing wallets when their balance drops below a configured threshold."
+icon: Wallet
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+## Overview
+
+The Masumi Payment Service supports three wallet types:
+
+| Type | Role |
+|------|------|
+| **Selling** | Receives payments from buyers and mints settlement transactions |
+| **Purchasing** | Holds funds to pay sellers on behalf of buyers |
+| **Funding** | Treasury wallet that automatically tops up the other two |
+
+A **Funding wallet** is a dedicated on-chain treasury address. When a low-balance rule fires on a Selling or Purchasing wallet, the Funding wallet automatically sends the configured `topupAmount` on-chain. Requests within the same batch window are consolidated into a single transaction to minimise on-chain fees.
+
+## Creating a Funding Wallet
+
+`POST /fund-wallet`
+
+```json
+{
+  "paymentSourceId": "<your-payment-source-id>",
+  "note": "Primary treasury",
+  "enabled": true,
+  "batchWindowMs": 5000
+}
+```
+
+**Response:**
+
+```json
+{
+  "id": "fw_abc123",
+  "walletAddress": "addr1...",
+  "walletVkey": "...",
+  "paymentSourceId": "...",
+  "FundDistributionConfig": {
+    "id": "fdc_xyz",
+    "enabled": true,
+    "batchWindowMs": 5000
+  }
+}
+```
+
+| Field | Description |
+|-------|-------------|
+| `enabled` | Set to `false` to pause distributions without deleting the wallet |
+| `batchWindowMs` | Milliseconds to collect top-up requests before flushing them into a single transaction. Default `5000` ms. Increase this if many wallets trigger simultaneously and you want fewer on-chain transactions. |
+
+<Callout type="info">
+  You can create multiple Fund wallets per payment source. Pending top-up requests are claimed by any enabled Fund wallet that has sufficient balance.
+</Callout>
+
+## Enabling Auto Top-Up on a Low-Balance Rule
+
+Add `topupEnabled: true` when creating or updating a low-balance rule on a Selling or Purchasing wallet.
+
+**Create a rule with auto top-up:**
+
+`POST /wallet/low-balance-rule`
+
+```json
+{
+  "walletId": "<selling-or-purchasing-wallet-id>",
+  "assetUnit": "lovelace",
+  "thresholdAmount": "5000000",
+  "enabled": true,
+  "topupEnabled": true,
+  "topupAmount": "10000000"
+}
+```
+
+**Update an existing rule:**
+
+`PUT /wallet/low-balance-rule`
+
+```json
+{
+  "ruleId": "<rule-id>",
+  "topupEnabled": true,
+  "topupAmount": "15000000"
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `topupEnabled` | boolean | Fire a distribution request when balance crosses the threshold |
+| `topupAmount` | string | Amount transferred per trigger, in raw on-chain units. **Minimum `5000000` lovelace (5 ADA) for ADA payments.** |
+
+<Callout type="warn">
+  `topupAmount` must be at least `5000000` lovelace — the minimum UTxO value on Cardano. Values below this are rejected at rule creation and update time.
+</Callout>
+
+**To disable auto top-up without deleting the rule:**
+
+```json
+{
+  "ruleId": "<rule-id>",
+  "topupEnabled": false,
+  "topupAmount": null
+}
+```
+
+## Monitoring Distribution Requests
+
+`GET /fund-distribution?paymentSourceId=<id>`
+
+Each entry has a `status` field:
+
+| Status | Meaning |
+|--------|---------|
+| `Pending` | Queued, waiting for the batch window to close |
+| `Submitted` | Transaction submitted on-chain |
+| `Confirmed` | Transaction confirmed on-chain |
+| `Failed` | Distribution failed — inspect the `error` field |
+
+Requests batched in the same transaction share a `batchId`. The `fundWalletId` field is `null` until a Fund wallet claims the request.
+
+**Manually trigger a distribution cycle** (useful for testing):
+
+`POST /fund-distribution/trigger`
+
+```json
+{ "paymentSourceId": "<id>" }
+```
+
+Response:
+
+```json
+{
+  "triggered": true,
+  "alreadyRunning": false
+}
+```
+
+`alreadyRunning: true` means a cycle was already in progress when the request arrived — your pending requests will be picked up in that cycle.
+
+## Webhook Events
+
+Three new webhook event types cover distribution activity:
+
+| Event | Fires when |
+|-------|-----------|
+| `FUND_DISTRIBUTION_SENT` | Batched top-up transaction submitted on-chain |
+| `FUND_DISTRIBUTION_CONFIRMED` | Transaction confirmed on-chain |
+| `FUND_DISTRIBUTION_FAILED` | Distribution attempt failed |
+
+Subscribe to these alongside `WALLET_LOW_BALANCE` to get end-to-end visibility over your treasury flows.
+
+## Full API Reference
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/fund-wallet` | List Fund wallets for a payment source |
+| `POST` | `/fund-wallet` | Create a Fund wallet |
+| `PUT` | `/fund-wallet` | Update distribution config (`enabled`, `batchWindowMs`) |
+| `DELETE` | `/fund-wallet` | Delete a Fund wallet |
+| `GET` | `/fund-distribution` | List distribution requests |
+| `POST` | `/fund-distribution/trigger` | Manually trigger a distribution cycle |
