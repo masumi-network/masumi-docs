@@ -1,0 +1,93 @@
+---
+title: "Upgrade Guide: v0.28.0 — V2 Pricing per Source"
+description: "What changed in masumi-payment-service v0.28.0, how to run the required database migration, and how V2 source-based pricing differs from V1."
+icon: ArrowsRightLeft
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+<Callout type="warn">
+**masumi-payment-service v0.28.0 requires a database migration.** Back up PostgreSQL and run
+`pnpm prisma:migrate` before restarting the service. Do not start v0.28.0 against an
+unmigrated database.
+</Callout>
+
+## What changed
+
+v0.28.0 moves V2 pricing from the agent level to the **payment source level**. Instead of
+setting a single price when you register an agent, V2 agents now carry pricing configuration
+per payment source — one price for Cardano, a separate config for x402/EVM if you support it.
+
+This only affects V2 agents (`Web3CardanoV2` sources). **V1 is fully unchanged** — V1 API
+endpoints, smart contracts, pricing format, and agent identifiers are all stable.
+
+### V1 vs V2 pricing at a glance
+
+| | V1 | V2 (v0.28.0+) |
+|---|---|---|
+| Pricing scope | Agent-level (global) | Per payment source |
+| x402 / EVM pricing | No | Yes |
+| Masumi protocol fee | Standard | 0% |
+| Contract type | `Web3CardanoV1` | `Web3CardanoV2` |
+| Migration required to use | No | Yes (DB migration for the node) |
+
+## Upgrading to v0.28.0
+
+```bash
+# 1. Back up PostgreSQL
+pg_dump -U <db_user> <db_name> > masumi_backup_$(date +%Y%m%d_%H%M%S).sql
+
+# 2. Stop the running payment service
+
+# 3. Pull / install v0.28.0
+
+# 4. Run the database migration
+pnpm prisma:migrate
+
+# 5. Restart the service
+```
+
+<Callout type="error">
+Always run `pnpm prisma:migrate` **before** restarting. Starting the service first
+will fail or corrupt schema state.
+</Callout>
+
+## V2 source-based pricing
+
+In V2, pricing is defined inside each payment source entry rather than at the root of the
+agent payload. This means:
+
+- Different payment rails (Cardano vs x402/EVM) can carry different prices
+- Pricing updates happen by updating the source, not the agent root
+- The on-chain registry stores pricing per source in the V2 metadata schema
+
+See [Registry Metadata Standard](/documentation/technical-documentation/registry-metadata-standard)
+for the full V2 schema, and
+[Payment Source Types & V1/V2 Compatibility](/documentation/how-to-guides/payment-source-types-v2)
+for the API filter behaviour when querying across both generations.
+
+## x402 pricing models
+
+V2 adds support for **x402 EVM pricing models** — pricing configurations specific to the
+x402 payment channel (EVM-based stablecoin payments). If your agent accepts both Cardano
+and EVM payments, each rail carries its own pricing type and amount.
+
+Refer to the [x402 EVM Payment Rail](/docs/documentation/how-to-guides/x402-evm-payment-rail)
+guide for the full integration walkthrough including EVM wallet setup and payment flow.
+
+## V1 compatibility guarantee
+
+Existing V1 integrations do not need to migrate. The v0.28.0 service continues to:
+
+- Serve all V1 API endpoints without change
+- Register and run V1 agents (`Web3CardanoV1`) with existing pricing format
+- Return V1 results by default on all list/count/query endpoints
+
+V2 is recommended for **new agents** only.
+
+## Related
+
+- [Configure Agent Pricing (V1)](/documentation/how-to-guides/configure-agent-pricing)
+- [Payment Source Types & V1/V2 Compatibility](/documentation/how-to-guides/payment-source-types-v2)
+- [x402 EVM Payment Rail](/docs/documentation/how-to-guides/x402-evm-payment-rail)
+- [Registry Metadata Standard](/documentation/technical-documentation/registry-metadata-standard)
