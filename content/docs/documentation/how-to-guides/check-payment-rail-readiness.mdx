@@ -1,0 +1,125 @@
+---
+title: "Check Payment Rail Readiness"
+description: "Use GET /rail-readiness to verify payment configuration and gate outbound purchases per CardanoV2 source."
+icon: CheckCircle
+---
+
+## Overview
+
+`GET /api/rail-readiness` reports whether each payment rail is configured well enough to take payments. The **CardanoV2 rail** returns a `PurchaseSources` array alongside the top-level checks, letting agents gate outbound purchases against a specific policy ID and escrow contract before attempting a transaction.
+
+This is useful when you have multiple CardanoV2 sources configured, or when you want to surface configuration errors to the user before a payment attempt fails on-chain.
+
+---
+
+## Basic Usage
+
+```http
+GET /api/rail-readiness
+Authorization: Bearer <read-api-key>
+```
+
+**Response (abbreviated):**
+
+```json
+[
+  {
+    "rail": "CardanoV2",
+    "isReady": true,
+    "PurchaseSources": [
+      {
+        "policyId": "abc123...56hexchars",
+        "smartContractAddress": "addr1...",
+        "isPurchaseReady": true,
+        "Checks": [
+          { "id": "cardano.payment_source",  "label": "Payment source",   "isComplete": true, "detail": null },
+          { "id": "cardano.contract_current", "label": "Current contract", "isComplete": true, "detail": null },
+          { "id": "cardano.rpc_provider",    "label": "Blockfrost API key","isComplete": true, "detail": null },
+          { "id": "cardano.admin_signatures", "label": "Admin wallets",    "isComplete": true, "detail": null },
+          { "id": "cardano.purchasing_wallet","label": "Purchasing wallet", "isComplete": true, "detail": null },
+          { "id": "cardano.payments_enabled", "label": "Payments enabled",  "isComplete": true, "detail": null }
+        ]
+      }
+    ],
+    "Checks": [ ... ]
+  }
+]
+```
+
+---
+
+## PurchaseSources Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `policyId` | `string \| null` | Registry policy ID this source can purchase from. `null` means no valid policy is configured. |
+| `smartContractAddress` | `string` | V2 escrow contract address for this source |
+| `isPurchaseReady` | `boolean` | Whether outbound purchases can execute through this exact source |
+| `Checks` | `array` | Buyer-direction readiness checks (see [Check IDs](#check-ids) below) |
+
+<Callout type="info">
+**Selling wallet is excluded from `PurchaseSources.Checks`.** A source can be `isPurchaseReady: true` even if the top-level `isReady` is `false` due to a missing selling wallet. The selling wallet only blocks inbound payments, not outbound purchases.
+</Callout>
+
+---
+
+## Check IDs
+
+Each check in `PurchaseSources.Checks` carries a stable `id` the admin UI maps its setup steps onto:
+
+| Check ID | What it verifies |
+|----------|-----------------|
+| `cardano.payment_source` | An active Web3CardanoV2 source exists |
+| `cardano.contract_current` | The configured contract address matches the current V2 contract |
+| `cardano.rpc_provider` | A Blockfrost API key is configured and non-blank |
+| `cardano.admin_signatures` | Admin wallets are configured |
+| `cardano.purchasing_wallet` | A purchasing wallet is set |
+| `cardano.payments_enabled` | Payments are not globally disabled |
+
+---
+
+## Gating Outbound Purchases by Source
+
+Check a specific source before initiating a payment:
+
+```typescript
+const readiness = await client.getRailReadiness();
+const cardanoV2 = readiness.find(r => r.rail === "CardanoV2");
+
+const targetPolicyId = "abc123..."; // your registry policy ID
+const source = cardanoV2?.PurchaseSources?.find(
+  s => s.policyId === targetPolicyId
+);
+
+if (!source?.isPurchaseReady) {
+  const failing = source?.Checks.filter(c => !c.isComplete) ?? [];
+  const reasons = failing.map(c => `${c.label}${c.detail ? `: ${c.detail}` : ""}`);
+  throw new Error(`CardanoV2 source not purchase-ready — ${reasons.join(", ")}`);
+}
+
+// Proceed with outbound purchase using this source
+```
+
+---
+
+## Multi-Source Setups
+
+When multiple CardanoV2 sources are configured, `PurchaseSources` returns one entry per source. Use this to find the first ready source dynamically:
+
+```typescript
+const readySource = cardanoV2?.PurchaseSources?.find(s => s.isPurchaseReady);
+
+if (!readySource) {
+  throw new Error("No CardanoV2 source is purchase-ready");
+}
+
+// readySource.policyId and readySource.smartContractAddress identify the source to use
+```
+
+---
+
+## Notes
+
+- `PurchaseSources` is only present on the `CardanoV2` rail. X402 uses its own top-level readiness checks.
+- Policy IDs and contract addresses returned here are **public on-chain identifiers** — no API keys, wallet addresses, or private URLs are exposed.
+- A `policyId` of `null` means the source has no valid 56-character hex policy configured; `isPurchaseReady` will always be `false` in that case.
