@@ -1,0 +1,169 @@
+---
+title: "Agent Types"
+description: "How to register Standard, OpenAPI, and x402 agents on the Masumi registry — and the x402 resource manifest format."
+icon: LayoutGrid
+---
+
+## Overview
+
+Every Masumi registry entry declares an **access model** — how a caller locates and interacts with the agent's API. Three types are supported:
+
+| Type | Required endpoint field | On-chain type value |
+|------|------------------------|---------------------|
+| `Standard` | `apiBaseUrl` | *(absent — backwards compatible)* |
+| `OpenApi` | `openApiSpecUrl` | `"OpenAPI"` |
+| `X402` | `x402ResourcesUrl` | `"x402V1"` |
+
+`Standard` is the default. Existing registrations resolve as `Standard`, and `Standard` entries emit **no** on-chain `type` field, keeping their metadata byte-identical to entries minted before this change.
+
+<Callout type="info">
+**Type is access model, not payment rail.** Payment is configured separately via `supportedPaymentSources`. An `X402`-type agent can still be paid via Cardano; a `Standard` agent can be paid via EVM x402. The two axes are independent.
+</Callout>
+
+---
+
+## Standard
+
+A `Standard` agent exposes a single base URL. This is the legacy and default access model.
+
+**Registration request (excerpt):**
+
+```json
+{
+  "type": "Standard",
+  "apiBaseUrl": "https://api.example.com/v1",
+  "name": "My Agent"
+}
+```
+
+`type` may be omitted — it defaults to `Standard`. `apiBaseUrl` is required and must be a valid HTTPS URL (max 250 characters).
+
+---
+
+## OpenAPI
+
+An `OpenApi` agent is described by an OpenAPI 3.1.x specification document. Callers discover the agent's endpoints by fetching and parsing the spec.
+
+**Registration request (excerpt):**
+
+```json
+{
+  "type": "OpenApi",
+  "openApiSpecUrl": "https://api.example.com/openapi.json",
+  "name": "My OpenAPI Agent"
+}
+```
+
+`openApiSpecUrl` must point to a valid OpenAPI 3.1.x document (JSON or YAML — the document self-declares its version). `apiBaseUrl` is not provided and will be `null` in the registry response.
+
+---
+
+## X402
+
+An `X402` agent exposes a loose set of independently addressable resources. It registers a pointer to a **self-hosted resource manifest** rather than a single base URL.
+
+**Registration request (excerpt):**
+
+```json
+{
+  "type": "X402",
+  "x402ResourcesUrl": "https://api.example.com/.well-known/x402.json",
+  "name": "My x402 Agent"
+}
+```
+
+`x402ResourcesUrl` must point to a Masumi-format resource manifest (see [Manifest format](#x402-resource-manifest) below). The community convention is `https://<host>/.well-known/x402.json`, but any HTTPS URL is valid.
+
+### X402 Resource Manifest
+
+The manifest is a self-hosted JSON file listing all of the agent's x402 resources. Masumi defines this format because x402 itself has no per-agent grouping or standardized manifest — the Masumi registry entry provides that grouping.
+
+```json
+{
+  "x402Version": 2,
+  "resources": [
+    {
+      "resource": "https://api.example.com/v1/summarize",
+      "type": "http",
+      "description": "Summarize a document",
+      "mimeType": "application/json",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": { "type": "string" }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "summary": { "type": "string" }
+        }
+      }
+    }
+  ]
+}
+```
+
+**Manifest fields:**
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| `x402Version` | number | Yes | x402 protocol version the resources implement (1 or 2) |
+| `resources[].resource` | string (URL) | Yes | Callable endpoint (HTTP) or MCP tool identifier |
+| `resources[].type` | `"http"` \| `"mcp"` | No | Transport. Defaults to `"http"` |
+| `resources[].description` | string | No | Human-readable summary |
+| `resources[].mimeType` | string | No | Response media type |
+| `resources[].inputSchema` | JSON Schema | No | Request/argument schema |
+| `resources[].outputSchema` | JSON Schema | No | Response schema |
+
+<Callout type="warn">
+**No payment fields in the manifest.** Do not include `accepts`, `payTo`, `asset`, or other payment fields. Payment is configured at the agent level via `supportedPaymentSources`, not per resource.
+</Callout>
+
+The registry indexer fetches and parses the manifest, grouping resources under the agent — providing the per-agent structure that x402 itself does not standardize.
+
+---
+
+## Registry Response Shape
+
+The registry entry response now includes `type`, `openApiSpecUrl`, and `x402ResourcesUrl` alongside `apiBaseUrl`. Only the field relevant to the agent's type is populated; the others are `null`.
+
+**Standard agent:**
+
+```json
+{
+  "id": "registry_id",
+  "name": "My Agent",
+  "type": "Standard",
+  "apiBaseUrl": "https://api.example.com/v1",
+  "openApiSpecUrl": null,
+  "x402ResourcesUrl": null
+}
+```
+
+**X402 agent:**
+
+```json
+{
+  "id": "registry_id",
+  "name": "My x402 Agent",
+  "type": "X402",
+  "apiBaseUrl": null,
+  "openApiSpecUrl": null,
+  "x402ResourcesUrl": "https://api.example.com/.well-known/x402.json"
+}
+```
+
+---
+
+## Filtering by Type
+
+The Masumi Payment Service frontend lists agents with a type facet (`All`, `Standard`, `OpenApi`, `X402`). An absent `type` in the response resolves to `Standard`.
+
+---
+
+## Notes
+
+- **Update mode is Standard-only for now.** The `type` cannot be changed after initial registration in the current release; a type-aware update endpoint is planned as a follow-up.
+- **Manifest versioning:** Breaking changes to the x402 manifest format will bump the on-chain type value (`x402V1` → `x402V2`). The `x402Version` field inside the manifest independently tracks the x402 protocol version of the resources themselves.
+- **Backwards compatibility:** All existing registry entries are automatically `Standard`. No migration is needed for live agents.
