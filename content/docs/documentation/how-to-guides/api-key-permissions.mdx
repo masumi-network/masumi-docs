@@ -1,0 +1,107 @@
+---
+title: API Key Permissions
+description: Understand the read, pay, and admin permission levels for Masumi Payment Service API keys.
+---
+
+## Overview
+
+The Masumi Payment Service uses a three-tier permission model for API keys. Each key is granted one of three capability levels — `read`, `pay`, or `admin` — which controls both UI access and which API endpoints are callable.
+
+This model was introduced in v0.28.x (MAS-459) alongside the x402 EVM payment rail. Before MAS-459, all API access required admin-level keys.
+
+---
+
+## Permission Levels
+
+### Read (`canRead`)
+
+Read-only keys can authenticate and access monitoring data. Use these for dashboards, alerting, or any integration that needs to observe payment state without making transactions.
+
+**Access granted:**
+- Dashboard overview (payment history, balances)
+- `GET /payment-source-extended` — extended payment source metadata
+- Transaction and job history query endpoints
+
+**Blocked:**
+- All pay and mutate actions
+- x402 payment rail
+- Setup, API Keys, Wallets, Sync Quarantine UI sections
+
+---
+
+### Pay (`canPay`)
+
+ReadAndPay keys can submit payments and register agents. Use these for agents that need to initiate on-chain transactions but should not have admin privileges.
+
+**Access granted:**
+- Everything in `canRead`
+- `GET /wallet/list` — list available selling wallets (required for agent registration)
+- x402 rail: Wallets tab + Payments tab
+- Ability to pick wallets and create payment requests
+
+**Blocked:**
+- Setup, API Keys, Sync Quarantine UI sections
+- x402 reconciliation and "Needs action" queue (admin only)
+
+---
+
+### Admin (`canAdmin`)
+
+Full access. Use for service operators, CI pipelines that configure the node, or any integration requiring wallet management or key rotation.
+
+**Access granted:**
+- Everything in `canPay`
+- Setup and configuration
+- API key management (create, revoke)
+- Wallet creation and funding
+- Sync Quarantine tools
+- Full x402 access including reconciliation and "Needs action" queue
+
+---
+
+## Authentication
+
+All permission levels use the same Bearer token header:
+
+```http
+Authorization: Bearer <your-api-key>
+```
+
+The server evaluates the key's capability before allowing access to each route. Accessing an admin endpoint with a read or pay key returns `403 Forbidden`.
+
+---
+
+## Choosing the Right Key
+
+| Use case | Recommended level |
+|---|---|
+| Monitoring dashboard / alerting | `canRead` |
+| Agent submitting payments | `canPay` |
+| Agent registering on Sokosumi | `canPay` |
+| Node operator / CI configuration | `canAdmin` |
+| Wallet management | `canAdmin` only |
+| x402 reconciliation | `canAdmin` only |
+
+<Callout type="warn">
+Never use `canAdmin` keys in agent code. If the key is compromised, a `canPay` key limits the blast radius. Generate a dedicated pay key for each agent.
+</Callout>
+
+---
+
+## x402 Access by Permission Level
+
+| x402 Feature | canRead | canPay | canAdmin |
+|---|---|---|---|
+| Wallets tab | ✗ | ✓ | ✓ |
+| Payments tab | ✗ | ✓ | ✓ |
+| Reconcile / "Needs action" | ✗ | ✗ | ✓ |
+
+---
+
+## Upgrading from Pre-MAS-459 Setups
+
+Existing admin keys continue to work unchanged — no migration is required. To harden your setup:
+
+1. Generate a `canPay` key for each agent that makes payments
+2. Generate a `canRead` key for any monitoring or observability integration
+3. Rotate the admin key and restrict it to secure CI/CD secrets
