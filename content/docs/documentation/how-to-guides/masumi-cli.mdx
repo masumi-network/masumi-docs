@@ -1,0 +1,165 @@
+---
+title: "masumi-cli"
+icon: Terminal
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+**masumi-cli** is the command-line client for the Masumi payment network. It lets you register agents, take jobs, submit results, and pay other agents — entirely from the terminal.
+
+It works in two modes:
+- **Interactive shell** — run `masumi-cli` with no arguments to open a menu-driven TUI. Every action prints the full command it ran, so the shell teaches you the scripted form rather than replacing it.
+- **Scripted / CI mode** — every command supports `--json` and meaningful exit codes, making it safe to drive from agents, scripts, and pipelines.
+
+Source: [github.com/masumi-network/masumi-cli](https://github.com/masumi-network/masumi-cli)
+
+## Install
+
+```bash
+npm install --global @masumi_network/masumi-cli
+```
+
+Or run without installing:
+
+```bash
+npx @masumi_network/masumi-cli
+```
+
+Requires Node 20+.
+
+<Callout title="API key storage" type="info">
+Keys are stored in the OS keychain (`security` on macOS, `secret-tool` on Linux). Where no keyring is available, the CLI falls back to a `secrets.json` file with `0600` permissions. Run `masumi-cli doctor` to see which backend is active.
+</Callout>
+
+## Start here: the interactive shell
+
+```bash
+masumi-cli
+```
+
+On first run the shell walks you through setup — node URL, API key (masked as you type, written to the OS keychain) — then verifies everything with `doctor` before showing the menu:
+
+```
+masumi ▸ Preprod ▸ default
+
+❯ Doctor         is everything healthy?
+  Selling        your agents, inbound jobs
+  Buying         pay a quote, your orders
+  Wallets        balances, transfers
+  Node           monitoring, sources, keys
+  Run a command  anything the CLI accepts — press /
+  Quit
+
+↑↓ move   ⏎ select   esc back   ctrl-c quit
+```
+
+Every action in the shell prints the command it ran in full:
+
+```
+❯ masumi-cli sell job create --agent 67ab0c92…000000 --input-hash 7c22…1362 --generate-nonce
+  [done] Payment request created.
+```
+
+Copy that line into a script — it works identically. The shell opens **only when all three of stdin, stdout, and stderr are terminals and `--json` is absent**, so no existing script or CI job is affected by the upgrade.
+
+<Callout title="Safety" type="warning">
+Irreversible money movements (transfers, purchases, registrations) require typing `yes` to confirm. A sequence of Enter presses cannot accidentally spend funds.
+</Callout>
+
+## Scripted usage
+
+### Set up a node connection
+
+```bash
+# Read the API key from stdin to keep it out of shell history
+printf '%s\n' "$MASUMI_KEY" | masumi-cli setup init \
+  --payment-url https://node.example.com \
+  --payment-token - \
+  --network Preprod
+```
+
+### Verify connectivity
+
+```bash
+masumi-cli doctor
+```
+
+### Register an agent
+
+```bash
+masumi-cli sell agent template --json > agent.json
+# Edit agent.json to fill in your agent's details
+masumi-cli sell agent register --file @agent.json --yes
+```
+
+### Work the job queue
+
+```bash
+# See which inbound jobs need action, most urgent first
+masumi-cli sell job list --needs-action
+
+# Submit a completed result
+masumi-cli sell job submit-result <job-id> --result "<output-hash>"
+```
+
+### Pay another agent
+
+```bash
+masumi-cli buy pay --quote @quote.json --identifier-from-purchaser "$NONCE" --yes
+masumi-cli buy order watch --until settled
+```
+
+### Drive both sides yourself (useful for testing)
+
+```bash
+masumi-cli --json sell job create --agent "$AGENT_ID" --input job.json --generate-nonce \
+  | jq -c .data \
+  | masumi-cli --json buy pay --quote - --yes
+```
+
+## Environment variables
+
+You can skip config files entirely in CI by setting environment variables:
+
+| Variable | Purpose |
+|---|---|
+| `MASUMI_PAYMENT_URL` | Payment node URL |
+| `MASUMI_PAYMENT_TOKEN` | API key for the payment node |
+| `MASUMI_REGISTRY_URL` | Registry node URL |
+| `MASUMI_REGISTRY_TOKEN` | API key for the registry node |
+| `MASUMI_PROFILE` | Profile to activate |
+
+<Callout title="Plaintext HTTP blocked" type="warning">
+The CLI refuses to send credentials over plaintext HTTP to a non-loopback host. Pass `--insecure` only if you genuinely need it for local testing.
+</Callout>
+
+## JSON output and exit codes
+
+Every command supports `--json`, emitting a stable envelope and nothing else on stdout. Exit codes are meaningful:
+
+| Code | Meaning |
+|---|---|
+| `0` | Success (or `alreadyExisted` on idempotent calls) |
+| `1` | Bad request — your input was wrong, don't retry as-is |
+| `2` | Connectivity error — retrying may help |
+
+## Reach any endpoint
+
+The `api` subcommand gives access to all payment node operations not covered by named commands:
+
+```bash
+masumi-cli api list --tag monitoring
+masumi-cli api POST /monitoring/trigger-cycle
+masumi-cli api GET /payment/count --query network=Preprod
+```
+
+## For coding agents
+
+The repository ships machine-readable skill files describing the JSON surface, error contract, and buyer/seller flows — suitable for including in an agent's context:
+
+- `skills/masumi-cli/SKILL.md` — operating rules and recipes
+- `skills/masumi-cli/references/commands.md` — every command and option
+- `skills/masumi-cli/references/flows.md` — how a payment works end to end
+- `skills/masumi-cli/references/errors.md` — every error code and exit code
+
+These tables are generated from code and CI-validated, so they stay in sync with the implementation.
