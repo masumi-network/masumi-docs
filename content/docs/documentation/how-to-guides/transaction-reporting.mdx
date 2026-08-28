@@ -1,0 +1,287 @@
+---
+title: Transaction Reporting
+description: Query, summarise, and export payment data with the Reports API
+---
+
+## Overview
+
+The Reports API gives you structured access to the transaction history of any payment source your API key can read. You can query individual rows, get aggregate totals grouped by wallet or time bucket, and export everything as CSV or ZIP.
+
+All report endpoints require an API key with **read access**.
+
+---
+
+## Step 1 — Discover available filters
+
+Call `GET /reports/facets` first. It returns the payment sources and managed wallets your key can see, plus your fiat conversion capability.
+
+```bash
+curl -X GET https://<your-node>/api/reports/facets \
+  -H "token: <your-api-key>"
+```
+
+Response shape:
+
+```json
+{
+  "status": "success",
+  "data": {
+    "fiat": {
+      "isConfigured": true,
+      "isDemoKey": false,
+      "historyDays": null,
+      "currencies": ["usd", "eur", "gbp", "jpy", "chf", "aed"],
+      "modes": ["PeriodAverage", "AccountingDate", "TransactionTime"],
+      "attribution": "CoinGecko",
+      "setupHint": ""
+    },
+    "paymentSources": [
+      {
+        "id": "payment_source_id",
+        "network": "Mainnet",
+        "paymentSourceType": "Web3CardanoV2",
+        "feeRatePermille": 0,
+        "smartContractAddress": "addr1..."
+      }
+    ],
+    "managedWallets": [
+      {
+        "id": "managed_wallet_id",
+        "paymentSourceId": "payment_source_id",
+        "type": "Selling",
+        "walletAddress": "addr1...",
+        "note": "Primary seller wallet"
+      }
+    ]
+  }
+}
+```
+
+Use the `paymentSourceId` and `managedWalletIds` values from this response to filter subsequent requests.
+
+---
+
+## Filter reference
+
+All report request bodies share a common filter object:
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `paymentSourceId` | `string` | **required** | Payment source to report on |
+| `managedWalletIds` | `string[]` | all wallets | Limit to specific managed wallets (max 100) |
+| `externalAddresses` | `string[]` | none | Limit to specific external counterparty addresses (max 100) |
+| `roles` | `"Buyer"` \| `"Seller"` | `["Buyer","Seller"]` | Which role(s) to include |
+| `states` | `OnChainState[]` | all states | Filter by on-chain state (`FundsLocked`, `Withdrawn`, `Pending`, etc.) |
+| `from` | ISO 8601 | **required** | Start of the reporting window |
+| `to` | ISO 8601 | **required** | End of the reporting window — must be after `from`, max range 3,660 days |
+| `dateBasis` | enum | `RevenueRecognizedAt` | Which timestamp determines a transaction's reporting date |
+| `revenueMode` | enum | `Billable` | Revenue recognition method |
+| `timeZone` | IANA string | `Etc/UTC` | Time zone for bucket boundaries and date display |
+| `fiat` | object | none | Optional fiat conversion — see below |
+
+### `dateBasis` values
+
+| Value | Meaning |
+|---|---|
+| `CreatedAt` | Date the request record was created |
+| `FundsLockedAt` | Date funds were locked on-chain |
+| `RevenueRecognizedAt` | Date revenue was recognised (recommended for accounting) |
+
+### `revenueMode` values
+
+| Value | Meaning |
+|---|---|
+| `Billable` | Only revenue from settled, non-refunded requests |
+| `CashReceived` | Cash-basis — funds received regardless of settlement |
+| `RequestedGross` | Gross requested amounts including pending requests |
+
+---
+
+## Fiat conversion
+
+To include fiat amounts alongside lovelace, add a `fiat` object to any request body:
+
+```json
+{
+  "fiat": {
+    "currency": "eur",
+    "mode": "PeriodAverage"
+  }
+}
+```
+
+Supported currencies: `usd`, `eur`, `gbp`, `jpy`, `chf`, `aed`.
+
+| Mode | Description |
+|---|---|
+| `PeriodAverage` | Single rate averaged over the full report period |
+| `AccountingDate` | Rate on the accounting date of each transaction |
+| `TransactionTime` | Rate at the moment funds were locked on-chain |
+
+You can supply your own rates instead of pulling from CoinGecko:
+
+```json
+{
+  "fiat": {
+    "currency": "usd",
+    "mode": "AccountingDate",
+    "suppliedRates": [
+      {
+        "unit": "lovelace",
+        "rate": "0.00033",
+        "from": "2026-01-01T00:00:00Z",
+        "to": "2026-04-01T00:00:00Z"
+      }
+    ]
+  }
+}
+```
+
+---
+
+## Step 2 — Query transaction rows
+
+`POST /reports/transactions` returns paginated rows — one per buyer or seller side of each matched transaction.
+
+```bash
+curl -X POST https://<your-node>/api/reports/transactions \
+  -H "token: <your-api-key>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "paymentSourceId": "payment_source_id",
+    "from": "2026-01-01T00:00:00Z",
+    "to": "2026-02-01T00:00:00Z",
+    "dateBasis": "RevenueRecognizedAt",
+    "revenueMode": "Billable",
+    "timeZone": "Etc/UTC",
+    "limit": 50
+  }'
+```
+
+**Default page size:** 50. **Maximum:** 100 rows per request.
+
+### Pagination
+
+If `page.hasMore` is `true`, pass `page.nextCursor` as `cursor` in your next request:
+
+```json
+{
+  "paymentSourceId": "payment_source_id",
+  "from": "2026-01-01T00:00:00Z",
+  "to": "2026-02-01T00:00:00Z",
+  "cursor": "<value from page.nextCursor>"
+}
+```
+
+The cursor preserves the `asOf` snapshot boundary — you see a stable data set across pages even if new transactions arrive mid-export.
+
+### Row fields
+
+Each row includes:
+
+| Field | Description |
+|---|---|
+| `role` | `Buyer` or `Seller` |
+| `requestType` | `PaymentRequest` or `PurchaseRequest` |
+| `onChainState` | Current settlement state |
+| `agentIdentifier` | On-chain agent identifier (nullable) |
+| `agentName` | Human-readable agent name (nullable) |
+| `seller` | Gross revenue, protocol fee, Cardano fees, net revenue |
+| `buyer` | Gross spend, returned funds, Cardano fees, net spend |
+| `timestamps` | `createdAt`, `fundsLockedAt`, `sellerRevenueRecognizedAt`, `buyerGrossSpendAt`, `buyerReturnedAt` |
+| `settlement` | Result and settlement transaction hashes and type |
+| `cardanoFeeReconciliation` | Buyer, seller, admin, and total Cardano fee breakdown |
+
+All monetary amounts include `rawAmount` (integer string in atomic units), `decimalAmount`, `decimals`, and `symbol` — so you can display any asset correctly without hardcoding decimal places.
+
+A `completeness` value on each metric tells you whether all component data was available (`complete`) or some was estimated or missing (`partial`).
+
+---
+
+## Step 3 — Get totals and history
+
+`POST /reports/summary` returns aggregate totals, per-wallet breakdowns, and a time-bucketed history in one call.
+
+```bash
+curl -X POST https://<your-node>/api/reports/summary \
+  -H "token: <your-api-key>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "paymentSourceId": "payment_source_id",
+    "from": "2026-01-01T00:00:00Z",
+    "to": "2026-04-01T00:00:00Z",
+    "dateBasis": "RevenueRecognizedAt",
+    "revenueMode": "Billable",
+    "timeZone": "Europe/Berlin",
+    "bucket": "Month"
+  }'
+```
+
+`bucket` controls history granularity: `Auto` (server chooses based on range), `Day`, `Week`, `Month`.
+
+### Aggregate metrics
+
+| Metric | Description |
+|---|---|
+| `sellerGrossRevenue` | Gross payout before any fees |
+| `sellerPendingRevenue` | Escrow funds not yet released to seller |
+| `protocolFees` | Masumi protocol fees deducted |
+| `sellerCardanoFees` | Cardano network fees paid by the seller |
+| `sellerNetRevenue` | Net seller income after all deductions |
+| `buyerGrossSpend` | Total buyer outlay |
+| `returnedFunds` | Funds returned on refunds or disputes |
+| `buyerNetSpend` | Net buyer cost after returns |
+| `totalCardanoFees` | All Cardano network fees across all parties |
+
+The response also includes `wallets` — the same metrics broken down per managed wallet and role — and `history` — the same metrics bucketed over time.
+
+---
+
+## Step 4 — Export to CSV or ZIP
+
+All export endpoints accept the same filter body as `/reports/summary`.
+
+| Endpoint | Contents | Format |
+|---|---|---|
+| `POST /reports/transactions.csv` | One row per transaction side | CSV |
+| `POST /reports/wallet-summary.csv` | Totals grouped by wallet and role | CSV |
+| `POST /reports/totals.csv` | Payment source totals | CSV |
+| `POST /reports/export.zip` | All three files in one archive | ZIP |
+
+```bash
+# Download the full report package
+curl -X POST https://<your-node>/api/reports/export.zip \
+  -H "token: <your-api-key>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "paymentSourceId": "payment_source_id",
+    "from": "2026-01-01T00:00:00Z",
+    "to": "2026-04-01T00:00:00Z",
+    "dateBasis": "RevenueRecognizedAt",
+    "revenueMode": "Billable",
+    "timeZone": "Etc/UTC",
+    "bucket": "Month"
+  }' \
+  -o report-2026-q1.zip
+```
+
+The response includes `Content-Disposition` (filename) and `Content-Length` headers.
+
+---
+
+## Error reference
+
+| Code | Meaning | What to do |
+|---|---|---|
+| 400 | Invalid filters or cursor | Check `from`/`to` range, `paymentSourceId`, cursor value |
+| 401 | Unauthorized | Verify your API key has read access |
+| 404 | Payment source or wallet not accessible | Confirm IDs against `GET /reports/facets` |
+| 413 | Report exceeds size limit | Narrow your date range or filter to specific wallets |
+| 429 | Rate limit exceeded | Honour the `Retry-After` response header |
+| 502 | Fiat rate provider unavailable | Retry, or supply your own rates with `suppliedRates` |
+| 503 | Report processing slots full | Honour the `Retry-After` header, then retry |
+| 504 | Report calculation timed out | Narrow your date range and retry |
+
+<Callout type="info">
+`429` and `503` both include a `Retry-After` header indicating the minimum seconds to wait. Immediate retries will not succeed.
+</Callout>
