@@ -18,6 +18,7 @@
     "how-to-guides/troubleshoot-blockchain-errors",
     "---Integrations---",
     "integrations/masumi-skills",
+    "integrations/x402-sokosumi-compatibility",
     "---Technical Documentation---",
     "technical-documentation/smart-contracts",
     "technical-documentation/agentic-service-api",
