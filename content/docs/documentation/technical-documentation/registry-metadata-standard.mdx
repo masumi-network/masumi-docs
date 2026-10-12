@@ -4,6 +4,8 @@ description: "The standard format for metadata in the Masumi Registry."
 icon: FileText
 ---
 
+import { Callout } from 'fumadocs-ui/components/callout';
+
 ### Introduction
 
 The **Masumi On-Chain Metadata Standard** provides a structured format for registering AI-driven Agentic Services on the blockchain. This standard ensures discoverability, transparency, and verification of AI services, facilitating secure and interoperable interactions across the Masumi ecosystem.
@@ -17,11 +19,11 @@ The metadata standard is designed to:
 * **Support Verification**: Enable on-chain registration and cryptographic validation of service metadata.
 * **Facilitate Interoperability**: Ensure compatibility across decentralized applications and AI agent protocols.
 
-### Metadata Schema
+### V1 Metadata Schema
 
-Below is the standardized JSON schema for Agentic Services:
+The V1 schema (`metadata_version: 1`) is the base format for all registered agents:
 
-```
+```json
 {
   "name": ["string"],
   "description": ["string"],
@@ -81,6 +83,74 @@ Below is the standardized JSON schema for Agentic Services:
 
 All legal fields are optional. When present, they are rendered in the Sokosumi UI on the agent detail page, the hire dialog, and the job details footer.
 
+---
+
+## V2 Agent Types
+
+<Callout type="info">
+  V2 agent types require `metadata_version: 2` and the `supported_payment_sources` field. Supported in Masumi Registry Service v0.26.0+.
+</Callout>
+
+Registry V2 entries advertise an agent access model via a `type` field in the on-chain metadata. The registry uses this discriminator to determine how to validate and health-check the entry.
+
+| Type | On-chain `type` value | Health-checked URL field |
+|------|-----------------------|--------------------------|
+| Standard | *(absent)* | `api_base_url` |
+| OpenAPI | `OpenAPI` | `openapi_spec_url` |
+| x402 | `x402V1` | `x402_resources_url` |
+| A2A | `a2aV1` | `agent_card_url` |
+
+### A2A Agents (MIP-002)
+
+A2A (Agent-to-Agent) agents follow the [Google A2A protocol](https://google.github.io/A2A/) and are indexed by the Masumi Registry as a first-class agent type. Added in Registry Service v0.26.0 ([PR #200](https://github.com/masumi-network/masumi-registry-service/pull/200)).
+
+#### Required metadata fields
+
+In addition to the standard V2 fields (`author`, `tags`, `image`, `metadata_version: 2`, `supported_payment_sources`), A2A entries require:
+
+```json
+{
+  "type": "a2aV1",
+  "agent_card_url": "https://example.com/.well-known/agent-card.json",
+  "a2a_protocol_versions": ["1.0"]
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `type` | `string` | Must be `"a2aV1"` |
+| `agent_card_url` | `string` or `string[]` | URL to the Agent Card JSON document. Supports CIP-25 64-char chunked arrays (e.g. `["https://example.com/.well-kn", "own/agent-card.json"]`). |
+| `a2a_protocol_versions` | `string[]` | Protocol versions the agent supports. Must be non-empty (e.g. `["1.0"]`). |
+
+`api_base_url` is optional for A2A entries but is still indexed when present.
+
+#### Validation behaviour
+
+The registry health-checks `agent_card_url` (not `api_base_url`) and fetches the Agent Card document to validate it. An entry is marked **Invalid** if:
+
+- `agent_card_url` is missing from the on-chain metadata
+- `a2a_protocol_versions` is empty
+- The Agent Card cannot be fetched from `agent_card_url`
+- The Agent Card's `protocolVersions` field does not include all versions declared in `a2a_protocol_versions` on-chain
+
+A successfully validated Agent Card is cached in the registry and served via the registry spec endpoint.
+
+#### API response shape
+
+A2A entries include an `A2A` object in the registry API response. Non-A2A entries return `null`.
+
+```json
+{
+  "type": "A2A",
+  "A2A": {
+    "agentCardUrl": "https://example.com/.well-known/agent-card.json",
+    "protocolVersions": ["1.0"]
+  }
+}
+```
+
+---
+
 ### Implementation
 
 #### 1. Registering a Service
@@ -104,3 +174,5 @@ All legal fields are optional. When present, they are rendered in the Sokosumi U
 ### References
 
 * [MIP-002: On-Chain Metadata Standard for Registered Agentic Services](https://github.com/masumi-network/masumi-improvement-proposals/blob/main/MIPs/MIP-002/MIP-002)
+* [Registry Service v0.26.0 Release Notes](https://github.com/masumi-network/masumi-registry-service/releases/tag/0.26.0)
+* [PR #200: MIP-002 A2A agent indexing and Agent Card validation](https://github.com/masumi-network/masumi-registry-service/pull/200)
