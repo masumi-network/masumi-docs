@@ -36,13 +36,13 @@
     "@types/node": "25.2.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "patch-package": "^8.0.1",
     "postcss": "^8.5.5",
     "rimraf": "^6.0.1",
     "tailwindcss": "^4.1.10",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
-    "typescript": "^5.8.3",
-    "patch-package": "^8.0.1"
+    "typescript": "^5.8.3"
   },
   "overrides": {
     "@theguild/remark-mermaid": {
