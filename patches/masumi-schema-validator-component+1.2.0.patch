@@ -1,0 +1,64 @@
+diff --git a/node_modules/masumi-schema-validator-component/dist/index.js b/node_modules/masumi-schema-validator-component/dist/index.js
+index 309d188..d8e2418 100644
+--- a/node_modules/masumi-schema-validator-component/dist/index.js
++++ b/node_modules/masumi-schema-validator-component/dist/index.js
+@@ -927,13 +927,14 @@ function formatCorrectValidationsArray(key, value) {
+   return `[{"validation": "${key}", "value": "${value}"}]`;
+ }
+ function extractZodErrors(zodError, schema, index, input) {
+-  if (!zodError.errors) {
++  const zodIssues = zodError.issues ?? zodError.errors;
++  if (!Array.isArray(zodIssues)) {
+     return [{
+       message: `Schema ${index + 1}: ${zodError.message}`,
+       line: getLine("type", input)
+     }];
+   }
+-  return zodError.errors.map((error) => {
++  return zodIssues.map((error) => {
+     const fieldPath = error.path?.join(".") || "";
+     const fieldName = fieldPath || error.path?.[0] || "unknown";
+     const errorMessage = enhanceZodErrorMessage(error, fieldName, schema);
+diff --git a/node_modules/masumi-schema-validator-component/dist/index.mjs b/node_modules/masumi-schema-validator-component/dist/index.mjs
+index c8eda0c..286da58 100644
+--- a/node_modules/masumi-schema-validator-component/dist/index.mjs
++++ b/node_modules/masumi-schema-validator-component/dist/index.mjs
+@@ -919,13 +919,14 @@ function formatCorrectValidationsArray(key, value) {
+   return `[{"validation": "${key}", "value": "${value}"}]`;
+ }
+ function extractZodErrors(zodError, schema, index, input) {
+-  if (!zodError.errors) {
++  const zodIssues = zodError.issues ?? zodError.errors;
++  if (!Array.isArray(zodIssues)) {
+     return [{
+       message: `Schema ${index + 1}: ${zodError.message}`,
+       line: getLine("type", input)
+     }];
+   }
+-  return zodError.errors.map((error) => {
++  return zodIssues.map((error) => {
+     const fieldPath = error.path?.join(".") || "";
+     const fieldName = fieldPath || error.path?.[0] || "unknown";
+     const errorMessage = enhanceZodErrorMessage(error, fieldName, schema);
+diff --git a/node_modules/masumi-schema-validator-component/src/lib/validation.ts b/node_modules/masumi-schema-validator-component/src/lib/validation.ts
+index b81c4a9..6a897c8 100644
+--- a/node_modules/masumi-schema-validator-component/src/lib/validation.ts
++++ b/node_modules/masumi-schema-validator-component/src/lib/validation.ts
+@@ -180,14 +180,15 @@ function extractZodErrors(
+   index: number,
+   input: string
+ ): { message: string; line?: number }[] {
+-  if (!zodError.errors) {
++  const zodIssues = zodError.issues ?? zodError.errors;
++  if (!Array.isArray(zodIssues)) {
+     return [{
+       message: `Schema ${index + 1}: ${zodError.message}`,
+       line: getLine('type', input),
+     }];
+   }
+ 
+-  return zodError.errors.map((error: any) => {
++  return zodIssues.map((error: any) => {
+     const fieldPath = error.path?.join('.') || '';
+     const fieldName = fieldPath || error.path?.[0] || 'unknown';
+     const errorMessage = enhanceZodErrorMessage(error, fieldName, schema);
