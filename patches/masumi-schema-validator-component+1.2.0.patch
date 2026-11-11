@@ -1,0 +1,91 @@
+diff --git a/node_modules/masumi-schema-validator-component/dist/index.js b/node_modules/masumi-schema-validator-component/dist/index.js
+index 309d188..0da9f9c 100644
+--- a/node_modules/masumi-schema-validator-component/dist/index.js
++++ b/node_modules/masumi-schema-validator-component/dist/index.js
+@@ -927,13 +927,14 @@ function formatCorrectValidationsArray(key, value) {
+   return `[{"validation": "${key}", "value": "${value}"}]`;
+ }
+ function extractZodErrors(zodError, schema, index, input) {
+-  if (!zodError.errors) {
++  const zodIssues = zodError.issues ?? zodError.errors;
++  if (!Array.isArray(zodIssues)) {
+     return [{
+       message: `Schema ${index + 1}: ${zodError.message}`,
+       line: getLine("type", input)
+     }];
+   }
+-  return zodError.errors.map((error) => {
++  return zodIssues.map((error) => {
+     const fieldPath = error.path?.join(".") || "";
+     const fieldName = fieldPath || error.path?.[0] || "unknown";
+     const errorMessage = enhanceZodErrorMessage(error, fieldName, schema);
+@@ -972,7 +973,7 @@ function handleInvalidTypeError(error, fieldName, schema) {
+   return `Field "${fieldName}" has invalid type. Expected ${error.expected}, but received ${error.received}.`;
+ }
+ function handleTooSmallError(error, fieldName) {
+-  if (error.type === "array") {
++  if ((error.type ?? error.origin) === "array") {
+     return `Field "${fieldName}" array must have at least ${error.minimum} element(s).`;
+   }
+   return `Field "${fieldName}" must be at least ${error.minimum} character(s) long.`;
+diff --git a/node_modules/masumi-schema-validator-component/dist/index.mjs b/node_modules/masumi-schema-validator-component/dist/index.mjs
+index c8eda0c..a730cc6 100644
+--- a/node_modules/masumi-schema-validator-component/dist/index.mjs
++++ b/node_modules/masumi-schema-validator-component/dist/index.mjs
+@@ -919,13 +919,14 @@ function formatCorrectValidationsArray(key, value) {
+   return `[{"validation": "${key}", "value": "${value}"}]`;
+ }
+ function extractZodErrors(zodError, schema, index, input) {
+-  if (!zodError.errors) {
++  const zodIssues = zodError.issues ?? zodError.errors;
++  if (!Array.isArray(zodIssues)) {
+     return [{
+       message: `Schema ${index + 1}: ${zodError.message}`,
+       line: getLine("type", input)
+     }];
+   }
+-  return zodError.errors.map((error) => {
++  return zodIssues.map((error) => {
+     const fieldPath = error.path?.join(".") || "";
+     const fieldName = fieldPath || error.path?.[0] || "unknown";
+     const errorMessage = enhanceZodErrorMessage(error, fieldName, schema);
+@@ -964,7 +965,7 @@ function handleInvalidTypeError(error, fieldName, schema) {
+   return `Field "${fieldName}" has invalid type. Expected ${error.expected}, but received ${error.received}.`;
+ }
+ function handleTooSmallError(error, fieldName) {
+-  if (error.type === "array") {
++  if ((error.type ?? error.origin) === "array") {
+     return `Field "${fieldName}" array must have at least ${error.minimum} element(s).`;
+   }
+   return `Field "${fieldName}" must be at least ${error.minimum} character(s) long.`;
+diff --git a/node_modules/masumi-schema-validator-component/src/lib/validation.ts b/node_modules/masumi-schema-validator-component/src/lib/validation.ts
+index b81c4a9..1d164df 100644
+--- a/node_modules/masumi-schema-validator-component/src/lib/validation.ts
++++ b/node_modules/masumi-schema-validator-component/src/lib/validation.ts
+@@ -180,14 +180,15 @@ function extractZodErrors(
+   index: number,
+   input: string
+ ): { message: string; line?: number }[] {
+-  if (!zodError.errors) {
++  const zodIssues = zodError.issues ?? zodError.errors;
++  if (!Array.isArray(zodIssues)) {
+     return [{
+       message: `Schema ${index + 1}: ${zodError.message}`,
+       line: getLine('type', input),
+     }];
+   }
+ 
+-  return zodError.errors.map((error: any) => {
++  return zodIssues.map((error: any) => {
+     const fieldPath = error.path?.join('.') || '';
+     const fieldName = fieldPath || error.path?.[0] || 'unknown';
+     const errorMessage = enhanceZodErrorMessage(error, fieldName, schema);
+@@ -248,7 +249,7 @@ function handleInvalidTypeError(error: any, fieldName: string, schema: any): str
+  * Handles too_small Zod errors
+  */
+ function handleTooSmallError(error: any, fieldName: string): string {
+-  if (error.type === 'array') {
++  if ((error.type ?? error.origin) === 'array') {
+     return `Field "${fieldName}" array must have at least ${error.minimum} element(s).`;
+   }
+   return `Field "${fieldName}" must be at least ${error.minimum} character(s) long.`;

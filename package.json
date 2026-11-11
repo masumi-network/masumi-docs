@@ -6,7 +6,7 @@
     "build": "fumadocs-mdx && node scripts/generate-openapi.mjs && node scripts/fetch-readme.mjs && next build",
     "dev": "next dev",
     "start": "next start",
-    "postinstall": "fumadocs-mdx",
+    "postinstall": "patch-package && fumadocs-mdx",
     "fetch-readme": "node scripts/fetch-readme.mjs",
     "generate-llms-txt": "tsx scripts/generate-llms-txt.ts"
   },
@@ -19,8 +19,8 @@
     "lru-cache": "^11.1.0",
     "lucide-react": "^0.525.0",
     "masumi-schema-validator-component": "^1.2.0",
-    "mermaid": "^11.8.1",
-    "next": "16.1.6",
+    "mermaid": "^12.3.0",
+    "next": "16.4.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "remark": "^15.0.1",
@@ -36,11 +36,24 @@
     "@types/node": "25.2.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "patch-package": "^8.0.1",
     "postcss": "^8.5.5",
     "rimraf": "^6.0.1",
     "tailwindcss": "^4.1.10",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
     "typescript": "^5.8.3"
+  },
+  "overrides": {
+    "@theguild/remark-mermaid": {
+      "mermaid": "$mermaid"
+    },
+    "dompurify": "^3.4.17",
+    "fumadocs-mdx": {
+      "esbuild": "^0.28.2"
+    },
+    "masumi-schema-validator-component": {
+      "zod": "^4.6.6"
+    }
   }
 }

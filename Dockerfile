@@ -9,6 +9,7 @@ WORKDIR /app
 # Copy package files and config files (needed for postinstall script)
 COPY package.json package-lock.json ./
 COPY source.config.ts tsconfig.json ./
+COPY patches ./patches
 RUN npm ci
 
 # Rebuild the source code only when needed
