@@ -47,6 +47,9 @@
     "@theguild/remark-mermaid": {
       "mermaid": "$mermaid"
     },
-    "dompurify": "^3.4.17"
+    "dompurify": "^3.4.17",
+    "fumadocs-mdx": {
+      "esbuild": "^0.28.2"
+    }
   }
 }
