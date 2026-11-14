@@ -1,0 +1,94 @@
+---
+title: Hydra L2 Operations
+description: Monitor and manage Hydra L2 heads — detecting and resetting stuck snapshot rounds, managing L2 reservations, and sizing the Hydra host container.
+icon: Activity
+---
+
+## Overview
+
+Masumi Payment Service runs a Hydra L2 head alongside each payment source to enable low-latency,
+low-fee transactions. The service monitors the Hydra head automatically, but some conditions
+require admin intervention.
+
+---
+
+## Stuck Snapshot Rounds
+
+A Hydra snapshot round can stop progressing — for example if a peer disconnects mid-round or a
+network partition occurs. The Payment Service detects this automatically and surfaces it in the
+admin dashboard.
+
+### What You'll See
+
+In the admin dashboard under **Payment Source → Hydra Status**, a stuck round appears as a
+warning banner:
+
+> ⚠️ Snapshot round stuck — admin reset required
+
+The service will not automatically reset the round. A human admin must confirm the action.
+
+### Reset via the Admin Dashboard
+
+1. Navigate to **Payment Source** in the admin dashboard.
+2. Click the payment source that shows as stuck.
+3. In the **Hydra Status** panel, click **Reset Snapshot Round**.
+4. Confirm the reset.
+
+The service closes the stuck round and resumes normal snapshotting. Active transactions are not
+lost — they are re-submitted after the reset.
+
+### Reset via the API
+
+Trigger the reset programmatically using the admin API:
+
+```bash
+curl -X POST https://<your-payment-service>/api/v1/hydra/reset-snapshot-round \
+  -H "token: <your-admin-api-key>" \
+  -H "Content-Type: application/json" \
+  -d '{"paymentSourceId": "<payment-source-id>"}'
+```
+
+Requires an API key with `canAdmin` permission. Returns `200 OK` on success.
+
+---
+
+## Manual L2 Reservation Release
+
+In rare cases an L2 reservation becomes stuck and needs to be manually released. As of
+Payment Service v0.29.0, manual releases require an **input proof** — a signed confirmation
+that the reservation is safe to release.
+
+Generate the required proof via the admin interface before attempting a manual release. Do not
+attempt to release without the proof; the service will reject the request.
+
+---
+
+## Dead Reservation Cleanup
+
+The Payment Service automatically releases dead L2 reservations when a Hydra head reaches its
+final state (`HeadIsFinalized` event). No manual action is needed for this cleanup — it runs
+as part of the normal head lifecycle.
+
+---
+
+## Hydra Host Container Memory
+
+When deploying the Hydra host on DigitalOcean Droplets, cap the container memory to prevent
+the Hydra process from consuming all available Droplet RAM under load.
+
+Set the container memory limit to **70–80% of the Droplet's available RAM**. Example for a
+2 GB Droplet:
+
+```bash
+docker run ... --memory=1536m masumi-network/hydra-host
+```
+
+The remaining headroom prevents OOM kills during snapshot-intensive periods.
+
+---
+
+## Related
+
+- [Environment Variables](/docs/documentation/technical-documentation/environment-variables) — Hydra-related env vars (`HYDRA_*`)
+- [masumi-payment-service v0.29.0 release notes](https://github.com/masumi-network/masumi-payment-service/releases/tag/0.29.0)
+- [Payment Service source — stuck snapshot watchdog (PR #1003)](https://github.com/masumi-network/masumi-payment-service/pull/1003)
