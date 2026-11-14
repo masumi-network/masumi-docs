@@ -57,6 +57,14 @@ PostgreSQL connection string used by the Payment Service.
 • Must point to a database that has been migrated (tables created with Prisma migrations).  
 • Example: `postgresql://user:password@localhost:5432/masumi?schema=public`.
 
+### `DATABASE_CA_CERT` *(optional)*
+
+PEM-encoded CA certificate for SSL database connections (e.g. self-signed certificates). Use literal `\n` for newlines. When set, the certificate is written to `certs/ca-certificate.crt` and referenced via `sslrootcert` in the connection string.
+
+### `DB_SERIALIZABLE_CONCURRENCY` *(optional)*
+
+Maximum number of parallel Serializable transactions issued by the internal `lockAndQuery*` helpers. Defaults to `(DATABASE_URL connection_limit - 1)` so one connection stays available for non-transactional reads. Lower this value if you see `"Timed out fetching a new connection from the connection pool"`; raise it only if you have also raised `connection_limit` and Postgres `max_connections` accordingly.
+
 ### `PORT`
 
 TCP port the Payment Service listens on (default `3001`). Change if the default is already occupied.
@@ -64,31 +72,38 @@ TCP port the Payment Service listens on (default `3001`). Change if the default 
 ### Background-job interval variables
 
 These control how often the Payment Service executes its internal cron jobs.  
-All values are **seconds**. Tune only if you know what you're doing; the defaults work for most deployments.
+All values are **seconds**. Tune only if you know what you're doing; the defaults below reflect the recommended fast-sync configuration.
 
-| Variable | Default | Job description |
-| --- | --- | --- |
-| `BATCH_PAYMENT_INTERVAL` | 240 s | Bundle purchase transactions for lower fees |
-| `CHECK_COLLECTION_INTERVAL` | 300 s | Poll blockchain for funds arriving in Collection Wallet |
-| `CHECK_TX_INTERVAL` | 180 s | Verify purchaser payments |
-| `CHECK_COLLECT_REFUND_INTERVAL` | 300 s | Monitor collection wallets for refundable UTxOs |
-| `CHECK_SET_REFUND_INTERVAL` | 300 s | Set refunds after timeouts |
-| `CHECK_UNSET_REFUND_INTERVAL` | 300 s | Clear expired refund locks |
-| `CHECK_AUTHORIZE_REFUND_INTERVAL` | 300 s | Submit refund authorization |
-| `CHECK_SUBMIT_RESULT_INTERVAL` | 300 s | Push agent results once payment confirmed |
-| `CHECK_WALLET_TRANSACTION_HASH_INTERVAL` | 60 s | Rescan transactions and unlock wallets |
-| `SYNC_LOCK_TIMEOUT_INTERVAL` | 30 s | Time a wallet stays locked before retry |
-| `CHECK_REGISTRY_TRANSACTIONS_INTERVAL` | — | Sync agent registry transactions from the blockchain |
-| `REGISTER_AGENT_INTERVAL` | 300 s | Retry agent registration |
-| `DEREGISTER_AGENT_INTERVAL` | 300 s | Retry agent deregistration |
-| `AUTO_DECISION_INTERVAL` | 30 s | Delay between auto-decisions |
-| `WEBHOOK_DELIVERY_INTERVAL` | 10 s | Process queued outbound webhook deliveries |
-| `WEBHOOK_CLEANUP_INTERVAL` | 86400 s | Delete old webhook delivery records (24 h) |
-| `LOW_BALANCE_CHECK_INTERVAL` | 60 s | Check monitored wallets for low-balance warnings |
+| Variable | Default | Minimum | Job description |
+| --- | --- | --- | --- |
+| `BATCH_PAYMENT_INTERVAL` | 30 s | 5 s | Bundle purchase transactions for lower fees |
+| `CHECK_COLLECTION_INTERVAL` | 15 s | 5 s | Poll blockchain for funds arriving in Collection Wallet |
+| `CHECK_TX_INTERVAL` | 15 s | 15 s | Verify purchaser payments |
+| `CHECK_COLLECT_REFUND_INTERVAL` | 15 s | 5 s | Monitor collection wallets for refundable UTxOs |
+| `CHECK_SET_REFUND_INTERVAL` | 15 s | 5 s | Set refunds after timeouts |
+| `CHECK_UNSET_REFUND_INTERVAL` | 15 s | 5 s | Clear expired refund locks |
+| `CHECK_AUTHORIZE_REFUND_INTERVAL` | 15 s | 5 s | Submit refund authorization |
+| `CHECK_SUBMIT_RESULT_INTERVAL` | 15 s | 5 s | Push agent results once payment confirmed |
+| `CHECK_WALLET_TRANSACTION_HASH_INTERVAL` | 20 s | 5 s | Rescan transactions and unlock wallets |
+| `SYNC_LOCK_TIMEOUT_INTERVAL` | 30 s | — | Time a wallet stays locked before retry |
+| `CHECK_REGISTRY_TRANSACTIONS_INTERVAL` | — | — | Sync agent registry transactions from the blockchain |
+| `REGISTER_AGENT_INTERVAL` | 15 s | 5 s | Retry agent registration |
+| `DEREGISTER_AGENT_INTERVAL` | 15 s | 5 s | Retry agent deregistration |
+| `AUTO_DECISION_INTERVAL` | 30 s | — | Delay between auto-decisions |
+| `WEBHOOK_DELIVERY_INTERVAL` | 10 s | 5 s | Process queued outbound webhook deliveries |
+| `WEBHOOK_CLEANUP_INTERVAL` | 86400 s | — | Delete old webhook delivery records (24 h) |
+| `LOW_BALANCE_CHECK_INTERVAL` | 60 s | — | Check monitored wallets for low-balance warnings |
+| `CHECK_HYDRA_TX_INTERVAL` | 10 s | 5 s | Hydra L2 pass and deposit reconciliation |
 
 ### `BLOCK_CONFIRMATIONS_THRESHOLD`
 
-Number of block confirmations before a transaction is considered final (default `20`). Increase for extra safety, reduce for faster UX.
+Number of block confirmations before a transaction is considered final (default `0`).  
+• `0` — processes a transaction as soon as it appears in a block: fastest, but a chain rollback can undo it.  
+• Use a higher value (e.g. `3` or more) on mainnet for extra safety at the cost of slower UX.
+
+### `COOLDOWN_BLOCKTIME_BUFFER_MS` *(optional)*
+
+How far ahead of now a datum's cooldown is written when the transaction window is not yet known (default `600000` ms = 10 min). Values below `360000` (6 min) are raised to it automatically: the on-chain check compares against the transaction's upper validity bound, which already reaches 5 min 30 s past now, so a smaller buffer is rejected by the validator after the transaction is submitted.
 
 ### `AUTO_WITHDRAW_PAYMENTS` & `AUTO_WITHDRAW_REFUNDS`
 
@@ -115,19 +130,58 @@ Per-wallet rules can be managed independently via the `/wallet/low-balance` API 
 
 Set these to send traces and metrics to [SigNoz](https://signoz.io/) or another OTLP-compatible collector.
 
-| Variable | Example |
-| --- | --- |
-| `OTEL_SERVICE_NAME` | `masumi-payment-service` |
-| `OTEL_SERVICE_VERSION` | `0.1.0` |
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | `https://ingest.eu.signoz.cloud:443` |
-| `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT` | *(optional)* |
-| `OTEL_EXPORTER_OTLP_METRICS_ENDPOINT` | *(optional)* |
-| `SIGNOZ_INGESTION_KEY` | *(optional)* |
+| Variable | Example | Notes |
+| --- | --- | --- |
+| `OTEL_SERVICE_NAME` | `masumi-payment-service` | Service name in traces |
+| `OTEL_SERVICE_VERSION` | `0.1.0` | Service version tag |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | `https://ingest.eu.signoz.cloud:443` | Base OTLP endpoint |
+| `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT` | *(optional)* | Override traces endpoint |
+| `OTEL_EXPORTER_OTLP_METRICS_ENDPOINT` | *(optional)* | Override metrics endpoint |
+| `OTEL_EXPORTER_OTLP_LOGS_ENDPOINT` | *(optional)* | Override logs endpoint |
+| `SIGNOZ_INGESTION_KEY` | *(optional)* | For SigNoz Cloud one-click setup |
+| `OTEL_PRISMA_OUTLIER_THRESHOLD_MS` | `100` | Only export Prisma spans with duration ≥ this (ms) |
+| `OTEL_PRISMA_MAX_SPANS_PER_MINUTE` | `60` | Cap on Prisma spans exported per minute |
+
+### CoinGecko variables
+
+Used for fiat conversion in transaction reporting.
+
+| Variable | Example | Notes |
+| --- | --- | --- |
+| `COINGECKO_API_KEY` | `CG-demo-key` | Works with demo or paid key |
+| `IS_COINGECKO_DEMO` | `true` | Set to `true` when using a demo key |
+
+### Hydra L2 variables
+
+Configure the Hydra L2 head integration. Nothing Hydra-specific is seeded automatically — a head is created via the invite handshake at runtime.
+
+| Variable | Example / Default | Description |
+| --- | --- | --- |
+| `HYDRA_TRUSTED_PLAINTEXT_HOSTS` | *(comma-separated)* | Non-loopback Hydra hosts explicitly trusted for `http`/`ws` (e.g. Docker service names). Prefer `https`/`wss` in production. |
+| `HYDRA_DEPOSIT_SCRIPT_HASH` | `eafae2c3…` | Must match `hydra-node --hydra-script-catalogue` for the deployed binary (2.4.1). |
+| `HYDRA_HEAD_SCRIPT_HASH` | `1d511733…` | Hydra 2.4.1 vHead hash; must match the deployed node's script catalogue. |
+| `HYDRA_EXPECTED_VERSION` | `2.4.1` | Exact version string the host reports. Official builds report `2.4.1-<git sha>`; a bare `2.4.1` will not match them. |
+| `HYDRA_EXPECTED_SCRIPT_CATALOGUE_HASH` | *(required)* | Connect the host, press Check, copy the Scripts fingerprint from the node details. A Host cannot become Active until this is set. |
+| `HYDRA_EXPECTED_LEDGER_PARAMS_HASH_PREPROD` | `sha256:ab9c93…` | Hash of the reviewed preprod ledger params file. The host must serve the same file. |
+| `HYDRA_EXPECTED_LEDGER_PARAMS_HASH_MAINNET` | *(required for mainnet)* | Required sha256 after a reviewed mainnet ledger params file is added. |
 
 ### Seeding helpers
 
-• `SEED_ONLY_IF_EMPTY` – when `True`, the seed script skips inserting demo data if tables already contain rows.  
-• `ADMIN_KEY` – high-privilege API key created by the seed script (documented earlier).
+| Variable | Default | Description |
+| --- | --- | --- |
+| `SEED_ONLY_IF_EMPTY` | `True` | Skip seeding if tables already contain rows |
+| `SEED_V1_LEGACY` | *(unset)* | Set to `true` to also seed legacy `Web3CardanoV1` payment sources. When seeding both V1 and V2, set the `_V2_*` mnemonic variables to wallets distinct from the V1 mnemonics. |
+
+**V2 wallet overrides** (used when `SEED_V1_LEGACY=true`):
+
+| Variable | Description |
+| --- | --- |
+| `PURCHASE_WALLET_V2_PREPROD_MNEMONIC` | Override V2 purchasing wallet on Preprod (must differ from `PURCHASE_WALLET_PREPROD_MNEMONIC`) |
+| `SELLING_WALLET_V2_PREPROD_MNEMONIC` | Override V2 selling wallet on Preprod (must differ from `SELLING_WALLET_PREPROD_MNEMONIC`) |
+| `PURCHASE_WALLET_V2_MAINNET_MNEMONIC` | Override V2 purchasing wallet on Mainnet |
+| `SELLING_WALLET_V2_MAINNET_MNEMONIC` | Override V2 selling wallet on Mainnet |
+| `COLLECTION_WALLET_V2_PREPROD_ADDRESS` | Collection address for the V2 selling wallet on Preprod (defaults to `COLLECTION_WALLET_PREPROD_ADDRESS`) |
+| `COLLECTION_WALLET_V2_MAINNET_ADDRESS` | Collection address for the V2 selling wallet on Mainnet (defaults to `COLLECTION_WALLET_MAINNET_ADDRESS`) |
 
 ### Mainnet equivalents
 
